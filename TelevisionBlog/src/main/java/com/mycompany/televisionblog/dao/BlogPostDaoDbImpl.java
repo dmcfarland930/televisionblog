@@ -74,7 +74,7 @@ public class BlogPostDaoDbImpl implements BlogPostDao {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    private final class OrderMapper implements RowMapper<BlogPost> {
+    private final class BlogPostMapper implements RowMapper<BlogPost> {
 
         @Override
         public BlogPost mapRow(ResultSet rs, int i) throws SQLException {
@@ -83,8 +83,8 @@ public class BlogPostDaoDbImpl implements BlogPostDao {
 
             blogPost.setId(rs.getInt("id"));
             blogPost.setTitle(rs.getString("title"));
-            blogPost.user(userDao.get(rs.getInt("user_id")));
-            blogPost.category(categoryDao.get(rs.getInt("category_id")));
+//            blogPost.user(userDao.get(rs.getInt("user_id")));
+//            blogPost.category(categoryDao.get(rs.getInt("category_id")));
             blogPost.setContent(rs.getString("content"));
             blogPost.setPostDate(rs.getDate("post_date"));
             blogPost.setExpirationDate(rs.getDate("expiration_date"));
