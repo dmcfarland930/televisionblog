@@ -1,7 +1,3 @@
-/*
- * This program was written by Daniel McFarland.
- * I hope you enjoy it!
- */
 package com.mycompany.televisionblog.dto;
 
 import java.util.Date;
@@ -14,11 +10,11 @@ public class BlogPost {
 
     int id;
     String title;
-    int userId;
-    int categoryId;
+    User user;
+    Category category;
     String content;
     Date postDate;
-    Date expiratonDate;
+    Date expirationDate;
     boolean active;
     boolean approved;
 
@@ -38,20 +34,20 @@ public class BlogPost {
         this.title = title;
     }
 
-    public int getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public int getCategoryId() {
-        return categoryId;
+    public Category getCategory() {
+        return category;
     }
 
-    public void setCategoryId(int categoryId) {
-        this.categoryId = categoryId;
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
     public String getContent() {
@@ -70,12 +66,12 @@ public class BlogPost {
         this.postDate = postDate;
     }
 
-    public Date getExpiratonDate() {
-        return expiratonDate;
+    public Date getExpirationDate() {
+        return expirationDate;
     }
 
-    public void setExpiratonDate(Date expiratonDate) {
-        this.expiratonDate = expiratonDate;
+    public void setExpirationDate(Date expirationDate) {
+        this.expirationDate = expirationDate;
     }
 
     public boolean isActive() {
@@ -93,7 +89,5 @@ public class BlogPost {
     public void setApproved(boolean approved) {
         this.approved = approved;
     }
-    
-    
 
 }

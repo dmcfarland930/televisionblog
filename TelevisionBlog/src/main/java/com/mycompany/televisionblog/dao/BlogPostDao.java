@@ -6,16 +6,22 @@
 package com.mycompany.televisionblog.dao;
 
 import com.mycompany.televisionblog.dto.BlogPost;
+import java.util.List;
 
 /**
  *
  * @author apprentice
  */
 public interface BlogPostDao {
-    
+
     BlogPost create(BlogPost blogPost);
+
     BlogPost get(Integer id);
+
     void update(BlogPost blogPost);
+
     void delete(Integer id);
-    
+
+    List<BlogPost> list();
+
 }
