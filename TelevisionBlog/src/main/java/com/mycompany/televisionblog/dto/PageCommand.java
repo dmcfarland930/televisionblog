@@ -1,15 +1,20 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package com.mycompany.televisionblog.dto;
 
 /**
  *
  * @author apprentice
  */
-public class Page {
+public class PageCommand {
 
     private int id;
     private String name;
     private String url;
-    private User user;
+    private Integer userId;
     private String content;
 
     public int getId() {
@@ -36,12 +41,12 @@ public class Page {
         this.url = url;
     }
 
-    public User getUser() {
-        return user;
+    public Integer getUserId() {
+        return userId;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     public String getContent() {
@@ -53,4 +58,5 @@ public class Page {
     }
     
     
+
 }

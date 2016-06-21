@@ -6,6 +6,7 @@
 package com.mycompany.televisionblog.dao;
 
 import com.mycompany.televisionblog.dto.User;
+import java.util.List;
 
 /**
  *
@@ -17,5 +18,6 @@ public interface UserDao {
     User get(Integer id);
     void update(User user);    
     void delete(Integer id);
+    List<User> list();
     
 }
