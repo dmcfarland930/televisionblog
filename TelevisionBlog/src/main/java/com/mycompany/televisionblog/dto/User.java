@@ -6,11 +6,11 @@ package com.mycompany.televisionblog.dto;
  */
 public class User {
 
-    int id;
-    int groupId;
-    String name;
-    String username;
-    String password;
+    private int id;
+    private int groupId;
+    private String name;
+    private String username;
+    private String password;
 
     public int getId() {
         return id;

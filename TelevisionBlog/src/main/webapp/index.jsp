@@ -26,7 +26,7 @@
             </div>
             <h2>Home Page</h2>
             <form method="post">
-                <textarea id="mytextarea">Blog Post</textarea>
+                <textarea id="blog-entry">Blog Post</textarea>
                 <fieldset class="form-group ">
                     <input id="blog-submit" class="btn bg-primary button-size" type="submit" value="Create Blog Post"/>
                 </fieldset>
@@ -37,9 +37,10 @@
         <script src="${pageContext.request.contextPath}/js/jquery-1.11.1.min.js"></script>
         <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
         <script src="${pageContext.request.contextPath}/tinymce/js/tinymce/tinymce.min.js"></script>
+        <script src="${pageContext.request.contextPath}/js/blogPost.js"></script>
         <script type="text/javascript">
             tinymce.init({
-                selector: '#mytextarea',
+                selector: '#blog-entry',
                 height: 400,
                 width: 800,
                 plugins

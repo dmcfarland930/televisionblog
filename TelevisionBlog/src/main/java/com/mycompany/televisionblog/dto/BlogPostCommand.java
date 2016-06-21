@@ -14,7 +14,7 @@ public class BlogPostCommand {
     private int categoryId;        
     private String content;
     private Date postDate;
-    private Date expiratonDate;
+    private Date expirationDate;
     private boolean active;
     private boolean approved;
 
@@ -66,12 +66,12 @@ public class BlogPostCommand {
         this.postDate = postDate;
     }
 
-    public Date getExpiratonDate() {
-        return expiratonDate;
+    public Date getExpirationDate() {
+        return expirationDate;
     }
 
-    public void setExpiratonDate(Date expiratonDate) {
-        this.expiratonDate = expiratonDate;
+    public void setExpirationDate(Date expirationDate) {
+        this.expirationDate = expirationDate;
     }
 
     public boolean isActive() {

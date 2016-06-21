@@ -6,16 +6,22 @@
 package com.mycompany.televisionblog.dao;
 
 import com.mycompany.televisionblog.dto.User;
+import java.util.List;
 
 /**
  *
  * @author apprentice
  */
 public interface UserDao {
-    
+
     User create(User user);
+
     User get(Integer id);
-    void update(User user);    
+
+    void update(User user);
+
     void delete(Integer id);
-    
+
+    List <User> list();
+
 }

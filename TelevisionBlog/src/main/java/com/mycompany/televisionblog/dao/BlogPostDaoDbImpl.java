@@ -21,16 +21,18 @@ public class BlogPostDaoDbImpl implements BlogPostDao {
     private static final String SQL_UPDATE_POST = "UPDATE post SET title = ?, user_id = ?, category_id = ?, content = ?, post_date = ?, expiration_date = ?, approved = ? WHERE id = ?";
     private static final String SQL_DELETE_POST = "DELETE FROM post WHERE id = ?";
     private static final String SQL_GET_POST = "SELECT * FROM post WHERE id = ?";
-    private static final String SQL_GET_BLOG_POST = "SELECT * FROM post";
+    private static final String SQL_GET_POST_LIST = "SELECT * FROM post";
     private static final String SQL_GET_POST_LIST_DATE = "SELECT * FROM post WHERE order_date = ?";
 
     private JdbcTemplate jdbcTemplate;
-    private BlogPostDao blogPostDao;
+    private CategoryDao categoryDao;
+    private UserDao userDao;
 
-    public BlogPostDaoDbImpl(JdbcTemplate jdbcTemplate, BlogPostDao blogPostDao) {
+    public BlogPostDaoDbImpl(JdbcTemplate jdbcTemplate, CategoryDao categoryDao, UserDao userDao) {
 
         this.jdbcTemplate = jdbcTemplate;
-        this.blogPostDao = blogPostDao;
+        this.categoryDao = categoryDao;
+        this.userDao = userDao;
     }
 
     @Override
@@ -61,20 +63,31 @@ public class BlogPostDaoDbImpl implements BlogPostDao {
 
     @Override
     public void update(BlogPost blogPost) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        jdbcTemplate.update(SQL_UPDATE_POST,
+                blogPost.getTitle(),
+                blogPost.getUser().getId(),
+                blogPost.getCategory().getId(),
+                blogPost.getContent(),
+                blogPost.getPostDate(),
+                blogPost.getExpirationDate(),
+                blogPost.isApproved(),
+                blogPost.getId());
+
     }
 
     @Override
     public void delete(Integer id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        jdbcTemplate.update(SQL_DELETE_POST, id);
     }
 
     @Override
     public List<BlogPost> list() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+        return jdbcTemplate.query(SQL_GET_POST_LIST, new BlogPostMapper());
+
     }
 
-    private final class OrderMapper implements RowMapper<BlogPost> {
+    private final class BlogPostMapper implements RowMapper<BlogPost> {
 
         @Override
         public BlogPost mapRow(ResultSet rs, int i) throws SQLException {
@@ -83,12 +96,12 @@ public class BlogPostDaoDbImpl implements BlogPostDao {
 
             blogPost.setId(rs.getInt("id"));
             blogPost.setTitle(rs.getString("title"));
-            blogPost.user(userDao.get(rs.getInt("user_id")));
-            blogPost.category(categoryDao.get(rs.getInt("category_id")));
+            blogPost.setUser(userDao.get(rs.getInt("user_id")));
+            blogPost.setCategory(categoryDao.get(rs.getInt("category_id")));
             blogPost.setContent(rs.getString("content"));
             blogPost.setPostDate(rs.getDate("post_date"));
             blogPost.setExpirationDate(rs.getDate("expiration_date"));
-            blogPost.setApproved(rs.getBoolean(""));
+            blogPost.setApproved(rs.getBoolean("approved"));
 
             return blogPost;
 

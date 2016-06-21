@@ -18,7 +18,7 @@
     <tx:annotation-driven/>
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
         <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
-        <property name="url" value="jdbc:mysql://localhost:3306/flooring_master"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/blog"/>
         <property name="username" value="root"/>
         <property name="password" value="apprentice"/>
         <property name="initialSize" value="5"/>
@@ -33,7 +33,18 @@
         <property name="dataSource" ref="dataSource"/>
     </bean>
     
-    <bean id="blogPostDao" class="com.mycompany.televisionbllog.dao.BlogPostDaoDbImpl">    
-        <constructor-arg ref="jdbcTemplate"/>
+    <bean id="userDao" class="com.mycompany.televisionblog.dao.UserDaoDbImpl">
+        <property name="dataSource" ref="dataSource"/>
     </bean>
+    
+    <bean id="categoryDao" class="com.mycompany.televisionblog.dao.CategoryDao">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <bean id="blogPostDao" class="com.mycompany.televisionblog.dao.BlogPostDaoDbImpl">    
+        <constructor-arg ref="jdbcTemplate"/>
+        <constructor-arg ref="userDao"/>
+        <constructor-arg ref="categoryDao"/>
+    </bean>
+
 </beans>
