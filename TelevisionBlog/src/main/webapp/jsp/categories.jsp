@@ -12,22 +12,79 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Categories</title>
+        <!-- Bootstrap core CSS -->
+        <link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet">
+        <link href="${pageContext.request.contextPath}/css/blog.css" rel="stylesheet">
+
+        <!-- SWC Icon -->
+        <link rel="shortcut icon" href="${pageContext.request.contextPath}/img/icon.png">
+
     </head>
     <body>
-        <table id="category-table">
-            <c:forEach items="{categories}" var="category">
-                <tr>
-                    <td>${category.name}</td>
-                </tr>
-            </c:forEach>
-        </table>
-        <div>
-            <h4>Add Category:</h4>
-            <form method="POST">
-                <label for="category-name">Name:</label>
-                    <input id="category-name"/>
-                </label>
-            </form>
+        
+        <jsp:include page="navBar.jsp"/>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 col-md-offset-3" style="float:none; margin: 0 auto"  id="category-table-container">
+                    <table class="table" id="category-table">
+                        <tr>
+                            <th>Category Name</th>
+                            <th>Edit</th>
+                        </tr>
+                        <c:forEach items="${categories}" var="category">
+                            <tr>
+                                <td>${category.name}</td>
+                                <td><a type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#editCategoryModal">Edit</a></td>
+                            </tr>
+                        </c:forEach>
+                    </table>
+                </div>
+            </div>
+            <div class="row">
+                <div id="add-category-form" class="col-md-4" style="float:none; margin: 0 auto" class="form-horizontal">
+                    <div class="form-group">
+                        <form method="POST">
+                            <label for="category-name">Add Category:</label>
+                            <input id="name-input" class="form-control"/>
+                        </form>
+                        <div style = "text-align: center; padding-top: 5px">
+                            <input type="submit" id="create-submit" value="Submit" class="btn btn-primary">
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
+                <!-- Modal -->
+    <div id="editCategoryModal" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-sm">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Edit Category</h4>
+            </div>
+            <div class="modal-body">
+                <input hidden="true">
+                <div class="form-group">
+                    <label for="edit-category-name">Name:</label>
+                    <input class="form-control" id="edit-category-name">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+        </div>
+    </div>
+        <script>
+              contextRoot="/TelevisionBlog";
+              
+        </script>
+        
+            
+        <script src="${pageContext.request.contextPath}/js/jquery-1.11.1.min.js"></script>
+        <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
+        <script src="${pageContext.request.contextPath}/js/categories.js"></script>
     </body>
 </html>

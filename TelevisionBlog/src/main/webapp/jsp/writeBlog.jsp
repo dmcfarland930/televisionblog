@@ -9,11 +9,13 @@
         <title>Write Blog</title>
         <!-- Bootstrap core CSS -->
         <link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet">
-
+        <link href="${pageContext.request.contextPath}/css/blog.css" rel="stylesheet">
+        
         <!-- SWC Icon -->
         <link rel="shortcut icon" href="${pageContext.request.contextPath}/img/icon.png">
     </head>
     <body>
+        <jsp:include page="navBar.jsp"/>
         <div class="container">
             <h1>Blog Writer</h1>
             <hr/>
