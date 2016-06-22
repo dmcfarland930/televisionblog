@@ -6,11 +6,12 @@ package com.mycompany.televisionblog.dto;
  */
 public class Page {
 
-    private int id;
-    private String name;
-    private String url;
-    private User user;
-    private String content;
+    int id;
+    String name;
+    String url;
+    int userId;
+    String content;
+    User user;
 
     public int getId() {
         return id;
@@ -36,12 +37,12 @@ public class Page {
         this.url = url;
     }
 
-    public User getUser() {
-        return user;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public String getContent() {
@@ -51,6 +52,13 @@ public class Page {
     public void setContent(String content) {
         this.content = content;
     }
-    
-    
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
 }
