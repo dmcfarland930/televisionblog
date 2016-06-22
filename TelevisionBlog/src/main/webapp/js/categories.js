@@ -9,7 +9,7 @@ $(document).ready(function() {
             e.preventDefault();
 
             var categoryData = JSON.stringify({
-                categoryName: $('#name-input').val()
+                name: $('#name-input').val()
 
             });
 
@@ -43,6 +43,5 @@ $(document).ready(function() {
                 <td> <a data-category-id='" + data.id +"' data-toggle='modal' data-target='#editCategoryModal'>Edit</a>  </td>   \n\
                 <td> <a data-category-id='" + data.id +"' class='delete-link'>Delete</a>  </td>   \n\
                 </tr>  ";
-        
     }
 });

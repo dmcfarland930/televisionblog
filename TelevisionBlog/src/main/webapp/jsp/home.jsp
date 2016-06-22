@@ -44,10 +44,12 @@
                     <tr>
                         <td>${blogPost.title}</td>
                         <td>${blogPost.category.name}</td>
+                        
                     </tr>
                 </c:forEach>
             </tbody>
         </table>
+
         <script>
               contextRoot="/TelevisionBlog";
               
