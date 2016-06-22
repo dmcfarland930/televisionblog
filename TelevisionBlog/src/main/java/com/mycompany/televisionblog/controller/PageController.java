@@ -30,21 +30,26 @@ public class PageController {
 
     PageDao pageDao;
     UserDao userDao;
-
+    
     @Inject
     public PageController(PageDao pageDao, UserDao userDao) {
         this.pageDao = pageDao;
         this.userDao = userDao;
     }
     
-    @RequestMapping(value = "/", method = RequestMethod.GET)
+    @RequestMapping(value = "/dashboard", method = RequestMethod.GET)
     public String display(Map model) {
         
         List<Page> pages = pageDao.list();
         
         model.put("pages", pages);
         
-        return "pageJSP";
+        return "pages";
+    }
+    
+    @RequestMapping(value = "/create", method = RequestMethod.GET)
+    public String displayEdit(Map model) {      
+        return "writePage";
     }
 
     @RequestMapping(value = "/", method = RequestMethod.POST)
@@ -58,8 +63,10 @@ public class PageController {
         page.setName(command.getName());
         page.setUrl(command.getUrl());
         page.setContent(command.getContent());
+        
+        Page newPage = pageDao.create(page);
 
-        return pageDao.create(page);
+        return newPage;
     }
 
     @RequestMapping(value = "/", method = RequestMethod.PUT)
@@ -79,6 +86,22 @@ public class PageController {
         return page;
     }
 
+    @RequestMapping(value = "/show/{url}", method = RequestMethod.GET)
+    public String get(@PathVariable("url") String url, Map model) {
+        
+        Page page = pageDao.get(url);
+        User user = userDao.get(page.getUser().getId());
+        
+        page.setUser(user);
+        
+        List<Page> pages = pageDao.list();
+        
+        model.put("page", page);
+        model.put("pages", pages);
+        
+        return "showPage";
+    }
+    
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     @ResponseBody
     public Page get(@PathVariable("id") Integer id) {

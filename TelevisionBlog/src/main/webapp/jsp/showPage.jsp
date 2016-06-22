@@ -15,36 +15,48 @@
         <!-- SWC Icon -->
         <link rel="shortcut icon" href="${pageContext.request.contextPath}/img/icon.png">
 
+
+        <style>
+            th {
+                text-align: center;
+            };
+        </style>
     </head>
     <body>
         <div class="container">
             <h1>Dashboard</h1>
             <hr/>
+            <div class="navbar">
+                 <ul class="nav nav-tabs">
+                 <li role="presentation"><a href="${pageContext.request.contextPath}/index.jsp">Home</a></li>
+                 <c:forEach items="${pages}" var="p">
+                 <li role="presentation"><a href="${pageContext.request.contextPath}/page/show/${p.url}">${p.name}</a></li>
+                 </c:forEach>
+                
+                </ul>    
+            </div>
             <div class="row">
-                <div class="col-md-4">
-                    <ul>
-                        <li><a href="${pageContext.request.contextPath}/index.jsp">Back to Blog</a></li>
-                        <li><a href="${pageContext.request.contextPath}/posts.jsp">Posts</a></li>
-                        <li><a href="${pageContext.request.contextPath}/categories.jsp">Categories</a></li>
-                        <li><a href="${pageContext.request.contextPath}/pages.jsp">Pages</a></li>
-                        <li><a href="${pageContext.request.contextPath}/users.jsp">Users</a></li>
-                    </ul>    
-                </div>
                 <div class="col-md-8">
-                    <div style="float: right">
-                        <button id="create-submit" class="btn btn-default">Submit</button>
+                    <h2>${page.name}</h2>
+                    <br />
+                    <div class="container" id="display-page-content">
+                        <p>${page.content}</p>
                     </div>
-                    <form method="POST" class="form-horizontal">
-                        <input type="text" id="page-title-input" class="form-control"/>
-                        <textarea id="page-content-input" class="form-control"></textarea>
-                    </form>
-
+                </div>
+                <div classs="col-md-4">
+                    
                 </div>
             </div>
         </div>
+
+
+        <script>
+                        var contextRoot = "${pageContext.request.contextPath}";
+        </script>
         <!-- Placed at the end of the document so the pages load faster -->
-        <script src="${pageContext.request.contextPath}/js/jquery-1.11.0.min.js"></script>
+        <script src="${pageContext.request.contextPath}/js/jquery-1.11.1.min.js"></script>
         <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
+        <script src="${pageContext.request.contextPath}/js/pageApp.js"></script>
 
     </body>
 </html>
