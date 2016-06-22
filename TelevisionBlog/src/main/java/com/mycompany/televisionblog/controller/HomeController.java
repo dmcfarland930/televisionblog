@@ -21,19 +21,27 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 @RequestMapping
 public class HomeController {
+
     private BlogPostDao postDao;
-    
+
     @Inject
     public HomeController(BlogPostDao postDao) {
         this.postDao = postDao;
     }
-    
-    @RequestMapping(value="/", method=RequestMethod.GET)
+
+    @RequestMapping(value = "/", method = RequestMethod.GET)
     public String home(Map<String, Object> model) {
+
         List<BlogPost> posts = postDao.list();
-        BlogPost post = new BlogPost();
-        model.put("posts", posts);
-        model.put("post", post);     
+
+        for (BlogPost blogView : posts) {
+
+            model.put("title", blogView.getTitle());
+            model.put("date", blogView.getPostDate());
+            model.put("author", blogView.getUser().getFirstName() + " " + blogView.getUser().getLastName());
+            model.put("posts", posts);
+        }
+
         return "home";
     }
 }

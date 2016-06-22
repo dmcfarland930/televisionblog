@@ -22,7 +22,7 @@
     </head>
     <body>
         
-        <jsp:include page="navBar.jsp"/>
+        <%@include file="navBar.jsp"%>
         <div class="container">
             <div class="row">
                 <div class="col-md-4 col-md-offset-3" style="float:none; margin: 0 auto"  id="category-table-container">
