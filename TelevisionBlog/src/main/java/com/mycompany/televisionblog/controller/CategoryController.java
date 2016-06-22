@@ -9,6 +9,7 @@ import com.mycompany.televisionblog.dao.CategoryDao;
 import com.mycompany.televisionblog.dto.Category;
 import java.util.List;
 import java.util.Map;
+import javax.inject.Inject;
 import javax.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,6 +27,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class CategoryController {
     private CategoryDao categoryDao;
     
+    @Inject
     public CategoryController(CategoryDao categoryDao) {
         this.categoryDao = categoryDao;
     }

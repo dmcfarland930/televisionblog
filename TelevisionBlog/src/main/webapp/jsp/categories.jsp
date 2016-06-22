@@ -15,7 +15,7 @@
     </head>
     <body>
         <table id="category-table">
-            <c:forEach items="{categories}" var="category">
+            <c:forEach items="${categories}" var="category">
                 <tr>
                     <td>${category.name}</td>
                 </tr>
@@ -26,7 +26,6 @@
             <form method="POST">
                 <label for="category-name">Name:</label>
                     <input id="category-name"/>
-                </label>
             </form>
         </div>
     </body>
