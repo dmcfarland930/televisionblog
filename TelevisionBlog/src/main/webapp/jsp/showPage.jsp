@@ -14,7 +14,8 @@
 
         <!-- SWC Icon -->
         <link rel="shortcut icon" href="${pageContext.request.contextPath}/img/icon.png">
-
+        
+        <link href="${pageContext.request.contextPath}/css/blog.css" rel="stylesheet">
 
         <style>
             th {
@@ -23,18 +24,9 @@
         </style>
     </head>
     <body>
+        <%@include file="navBar.jsp"%>
         <div class="container">
-            <h1>Dashboard</h1>
-            <hr/>
-            <div class="navbar">
-                 <ul class="nav nav-tabs">
-                 <li role="presentation"><a href="${pageContext.request.contextPath}/index.jsp">Home</a></li>
-                 <c:forEach items="${pages}" var="p">
-                 <li role="presentation"><a href="${pageContext.request.contextPath}/page/show/${p.url}">${p.name}</a></li>
-                 </c:forEach>
-                
-                </ul>    
-            </div>
+        
             <div class="row">
                 <div class="col-md-8">
                     <h2>${page.name}</h2>

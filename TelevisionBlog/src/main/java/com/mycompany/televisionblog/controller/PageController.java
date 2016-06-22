@@ -91,6 +91,7 @@ public class PageController {
         return page;
     }
     
+    
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     @ResponseBody
     public void delete(@PathVariable("id") Integer id) {

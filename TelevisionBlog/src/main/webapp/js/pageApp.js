@@ -38,7 +38,7 @@ $(document).ready(function () {
         var pageId = link.data("page-id");
 
         $.ajax({
-            url: contextRoot + "/page/show/" + pageId,
+            url: contextRoot + "/" + pageId,
             type: "GET",
             dataType: "json",
             beforeSend: function (xhr) {
