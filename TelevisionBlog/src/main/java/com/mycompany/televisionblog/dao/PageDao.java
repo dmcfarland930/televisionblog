@@ -6,16 +6,22 @@
 package com.mycompany.televisionblog.dao;
 
 import com.mycompany.televisionblog.dto.Page;
+import java.util.List;
 
 /**
  *
  * @author apprentice
  */
 public interface PageDao {
-    
+
     Page create(Page page);
+
     Page get(Integer id);
+
     void update(Page page);
+
     void delete(Integer id);
-    
+
+    List<Page> list();
+
 }

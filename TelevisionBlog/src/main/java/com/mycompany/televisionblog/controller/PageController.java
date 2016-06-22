@@ -37,7 +37,7 @@ public class PageController {
         this.userDao = userDao;
     }
     
-    @RequestMapping(value = "/", method = RequestMethod.POST)
+    @RequestMapping(value = "/", method = RequestMethod.GET)
     public String display(Map model) {
         
         List<Page> pages = pageDao.list();

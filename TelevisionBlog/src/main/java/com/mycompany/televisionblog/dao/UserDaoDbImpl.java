@@ -17,8 +17,8 @@ import org.springframework.jdbc.core.RowMapper;
  */
 public class UserDaoDbImpl implements UserDao {
 
-    private static final String SQL_INSERT_USER = "INSERT INTO user (name) VALUES (?)";
-    private static final String SQL_UPDATE_USER = "UPDATE user SET name = ? WHERE id = ?";
+    private static final String SQL_INSERT_USER = "INSERT INTO user (first_name, last_name, user_name, password, group_id) VALUES (?, ?, ?, ?, ?)";
+    private static final String SQL_UPDATE_USER = "UPDATE user SET first_name = ?, last_name = ?, user_name = ?, password = ?, group_id = ? WHERE id = ?";
     private static final String SQL_DELETE_USER = "DELETE FROM user WHERE id = ?";
     private static final String SQL_GET_USER = "SELECT * FROM user WHERE id = ?";
     private static final String SQL_GET_USER_LIST = "SELECT * FROM user";
@@ -34,7 +34,11 @@ public class UserDaoDbImpl implements UserDao {
     public User create(User user) {
 
         jdbcTemplate.update(SQL_INSERT_USER,
-                user.getName());
+                user.getFirstName(),
+                user.getLastName(),
+                user.getUsername(),
+                user.getPassword(),
+                user.getGroupId());
 
         Integer id = jdbcTemplate.queryForObject("SELECT LAST_INSERT_ID()", Integer.class);
 
@@ -54,7 +58,11 @@ public class UserDaoDbImpl implements UserDao {
     public void update(User user) {
         jdbcTemplate.update(SQL_UPDATE_USER,
                 
-                user.getName(),
+                user.getFirstName(),
+                user.getLastName(),
+                user.getUsername(),
+                user.getPassword(),
+                user.getGroupId(),
                 user.getId());
 
     }
@@ -79,7 +87,11 @@ public class UserDaoDbImpl implements UserDao {
             User user = new User();
 
             user.setId(rs.getInt("id"));
-            user.setName(rs.getString("name"));
+            user.setFirstName(rs.getString("first_name"));
+            user.setLastName(rs.getString("last_name"));
+            user.setUsername(rs.getString("user_name"));
+            user.setPassword(rs.getString("password"));
+            user.setGroupId(rs.getInt("groupId"));
 
             return user;
 

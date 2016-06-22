@@ -11,6 +11,7 @@ public class Page {
     String url;
     int userId;
     String content;
+    User user;
 
     public int getId() {
         return id;
@@ -51,6 +52,13 @@ public class Page {
     public void setContent(String content) {
         this.content = content;
     }
-    
-    
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
 }

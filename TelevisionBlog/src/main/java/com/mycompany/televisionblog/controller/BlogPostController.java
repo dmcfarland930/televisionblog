@@ -1,4 +1,4 @@
-package com.mycompany.televisionblog;
+package com.mycompany.televisionblog.controller;
 
 import com.mycompany.televisionblog.dao.BlogPostDao;
 import com.mycompany.televisionblog.dao.CategoryDao;
@@ -30,16 +30,17 @@ public class BlogPostController {
         this.categoryDao = categoryDao;
     }
 
-    @RequestMapping(value = "/sayhi", method = RequestMethod.GET)
+    @RequestMapping(value = "/writeBlog", method = RequestMethod.GET)
     public String sayHi(Map<String, Object> model) {
         model.put("message", "Hello from the controller");
-        return "hello";
+        return "writeBlog";
     }
 
     @RequestMapping(value = "/create-blog-post/", method = RequestMethod.POST)
     @ResponseBody
     public BlogPost create(@RequestBody BlogPostCommand blogPostCommand) {
 
+        blogPostCommand.setUserId(1);
         BlogPost blogPost = setBlogPostProperties(blogPostCommand);
 
         return blogPostDao.create(blogPost);
@@ -61,7 +62,7 @@ public class BlogPostController {
 
         blogPost.setTitle(blogPostCommand.getTitle());
         blogPost.setUser(userDao.get(blogPostCommand.getUserId()));
-        blogPost.setCategory(categoryDao.get(blogPostCommand.getUserId()));
+//        blogPost.setCategory(categoryDao.get(blogPostCommand.getUserId()));
         blogPost.setContent(blogPostCommand.getContent());
         blogPost.setPostDate(blogPostCommand.getPostDate());
         blogPost.setExpirationDate(blogPostCommand.getExpirationDate());
