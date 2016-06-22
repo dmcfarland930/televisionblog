@@ -14,7 +14,7 @@
 
         <!-- SWC Icon -->
         <link rel="shortcut icon" href="${pageContext.request.contextPath}/img/icon.png">
-        <%@include file="navBar.jsp"%>
+
     </head>
     <body>
         <div class="container">
@@ -35,44 +35,50 @@
                         <li class="list-group-item"><a href="${pageContext.request.contextPath}/index.jsp">Back to Blog</a></li>
                         <li class="list-group-item"><a href="${pageContext.request.contextPath}/post.jsp">Posts</a></li>
                         <li class="list-group-item"><a href="${pageContext.request.contextPath}/categories.jsp">Categories</a></li>
-                        <li class="list-group-item"><a href="${pageContext.request.contextPath}/pages">Pages</a></li>
+                        <li class="list-group-item"><a href="${pageContext.request.contextPath}/pages.jsp">Pages</a></li>
                         <li class="list-group-item"><a href="${pageContext.request.contextPath}/users.jsp">Users</a></li>
                     </ul>    
                 </div>
 
                 <div class="col-md-8">
-                    <table class="table table-bordered" style="text-align: center;">                       
+                    <form method="POST" class="form-horizontal">
 
-                        <tr>
-                            <th colspan="3">Static Page List</th>
-                        </tr>
+                        <div class="form-group">
+                            <label for="" class="col-md-4 control-label">Title:</label>
+                            <div class="col-md-8">
+                                <input type="text" id="page-title-input" class="form-control"/>
+                            </div>
+                        </div>
 
-                        <tr>
-                            <th>Title</th>
-                            <th>Edit</th>
-                            <th>Delete</th>
-                        </tr>
 
-                        <c:forEach items="${pages}" var="page">
-                            <tr id="page-row-${page.id}">
-                                <td><a href="${pageContext.request.contextPath}/page/show/${page.url}">${page.name}</a></td>
-                                <td><a href="${pageContext.request.contextPath}/page/create">Edit</a></td>
-                                <td><a href="" data-page-id="${page.id}" class="delete-page-link">Delete</a></td>
-                            </tr>
-                        </c:forEach>
-                    </table>
+                        <div class="form-group">
+                            <label for="" class="col-md-4 control-label">Page Content:</label>
+                            <div class="col-md-8">
+                                <textarea type="text" id="page-content-input" class="form-control"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="" class="col-md-4 control-label">Desired URL Path:</label>
+                            <div class="col-md-8">
+                                <input type="text" id="page-url-input" class="form-control" placeholder="http://TelevisionBlog/page/YOUR-URL-PATH-HERE"/>
+                            </div>
+                        </div>
+                        
+                        <input class="btn btn-default center-block" type="submit" id="create-submit" />
+                    </form>
+
                 </div>
             </div>
-        </div>
-
-
-        <script>
+                    
+                    <script>
                         var contextRoot = "${pageContext.request.contextPath}";
-        </script>
-        <!-- Placed at the end of the document so the pages load faster -->
-        <script src="${pageContext.request.contextPath}/js/jquery-1.11.1.min.js"></script>
-        <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
-        <script src="${pageContext.request.contextPath}/js/pageApp.js"></script>
+                    </script>
+            <!-- Placed at the end of the document so the pages load faster -->
+            <script src="${pageContext.request.contextPath}/js/jquery-1.11.1.min.js"></script>
+            <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
+            <script src="${pageContext.request.contextPath}/js/pageApp.js"></script>
+       
 
     </body>
 </html>

@@ -23,11 +23,12 @@ public class PageDaoDbImpl implements PageDao {
 
     JdbcTemplate jdbcTemplate;
 
-    private static final String SQL_INSERT_PAGE = "INSERT INTO pages (name, url, content, user_id) VALUES (?, ?, ?, ?)";
-    private static final String SQL_UPDATE_PAGE = "UPDATE pages SET name = ?, url = ?, content = ?, userId = ? WHERE id = ?";
-    private static final String SQL_GET_PAGE = "SELECT * FROM pages WHERE id = ?";
-    private static final String SQL_DELETE_PAGE = "DELETE * FROM pages WHERE id = ?";
-    private static final String SQL_GET_PAGE_LIST = "SELECT * FROM pages";
+    private static final String SQL_INSERT_PAGE = "INSERT INTO page (name, content, url, user_id) VALUES (?, ?, ?, ?)";
+    private static final String SQL_UPDATE_PAGE = "UPDATE page SET name = ?, content = ?, url = ?, userId = ? WHERE id = ?";
+    private static final String SQL_GET_PAGE = "SELECT * FROM page WHERE id = ?";
+    private static final String SQL_GET_PAGE_URL = "SELECT * FROM page WHERE url = ?";
+    private static final String SQL_DELETE_PAGE = "DELETE FROM page WHERE id = ?";
+    private static final String SQL_GET_PAGE_LIST = "SELECT * FROM page";
 
     public PageDaoDbImpl(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
@@ -36,10 +37,14 @@ public class PageDaoDbImpl implements PageDao {
     @Override
     @Transactional(propagation = Propagation.REQUIRED)
     public Page create(Page page) {
+
+        if (this.get(page.getUrl()) != null) {
+            return null;
+        }
         jdbcTemplate.update(SQL_INSERT_PAGE,
                 page.getName(),
-                page.getUrl(),
                 page.getContent(),
+                page.getUrl(),
                 page.getUser().getId());
         Integer id = jdbcTemplate.queryForObject("SELECT LAST_INSERT_ID()", Integer.class);
 
@@ -53,12 +58,17 @@ public class PageDaoDbImpl implements PageDao {
         return jdbcTemplate.queryForObject(SQL_GET_PAGE, new PageMapper(), id);
     }
 
+    public Page get(String url) {
+
+        return jdbcTemplate.queryForObject(SQL_GET_PAGE_URL, new PageMapper(), url);
+    }
+
     @Override
     public void update(Page page) {
         jdbcTemplate.update(SQL_UPDATE_PAGE,
                 page.getName(),
-                page.getUrl(),
                 page.getContent(),
+                page.getUrl(),
                 page.getUser().getId(),
                 page.getId());
     }
@@ -80,12 +90,12 @@ public class PageDaoDbImpl implements PageDao {
 
             Page page = new Page();
             User user = new User();
-            
+
             user.setId(rs.getInt("user_id"));
 
             page.setId(rs.getInt("id"));
-            page.setName(rs.getString("name"));
             page.setUrl(rs.getString("url"));
+            page.setName(rs.getString("name"));
             page.setContent(rs.getString("content"));
             page.setUser(user);
 
