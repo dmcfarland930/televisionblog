@@ -42,7 +42,6 @@
                 selector: '#mytextarea',
                 height: 400,
                 width: 800,
-                plugins
             });
         </script>
 

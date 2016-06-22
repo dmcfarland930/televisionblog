@@ -8,6 +8,7 @@ package com.mycompany.televisionblog.dao;
 import com.mycompany.televisionblog.dto.Category;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
@@ -20,6 +21,7 @@ public class CategoryDaoImpl implements CategoryDao {
     private static final String SQL_GET_CATEGORY = "SELECT * FROM category WHERE id = ?";
     private static final String SQL_UPDATE_CATEGORY = "UPDATE category SET name = ? WHERE id = ?";
     private static final String SQL_DELETE_CATEGORY = "DELETE FROM category WHERE id = ?";
+    private static final String SQL_GET_CATEGORY_LIST = "SELECT * FROM category";
     
     private JdbcTemplate jdbcTemplate;
     
@@ -47,6 +49,11 @@ public class CategoryDaoImpl implements CategoryDao {
     @Override
     public void delete(Integer id) {
         jdbcTemplate.update(SQL_DELETE_CATEGORY, id);
+    }
+
+    @Override
+    public List<Category> list() {
+        return jdbcTemplate.query(SQL_GET_CATEGORY_LIST, new CategoryMapper());
     }
     private static final class CategoryMapper implements RowMapper<Category> {
         @Override
