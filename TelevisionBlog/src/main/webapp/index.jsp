@@ -26,9 +26,10 @@
             </div>
             <h2>Home Page</h2>
             <form method="post">
+                <input type ="text" id="title-input"
                 <textarea id="blog-entry">Blog Post</textarea>
                 <fieldset class="form-group ">
-                    <input id="blog-submit" class="btn bg-primary button-size" type="submit" value="Create Blog Post"/>
+                    <input id="blog-post-input" class="btn bg-primary button-size" type="submit" value="Create Blog Post"/>
                 </fieldset>
             </form>
 
