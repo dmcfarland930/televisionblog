@@ -17,8 +17,6 @@ public interface PageDao {
     Page create(Page page);
 
     Page get(Integer id);
-    
-    Page get(String url);
 
     void update(Page page);
 

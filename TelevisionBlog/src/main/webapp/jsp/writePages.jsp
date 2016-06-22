@@ -15,7 +15,6 @@
         <!-- SWC Icon -->
         <link rel="shortcut icon" href="${pageContext.request.contextPath}/img/icon.png">
 
-        <%@include file="navBar.jsp"%>
     </head>
     <body>
         <div class="container">
@@ -25,7 +24,7 @@
                 <div class="col-md-4">
                     <ul>
                         <li><a href="${pageContext.request.contextPath}/index.jsp">Back to Blog</a></li>
-                        <li><a href="${pageContext.request.contextPath}/post.jsp">Posts</a></li>
+                        <li><a href="${pageContext.request.contextPath}/posts.jsp">Posts</a></li>
                         <li><a href="${pageContext.request.contextPath}/categories.jsp">Categories</a></li>
                         <li><a href="${pageContext.request.contextPath}/pages.jsp">Pages</a></li>
                         <li><a href="${pageContext.request.contextPath}/users.jsp">Users</a></li>
@@ -33,28 +32,13 @@
                 </div>
                 <div class="col-md-8">
                     <div style="float: right">
-                        <button><a href="${pageContext.request.contextPath}/page/writePage.jsp">Create New Page</a></button>
+                        <button id="create-submit" class="btn btn-default">Submit</button>
                     </div>
-                   
-                    <table clas="table table-bordered">                       
-                        <caption>Static Page List</caption>
-                       
-                        <tr>
-                            <th>Title</th>
-                            <th>Edit</th>
-                            <th>Delete</th>
-                        </tr>
-                        
-                        <c:forEach items="${pages}" var="page">
-                            <tr>
-                                <td>${page.title}</td>
-                                <td><a href="${pageContext.request.contextPath}/page/writePage.jsp">Edit</a></td>
-                                <td><a href="" data-page-id="${page.id}" class="delete-page-link"></a>Delete</td>
-                            </tr>
-                        </c:forEach>
-                        
-                    </table>
-                    
+                    <form method="POST" class="form-horizontal">
+                        <input type="text" id="page-title-input" class="form-control"/>
+                        <textarea id="page-content-input" class="form-control"></textarea>
+                    </form>
+
                 </div>
             </div>
         </div>

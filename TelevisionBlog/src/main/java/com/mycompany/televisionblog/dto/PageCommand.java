@@ -5,8 +5,6 @@
  */
 package com.mycompany.televisionblog.dto;
 
-import org.hibernate.validator.constraints.NotEmpty;
-
 /**
  *
  * @author apprentice
@@ -14,13 +12,10 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class PageCommand {
 
     private int id;
-    @NotEmpty(message="You must supply a Title")
     private String name;
-    private Integer userId;
-    @NotEmpty(message="You must supply some Content")
-    private String content;
-    @NotEmpty(message="You must supply a Url Path")
     private String url;
+    private Integer userId;
+    private String content;
 
     public int getId() {
         return id;
@@ -38,6 +33,14 @@ public class PageCommand {
         this.name = name;
     }
 
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
     public Integer getUserId() {
         return userId;
     }
@@ -52,14 +55,6 @@ public class PageCommand {
 
     public void setContent(String content) {
         this.content = content;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
     }
     
     

@@ -52,6 +52,7 @@ public class blogPostTests {
         BlogPost blogPost = new BlogPost();
 
         user = userDao.get(1);
+
 //        category.setCategoryName("Testing");
 
         categoryDao.create(category);
