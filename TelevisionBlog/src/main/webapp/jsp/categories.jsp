@@ -12,21 +12,40 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Categories</title>
+        <!-- Bootstrap core CSS -->
+        <link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet">
+        <link href="${pageContext.request.contextPath}/css/blog.css" rel="stylesheet">
+
+        <!-- SWC Icon -->
+        <link rel="shortcut icon" href="${pageContext.request.contextPath}/img/icon.png">
+
     </head>
     <body>
-        <table id="category-table">
+        <jsp:include page="navBar.jsp"/>
+        <table class="table" id="category-table">
             <c:forEach items="${categories}" var="category">
                 <tr>
                     <td>${category.name}</td>
                 </tr>
             </c:forEach>
         </table>
-        <div>
-            <h4>Add Category:</h4>
-            <form method="POST">
-                <label for="category-name">Name:</label>
-                    <input id="category-name"/>
-            </form>
+        <div id="add-category-form" class="col-md-4" class="form-horizontal">
+            <div class="form-group">
+                <form method="POST">
+                    <label for="category-name">Add Category:</label>
+                    <input id="name-input" class="form-control"/>
+                </form>
+                <input type="submit" id="create-submit" value="Submit" class="btn btn-primary">
+            </div>
         </div>
+        <script>
+              contextRoot="/TelevisionBlog";
+              
+        </script>
+        
+            
+        <script src="${pageContext.request.contextPath}/js/jquery-1.11.1.min.js"></script>
+        <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
+        <script src="${pageContext.request.contextPath}/js/categories.js"></script>
     </body>
 </html>

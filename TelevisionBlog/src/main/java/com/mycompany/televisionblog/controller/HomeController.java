@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * @author apprentice
  */
 @Controller
-@RequestMapping(value="/")
+@RequestMapping
 public class HomeController {
     private BlogPostDao postDao;
     

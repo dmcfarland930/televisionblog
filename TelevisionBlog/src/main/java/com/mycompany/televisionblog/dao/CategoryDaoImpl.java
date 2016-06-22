@@ -30,7 +30,7 @@ public class CategoryDaoImpl implements CategoryDao {
     }
     @Override
     public Category create(Category category) {
-        jdbcTemplate.update(SQL_CREATE_CATEGORY, category.getCategoryName());
+        jdbcTemplate.update(SQL_CREATE_CATEGORY, category.getName());
         Integer id = jdbcTemplate.queryForObject("SELECT LAST_INSERT_ID()", Integer.class);
         category.setId(id);
         return category;
@@ -43,7 +43,7 @@ public class CategoryDaoImpl implements CategoryDao {
 
     @Override
     public void update(Category category) {
-        jdbcTemplate.update(SQL_UPDATE_CATEGORY, category.getCategoryName(), category.getId());
+        jdbcTemplate.update(SQL_UPDATE_CATEGORY, category.getName(), category.getId());
     }
 
     @Override
@@ -61,7 +61,7 @@ public class CategoryDaoImpl implements CategoryDao {
             
             Category category = new Category();
             category.setId(rs.getInt("id"));
-            category.setCategoryName(rs.getString("note_text"));
+            category.setName(rs.getString("name"));
             
             
             return category;

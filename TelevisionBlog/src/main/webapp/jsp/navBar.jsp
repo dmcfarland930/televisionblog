@@ -21,8 +21,8 @@
 	<div class="collapse navbar-collapse navbar-ex1-collapse">
 		
 		<ul class="nav navbar-nav">
-                    <li><a class="navbar-item" href="${pageContext.request.contextPath}/posts"><span class="navbar-item">Posts</span></a></li>
-                    <li><a class="navbar-item" href="${pageContext.request.contextPath}/categories"><span class="navbar-item">Categories</span></a></li>
+                    <li><a class="navbar-item" href="${pageContext.request.contextPath}/blog/writeBlog"><span class="navbar-item">Posts</span></a></li>
+                    <li><a class="navbar-item" href="${pageContext.request.contextPath}/category/view"><span class="navbar-item">Categories</span></a></li>
 		</ul>
 		
 	</div>
