@@ -15,7 +15,6 @@ public class BlogPost {
     String content;
     Date postDate;
     Date expirationDate;
-    boolean active;
     boolean approved;
 
     public int getId() {
@@ -74,13 +73,6 @@ public class BlogPost {
         this.expirationDate = expirationDate;
     }
 
-    public boolean isActive() {
-        return active;
-    }
-
-    public void setActive(boolean active) {
-        this.active = active;
-    }
 
     public boolean isApproved() {
         return approved;

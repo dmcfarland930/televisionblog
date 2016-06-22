@@ -6,7 +6,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Write Blog</title>
+        <title>Blog View</title>
         <!-- Bootstrap core CSS -->
         <link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet">
 
@@ -15,43 +15,25 @@
     </head>
     <body>
         <div class="container">
-            <h1>Blog Writer</h1>
+            <h1>Blog Viewer</h1>
             <hr/>
             <div class="navbar">
                 <ul class="nav nav-tabs">
-                    <li role="presentation" class="active"><a href="${pageContext.request.contextPath}/index.jsp">Home</a></li>
-                    <li role="presentation"><a href="${pageContext.request.contextPath}/blog/blogShow/1">View Blog</a></li>
+                    <li role="presentation"><a href="${pageContext.request.contextPath}/blog/writeBlog">Write Post</a></li>
                 </ul>    
             </div>
-            <form method="POST">
 
-                <fieldset class="form-group">
-                    <div id="title-div" class="col-md-8">
-                        <label for="title-input">Title: </label>
-                        <input type="text" id="title-input" class="form-control ${hasError}"/>
+
+            <div class="container">
+                <c:forEach items="${posts}" var="post">
+                    <div class="col-md-8">
+                    <h1>${post.title}</h1>
+                    <p>Posted on: ${date} by ${author}</p>
+                    ${post.content}</br></br>
                     </div>
-                    <div class="error-message" id="name-error" class="col-md-8">
-                    </div>
-                </fieldset>
+                </c:forEach>
 
-                <fieldset class="form-group">
-                    <div id="blog-div"  class="col-md-8">
-                        <div>
-                            <textarea style="width: 100%;" rows="10" id="blog-post-input"></textarea>
-                        </div>
-                    </div>
-                </fieldset>
-
-                <div style="display: inline-block;" class="col-md-8 pull">
-                    <input id="blog-post-button" class="btn bg-primary button-size" type="submit" value="Create Blog Post"/>
-
-
-
-                    <input id="blog-draft-button" class="btn bg-primary button-size" type="submit" value="Save Draft"/>
-
-                </div>
-            </form>
-
+            </div>
         </div>
         <!-- Placed at the end of the document so the pages load faster -->
         <script>
@@ -72,4 +54,3 @@
 
     </body>
 </html>
-

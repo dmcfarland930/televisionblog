@@ -91,7 +91,7 @@ public class UserDaoDbImpl implements UserDao {
             user.setLastName(rs.getString("last_name"));
             user.setUsername(rs.getString("user_name"));
             user.setPassword(rs.getString("password"));
-            user.setGroupId(rs.getInt("groupId"));
+            user.setGroupId(rs.getInt("group_id"));
 
             return user;
 

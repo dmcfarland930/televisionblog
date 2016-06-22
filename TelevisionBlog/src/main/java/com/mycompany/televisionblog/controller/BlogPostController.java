@@ -6,6 +6,7 @@ import com.mycompany.televisionblog.dao.UserDao;
 import com.mycompany.televisionblog.dto.BlogPost;
 import com.mycompany.televisionblog.dto.BlogPostCommand;
 import java.text.ParseException;
+import java.util.List;
 import java.util.Map;
 import javax.inject.Inject;
 import org.springframework.stereotype.Controller;
@@ -32,7 +33,6 @@ public class BlogPostController {
 
     @RequestMapping(value = "/writeBlog", method = RequestMethod.GET)
     public String sayHi(Map<String, Object> model) {
-        model.put("message", "Hello from the controller");
         return "writeBlog";
     }
 
@@ -62,11 +62,33 @@ public class BlogPostController {
 
         blogPost.setTitle(blogPostCommand.getTitle());
         blogPost.setUser(userDao.get(blogPostCommand.getUserId()));
-//        blogPost.setCategory(categoryDao.get(blogPostCommand.getUserId()));
+        blogPost.setCategory(categoryDao.get(1));
         blogPost.setContent(blogPostCommand.getContent());
+        if (blogPostCommand.getPostDate() == null) {
+
+        }
         blogPost.setPostDate(blogPostCommand.getPostDate());
         blogPost.setExpirationDate(blogPostCommand.getExpirationDate());
-
+        blogPost.setApproved(blogPostCommand.isApproved());
         return blogPost;
     }
+
+    @RequestMapping(value = "/blogShow/{id}", method = RequestMethod.GET)
+    public String showBlog(@PathVariable("id") Integer id, Map model) {
+
+
+        List<BlogPost> posts = blogPostDao.list();
+
+        for (BlogPost blogView : posts) {
+            
+            model.put("title", blogView.getTitle());
+            model.put("date", blogView.getPostDate());
+            model.put("author", blogView.getUser().getFirstName() + " " + blogView.getUser().getLastName());
+            model.put("posts", posts);
+        }
+        
+        return "/blogShow";
+
+    }
+
 }

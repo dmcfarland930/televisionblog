@@ -61,7 +61,7 @@ public class CategoryDaoImpl implements CategoryDao {
             
             Category category = new Category();
             category.setId(rs.getInt("id"));
-            category.setCategoryName(rs.getString("note_text"));
+            category.setCategoryName(rs.getString("name"));
             
             
             return category;

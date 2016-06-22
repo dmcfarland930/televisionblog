@@ -15,7 +15,6 @@ public class BlogPostCommand {
     private String content;
     private Date postDate;
     private Date expirationDate;
-    private boolean active;
     private boolean approved;
 
     public int getId() {
@@ -72,14 +71,6 @@ public class BlogPostCommand {
 
     public void setExpirationDate(Date expirationDate) {
         this.expirationDate = expirationDate;
-    }
-
-    public boolean isActive() {
-        return active;
-    }
-
-    public void setActive(boolean active) {
-        this.active = active;
     }
 
     public boolean isApproved() {

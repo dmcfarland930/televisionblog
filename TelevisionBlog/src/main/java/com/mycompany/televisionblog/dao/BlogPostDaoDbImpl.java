@@ -22,6 +22,7 @@ public class BlogPostDaoDbImpl implements BlogPostDao {
     private static final String SQL_DELETE_POST = "DELETE FROM post WHERE id = ?";
     private static final String SQL_GET_POST = "SELECT * FROM post WHERE id = ?";
     private static final String SQL_GET_POST_LIST = "SELECT * FROM post";
+    private static final String SQL_GET_POST_LIST_THREE_ENTRIES = "SELECT * FROM post LIMIT 3 ";
     private static final String SQL_GET_POST_LIST_DATE = "SELECT * FROM post WHERE order_date = ?";
 
     private JdbcTemplate jdbcTemplate;
@@ -81,9 +82,10 @@ public class BlogPostDaoDbImpl implements BlogPostDao {
     }
 
     @Override
+    //onlly three entries
     public List<BlogPost> list() {
         
-        return jdbcTemplate.query(SQL_GET_POST_LIST, new BlogPostMapper());
+        return jdbcTemplate.query(SQL_GET_POST_LIST_THREE_ENTRIES, new BlogPostMapper());
 
     }
 
