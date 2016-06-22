@@ -33,7 +33,11 @@
         <property name="dataSource" ref="dataSource"/>
     </bean>
     
-    <bean id="blogPostDao" class="com.mycompany.televisionbllog.dao.BlogPostDaoDbImpl">    
+    <bean id="blogPostDao" class="com.mycompany.televisionblog.dao.BlogPostDaoDbImpl">    
         <constructor-arg ref="jdbcTemplate"/>
     </bean>
+    
+    <bean id="pageDao" class="com.mycompany.televisionblog.dao.PageDaoDbImpl">    
+        <constructor-arg ref="jdbcTemplate"/>       
+    </bean>   
 </beans>

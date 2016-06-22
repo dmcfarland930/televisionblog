@@ -12,12 +12,14 @@ import java.sql.SQLException;
 import java.util.List;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
  * @author apprentice
  */
-public class PageDaoImpl implements PageDao {
+public class PageDaoDbImpl implements PageDao {
 
     JdbcTemplate jdbcTemplate;
 
@@ -27,11 +29,12 @@ public class PageDaoImpl implements PageDao {
     private static final String SQL_DELETE_PAGE = "DELETE * FROM pages WHERE id = ?";
     private static final String SQL_GET_PAGE_LIST = "SELECT * FROM pages";
 
-    public PageDaoImpl(JdbcTemplate jdbcTemplate) {
+    public PageDaoDbImpl(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 
     @Override
+    @Transactional(propagation = Propagation.REQUIRED)
     public Page create(Page page) {
         jdbcTemplate.update(SQL_INSERT_PAGE,
                 page.getName(),

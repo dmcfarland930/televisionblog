@@ -10,6 +10,8 @@ import com.mycompany.televisionblog.dao.UserDao;
 import com.mycompany.televisionblog.dto.Page;
 import com.mycompany.televisionblog.dto.PageCommand;
 import com.mycompany.televisionblog.dto.User;
+import java.util.List;
+import java.util.Map;
 import javax.inject.Inject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -33,6 +35,16 @@ public class PageController {
     public PageController(PageDao pageDao, UserDao userDao) {
         this.pageDao = pageDao;
         this.userDao = userDao;
+    }
+    
+    @RequestMapping(value = "/", method = RequestMethod.POST)
+    public String display(Map model) {
+        
+        List<Page> pages = pageDao.list();
+        
+        model.put("pages", pages);
+        
+        return "pageJSP";
     }
 
     @RequestMapping(value = "/", method = RequestMethod.POST)
