@@ -7,7 +7,6 @@
 <html>
     <head>
         <title>Blog View</title>
-        <%@include file="navBar.jsp"%>
         <!-- Bootstrap core CSS -->
         <link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet">
         <link href="${pageContext.request.contextPath}/css/blog.css" rel="stylesheet">
@@ -16,6 +15,7 @@
         <link rel="shortcut icon" href="${pageContext.request.contextPath}/img/icon.png">
     </head>
     <body>
+        <%@include file="navBar.jsp"%>
         <div class="container">
 
             <div class="container">

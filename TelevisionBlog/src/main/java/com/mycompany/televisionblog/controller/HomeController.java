@@ -42,6 +42,6 @@ public class HomeController {
             model.put("posts", posts);
         }
 
-        return "home";
+        return "/home";
     }
 }

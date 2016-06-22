@@ -15,9 +15,9 @@
         <!-- SWC Icon -->
         <link rel="shortcut icon" href="${pageContext.request.contextPath}/img/icon.png">
 
-        <%@include file="navBar.jsp"%>
     </head>
     <body>
+        <%@include file="navBar.jsp"%>
         <div class="container">
             <h1>Dashboard</h1>
             <hr/>
