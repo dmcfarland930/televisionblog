@@ -17,12 +17,20 @@ public interface BlogPostDao {
     BlogPost create(BlogPost blogPost);
 
     BlogPost get(Integer id);
+    
+    BlogPost get(String postName);
 
     void update(BlogPost blogPost);
 
     void delete(Integer id);
 
     List<BlogPost> list();
-
+    
     List<BlogPost> listOfThree(Integer pageNum);
+    
+    List<BlogPost> listApproved();
+
+    List<BlogPost> listUnapproved();
+    
+    boolean checkIfNextPage(Integer nextPageNum);
 }

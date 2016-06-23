@@ -30,7 +30,7 @@
                 <div class="col-md-4"></div>
                 <div class="col-md-8">
                     <div style="float: right">
-                        <button class="btn btn-default"><a href="${pageContext.request.contextPath}/page/create">Create New Page</a></button>
+                        <button class="btn btn-default"><a href="${pageContext.request.contextPath}/blog/writeBlog">Create Blog</a></button>
                     </div>
                 </div>
             </div>
@@ -38,12 +38,12 @@
             <div class="row">
                 <div class="col-md-4">
                     <ul class="list list-group">
-                        <li class="list-group-item"><a href="${pageContext.request.contextPath}/index.jsp">Back to Blog</a></li>
+                        <li class="list-group-item"><a href="${pageContext.request.contextPath}/home/">Back to Blog</a></li>
                         <li class="list-group-item"><a href="${pageContext.request.contextPath}/admin/">Pending Posts</a></li>
-                        <li class="list-group-item"><a href="${pageContext.request.contextPath}/post.jsp">Posts</a></li>
-                        <li class="list-group-item"><a href="${pageContext.request.contextPath}/categories.jsp">Categories</a></li>
-                        <li class="list-group-item"><a href="${pageContext.request.contextPath}/pages">Pages</a></li>
-                        <li class="list-group-item"><a href="${pageContext.request.contextPath}/users.jsp">Users</a></li>
+                        <li class="list-group-item"><a href="${pageContext.request.contextPath}/post/">Posts</a></li>
+                        <li class="list-group-item"><a href="${pageContext.request.contextPath}/categories">Categories</a></li>
+                        <li class="list-group-item"><a href="${pageContext.request.contextPath}/page/">Pages</a></li>
+                        <li class="list-group-item"><a href="${pageContext.request.contextPath}/user/">Users</a></li>
                     </ul>    
                 </div>
 
@@ -51,19 +51,21 @@
                     <table class="table table-bordered" style="text-align: center;">                       
 
                         <tr>
-                            <th colspan="3">Static Page List</th>
+                            <th colspan="4">Blog Posts Needing Approval</th>
                         </tr>
 
                         <tr>
                             <th>Title</th>
                             <th>Edit</th>
+                            <th>Approve</th>
                             <th>Delete</th>
                         </tr>
 
-                        <c:forEach items="${pages}" var="page">
-                            <tr id="page-row-${page.id}">
-                                <td><a href="${pageContext.request.contextPath}/page/show/${page.url}">${page.name}</a></td>
-                                <td><a href="${pageContext.request.contextPath}/page/create">Edit</a></td>
+                        <c:forEach items="${pendingPosts}" var="post">
+                            <tr id="post-row-${post.id}">
+                                <td><a href="${pageContext.request.contextPath}/blog/${post.title}">${post.title}</a></td>
+                                <td><a href="${pageContext.request.contextPath}/blog/">Edit</a></td>
+                                <td><a href="${pageContext.request.contextPath}/blog/">Approve</a></td>
                                 <td><a href="" data-page-id="${page.id}" class="delete-page-link">Delete</a></td>
                             </tr>
                         </c:forEach>

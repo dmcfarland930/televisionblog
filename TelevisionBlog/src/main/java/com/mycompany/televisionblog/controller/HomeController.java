@@ -50,10 +50,12 @@ public class HomeController {
             model.put("author", blogView.getUser().getFirstName() + " " + blogView.getUser().getLastName());
             model.put("posts", posts);
         }
-        
+        boolean nextPage = postDao.checkIfNextPage(3);
         List<Page> pages = pageDao.list();
         model.put("pages", pages);
-        model.put("page", 2);
+        model.put("pageNext", 2);
+        model.put("nextPage", nextPage);
+        model.put("hidden", "hidden");
         return "/home";
     }
     
