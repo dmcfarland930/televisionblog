@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Static Pages</title>
+        <title>Users</title>
         <!-- Bootstrap core CSS -->
         <link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet">
 
@@ -30,7 +30,7 @@
                 <div class="col-md-4"></div>
                 <div class="col-md-8">
                     <div style="float: right">
-                        <button class="btn btn-default"><a href="${pageContext.request.contextPath}/page/create">Create Static Page</a></button>
+                        <button class="btn btn-default"><a href="${pageContext.request.contextPath}">Create User</a></button>
                     </div>
                 </div>
             </div>
@@ -48,23 +48,27 @@
                 </div>
 
                 <div class="col-md-8">
-                    <table class="table table-bordered" style="text-align: center;">                       
+                    <table class="table table-bordered" style="text-align: center;" id="pending-post-table">                       
 
                         <tr>
-                            <th colspan="3">Static Page List</th>
+                            <th colspan="6">User List</th>
                         </tr>
 
                         <tr>
-                            <th>Title</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Username</th>
                             <th>Edit</th>
                             <th>Delete</th>
                         </tr>
 
-                        <c:forEach items="${pages}" var="page">
-                            <tr id="page-row-${page.id}">
-                                <td><a href="${pageContext.request.contextPath}/${page.url}">${page.name}</a></td>
-                                <td><a href="${pageContext.request.contextPath}/page/create" class="glyphicon glyphicon-edit" style="color: green;"></a></td>
-                                <td><a href="" data-page-id="${page.id}" class="delete-page-link glyphicon glyphicon-remove" style="color:red;"></a></td>
+                        <c:forEach items="${users}" var="user">
+                            <tr id="user-row-${user.id}">
+                                <td>${user.firstName}</td>
+                                <td>${user.lastName}</td>
+                                <td>${user.username}</td>
+                                <td><a href="${pageContext.request.contextPath}/blog/"><span class="glyphicon glyphicon-edit" style="color:green;"/></a></td>
+                                <td><a href="" data-post-id="${user.id}" class="delete-post-link"><span class="glyphicon glyphicon-remove" style="color:red;" /></a></td>
                             </tr>
                         </c:forEach>
                     </table>
@@ -79,7 +83,7 @@
         <!-- Placed at the end of the document so the pages load faster -->
         <script src="${pageContext.request.contextPath}/js/jquery-1.11.1.min.js"></script>
         <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
-        <script src="${pageContext.request.contextPath}/js/pageApp.js"></script>
+        <script src="${pageContext.request.contextPath}/js/adminApp.js"></script>
 
     </body>
 </html>

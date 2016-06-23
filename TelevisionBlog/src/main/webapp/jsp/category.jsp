@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Static Pages</title>
+        <title>Categories</title>
         <!-- Bootstrap core CSS -->
         <link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet">
 
@@ -30,7 +30,7 @@
                 <div class="col-md-4"></div>
                 <div class="col-md-8">
                     <div style="float: right">
-                        <button class="btn btn-default"><a href="${pageContext.request.contextPath}/page/create">Create Static Page</a></button>
+                        <button class="btn btn-default"><a href="${pageContext.request.contextPath}/category/view">Create Category</a></button>
                     </div>
                 </div>
             </div>
@@ -48,23 +48,23 @@
                 </div>
 
                 <div class="col-md-8">
-                    <table class="table table-bordered" style="text-align: center;">                       
+                    <table class="table table-bordered" style="text-align: center;" id="pending-post-table">                       
 
                         <tr>
-                            <th colspan="3">Static Page List</th>
+                            <th colspan="6">Category List</th>
                         </tr>
 
                         <tr>
-                            <th>Title</th>
+                            <th>Name</th>
                             <th>Edit</th>
                             <th>Delete</th>
                         </tr>
 
-                        <c:forEach items="${pages}" var="page">
-                            <tr id="page-row-${page.id}">
-                                <td><a href="${pageContext.request.contextPath}/${page.url}">${page.name}</a></td>
-                                <td><a href="${pageContext.request.contextPath}/page/create" class="glyphicon glyphicon-edit" style="color: green;"></a></td>
-                                <td><a href="" data-page-id="${page.id}" class="delete-page-link glyphicon glyphicon-remove" style="color:red;"></a></td>
+                        <c:forEach items="${categories}" var="category">
+                            <tr id="category-row-${category.id}">
+                                <td>${category.name}</td>
+                                <td><a href="" class="glyphicon glyphicon-edit" style="color:green;"><span  /></a></td>
+                                <td><a href="" data-post-id="${category.id}" class="glyphicon glyphicon-remove delete-category-link" style="color:red;"></a></td>
                             </tr>
                         </c:forEach>
                     </table>
@@ -79,7 +79,7 @@
         <!-- Placed at the end of the document so the pages load faster -->
         <script src="${pageContext.request.contextPath}/js/jquery-1.11.1.min.js"></script>
         <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
-        <script src="${pageContext.request.contextPath}/js/pageApp.js"></script>
+        <script src="${pageContext.request.contextPath}/js/adminApp.js"></script>
 
     </body>
 </html>
