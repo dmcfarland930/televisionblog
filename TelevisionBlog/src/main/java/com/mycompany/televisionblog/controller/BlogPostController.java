@@ -6,7 +6,12 @@ import com.mycompany.televisionblog.dao.PageDao;
 import com.mycompany.televisionblog.dao.UserDao;
 import com.mycompany.televisionblog.dto.BlogPost;
 import com.mycompany.televisionblog.dto.BlogPostCommand;
+import com.mycompany.televisionblog.dto.Category;
 import com.mycompany.televisionblog.dto.Page;
+import com.mycompany.televisionblog.dto.User;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import javax.inject.Inject;
@@ -15,12 +20,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequestMapping({"/blog"})
 public class BlogPostController {
 
+    SimpleDateFormat sdfDisplay = new SimpleDateFormat("MMMM dd, yyyy hh:mm:ss a");
+    SimpleDateFormat sdfSQL = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
     private BlogPostDao blogPostDao;
     private UserDao userDao;
     private CategoryDao categoryDao;
@@ -35,10 +43,11 @@ public class BlogPostController {
     }
 
     @RequestMapping(value = "/writeBlog", method = RequestMethod.GET)
-
     public String writeBlogPost(Map model) {
         List<Page> pages = pageDao.list();
         model.put("pages", pages);
+        List<Category> categories = categoryDao.list();
+        model.put("categories", categories);
 
         return "writeBlog";
     }
@@ -55,7 +64,6 @@ public class BlogPostController {
 
         List<Page> pages = pageDao.list();
         model.put("pages", pages);
-
         return "/blogShow";
 
     }
@@ -71,6 +79,50 @@ public class BlogPostController {
 
     }
 
+    @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
+    public String editPost(@PathVariable("id") Integer id, Map model) {
+
+        BlogPost blogEdit = blogPostDao.get(id);
+        List<Category> categories = categoryDao.list();
+        List<User> authors = userDao.list();
+
+        model.put("id", blogEdit.getId());
+        model.put("date", blogEdit.getPostDate());
+        model.put("title", blogEdit.getTitle());
+        model.put("categories", categories);
+        model.put("category", blogEdit.getCategory());
+        model.put("authors", authors);
+        model.put("author", blogEdit.getUser().getFirstName() + " " + blogEdit.getUser().getLastName());
+        model.put("content", blogEdit.getContent());
+
+        List<Page> pages = pageDao.list();
+        model.put("pages", pages);
+
+        return "/editBlog";
+
+    }
+
+    @RequestMapping(value = "/editsubmit/", method = RequestMethod.POST)
+    public String editPostSubmit(@RequestParam("id") Integer id, @RequestParam("date") String date, @RequestParam("title") String title, @RequestParam("author") Integer author,
+            @RequestParam("category") Integer category, @RequestParam("content") String content, Map model) throws ParseException {
+
+        Date postDate = sdfSQL.parse(date);
+
+        BlogPost blogEdit = new BlogPost();
+        blogEdit.setId(id);
+        blogEdit.setTitle(title);
+        blogEdit.setUser(userDao.get(author));
+        blogEdit.setCategory(categoryDao.get(category));
+        blogEdit.setContent(content);
+        blogEdit.setPostDate(postDate);
+        blogEdit.setApproved(true);
+
+        blogPostDao.update(blogEdit);
+
+        return "redirect:/admin/";
+
+    }
+
     public BlogPost setBlogPostProperties(BlogPostCommand blogPostCommand) {
 
         BlogPost blogPost = new BlogPost();
@@ -79,10 +131,8 @@ public class BlogPostController {
         blogPost.setUser(userDao.get(blogPostCommand.getUserId()));
         blogPost.setCategory(categoryDao.get(1));
         blogPost.setContent(blogPostCommand.getContent());
-        if (blogPostCommand.getPostDate() == null) {
-
-        }
         blogPost.setPostDate(blogPostCommand.getPostDate());
+        blogPost.setStringDateDisplay(sdfDisplay.format(blogPostCommand.getPostDate()));
         blogPost.setExpirationDate(blogPostCommand.getExpirationDate());
         blogPost.setApproved(blogPostCommand.isApproved());
         return blogPost;
@@ -95,6 +145,7 @@ public class BlogPostController {
 
         for (BlogPost blogView : posts) {
 
+            blogView.setStringDateDisplay(sdfDisplay.format(blogView.getPostDate()));
             model.put("title", blogView.getTitle());
             model.put("date", blogView.getPostDate());
             model.put("author", blogView.getUser().getFirstName() + " " + blogView.getUser().getLastName());
@@ -116,6 +167,7 @@ public class BlogPostController {
         System.out.println(nextPage);
         for (BlogPost blogView : posts) {
 
+            blogView.setStringDateDisplay(sdfDisplay.format(blogView.getPostDate()));
             model.put("title", blogView.getTitle());
             model.put("date", blogView.getPostDate());
             model.put("author", blogView.getUser().getFirstName() + " " + blogView.getUser().getLastName());

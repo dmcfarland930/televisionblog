@@ -64,21 +64,30 @@
                                 <input type="text" id="page-url-input" class="form-control" placeholder="http://TelevisionBlog/page/YOUR-URL-PATH-HERE"/>
                             </div>
                         </div>
-                        
+
                         <input class="btn btn-default center-block" type="submit" id="create-submit" />
                     </form>
 
                 </div>
             </div>
-                    
-                    <script>
+
+            <script>
                         var contextRoot = "${pageContext.request.contextPath}";
-                    </script>
+            </script>
             <!-- Placed at the end of the document so the pages load faster -->
             <script src="${pageContext.request.contextPath}/js/jquery-1.11.1.min.js"></script>
             <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
+            <script src="${pageContext.request.contextPath}/js/tinymce/js/tinymce/tinymce.min.js"></script>
+
+            <script type="text/javascript">
+                            tinymce.init({
+                                selector: '#page-content-input',
+                                height: 400,
+                                width: 800
+                            });
+            </script>
             <script src="${pageContext.request.contextPath}/js/pageApp.js"></script>
-       
+
 
     </body>
 </html>

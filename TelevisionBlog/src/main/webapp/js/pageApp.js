@@ -5,6 +5,7 @@ $(document).ready(function () {
     $("#create-submit").on("click", function (e) {
 
         e.preventDefault();
+        tinymce.triggerSave();
 
         var pageData = JSON.stringify({
             name: $("#page-title-input").val(),
@@ -123,8 +124,8 @@ $(document).ready(function () {
             url: contextRoot + "/page/" + pageId,
             type: "DELETE",
             success: function (data, status) {
-                $("#page-row-"+data.id).remove();
-                
+                $("#page-row-" + data.id).remove();
+
             },
             error: function (data, status) {
                 alert("ERROR deleting");
@@ -135,7 +136,7 @@ $(document).ready(function () {
 
     function buildPageRow(data) {
 
-        var pageRow = $("<tr></tr>").attr("id", "page-row-"+data.id)
+        var pageRow = $("<tr></tr>").attr("id", "page-row-" + data.id)
                 .append($("<td></td>"));
 
     }

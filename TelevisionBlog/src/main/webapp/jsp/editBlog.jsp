@@ -6,7 +6,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Write Blog</title>
+        <title>Edit Blog</title>
         <!-- Bootstrap core CSS -->
         <link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet">
         <link href="${pageContext.request.contextPath}/css/blog.css" rel="stylesheet">
@@ -17,34 +17,37 @@
     <body>
         <%@include file="navBar.jsp"%>
         <div class="container">
-            <h1>Blog Writer</h1>
+            <h1>Blog Edit</h1>
             <hr/>
-            <div>
-                <form class="form form-horizontal" method="POST" enctype="multipart/form-data">
-                    File to upload: <input class="form-control" type="file" name="file">
-
-                    Name: <input class="form-control" type="text" name="name">
-                    
-                    <input class="form-control" id="file-upload-button" type="submit" value="Upload"> Press here to upload the file!
-                </form>	
-            </div>
-            <form method="POST">
+            <form action="${pageContext.request.contextPath}/blog/editsubmit/" name="editForm" method="POST">
 
                 <fieldset class="form-group">
+                    <input type="hidden" name="id" value="${id}"/>
+                    <input type="hidden" name="date" value="${date}"/>
+                    
                     <div id="title-div" class="col-md-8">
                         <label for="title-input">Title: </label>
-                        <input type="text" id="title-input" class="form-control ${hasError}"/>
+                        <input name="title" type="text" id="title-edit" class="form-control ${hasError}" value="${title}"/>
                     </div>
                     <div class="error-message" id="name-error" class="col-md-8">
                     </div>
                 </fieldset>
-                
-	
-	<div id='msgbox' title='' style='display:none'></div>
+
+                <fieldset class="form-group">
+                    <div id="title-div" class="col-md-8">
+                        <label for="title-input">Author: </label>
+                        <select name="author" class="form-control" value="${author}" id="author-edit">
+                            <c:forEach items="${authors}" var="author">
+                                <option value="${author.id}">${author.firstName} ${author.lastName}</option>
+                            </c:forEach>
+                        </select>
+                    </div>
+                </fieldset> 
+
                 <fieldset class="form-group">
                     <div id="title-div" class="col-md-8">
                         <label for="title-input">Category: </label>
-                        <select class="form-control" name="categoryName" id="category-input">
+                        <select name="category" class="form-control" value="${category}" id="category-edit">
                             <c:forEach items="${categories}" var="category">
                                 <option value="${category.id}">${category.name}</option>
                             </c:forEach>
@@ -55,13 +58,13 @@
                 <fieldset class="form-group">
                     <div id="blog-div"  class="col-md-8">
                         <div>
-                            <textarea style="width: 100%;" rows="10" id="blog-post-input"></textarea>
+                            <textarea name="content" style="width: 100%;" rows="10" id="blog-post-edit" >${content}</textarea>
                         </div>
                     </div>
                 </fieldset>
 
                 <div style="display: inline-block;" class="col-md-8 pull">
-                    <input id="blog-post-button" class="btn bg-primary button-size" type="submit" value="Create Blog Post"/>
+                    <input id="blog-edit-submit" class="btn bg-primary button-size" type="submit" value="Update Blog Post"/>
 
 
 
@@ -78,24 +81,14 @@
         <script src="${pageContext.request.contextPath}/js/jquery-1.11.1.min.js"></script>
         <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
         <script src="${pageContext.request.contextPath}/js/tinymce/js/tinymce/tinymce.min.js"></script>
-                <script type="text/javascript">
-                    tinymce.init({
-                        selector: '#blog-post-input',
-                        height: 400,
-                        width: 800,
-                        images_upload_url: 'postAcceptor.php',
-                        images_upload_base_path: '/some/basepath',
-                        images_upload_credentials: true,
-                        plugins: ['advlist autolink lists link image charmap print preview hr anchor pagebreak',
-                        'searchreplace wordcount visualblocks visualchars code fullscreen',
-                        'insertdatetime media nonbreaking save table contextmenu directionality',
-                        'emoticons template paste textcolor colorpicker textpattern imagetools'],
-                        menubar: "insert",
-                        toolbar1: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
-                        toolbar2: 'print preview media | forecolor backcolor emoticons',
-                        image_advtab: true
-                    });
-                </script>
+
+        <script type="text/javascript">
+            tinymce.init({
+                selector: '#blog-post-edit',
+                height: 400,
+                width: 800
+            });
+        </script>
         <script src="${pageContext.request.contextPath}/js/blogPost.js"></script>
 
     </body>

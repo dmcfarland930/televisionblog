@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Edit Static Pages</title>
+        <title>Posts</title>
         <!-- Bootstrap core CSS -->
         <link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet">
 
@@ -51,22 +51,26 @@
                     <table class="table table-bordered" style="text-align: center;" id="pending-post-table">                       
 
                         <tr>
-                            <th colspan="4">Blog Posts Needing Approval</th>
+                            <th colspan="6">Blog List</th>
                         </tr>
 
                         <tr>
                             <th>Title</th>
+                            <th>Date</th>
+                            <th>Author</th>
                             <th>Edit</th>
-                            <th>Approve</th>
+                            <th>Revoke Approval</th>
                             <th>Delete</th>
                         </tr>
 
-                        <c:forEach items="${pendingPosts}" var="post">
+                        <c:forEach items="${posts}" var="post">
                             <tr id="post-row-${post.id}">
                                 <td><a href="${pageContext.request.contextPath}/blog/${post.title}">${post.title}</a></td>
-                                <td><a href="${pageContext.request.contextPath}/blog/edit/${post.id}">Edit</a></td>
-                                <td><a href="" data-post-id="${post.id}" class="approve-post-link">Approve</a></td>
-                                <td><a href="" data-post-id="${post.id}" class="delete-post-link">Delete</a></td>
+                                <td>${post.postDate}</td>
+                                <td>${post.user.username}</td>
+                                <td><a href="${pageContext.request.contextPath}/blog/edit/${post.id}"><span class="glyphicon glyphicon-edit" style="color:green;"/></a></td>
+                                <td><a href="" data-post-id="${post.id}" class="disapprove-post-link"><span class="glyphicon glyphicon-transfer" style="color:blue;"/></a></td>
+                                <td><a href="" data-post-id="${post.id}" class="delete-post-link"><span class="glyphicon glyphicon-remove" style="color:red;" /></a></td>
                             </tr>
                         </c:forEach>
                     </table>
