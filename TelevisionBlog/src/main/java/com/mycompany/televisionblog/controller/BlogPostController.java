@@ -6,6 +6,7 @@ import com.mycompany.televisionblog.dao.PageDao;
 import com.mycompany.televisionblog.dao.UserDao;
 import com.mycompany.televisionblog.dto.BlogPost;
 import com.mycompany.televisionblog.dto.BlogPostCommand;
+import com.mycompany.televisionblog.dto.Category;
 import com.mycompany.televisionblog.dto.Page;
 import java.util.List;
 import java.util.Map;
@@ -39,6 +40,9 @@ public class BlogPostController {
     public String writeBlogPost(Map model) {
         List<Page> pages = pageDao.list();
         model.put("pages", pages);
+        List<Category> categories = categoryDao.list();
+        model.put("categories", categories);
+
 
         return "writeBlog";
     }
@@ -55,7 +59,6 @@ public class BlogPostController {
 
         List<Page> pages = pageDao.list();
         model.put("pages", pages);
-
         return "/blogShow";
 
     }
@@ -64,7 +67,7 @@ public class BlogPostController {
     @ResponseBody
     public BlogPost create(@RequestBody BlogPostCommand blogPostCommand) {
 
-        blogPostCommand.setUserId(1);
+    blogPostCommand.setUserId(1);
         BlogPost blogPost = setBlogPostProperties(blogPostCommand);
 
         return blogPostDao.create(blogPost);

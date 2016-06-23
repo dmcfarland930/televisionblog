@@ -9,6 +9,7 @@ $(document).ready(function () {
         var blogPost = JSON.stringify({
             title: $('#title-input').val(),
             content: $('#blog-post-input').val(),
+            categoryId: $('#category-input').val(),
             approved: true,
             postDate: date
 

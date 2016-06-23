@@ -10,7 +10,7 @@
         <!-- Bootstrap core CSS -->
         <link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet">
         <link href="${pageContext.request.contextPath}/css/blog.css" rel="stylesheet">
-        
+
         <!-- SWC Icon -->
         <link rel="shortcut icon" href="${pageContext.request.contextPath}/img/icon.png">
     </head>
@@ -27,6 +27,17 @@
                         <input type="text" id="title-input" class="form-control ${hasError}"/>
                     </div>
                     <div class="error-message" id="name-error" class="col-md-8">
+                    </div>
+                </fieldset>
+
+                <fieldset class="form-group">
+                    <div id="title-div" class="col-md-8">
+                        <label for="title-input">Category: </label>
+                        <select class="form-control" name="categoryName" id="category-input">
+                            <c:forEach items="${categories}" var="category">
+                                <option value="${category.id}">${category.name}</option>
+                            </c:forEach>
+                        </select>
                     </div>
                 </fieldset>
 
@@ -56,14 +67,14 @@
         <script src="${pageContext.request.contextPath}/js/jquery-1.11.1.min.js"></script>
         <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
         <script src="${pageContext.request.contextPath}/js/tinymce/js/tinymce/tinymce.min.js"></script>
-        
-                <script type="text/javascript">
-                    tinymce.init({
-                        selector: '#blog-post-input',
-                        height: 400,
-                        width: 800
-                    });
-                </script>
+
+        <script type="text/javascript">
+            tinymce.init({
+                selector: '#blog-post-input',
+                height: 400,
+                width: 800
+            });
+        </script>
         <script src="${pageContext.request.contextPath}/js/blogPost.js"></script>
 
     </body>
