@@ -51,5 +51,33 @@
         <constructor-arg ref="userDao"/>
         <constructor-arg ref="categoryDao"/>
     </bean>
+    
+    <context:property-placeholder properties-ref="deployProperties" />
 
+	<!-- Activates various annotations to be detected in bean classes -->
+	<context:annotation-config />
+
+	<!-- Scans the classpath for annotated components that will be auto-registered as Spring beans.
+	 For example @Controller and @Service. Make sure to set the correct base-package -->
+	<context:component-scan base-package="org.krams" />
+
+	<!-- Configures the annotation-driven Spring MVC Controller programming model.
+	Note that, with Spring 3.0, this tag works in Servlet MVC only!  -->
+	<mvc:annotation-driven /> 
+	
+	<!-- Configure the multipart resolver -->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"
+        p:maxUploadSize="1000000"/>
+        
+    <!-- http://stackoverflow.com/questions/6479712/why-is-jackson-wrapping-my-objects-with-an-extra-layer-named-after-the-class -->
+    <bean class="org.springframework.web.servlet.view.json.MappingJacksonJsonView"
+       p:extractValueFromSingleKeyModel="true" />
+    
+	<mvc:resources mapping="/resources/**" location="/resources/" /> 
+ 	
+ 	<!-- Imports logging configuration -->
+	<import resource="trace-context.xml"/>
+	
+	<bean id="deployProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean"
+        p:location="/WEB-INF/spring.properties" />
 </beans>

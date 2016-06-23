@@ -29,7 +29,11 @@
                     <div class="error-message" id="name-error" class="col-md-8">
                     </div>
                 </fieldset>
-
+                <form enctype="multipart/form-data">
+                    <input name="file" type="file" />
+                    <input type="button" id="upload-button" value="Upload" />
+                </form>
+                <progress></progress>
                 <fieldset class="form-group">
                     <div id="blog-div"  class="col-md-8">
                         <div>
@@ -61,7 +65,18 @@
                     tinymce.init({
                         selector: '#blog-post-input',
                         height: 400,
-                        width: 800
+                        width: 800,
+                        images_upload_url: 'postAcceptor.php',
+                        images_upload_base_path: '/some/basepath',
+                        images_upload_credentials: true,
+                        plugins: ['advlist autolink lists link image charmap print preview hr anchor pagebreak',
+                        'searchreplace wordcount visualblocks visualchars code fullscreen',
+                        'insertdatetime media nonbreaking save table contextmenu directionality',
+                        'emoticons template paste textcolor colorpicker textpattern imagetools'],
+                        menubar: "insert",
+                        toolbar1: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+                        toolbar2: 'print preview media | forecolor backcolor emoticons',
+                        image_advtab: true
                     });
                 </script>
         <script src="${pageContext.request.contextPath}/js/blogPost.js"></script>
