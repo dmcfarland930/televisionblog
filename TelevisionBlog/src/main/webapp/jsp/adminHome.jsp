@@ -64,7 +64,7 @@
                         <c:forEach items="${pendingPosts}" var="post">
                             <tr id="post-row-${post.id}">
                                 <td><a href="${pageContext.request.contextPath}/blog/${post.title}">${post.title}</a></td>
-                                <td><a href="${pageContext.request.contextPath}/blog/">Edit</a></td>
+                                <td><a href="${pageContext.request.contextPath}/blog/edit/${post.id}">Edit</a></td>
                                 <td><a href="" data-post-id="${post.id}" class="approve-post-link">Approve</a></td>
                                 <td><a href="" data-post-id="${post.id}" class="delete-post-link">Delete</a></td>
                             </tr>

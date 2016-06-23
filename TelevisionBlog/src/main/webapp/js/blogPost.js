@@ -68,6 +68,35 @@ $(document).ready(function () {
         });
     });
     
+//        $('#blog-edit-submit').on('click', function (e){
+//            
+//            e.preventDefault();
+//            
+//            var postId = $(e.target).data("post-id");
+//            
+//               $.ajax({
+//            url: contextRoot + "/admin/,
+//            type: "POST",
+//            datatype: "json",
+//            beforeSend: function(xhr) {
+//                xhr.setRequestHeader("Accept", "application/json");
+//                xhr.setRequestHeader("Content-type", "application/json");
+//            },
+//            success: function(status, data) {
+//                
+//                $('#title-edit').val(data.title);
+//                $('#category-edit').val(data.category);
+//                $('#blog-post-edit').val(data.content);
+////                $("#post-row-"+postId).remove();
+//                
+//            },
+//            error: function(status, data) {
+//               
+//            }
+//        });
+//            
+//        });
+    
         $('#blog-draft-button').on('click', function (e) {
 
         e.preventDefault();

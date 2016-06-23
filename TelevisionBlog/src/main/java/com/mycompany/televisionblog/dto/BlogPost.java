@@ -15,6 +15,7 @@ public class BlogPost {
     String content;
     Date postDate;
     Date expirationDate;
+    private String stringDateDisplay;
     private boolean active;
     boolean approved;
 
@@ -97,4 +98,14 @@ public class BlogPost {
         this.active = active;
     }
 
+    public String getStringDateDisplay() {
+        return stringDateDisplay;
+    }
+
+    public void setStringDateDisplay(String stringDateDisplay) {
+        this.stringDateDisplay = stringDateDisplay;
+    }
+
+    
+    
 }

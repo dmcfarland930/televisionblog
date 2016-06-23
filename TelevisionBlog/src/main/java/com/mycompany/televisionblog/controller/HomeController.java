@@ -11,6 +11,7 @@ import com.mycompany.televisionblog.dao.UserDao;
 import com.mycompany.televisionblog.dto.BlogPost;
 import com.mycompany.televisionblog.dto.Page;
 import com.mycompany.televisionblog.dto.User;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Map;
 import javax.inject.Inject;
@@ -28,6 +29,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping
 public class HomeController {
 
+    
+    SimpleDateFormat sdfDisplay = new SimpleDateFormat("MMMM dd, yyyy hh:mm:ss a");
     private BlogPostDao postDao;
     private PageDao pageDao;
     private UserDao userDao;
@@ -46,8 +49,8 @@ public class HomeController {
 
         for (BlogPost blogView : posts) {
 
+            blogView.setStringDateDisplay(sdfDisplay.format(blogView.getPostDate()));
             model.put("title", blogView.getTitle());
-            model.put("date", blogView.getPostDate());
             model.put("author", blogView.getUser().getFirstName() + " " + blogView.getUser().getLastName());
             model.put("posts", posts);
         }

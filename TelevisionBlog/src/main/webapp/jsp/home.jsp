@@ -23,7 +23,7 @@
             <c:forEach items="${posts}" var="post">
                 <div class="col-md-8">
                     <a id="blog-title" href="${pageContext.request.contextPath}/blog/${post.title}"><h1>${post.title}</h1></a>
-                    <p>Posted on: ${date} by ${author}</p>
+                    <p>Posted by ${author} on ${post.stringDateDisplay}</p>
                     ${post.content}</br></br>
                 </div>
             </c:forEach>
@@ -46,15 +46,8 @@
         </script>
         <script src="${pageContext.request.contextPath}/js/jquery-1.11.1.min.js"></script>
         <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
-        <script src="${pageContext.request.contextPath}/js/tinymce/js/tinymce/tinymce.min.js"></script>
         <script src="${pageContext.request.contextPath}/js/blogPost.js"></script>
-        <!--        <script type="text/javascript">
-                    tinymce.init({
-                        selector: '#blog-post-input',
-                        height: 400,
-                        width: 800
-                    });
-                </script>-->
+       
 
 
     </body>

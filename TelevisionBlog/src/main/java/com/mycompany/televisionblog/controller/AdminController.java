@@ -66,9 +66,7 @@ public class AdminController {
     @ResponseBody
     public void approvePost(@PathVariable("id") Integer id, @PathVariable("val") Integer val) {
         
-        Date date = new Date();
         BlogPost post = postDao.get(id);
-        post.setPostDate(date);
         
         if(val == 1) {
             post.setApproved(true);
