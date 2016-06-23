@@ -63,8 +63,8 @@
                         <c:forEach items="${categories}" var="category">
                             <tr id="category-row-${category.id}">
                                 <td>${category.name}</td>
-                                <td><a href="${pageContext.request.contextPath}/blog/"><span class="glyphicon glyphicon-edit" style="color:green;"/></a></td>
-                                <td><a href="" data-post-id="${category.id}" class="delete-category-link"><span class="glyphicon glyphicon-remove" style="color:red;" /></a></td>
+                                <td><a href="" class="glyphicon glyphicon-edit" style="color:green;"><span  /></a></td>
+                                <td><a href="" data-post-id="${category.id}" class="glyphicon glyphicon-remove delete-category-link" style="color:red;"></a></td>
                             </tr>
                         </c:forEach>
                     </table>

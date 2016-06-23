@@ -30,11 +30,9 @@ $(document).ready(function() {
     //Approve Pending Posts
     $(document).on("click", ".disapprove-post-link", function(e) {
         
-   
+        e.preventDefault();
         
-        var link = $(e.relatedTarget);
-
-        var postId = link.data("post-id");
+        var postId = $(e.target).data("post-id");
        
         $.ajax({
             url: contextRoot + "/admin/approval/2/" + postId,

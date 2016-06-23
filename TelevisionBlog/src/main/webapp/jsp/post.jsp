@@ -68,8 +68,8 @@
                                 <td><a href="${pageContext.request.contextPath}/blog/${post.title}">${post.title}</a></td>
                                 <td>${post.postDate}</td>
                                 <td>${post.user.username}</td>
-                                <td><a href="${pageContext.request.contextPath}/blog/"><span class="glyphicon glyphicon-edit" style="color:green;"/></a></td>
-                                <td><a href="" data-post-id="${post.id}" class="disapprove-post-link"><span class="glyphicon glyphicon-transfer" style="color:blue;"/></a></td>
+                                <td><a href="${pageContext.request.contextPath}/blog/" class="glyphicon glyphicon-edit" style="color:green;"></a></td>
+                                <td><a href="" data-post-id="${post.id}" class="glyphicon glyphicon-thumbs-down disapprove-post-link" style="color:dodgerblue;"></a></td>
                                 <td><a href="" data-post-id="${post.id}" class="delete-post-link"><span class="glyphicon glyphicon-remove" style="color:red;" /></a></td>
                             </tr>
                         </c:forEach>
