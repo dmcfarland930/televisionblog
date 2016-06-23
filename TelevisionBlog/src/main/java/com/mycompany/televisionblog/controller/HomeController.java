@@ -14,6 +14,7 @@ import com.mycompany.televisionblog.dto.User;
 import java.util.List;
 import java.util.Map;
 import javax.inject.Inject;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -58,19 +59,24 @@ public class HomeController {
         model.put("hidden", "hidden");
         return "/home";
     }
-    
+
     @RequestMapping(value = "/{url}", method = RequestMethod.GET)
     public String get(@PathVariable("url") String url, Map model) {
-        
-        Page page = pageDao.get(url);
+
+        Page page;
+        try {
+            page = pageDao.get(url);
+        } catch (EmptyResultDataAccessException e) {
+            return "404";
+        }
         User user = userDao.get(page.getUser().getId());
-        
+
         page.setUser(user);
         List<Page> pages = pageDao.list();
-        
+
         model.put("pages", pages);
         model.put("page", page);
-        
+
         return "showPage";
     }
 }
