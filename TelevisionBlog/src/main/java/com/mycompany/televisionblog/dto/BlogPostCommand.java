@@ -15,6 +15,7 @@ public class BlogPostCommand {
     private String content;
     private Date postDate;
     private Date expirationDate;
+    private boolean active;
     private boolean approved;
 
     public int getId() {
@@ -79,6 +80,14 @@ public class BlogPostCommand {
 
     public void setApproved(boolean approved) {
         this.approved = approved;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
     
     

@@ -82,6 +82,7 @@ public class BlogPostDaoDbImpl implements BlogPostDao {
                 blogPost.getContent(),
                 blogPost.getPostDate(),
                 blogPost.getExpirationDate(),
+                blogPost.isActive(),
                 blogPost.isApproved(),
                 blogPost.getId());
 

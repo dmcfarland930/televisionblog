@@ -4,6 +4,8 @@ $(document).ready(function() {
     //Approve Pending Posts
     $(document).on("click", ".approve-post-link", function(e) {
         
+        e.preventDefault();
+        
         var postId = $(e.target).data("post-id");
        
         $.ajax({

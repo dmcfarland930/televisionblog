@@ -7,6 +7,7 @@ package com.mycompany.televisionblog.controller;
 
 import com.mycompany.televisionblog.dao.BlogPostDao;
 import com.mycompany.televisionblog.dto.BlogPost;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import javax.inject.Inject;
@@ -43,7 +44,10 @@ public class AdminController {
     @ResponseBody
     public void approvePost(@PathVariable("id") Integer id) {
         
+        Date date = new Date();
         BlogPost post = postDao.get(id);
+        post.setPostDate(date);
+        
         post.setApproved(true);
         postDao.update(post);
         
