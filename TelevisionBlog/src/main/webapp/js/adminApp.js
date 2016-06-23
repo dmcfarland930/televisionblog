@@ -32,7 +32,9 @@ $(document).ready(function() {
         
         e.preventDefault();
         
-        var postId = $(e.target).data("post-id");
+        var link = $(e.relatedTarget);
+
+        var postId = link.data("post-id");
        
         $.ajax({
             url: contextRoot + "/admin/approval/2/" + postId,

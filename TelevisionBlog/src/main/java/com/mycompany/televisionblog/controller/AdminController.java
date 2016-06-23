@@ -6,13 +6,9 @@
 package com.mycompany.televisionblog.controller;
 
 import com.mycompany.televisionblog.dao.BlogPostDao;
-import com.mycompany.televisionblog.dao.CategoryDao;
 import com.mycompany.televisionblog.dao.PageDao;
-import com.mycompany.televisionblog.dao.UserDao;
 import com.mycompany.televisionblog.dto.BlogPost;
-import com.mycompany.televisionblog.dto.Category;
 import com.mycompany.televisionblog.dto.Page;
-import com.mycompany.televisionblog.dto.User;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -33,16 +29,11 @@ public class AdminController {
     
     BlogPostDao postDao;
     PageDao pageDao;
-    UserDao userDao;
-    CategoryDao categoryDao;
-    
     
     @Inject
-    public AdminController(BlogPostDao postDao, PageDao pageDao, UserDao userDao, CategoryDao categoryDao) {
+    public AdminController(BlogPostDao postDao, PageDao pageDao) {
         this.postDao = postDao;
         this.pageDao = pageDao;
-        this.userDao = userDao;
-        this.categoryDao = categoryDao;
     }
     
     @RequestMapping(value="/", method=RequestMethod.GET) 
@@ -67,22 +58,6 @@ public class AdminController {
         List<Page> pages = pageDao.list();
         model.put("pages", pages);
         return "page";
-    } 
-    
-    @RequestMapping(value="/user", method=RequestMethod.GET) 
-    public String users(Map model) {
-        
-        List<User> users = userDao.list();
-        model.put("users", users);
-        return "user";
-    } 
-    
-    @RequestMapping(value="/category", method=RequestMethod.GET) 
-    public String categories(Map model) {
-        
-        List<Category> categories = categoryDao.list();
-        model.put("categories", categories);
-        return "category";
     } 
     
     
