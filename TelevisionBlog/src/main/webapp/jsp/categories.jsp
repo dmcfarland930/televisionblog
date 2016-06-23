@@ -30,11 +30,13 @@
                         <tr>
                             <th>Category Name</th>
                             <th>Edit</th>
+                            <th>Delete</th>
                         </tr>
                         <c:forEach items="${categories}" var="category">
-                            <tr>
+                            <tr id="category-row-${category.id}">
                                 <td>${category.name}</td>
-                                <td><a type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#editCategoryModal">Edit</a></td>
+                                <td><a class="btn btn-info btn-sm" data-category-id="${category.id}" data-toggle="modal" data-target="#editCategoryModal">Edit</a></td>
+                                <td><a class="btn btn-danger btn-sm delete-link" data-category-id="${category.id}">Delete</a></td>
                             </tr>
                         </c:forEach>
                     </table>
@@ -65,13 +67,14 @@
                 <h4 class="modal-title">Edit Category</h4>
             </div>
             <div class="modal-body">
-                <input hidden="true">
+                <input hidden="true" id="edit-category-id">
                 <div class="form-group">
                     <label for="edit-category-name">Name:</label>
                     <input class="form-control" id="edit-category-name">
                 </div>
             </div>
             <div class="modal-footer">
+                <button type="button" class="btn btn-danger" id="edit-category-button">Edit</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
         </div>
