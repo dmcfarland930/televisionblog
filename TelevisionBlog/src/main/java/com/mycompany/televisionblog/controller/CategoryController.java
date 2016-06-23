@@ -31,10 +31,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class CategoryController {
 
     private CategoryDao categoryDao;
-
+    private PageDao pageDao;
+    
     @Inject
-    public CategoryController(CategoryDao categoryDao) {
+    public CategoryController(CategoryDao categoryDao, PageDao pageDao) {
         this.categoryDao = categoryDao;
+        this.pageDao = pageDao;
     }
     
     @RequestMapping(value = "/view", method = RequestMethod.GET)
@@ -42,6 +44,9 @@ public class CategoryController {
         
         List<Category> categories = categoryDao.list();
         
+        List<Page> pages = pageDao.list();
+        
+        model.put("pages", pages);
         model.put("categories", categories);
         
         return "categories";

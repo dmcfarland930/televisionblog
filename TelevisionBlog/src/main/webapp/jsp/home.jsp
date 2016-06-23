@@ -27,7 +27,8 @@
                     </div>
                 </c:forEach>
 
-            </div>
+            </div> 
+            <a id="next-page" href="${pageContext.request.contextPath}/blog/page/${page}" >Next Page</a>
         </div>
         <!-- Placed at the end of the document so the pages load faster -->
         <script>

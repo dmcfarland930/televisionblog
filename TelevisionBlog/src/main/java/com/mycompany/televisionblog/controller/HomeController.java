@@ -41,7 +41,7 @@ public class HomeController {
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String home(Map<String, Object> model) {
 
-        List<BlogPost> posts = postDao.list();
+        List<BlogPost> posts = postDao.listOfThree(0);
 
         for (BlogPost blogView : posts) {
 
@@ -53,7 +53,7 @@ public class HomeController {
         
         List<Page> pages = pageDao.list();
         model.put("pages", pages);
-
+        model.put("page", 2);
         return "/home";
     }
     

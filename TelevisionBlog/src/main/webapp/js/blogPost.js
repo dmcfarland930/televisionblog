@@ -67,7 +67,7 @@ $(document).ready(function () {
         });
     });
     
-    $('#blog-draft-button').on('click', function (e) {
+        $('#blog-draft-button').on('click', function (e) {
 
         e.preventDefault();
 
@@ -133,4 +133,32 @@ $(document).ready(function () {
             }
         });
     });
+    
+//    $('#next-page-link').on('click', function (e) {
+//        
+//        e.preventDefault();
+//        
+//        var pageNumber = $('#next-page-link').val();
+//        
+//        console.log(this.value);
+//        
+//        console.log($('#next-page-link').val());
+//        
+//        $.ajax({
+//            url: contextRoot + "/blog/page/" + pageNumber,
+//            type: "GET",
+//            data: pageNumber,
+//            dataType: 'json',
+//            beforeSend: function (xhr) {
+//                xhr.setRequestHeader("Accept", "application/json");
+//                xhr.setRequestHeader("Content-type", "application/json");
+//            },
+//            success: function (data, status) {
+//
+//            },
+//            error: function (data, status) {
+//
+//            }
+//        });
+//    });
 });

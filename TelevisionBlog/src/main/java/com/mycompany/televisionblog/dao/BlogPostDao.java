@@ -24,4 +24,5 @@ public interface BlogPostDao {
 
     List<BlogPost> list();
 
+    List<BlogPost> listOfThree(Integer pageNum);
 }

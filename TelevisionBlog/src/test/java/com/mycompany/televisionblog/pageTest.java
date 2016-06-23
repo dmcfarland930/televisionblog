@@ -43,11 +43,11 @@ public class pageTest {
     PageDao pageDao = (PageDao) context.getBean("pageDao");
     UserDao userDao = (UserDao) context.getBean("userDao");
     
-    @Test
+//    @Test
     public void createPageTest() {
         
         Page page = new Page();
-        User user = new User();
+        User user = new User(); 
         
         user.setId(1);
         
@@ -57,6 +57,5 @@ public class pageTest {
         page.setUser(user);
         
         pageDao.create(page);
-        
     };
 }
