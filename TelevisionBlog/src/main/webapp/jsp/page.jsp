@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Edit Static Pages</title>
+        <title>Static Pages</title>
         <!-- Bootstrap core CSS -->
         <link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet">
 
@@ -30,7 +30,7 @@
                 <div class="col-md-4"></div>
                 <div class="col-md-8">
                     <div style="float: right">
-                        <button class="btn btn-default"><a href="${pageContext.request.contextPath}/page/create">Create New Page</a></button>
+                        <button class="btn btn-default"><a href="${pageContext.request.contextPath}/page/create">Create Static Page</a></button>
                     </div>
                 </div>
             </div>
@@ -41,7 +41,7 @@
                         <li class="list-group-item"><a href="${pageContext.request.contextPath}">Back to Blog</a></li>
                         <li class="list-group-item"><a href="${pageContext.request.contextPath}/admin/">Pending Posts</a></li>
                         <li class="list-group-item"><a href="${pageContext.request.contextPath}/admin/post/">Blog List</a></li>
-                        <li class="list-group-item"><a href="${pageContext.request.contextPath}/admin/categories">Category List</a></li>
+                        <li class="list-group-item"><a href="${pageContext.request.contextPath}/admin/category">Category List</a></li>
                         <li class="list-group-item"><a href="${pageContext.request.contextPath}/admin/page/">Page List</a></li>
                         <li class="list-group-item"><a href="${pageContext.request.contextPath}/admin/user/">User List</a></li>
                     </ul>    
@@ -62,9 +62,9 @@
 
                         <c:forEach items="${pages}" var="page">
                             <tr id="page-row-${page.id}">
-                                <td><a href="${pageContext.request.contextPath}/page/show/${page.url}">${page.name}</a></td>
-                                <td><a href="${pageContext.request.contextPath}/page/create">Edit</a></td>
-                                <td><a href="" data-page-id="${page.id}" class="delete-page-link">Delete</a></td>
+                                <td><a href="${pageContext.request.contextPath}/${page.url}">${page.name}</a></td>
+                                <td><a href="${pageContext.request.contextPath}/page/create" class="glyphicon glyphicon-edit" style="color: green;"></a></td>
+                                <td><a href="" data-page-id="${page.id}" class="delete-page-link glyphicon glyphicon-remove" style="color:red;"></a></td>
                             </tr>
                         </c:forEach>
                     </table>
