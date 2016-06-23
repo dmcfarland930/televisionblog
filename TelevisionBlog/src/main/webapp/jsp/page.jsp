@@ -30,7 +30,7 @@
                 <div class="col-md-4"></div>
                 <div class="col-md-8">
                     <div style="float: right">
-                        <button class="btn btn-default"><a href="${pageContext.request.contextPath}/page/create">Create New Page</a></button>
+                        <button class="btn btn-default"><a href="${pageContext.request.contextPath}/page/create">Create Static Page</a></button>
                     </div>
                 </div>
             </div>
