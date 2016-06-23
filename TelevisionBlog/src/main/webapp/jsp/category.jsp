@@ -51,7 +51,7 @@
                     <table class="table table-bordered" style="text-align: center;" id="pending-post-table">                       
 
                         <tr>
-                            <th colspan="6">Blog List</th>
+                            <th colspan="6">Category List</th>
                         </tr>
 
                         <tr>
