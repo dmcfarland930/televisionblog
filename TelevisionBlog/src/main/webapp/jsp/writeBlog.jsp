@@ -56,15 +56,15 @@
         <script src="${pageContext.request.contextPath}/js/jquery-1.11.1.min.js"></script>
         <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
         <script src="${pageContext.request.contextPath}/js/tinymce/js/tinymce/tinymce.min.js"></script>
-        <script src="${pageContext.request.contextPath}/js/blogPost.js"></script>
-<!--                <script type="text/javascript">
+        
+                <script type="text/javascript">
                     tinymce.init({
                         selector: '#blog-post-input',
                         height: 400,
                         width: 800
                     });
-                </script>-->
-
+                </script>
+        <script src="${pageContext.request.contextPath}/js/blogPost.js"></script>
 
     </body>
 </html>

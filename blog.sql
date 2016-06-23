@@ -104,13 +104,13 @@ DROP TABLE IF EXISTS `page`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `page` (
-  `id` int(11) NOT NULL,
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `name` varchar(45) NOT NULL,
   `url` varchar(255) NOT NULL,
-  `user_id` int(11) NOT NULL,
+  `user_id` bigint(20) NOT NULL,
   `content` varchar(10000) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -119,6 +119,7 @@ CREATE TABLE `page` (
 
 LOCK TABLES `page` WRITE;
 /*!40000 ALTER TABLE `page` DISABLE KEYS */;
+INSERT INTO `page` VALUES (1,'About Us','about',1,'Some Content'),(2,'Script','scripts',1,'Thanks for the scripts dumbasses');
 /*!40000 ALTER TABLE `page` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -141,7 +142,7 @@ CREATE TABLE `post` (
   PRIMARY KEY (`id`),
   KEY `fk_post_1_idx` (`category_id`),
   CONSTRAINT `fk_post_1` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -150,7 +151,7 @@ CREATE TABLE `post` (
 
 LOCK TABLES `post` WRITE;
 /*!40000 ALTER TABLE `post` DISABLE KEYS */;
-INSERT INTO `post` VALUES (1,'IoT: Convenient But Is It Secure?',1,1,'How do we make sure “machines” don’t take over our daily decisions and infringe on our privacy and security? One of the top innovators in IoT devices, Nest, has run into issues in regards to user data being leaked. Though it was only zip codes that were compromised, the next time it could be even more sensitive data.\n\nResearchers estimate that by 2020 the amount of wireless connected devices will be over 40 billion. More devices means more access points and the increased possibility for security breaches. Each of these products connects to your home wifi network, and receives IP addresses from your home router. Making sure your home network is secure is a great start.','2016-06-22 10:29:20','2016-06-22 10:29:20',''),(6,'Streamlining Your VoIP Business: Automation',1,1,'A college student walks into a convenience store late on a Saturday. He approaches a screen. It asks for his order all while displaying a colorful buffet of his favorite fried snacks. He touches the “fries” icon. It asks for the size. He selects bucket. With a few more taps on the screen, his order is processed and delivered just as he wanted. A bucket-sized order of chili-cheese fries with extra sour cream. The college student is pleased. The convenience of the automated machine supplied him with the chili-cheese fries he desired along with more time to eat, party, and study.','2016-06-22 15:17:03',NULL,'\0'),(7,'Choose to Become a Better ITSP Business: The Power of Choice',1,1,'A quick message for wholesale VoIP providers who choose carriers and features on behalf of ITSP providers:\n\n“We the people hereby declare independence from the oppression from tyrannical wholesale providers. We demand our right of choice when accepting services from a telecom carrier. Let it be known, on this glorious day of liberation, that we shall exercise the Freedom of Choice!” ','2016-06-22 15:18:55',NULL,'\0'),(8,'What You Need for Quality Toll-Free Service',1,1,'We’ve recently gone over 10 questions to ask your wholesale VoIP provider before registering a toll-free number. Today, we’re going into more detail on the subject of underlying carriers (ULCs). ULCs are a vital component in toll-free services. These guys provide service straight from the top, pass it on to your wholesale provider, and then right onto your plate. Be sure to explore the following questions and don’t miss out on the VoIP features you deserve.','2016-06-22 15:20:15',NULL,'\0'),(15,'WELCOME TO THE JUNGLE',1,1,'WE GOT FUN AND GAMES','2016-06-22 15:57:21',NULL,'');
+INSERT INTO `post` VALUES (1,'IoT: Convenient But Is It Secure?',1,1,'How do we make sure “machines” don’t take over our daily decisions and infringe on our privacy and security? One of the top innovators in IoT devices, Nest, has run into issues in regards to user data being leaked. Though it was only zip codes that were compromised, the next time it could be even more sensitive data.\n\nResearchers estimate that by 2020 the amount of wireless connected devices will be over 40 billion. More devices means more access points and the increased possibility for security breaches. Each of these products connects to your home wifi network, and receives IP addresses from your home router. Making sure your home network is secure is a great start.','2016-06-22 10:29:20','2016-06-22 10:29:20',''),(6,'Streamlining Your VoIP Business: Automation',1,1,'A college student walks into a convenience store late on a Saturday. He approaches a screen. It asks for his order all while displaying a colorful buffet of his favorite fried snacks. He touches the “fries” icon. It asks for the size. He selects bucket. With a few more taps on the screen, his order is processed and delivered just as he wanted. A bucket-sized order of chili-cheese fries with extra sour cream. The college student is pleased. The convenience of the automated machine supplied him with the chili-cheese fries he desired along with more time to eat, party, and study.','2016-06-22 15:17:03',NULL,'\0'),(7,'Choose to Become a Better ITSP Business: The Power of Choice',1,1,'A quick message for wholesale VoIP providers who choose carriers and features on behalf of ITSP providers:\n\n“We the people hereby declare independence from the oppression from tyrannical wholesale providers. We demand our right of choice when accepting services from a telecom carrier. Let it be known, on this glorious day of liberation, that we shall exercise the Freedom of Choice!” ','2016-06-22 15:18:55',NULL,'\0'),(8,'What You Need for Quality Toll-Free Service',1,1,'We’ve recently gone over 10 questions to ask your wholesale VoIP provider before registering a toll-free number. Today, we’re going into more detail on the subject of underlying carriers (ULCs). ULCs are a vital component in toll-free services. These guys provide service straight from the top, pass it on to your wholesale provider, and then right onto your plate. Be sure to explore the following questions and don’t miss out on the VoIP features you deserve.','2016-06-22 15:20:15',NULL,'\0'),(15,'WELCOME TO THE JUNGLE',1,1,'Welcome to the jungle we got fun and games\nWe got everything you want honey, we know the names\nWe are the people that can find whatever you may need\nIf you got the money honey we got your disease\nIn the jungle, welcome to the jungle\nWatch it bring you to your sha na na na na knees knees \nI wanna watch you bleed\nWelcome to the jungle we take it day by day\nIf you want it you\'re gonna bleed but it\'s the price you pay\nAnd you\'re a very sexy girl very hard to please\nYou can taste the bright lights but you won\'t get there for free\nIn the jungle welcome to the jungle\nFeel my, my, my, my serpentine\nI,I wanna hear you scream','2016-06-22 15:57:21',NULL,''),(16,'Year-End Watch List: 10 VoIP Trends to Keep an Eye on',1,1,'According to a recent report by Future Market Insights (FMI), a research group that studies trends in the IT industry, the VoIP market is expected to experience continual growth and generate a predicted $86.2 billion by the year 2020. That’s a lot of money to be earned.\n\nIn order to stay ahead of your competitors, you must study trending developments and decide when to take necessary action. If you want a slice of that $86 billion dollar pie, you need to prepare yourself and tackle these trends before your competition. Here are ten trends to watch as we conclude these final months of 2015 and enter the New Year. ','2016-06-22 18:31:25',NULL,''),(17,'How to Update Your E911 Services',1,1,'E911 just may be the most important DID feature there is. Without E911, you could be setting yourself up for some serious risks when emergency services can’t immediately respond to your 9-1-1 dial. As important as having E911 services registered to your DIDs is, you must be able to effectively manage themin real-time. Today, we’ll be going over two ways you can update your DIDs so you’re ready for any emergency that life might throw your way.','2016-06-22 18:33:58',NULL,'');
 /*!40000 ALTER TABLE `post` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -238,4 +239,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-06-22 18:03:36
+-- Dump completed on 2016-06-23  9:22:57

@@ -3,9 +3,9 @@ $(document).ready(function () {
     $('#blog-post-button').on('click', function (e) {
 
         e.preventDefault();
-
+        tinymce.triggerSave();
         var date = new Date();
-
+        var d = date.getDate();
         var blogPost = JSON.stringify({
             title: $('#title-input').val(),
             content: $('#blog-post-input').val(),
@@ -17,7 +17,7 @@ $(document).ready(function () {
 //        $('#area-div').removeClass('has-error');
 //        $('#name-error').empty();
 //        $('#area-error').empty();
-        var date = $('#last-date').val();
+//        var date = $('#last-date').val();
         console.log(date);
         $.ajax({
             url: contextRoot + "/blog/create-blog-post/",

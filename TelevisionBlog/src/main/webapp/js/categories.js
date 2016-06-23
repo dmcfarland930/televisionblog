@@ -24,7 +24,7 @@ $(document).ready(function() {
                     xhr.setRequestHeader("Content-type", "application/json");
                 },
                 success: function(data, status) {
-                    $("#category-name").val("");
+                    $("#name-input").val("");
                     var tableRow = buildCategoryRow(data);
                     
                     $('#category-table').append($(tableRow));

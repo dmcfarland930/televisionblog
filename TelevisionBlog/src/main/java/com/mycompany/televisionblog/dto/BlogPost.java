@@ -15,6 +15,7 @@ public class BlogPost {
     String content;
     Date postDate;
     Date expirationDate;
+    private boolean active;
     boolean approved;
 
     public int getId() {
@@ -80,6 +81,20 @@ public class BlogPost {
 
     public void setApproved(boolean approved) {
         this.approved = approved;
+    }
+
+    /**
+     * @return the active
+     */
+    public boolean isActive() {
+        return active;
+    }
+
+    /**
+     * @param active the active to set
+     */
+    public void setActive(boolean active) {
+        this.active = active;
     }
 
 }

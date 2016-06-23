@@ -17,8 +17,8 @@ import org.springframework.jdbc.core.RowMapper;
  */
 public class BlogPostDaoDbImpl implements BlogPostDao {
 
-    private static final String SQL_INSERT_POST = "INSERT INTO post (title, user_id, category_id, content, post_date, expiration_date, approved) VALUES (?, ?, ?, ?, ?, ?, ?)";
-    private static final String SQL_UPDATE_POST = "UPDATE post SET title = ?, user_id = ?, category_id = ?, content = ?, post_date = ?, expiration_date = ?, approved = ? WHERE id = ?";
+    private static final String SQL_INSERT_POST = "INSERT INTO post (title, user_id, category_id, content, post_date, expiration_date, active, approved) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+    private static final String SQL_UPDATE_POST = "UPDATE post SET title = ?, user_id = ?, category_id = ?, content = ?, post_date = ?, expiration_date = ?, active = ?, approved = ? WHERE id = ?";
     private static final String SQL_DELETE_POST = "DELETE FROM post WHERE id = ?";
     private static final String SQL_GET_POST = "SELECT * FROM post WHERE id = ?";
     private static final String SQL_GET_POST_LIST = "SELECT * FROM post";
@@ -46,6 +46,7 @@ public class BlogPostDaoDbImpl implements BlogPostDao {
                 blogPost.getContent(),
                 blogPost.getPostDate(),
                 blogPost.getExpirationDate(),
+                blogPost.isActive(),
                 blogPost.isApproved());
 
         Integer id = jdbcTemplate.queryForObject("SELECT LAST_INSERT_ID()", Integer.class);
