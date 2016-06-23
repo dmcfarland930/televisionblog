@@ -7,7 +7,6 @@ import com.mycompany.televisionblog.dao.UserDao;
 import com.mycompany.televisionblog.dto.BlogPost;
 import com.mycompany.televisionblog.dto.BlogPostCommand;
 import com.mycompany.televisionblog.dto.Page;
-import java.text.ParseException;
 import java.util.List;
 import java.util.Map;
 import javax.inject.Inject;
@@ -36,12 +35,28 @@ public class BlogPostController {
     }
 
     @RequestMapping(value = "/writeBlog", method = RequestMethod.GET)
-    public String sayHi(Map model) {
-        List<Page> pages = pageDao.list();
 
+    public String writeBlogPost(Map model) {
+        List<Page> pages = pageDao.list();
         model.put("pages", pages);
 
         return "writeBlog";
+    }
+
+    @RequestMapping(value = "/{postName}", method = RequestMethod.GET)
+    public String showBlog(@PathVariable("postName") String postName, Map model) {
+
+        BlogPost post = blogPostDao.get(postName);
+
+        model.put("title", post.getTitle());
+        model.put("date", post.getPostDate());
+        model.put("author", post.getUser().getFirstName() + " " + post.getUser().getLastName());
+        model.put("content", post.getContent());
+
+        List<Page> pages = pageDao.list();
+        model.put("pages", pages);
+
+        return "/blogShow";
 
     }
 
@@ -54,15 +69,6 @@ public class BlogPostController {
 
         return blogPostDao.create(blogPost);
 
-    }
-
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    @ResponseBody
-    public BlogPost show(@PathVariable("id") Integer id, Map model) throws ParseException {
-
-        BlogPost blogPost = blogPostDao.get(id);
-
-        return blogPost;
     }
 
     public BlogPost setBlogPostProperties(BlogPostCommand blogPostCommand) {
@@ -102,20 +108,29 @@ public class BlogPostController {
     @RequestMapping(value = "/page/{pageNum}", method = RequestMethod.GET)
     public String nextPage(@PathVariable("pageNum") Integer pageNum, Map model) {
 
-        int page = pageNum + 1;
+        int pageNext = pageNum + 1;
+        int pageLast = pageNum - 1;
         int articles = (pageNum - 1) * 3;
         List<BlogPost> posts = blogPostDao.listOfThree(articles);
+        boolean nextPage = blogPostDao.checkIfNextPage(articles + 3);
+        System.out.println(nextPage);
         for (BlogPost blogView : posts) {
 
             model.put("title", blogView.getTitle());
             model.put("date", blogView.getPostDate());
             model.put("author", blogView.getUser().getFirstName() + " " + blogView.getUser().getLastName());
             model.put("posts", posts);
+
         }
 
         List<Page> pages = pageDao.list();
+        if (pageNum == 1) {
+            model.put("hidden", "hidden");
+        }
         model.put("pages", pages);
-        model.put("page", page);
+        model.put("pageLast", pageLast);
+        model.put("pageNext", pageNext);
+        model.put("nextPage", nextPage);
         return "/home";
 
     }

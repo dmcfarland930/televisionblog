@@ -21,8 +21,11 @@ public class BlogPostDaoDbImpl implements BlogPostDao {
     private static final String SQL_UPDATE_POST = "UPDATE post SET title = ?, user_id = ?, category_id = ?, content = ?, post_date = ?, expiration_date = ?, approved = ? WHERE id = ?";
     private static final String SQL_DELETE_POST = "DELETE FROM post WHERE id = ?";
     private static final String SQL_GET_POST = "SELECT * FROM post WHERE id = ?";
+    private static final String SQL_GET_POST_NAME = "SELECT * FROM post WHERE title = ?";
     private static final String SQL_GET_POST_LIST = "SELECT * FROM post";
-    private static final String SQL_GET_POST_LIST_THREE_ENTRIES = "SELECT * FROM post GROUP BY post_date DESC LIMIT ?, 3";
+    private static final String SQL_GET_POST_LIST_APPROVED = "SELECT * FROM post WHERE approved = 1";
+    private static final String SQL_GET_POST_LIST_UNAPPROVED = "SELECT * FROM post WHERE approved = 0";
+    private static final String SQL_GET_POST_LIST_THREE_ENTRIES = "SELECT * FROM post WHERE approved = 1 GROUP BY post_date DESC LIMIT ?, 3";
     private static final String SQL_GET_POST_LIST_DATE = "SELECT * FROM post WHERE order_date = ?";
 
     private JdbcTemplate jdbcTemplate;
@@ -63,6 +66,13 @@ public class BlogPostDaoDbImpl implements BlogPostDao {
     }
 
     @Override
+    public BlogPost get(String postName) {
+
+        return jdbcTemplate.queryForObject(SQL_GET_POST_NAME, new BlogPostMapper(), postName);
+
+    }
+
+    @Override
     public void update(BlogPost blogPost) {
         jdbcTemplate.update(SQL_UPDATE_POST,
                 blogPost.getTitle(),
@@ -89,10 +99,34 @@ public class BlogPostDaoDbImpl implements BlogPostDao {
     }
 
     @Override
-    public List <BlogPost> listOfThree(Integer pageNum) {
+    public List<BlogPost> listApproved() {
+
+        return jdbcTemplate.query(SQL_GET_POST_LIST_APPROVED, new BlogPostMapper());
+
+    }
+
+    @Override
+    public List<BlogPost> listUnapproved() {
+
+        return jdbcTemplate.query(SQL_GET_POST_LIST_UNAPPROVED, new BlogPostMapper());
+
+    }
+
+    @Override
+    public List<BlogPost> listOfThree(Integer pageNum) {
 
         return jdbcTemplate.query(SQL_GET_POST_LIST_THREE_ENTRIES, new BlogPostMapper(), pageNum);
 
+    }
+
+    @Override
+    public boolean checkIfNextPage(Integer nextPageNum) {
+        // checks if there are posts on next page
+        List<BlogPost> nextPage = jdbcTemplate.query(SQL_GET_POST_LIST_THREE_ENTRIES, new BlogPostMapper(), nextPageNum);
+        if (nextPage.size() > 0) {
+            return true;
+        }
+        return false;
     }
 
     private final class BlogPostMapper implements RowMapper<BlogPost> {
