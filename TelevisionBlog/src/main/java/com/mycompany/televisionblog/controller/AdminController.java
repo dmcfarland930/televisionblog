@@ -11,8 +11,10 @@ import java.util.List;
 import java.util.Map;
 import javax.inject.Inject;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  *
@@ -36,5 +38,15 @@ public class AdminController {
         model.put("pendingPosts", pendingPosts);
         return "adminHome";
     }    
+    
+    @RequestMapping(value="/{id}", method=RequestMethod.POST)
+    @ResponseBody
+    public void approvePost(@PathVariable("id") Integer id) {
+        
+        BlogPost post = postDao.get(id);
+        post.setApproved(true);
+        postDao.update(post);
+        
+    }
     
 }

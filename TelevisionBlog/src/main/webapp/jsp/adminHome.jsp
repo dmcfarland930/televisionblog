@@ -48,7 +48,7 @@
                 </div>
 
                 <div class="col-md-8">
-                    <table class="table table-bordered" style="text-align: center;">                       
+                    <table class="table table-bordered" style="text-align: center;" id="pending-post-table">                       
 
                         <tr>
                             <th colspan="4">Blog Posts Needing Approval</th>
@@ -65,8 +65,8 @@
                             <tr id="post-row-${post.id}">
                                 <td><a href="${pageContext.request.contextPath}/blog/${post.title}">${post.title}</a></td>
                                 <td><a href="${pageContext.request.contextPath}/blog/">Edit</a></td>
-                                <td><a href="${pageContext.request.contextPath}/blog/">Approve</a></td>
-                                <td><a href="" data-page-id="${page.id}" class="delete-page-link">Delete</a></td>
+                                <td><a href="" data-post-id="${post.id}" class="approve-post-link">Approve</a></td>
+                                <td><a href="" data-post-id="${post.id}" class="delete-post-link">Delete</a></td>
                             </tr>
                         </c:forEach>
                     </table>
@@ -81,7 +81,7 @@
         <!-- Placed at the end of the document so the pages load faster -->
         <script src="${pageContext.request.contextPath}/js/jquery-1.11.1.min.js"></script>
         <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
-        <script src="${pageContext.request.contextPath}/js/pageApp.js"></script>
+        <script src="${pageContext.request.contextPath}/js/adminApp.js"></script>
 
     </body>
 </html>
