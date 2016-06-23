@@ -58,6 +58,7 @@ public class UploadController {
 				"http://localhost:8080/spring-fileupload-tutorial/resources/"+file.getOriginalFilename());
 
 		uploadedFiles.add(u);
+                
 		return uploadedFiles;
 	}
 }

@@ -19,6 +19,15 @@
         <div class="container">
             <h1>Blog Writer</h1>
             <hr/>
+            <div>
+                <form class="form form-horizontal" method="POST" enctype="multipart/form-data">
+                    File to upload: <input class="form-control" type="file" name="file">
+
+                    Name: <input class="form-control" type="text" name="name">
+                    
+                    <input class="form-control" id="file-upload-button" type="submit" value="Upload"> Press here to upload the file!
+                </form>	
+            </div>
             <form method="POST">
 
                 <fieldset class="form-group">
@@ -29,11 +38,9 @@
                     <div class="error-message" id="name-error" class="col-md-8">
                     </div>
                 </fieldset>
-                <form enctype="multipart/form-data">
-                    <input name="file" type="file" />
-                    <input type="button" id="upload-button" value="Upload" />
-                </form>
-                <progress></progress>
+                
+	
+	<div id='msgbox' title='' style='display:none'></div>
                 <fieldset class="form-group">
                     <div id="blog-div"  class="col-md-8">
                         <div>
