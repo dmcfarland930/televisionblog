@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Edit Static Pages</title>
+        <title>Categories</title>
         <!-- Bootstrap core CSS -->
         <link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet">
 
@@ -30,7 +30,7 @@
                 <div class="col-md-4"></div>
                 <div class="col-md-8">
                     <div style="float: right">
-                        <button class="btn btn-default"><a href="${pageContext.request.contextPath}/page/create">Create New Page</a></button>
+                        <button class="btn btn-default"><a href="${pageContext.request.contextPath}/blog/writeBlog">Create User</a></button>
                     </div>
                 </div>
             </div>
@@ -48,23 +48,25 @@
                 </div>
 
                 <div class="col-md-8">
-                    <table class="table table-bordered" style="text-align: center;">                       
+                    <table class="table table-bordered" style="text-align: center;" id="pending-post-table">                       
 
                         <tr>
-                            <th colspan="3">Static Page List</th>
+                            <th colspan="6">Blog List</th>
                         </tr>
 
                         <tr>
-                            <th>Title</th>
+                            <th>Name</th>
                             <th>Edit</th>
+                            <th>Revoke Approval</th>
                             <th>Delete</th>
                         </tr>
 
-                        <c:forEach items="${pages}" var="page">
-                            <tr id="page-row-${page.id}">
-                                <td><a href="${pageContext.request.contextPath}/${page.url}">${page.name}</a></td>
-                                <td><a href="${pageContext.request.contextPath}/page/create">Edit</a></td>
-                                <td><a href="" data-page-id="${page.id}" class="delete-page-link">Delete</a></td>
+                        <c:forEach items="${categories}" var="category">
+                            <tr id="category-row-${category.id}">
+                                <td>${category.name}</td>
+                                <td><a href="${pageContext.request.contextPath}/blog/"><span class="glyphicon glyphicon-edit" style="color:green;"/></a></td>
+                                <td><a href="" data-post-id="${category.id}" ><span class="glyphicon glyphicon-transfer" style="color:blue;"/></a></td>
+                                <td><a href="" data-post-id="${category.id}" class="delete-category-link"><span class="glyphicon glyphicon-remove" style="color:red;" /></a></td>
                             </tr>
                         </c:forEach>
                     </table>
@@ -79,7 +81,7 @@
         <!-- Placed at the end of the document so the pages load faster -->
         <script src="${pageContext.request.contextPath}/js/jquery-1.11.1.min.js"></script>
         <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
-        <script src="${pageContext.request.contextPath}/js/pageApp.js"></script>
+        <script src="${pageContext.request.contextPath}/js/adminApp.js"></script>
 
     </body>
 </html>

@@ -30,7 +30,7 @@ $(document).ready(function() {
     //Approve Pending Posts
     $(document).on("click", ".disapprove-post-link", function(e) {
         
-        e.preventDefault();
+   
         
         var link = $(e.relatedTarget);
 
