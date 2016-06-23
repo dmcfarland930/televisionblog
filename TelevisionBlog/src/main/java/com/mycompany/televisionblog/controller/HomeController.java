@@ -6,11 +6,16 @@
 package com.mycompany.televisionblog.controller;
 
 import com.mycompany.televisionblog.dao.BlogPostDao;
+import com.mycompany.televisionblog.dao.PageDao;
+import com.mycompany.televisionblog.dao.UserDao;
 import com.mycompany.televisionblog.dto.BlogPost;
+import com.mycompany.televisionblog.dto.Page;
+import com.mycompany.televisionblog.dto.User;
 import java.util.List;
 import java.util.Map;
 import javax.inject.Inject;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -21,19 +26,49 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 @RequestMapping
 public class HomeController {
+
     private BlogPostDao postDao;
-    
+    private PageDao pageDao;
+    private UserDao userDao;
+
     @Inject
-    public HomeController(BlogPostDao postDao) {
+    public HomeController(BlogPostDao postDao, PageDao pageDao, UserDao userDao) {
         this.postDao = postDao;
+        this.pageDao = pageDao;
+        this.userDao = userDao;
+    }
+
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public String home(Map<String, Object> model) {
+
+        List<BlogPost> posts = postDao.listOfThree(0);
+
+        for (BlogPost blogView : posts) {
+
+            model.put("title", blogView.getTitle());
+            model.put("date", blogView.getPostDate());
+            model.put("author", blogView.getUser().getFirstName() + " " + blogView.getUser().getLastName());
+            model.put("posts", posts);
+        }
+        
+        List<Page> pages = pageDao.list();
+        model.put("pages", pages);
+        model.put("page", 2);
+        return "/home";
     }
     
-    @RequestMapping(value="/", method=RequestMethod.GET)
-    public String home(Map<String, Object> model) {
-        List<BlogPost> posts = postDao.list();
-        BlogPost post = new BlogPost();
-        model.put("posts", posts);
-        model.put("post", post);     
-        return "home";
+    @RequestMapping(value = "/{url}", method = RequestMethod.GET)
+    public String get(@PathVariable("url") String url, Map model) {
+        
+        Page page = pageDao.get(url);
+        User user = userDao.get(page.getUser().getId());
+        
+        page.setUser(user);
+        List<Page> pages = pageDao.list();
+        
+        model.put("pages", pages);
+        model.put("page", page);
+        
+        return "showPage";
     }
 }

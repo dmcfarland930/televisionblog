@@ -15,16 +15,10 @@
         <link rel="shortcut icon" href="${pageContext.request.contextPath}/img/icon.png">
     </head>
     <body>
-        <jsp:include page="navBar.jsp"/>
+        <%@include file="navBar.jsp"%>
         <div class="container">
             <h1>Blog Writer</h1>
             <hr/>
-            <div class="navbar">
-                <ul class="nav nav-tabs">
-                    <li role="presentation" class="active"><a href="${pageContext.request.contextPath}/index.jsp">Home</a></li>
-                    <li role="presentation"><a href="${pageContext.request.contextPath}/blog/blogShow/1">View Blog</a></li>
-                </ul>    
-            </div>
             <form method="POST">
 
                 <fieldset class="form-group">

@@ -17,6 +17,7 @@
 
     </head>
     <body>
+        <%@include file="navBar.jsp"%>
         <div class="container">
             <h1>Dashboard</h1>
             <hr/>
