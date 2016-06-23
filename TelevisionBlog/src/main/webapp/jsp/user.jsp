@@ -59,7 +59,6 @@
                             <th>Last Name</th>
                             <th>Username</th>
                             <th>Edit</th>
-                            <th>Revoke Approval</th>
                             <th>Delete</th>
                         </tr>
 
@@ -69,7 +68,6 @@
                                 <td>${user.lastName}</td>
                                 <td>${user.username}</td>
                                 <td><a href="${pageContext.request.contextPath}/blog/"><span class="glyphicon glyphicon-edit" style="color:green;"/></a></td>
-                                <td><a href="" data-post-id="${user.id}" class="disapprove-post-link"><span class="glyphicon glyphicon-transfer" style="color:blue;"/></a></td>
                                 <td><a href="" data-post-id="${user.id}" class="delete-post-link"><span class="glyphicon glyphicon-remove" style="color:red;" /></a></td>
                             </tr>
                         </c:forEach>
