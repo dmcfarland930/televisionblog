@@ -9,7 +9,7 @@ $(document).ready(function() {
         var postId = $(e.target).data("post-id");
        
         $.ajax({
-            url: contextRoot + "/admin/approval/" + postId +"/1",
+            url: contextRoot + "/admin/approval/1/" + postId,
             type: "POST",
             datatype: "json",
             beforeSend: function(xhr) {
@@ -32,10 +32,12 @@ $(document).ready(function() {
         
         e.preventDefault();
         
-        var postId = $(e.target).data("post-id");
+        var link = $(e.relatedTarget);
+
+        var postId = link.data("post-id");
        
         $.ajax({
-            url: contextRoot + "/admin/approval/" + postId + "/2",
+            url: contextRoot + "/admin/approval/2/" + postId,
             type: "POST",
             datatype: "json",
             beforeSend: function(xhr) {

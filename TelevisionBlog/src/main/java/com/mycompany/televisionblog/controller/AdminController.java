@@ -62,7 +62,7 @@ public class AdminController {
     
     
     
-    @RequestMapping(value="/approval/{id}/{val}", method=RequestMethod.POST)
+    @RequestMapping(value="/approval/{val}/{id}", method=RequestMethod.POST)
     @ResponseBody
     public void approvePost(@PathVariable("id") Integer id, @PathVariable("val") Integer val) {
         
