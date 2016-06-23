@@ -44,7 +44,17 @@ public class PageController {
         
         model.put("pages", pages);
         
-        return "pageJSP";
+        return "page";
+    }
+    
+    @RequestMapping(value = "/create", method = RequestMethod.GET)
+    public String displayCreate(Map model) {
+        
+        List<Page> pages = pageDao.list();
+        
+        model.put("pages", pages);
+        
+        return "writePage";
     }
 
     @RequestMapping(value = "/", method = RequestMethod.POST)
