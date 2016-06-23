@@ -48,10 +48,13 @@
                         <form method="POST">
                             <label for="category-name">Add Category:</label>
                             <input id="name-input" class="form-control"/>
+                            <div id="add-category-validation-errors"></div>
+                            <div style = "text-align: center; margin-top: 15px">
+                                <input type="submit" id="create-submit" value="Submit" class="btn btn-primary">
+                            
+                            </div>
                         </form>
-                        <div style = "text-align: center; padding-top: 5px">
-                            <input type="submit" id="create-submit" value="Submit" class="btn btn-primary">
-                        </div>
+                        
                     </div>
                 </div>
             </div>
@@ -71,6 +74,7 @@
                 <div class="form-group">
                     <label for="edit-category-name">Name:</label>
                     <input class="form-control" id="edit-category-name">
+                    <div id="edit-category-validation-errors"></div>
                 </div>
             </div>
             <div class="modal-footer">

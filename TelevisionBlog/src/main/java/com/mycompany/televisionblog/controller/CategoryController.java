@@ -15,6 +15,7 @@ import com.mycompany.televisionblog.dto.User;
 import java.util.List;
 import java.util.Map;
 import javax.inject.Inject;
+import javax.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -61,13 +62,13 @@ public class CategoryController {
     
     @RequestMapping(value="", method = RequestMethod.POST)
     @ResponseBody
-    public Category create(@RequestBody Category category) {
+    public Category create(@Valid @RequestBody Category category) {
         categoryDao.create(category);
         return category;
     }
     @RequestMapping(value="", method = RequestMethod.PUT)
     @ResponseBody
-    public Category update(@RequestBody Category category) {
+    public Category update(@Valid @RequestBody Category category) {
         categoryDao.update(category);
         return category;
     }

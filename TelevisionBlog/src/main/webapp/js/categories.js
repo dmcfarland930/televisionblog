@@ -12,7 +12,7 @@ $(document).ready(function() {
                 name: $('#name-input').val()
 
             });
-
+            $('#add-category-validation-errors').empty();
             $.ajax({
 
                 url: contextRoot + "/category",
@@ -30,7 +30,10 @@ $(document).ready(function() {
                     $('#category-table').append($(tableRow));
                 },
                 error: function(data, status) {
-                    alert("error");
+                    var errors = data.responseJSON.errors;
+                    $.each(errors, function (index, validationError) {
+                    $('#add-category-validation-errors').append(validationError.message).append("<br/>");
+                    });
                 }
             });
 
@@ -88,7 +91,10 @@ $(document).ready(function() {
                 $('#category-row-' + data.id).replaceWith( $(tableRow) );
             },
             error: function(data, status) {
-                alert("error");
+                var errors = data.responseJSON.errors;
+                $.each(errors, function (index, validationError) {
+                $('#edit-category-validation-errors').append(validationError.message).append("<br/>");
+                });
             }
         });
         

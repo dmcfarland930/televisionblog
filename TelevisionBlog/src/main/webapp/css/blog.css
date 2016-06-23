@@ -16,3 +16,8 @@ and open the template in the editor.
 #add-category-form {
     margin:auto;
 }
+#add-category-validation-errors {
+    font-weight: bold;
+    min-height: 20px;
+    text-align: center;
+}

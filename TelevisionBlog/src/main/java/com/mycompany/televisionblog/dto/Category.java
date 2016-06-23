@@ -1,5 +1,8 @@
 package com.mycompany.televisionblog.dto;
 
+import javax.validation.constraints.NotNull;
+import org.hibernate.validator.constraints.NotEmpty;
+
 /**
  *
  * @author apprentice
@@ -7,6 +10,9 @@ package com.mycompany.televisionblog.dto;
 public class Category {
     
     int id;
+    
+    @NotEmpty
+    @NotNull
     String name;
 
     public int getId() {
