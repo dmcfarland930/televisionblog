@@ -30,13 +30,13 @@ public class UserController {
         this.categoryDao = categoryDao;
     }
 
-    @RequestMapping(value = "/createUser", method = RequestMethod.GET)
+    @RequestMapping(value = "/createUser", method = RequestMethod.POST)
     public String sayHi(Map<String, Object> model) {
         model.put("message", "Hello from the controller");
         return "createUser";
     }
 
-    @RequestMapping(value = "/create-user/", method = RequestMethod.POST)
+    @RequestMapping(value = "/", method = RequestMethod.POST)
     @ResponseBody
     public User create(@RequestBody User user) {
 
