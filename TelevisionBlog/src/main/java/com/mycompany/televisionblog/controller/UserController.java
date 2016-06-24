@@ -53,6 +53,20 @@ public class UserController {
 
         return user;
     }
+    
+    @RequestMapping(value="/", method=RequestMethod.PUT)
+    @ResponseBody
+    public User edit(@RequestBody User user) {
+        
+        userDao.update(user);
+        return user;
+    };
+    
+    @RequestMapping(value="/{id}", method=RequestMethod.DELETE)
+    @ResponseBody
+    public void delete(@PathVariable("id") Integer id) {
+        userDao.delete(id);
+    }
 
 
     @RequestMapping(value = "/blogShow/{id}", method = RequestMethod.GET)
