@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>CCreate Static Page</title>
+        <title>Edit Static Pages</title>
         <!-- Bootstrap core CSS -->
         <link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet">
 
@@ -28,7 +28,6 @@
             </div>
             <br />
             <div class="row">
-
                 <div class="col-md-4">
                    <ul class="list list-group">
                         <li class="list-group-item"><a href="${pageContext.request.contextPath}">Back to Blog</a></li>
@@ -38,7 +37,6 @@
                         <li class="list-group-item"><a href="${pageContext.request.contextPath}/admin/page/">Page List</a></li>
                         <li class="list-group-item"><a href="${pageContext.request.contextPath}/admin/user/">User List</a></li>
                     </ul>   
-
                 </div>
 
                 <div class="col-md-8">
@@ -47,7 +45,7 @@
                         <div class="form-group">
                             <label for="" class="col-md-4 control-label">Title:</label>
                             <div class="col-md-8">
-                                <input type="text" id="page-title-input" class="form-control"></input>
+                                <input type="text" id="page-title-input" class="form-control" value="${page.name}" />
                             </div>
                         </div>
 
@@ -55,18 +53,18 @@
                         <div class="form-group">
                             <label for="" class="col-md-4 control-label">Page Content:</label>
                             <div class="col-md-8">
-                                <textarea type="text" id="page-content-input" class="form-control"></textarea>
+                                <textarea type="text" id="page-content-input" class="form-control">${page.content}</textarea>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label for="" class="col-md-4 control-label">Desired URL Path:</label>
                             <div class="col-md-8">
-                                <input type="text" id="page-url-input" class="form-control" placeholder="http://TelevisionBlog/page/YOUR-URL-PATH-HERE" />
+                                <input type="text" id="page-url-input" class="form-control" placeholder="http://TelevisionBlog/page/YOUR-URL-PATH-HERE" value="${page.url}"/>
                             </div>
                         </div>
 
-                        <input class="btn btn-default center-block" type="submit" id="create-submit" />
+                        <input  type="submit" class="btn btn-default center-block" id="create-submit" />
                     </form>
 
                 </div>
@@ -83,7 +81,6 @@
             <script type="text/javascript">
                             tinymce.init({
                                 selector: '#page-content-input',
-                               height: 500
                             });
             </script>
             <script src="${pageContext.request.contextPath}/js/pageApp.js"></script>

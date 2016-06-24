@@ -49,11 +49,19 @@ public class BlogPostController {
 
     @RequestMapping(value = "/writeBlog", method = RequestMethod.GET)
     public String writeBlogPost(Map model) {
+
+        Date date = new Date();
+        String inputDate = sdfSQL.format(date);
+        String dateOnly = inputDate.substring(0, inputDate.length() - 9);
+
         
         List<Page> pages = pageDao.list();
         model.put("pages", pages);
         List<Category> categories = categoryDao.list();
         model.put("categories", categories);
+        List<User> authors = userDao.list();
+        model.put("authors", authors);
+        model.put("date", dateOnly);
         List<UploadedFile> fileList = fileUploadDao.list();
             List<Integer> idList = new ArrayList<>();
             for (UploadedFile uf : fileList) {
@@ -69,9 +77,10 @@ public class BlogPostController {
         BlogPost post = blogPostDao.get(postName);
 
         model.put("title", post.getTitle());
-        model.put("date", post.getPostDate());
+        model.put("date", sdfDisplay.format(post.getPostDate()));
         model.put("author", post.getUser().getFirstName() + " " + post.getUser().getLastName());
         model.put("content", post.getContent());
+        model.put("category", post.getCategory().getName());
 
         List<Page> pages = pageDao.list();
         model.put("pages", pages);
@@ -81,9 +90,8 @@ public class BlogPostController {
 
     @RequestMapping(value = "/create-blog-post/", method = RequestMethod.POST)
     @ResponseBody
-    public BlogPost create(@RequestBody BlogPostCommand blogPostCommand) {
+    public BlogPost create(@RequestBody BlogPostCommand blogPostCommand) throws ParseException {
 
-        blogPostCommand.setUserId(1);
         BlogPost blogPost = setBlogPostProperties(blogPostCommand);
 
         return blogPostDao.create(blogPost);
@@ -134,17 +142,26 @@ public class BlogPostController {
 
     }
 
-    public BlogPost setBlogPostProperties(BlogPostCommand blogPostCommand) {
+    public BlogPost setBlogPostProperties(BlogPostCommand blogPostCommand) throws ParseException {
 
+        Date time = new Date();
+        String timeString = sdfSQL.format(time).substring(10);
+        String dateString = sdfSQL.format(blogPostCommand.getPostDate()).substring(0, 10);
+        String dateTime = dateString + timeString;
         BlogPost blogPost = new BlogPost();
 
         blogPost.setTitle(blogPostCommand.getTitle());
         blogPost.setUser(userDao.get(blogPostCommand.getUserId()));
-        blogPost.setCategory(categoryDao.get(1));
+        blogPost.setCategory(categoryDao.get(blogPostCommand.getCategoryId()));
         blogPost.setContent(blogPostCommand.getContent());
-        blogPost.setPostDate(blogPostCommand.getPostDate());
+        blogPost.setPostDate(sdfSQL.parse(dateTime));
         blogPost.setStringDateDisplay(sdfDisplay.format(blogPostCommand.getPostDate()));
         blogPost.setExpirationDate(blogPostCommand.getExpirationDate());
+
+        if (dateString.equals(sdfSQL.format(time).substring(0, 10))) {
+            blogPost.setActive(blogPostCommand.isActive());
+        }
+
         blogPost.setApproved(blogPostCommand.isApproved());
         return blogPost;
     }

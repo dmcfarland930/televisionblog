@@ -7,6 +7,7 @@ package com.mycompany.televisionblog.dao;
 import com.mycompany.televisionblog.dto.BlogPost;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -23,9 +24,11 @@ public class BlogPostDaoDbImpl implements BlogPostDao {
     private static final String SQL_GET_POST = "SELECT * FROM post WHERE id = ?";
     private static final String SQL_GET_POST_NAME = "SELECT * FROM post WHERE title = ?";
     private static final String SQL_GET_POST_LIST = "SELECT * FROM post";
+    private static final String SQL_SET_POSTS_TO_ACTIVE_DATE = "UPDATE post SET active = 1 where post_date <= curdate()";
+    private static final String SQL_SET_POSTS_TO_EXPIRED_DATE = "UPDATE post SET active = 0 where expiration_date <= curdate()";
     private static final String SQL_GET_POST_LIST_APPROVED = "SELECT * FROM post WHERE approved = 1";
     private static final String SQL_GET_POST_LIST_UNAPPROVED = "SELECT * FROM post WHERE approved = 0";
-    private static final String SQL_GET_POST_LIST_THREE_ENTRIES = "SELECT * FROM post WHERE approved = 1 GROUP BY post_date DESC LIMIT ?, 3";
+    private static final String SQL_GET_POST_LIST_THREE_ENTRIES = "SELECT * FROM post WHERE approved AND active = 1 ORDER BY post_date DESC LIMIT ?, 3";
     private static final String SQL_GET_POST_LIST_DATE = "SELECT * FROM post WHERE order_date = ?";
 
     private JdbcTemplate jdbcTemplate;
@@ -116,6 +119,10 @@ public class BlogPostDaoDbImpl implements BlogPostDao {
 
     @Override
     public List<BlogPost> listOfThree(Integer pageNum) {
+        
+        
+        jdbcTemplate.update(SQL_SET_POSTS_TO_ACTIVE_DATE);
+        jdbcTemplate.update(SQL_SET_POSTS_TO_EXPIRED_DATE);
 
         return jdbcTemplate.query(SQL_GET_POST_LIST_THREE_ENTRIES, new BlogPostMapper(), pageNum);
 
@@ -145,6 +152,7 @@ public class BlogPostDaoDbImpl implements BlogPostDao {
             blogPost.setContent(rs.getString("content"));
             blogPost.setPostDate(rs.getTimestamp("post_date"));
             blogPost.setExpirationDate(rs.getDate("expiration_date"));
+            blogPost.setActive(rs.getBoolean("active"));
             blogPost.setApproved(rs.getBoolean("approved"));
 
             return blogPost;

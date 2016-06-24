@@ -15,7 +15,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" rel="home" href="${pageContext.request.contextPath}/" title="Blog Homepage"><span class="navbar-item">Television Blog</span></a>
+        <a class="navbar-brand" rel="home" href="${pageContext.request.contextPath}/" title="Blog Homepage"><span class="navbar-item">Toner Classic Movies</span></a>
     </div>
 
     <div class="collapse navbar-collapse navbar-ex1-collapse">

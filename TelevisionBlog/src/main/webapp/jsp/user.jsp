@@ -87,16 +87,6 @@
                         <form method="POST" class="form-horizontal">
                             
                             <div class="form-group">
-                                <label for="" class="col-md-4 control-label">Username:</label>
-                                <div class="col-md-8"><input type="text" class="form-control" id="username-input"/></div>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="" class="col-md-4 control-label">Password:</label>
-                                <div class="col-md-8"><input type="text" class="form-control" id="password-input"/></div>
-                            </div>
-                            
-                            <div class="form-group">
                                 <label for="" class="col-md-4 control-label">First Name:</label>
                                 <div class="col-md-8"><input type="text" class="form-control" id="first-name-input"/></div>
                             </div>
@@ -108,6 +98,18 @@
                             
                             <div class="form-group">
                                 <label for="" class="col-md-4 control-label">Username:</label>
+                                <div class="col-md-8"><input type="text" class="form-control" id="username-input"/></div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="" class="col-md-4 control-label">Password:</label>
+                                <div class="col-md-8"><input type="text" class="form-control" id="password-input"/></div>
+                            </div>
+                            
+                            
+                            
+                            <div class="form-group">
+                                <label for="" class="col-md-4 control-label">Role:</label>
                                 <div class="col-md-8"><select id="role-id-input" class="form-control">
                                             <option value="1" class="form-control">Administrator</option>                                
                                             <option value="2" class="form-control">Marketing Team</option>                                
@@ -130,14 +132,45 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title">Modal title</h4>
+                        <h4 class="modal-title">User Editor</h4>
                     </div>
                     <div class="modal-body">
-                        <p>One fine body&hellip;</p>
+                        <table class="table table-bordered">
+                            
+                            <input type="hidden" id="edit-user-id" />
+                            
+                            <tr>
+                                <td>First Name:</td>
+                                <td><input type="text" class="form-control" id="edit-user-first-name" /></td>
+                            </tr>
+                            
+                            <tr>
+                                <td>Last Name:</td>
+                                <td><input type="text" class="form-control" id="edit-user-last-name" /></td>
+                            </tr>
+                            
+                            <tr>
+                                <td>Username:</td>
+                                <td><input type="text" class="form-control" id="edit-user-username" /></td>
+                            </tr>
+                            
+                            <tr>
+                                <td>Password:</td>
+                                <td><input type="text" class="form-control" id="edit-user-password" /></td>
+                            </tr>
+                            
+                            <tr>
+                                <td>Role:</td>
+                                <td><select class="form-control" id="edit-user-role">
+                                        <option value="1" class="form-control" id="option-1">Administrator</option>
+                                        <option value="2" class="form-control" id="option-2">Marketing Team</option>
+                                    </select></td>
+                            </tr>
+                        </table>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
+                        <button type="button" class="btn btn-primary" id="edit-user-button">Save changes</button>
                     </div>
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
