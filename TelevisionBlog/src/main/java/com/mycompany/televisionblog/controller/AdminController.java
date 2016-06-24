@@ -13,6 +13,7 @@ import com.mycompany.televisionblog.dto.BlogPost;
 import com.mycompany.televisionblog.dto.Category;
 import com.mycompany.televisionblog.dto.Page;
 import com.mycompany.televisionblog.dto.User;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -48,7 +49,17 @@ public class AdminController {
     public String home(Map model) {
 
         List<BlogPost> pendingPosts = postDao.listUnapproved();
-        model.put("pendingPosts", pendingPosts);
+        List<BlogPost> expired = new ArrayList();
+        List<BlogPost> active = new ArrayList();
+        for(BlogPost bp : pendingPosts) {
+            if(bp.isActive()) {
+                active.add(bp);
+            } else {
+                expired.add(bp);
+            }
+        }
+        model.put("expired", expired);
+        model.put("active", active);
         return "adminHome";
     }
 

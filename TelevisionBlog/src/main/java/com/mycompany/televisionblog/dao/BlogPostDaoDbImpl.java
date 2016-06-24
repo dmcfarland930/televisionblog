@@ -145,6 +145,7 @@ public class BlogPostDaoDbImpl implements BlogPostDao {
             blogPost.setContent(rs.getString("content"));
             blogPost.setPostDate(rs.getTimestamp("post_date"));
             blogPost.setExpirationDate(rs.getDate("expiration_date"));
+            blogPost.setActive(rs.getBoolean("active"));
             blogPost.setApproved(rs.getBoolean("approved"));
 
             return blogPost;

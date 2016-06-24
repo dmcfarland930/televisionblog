@@ -16,8 +16,8 @@ $(document).ready(function () {
                 xhr.setRequestHeader("Accept", "application/json");
                 xhr.setRequestHeader("Content-type", "application/json");
             },
-            success: function (status, data) {
-                if (data === true) {
+            success: function (data, status) {
+                if (data) {
                     $("#post-row-" + postId).remove();
                 } else {
                     alert("That post is expired.\n"
@@ -46,11 +46,11 @@ $(document).ready(function () {
                 xhr.setRequestHeader("Accept", "application/json");
                 xhr.setRequestHeader("Content-type", "application/json");
             },
-            success: function (status, data) {
+            success: function (data, status) {
 
                 $("#post-row-" + postId).remove();
             },
-            error: function (status, data) {
+            error: function (data, status) {
 
             }
         });
