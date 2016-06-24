@@ -5,19 +5,19 @@
  */
 package com.mycompany.televisionblog.controller;
 
-import com.mycompany.televisionblog.dto.Category;
-import com.mycompany.televisionblog.dto.Message;
-import com.mycompany.televisionblog.dto.StatusResponse;
+import com.mycompany.televisionblog.dao.FileUploadDao;
 import com.mycompany.televisionblog.dto.UploadedFile;
-import java.util.ArrayList;
-import javax.validation.Valid;
-import org.jboss.logging.Logger;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import java.util.List;
+import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import org.apache.commons.io.IOUtils;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -28,37 +28,39 @@ import org.springframework.web.multipart.MultipartFile;
 @Controller
 @RequestMapping("/upload")
 public class UploadController {
+    private FileUploadDao fileUploadDao;
     
-    private static Logger logger = Logger.getLogger("controller");
-	
+    @Inject
+    public UploadController(FileUploadDao fileUploadDao) {
+        this.fileUploadDao = fileUploadDao;
+    }
 	@RequestMapping
 	public String form() {
 		return "form";
 	}
-	
-	@RequestMapping(value="/message", method=RequestMethod.POST)
-	public @ResponseBody StatusResponse message(@RequestBody Message message) {
-		// Do custom steps here
-		// i.e. Persist the message to the database
-		logger.debug("Service processing...done");
-		
-		return new StatusResponse(true, "Message received");
-	}
-	
-	@RequestMapping(value="/file", method=RequestMethod.POST)
-	public @ResponseBody List<UploadedFile> upload(
-			@RequestParam("file") MultipartFile file) {
-		// Do custom steps here
-		// i.e. Save the file to a temporary location or database
-		logger.debug("Writing file to disk...done");
-		
-		List<UploadedFile> uploadedFiles = new ArrayList<>();
-		UploadedFile u = new UploadedFile(file.getOriginalFilename(),
-				Long.valueOf(file.getSize()).intValue(),
-				"http://localhost:8080/spring-fileupload-tutorial/resources/"+file.getOriginalFilename());
-
-		uploadedFiles.add(u);
-                
-		return uploadedFiles;
-	}
+	@RequestMapping(value="", method = RequestMethod.POST)
+        @ResponseBody
+        public UploadedFile doUpload(HttpServletRequest request, @RequestParam("file") MultipartFile multipartFile) throws IOException {
+                System.out.println(request.getSession().getServletContext().getRealPath("/"));
+                UploadedFile file = new UploadedFile();
+                file.setFileName(multipartFile.getOriginalFilename());
+                file.setFileByte(multipartFile.getBytes());
+                file.setExtensionType(multipartFile.getContentType());
+                fileUploadDao.create(file);
+                return file;
+        }
+        @RequestMapping(value = "showImage/{id}", method = RequestMethod.GET)
+        public void showImage(@PathVariable("id") Integer id, HttpServletResponse response) throws IOException   {
+        
+            UploadedFile file = fileUploadDao.get(id);
+            IOUtils.copy(new ByteArrayInputStream(file.getFileByte()), response.getOutputStream());
+            response.setContentType(file.getExtensionType());
+        
+        }
+        @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+        @ResponseBody
+        public void deleteImage(@PathVariable("id") Integer id) {
+        
+            fileUploadDao.delete(id);
+        }
 }

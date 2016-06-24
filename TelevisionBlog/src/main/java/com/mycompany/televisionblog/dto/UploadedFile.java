@@ -5,136 +5,48 @@
  */
 package com.mycompany.televisionblog.dto;
 
-import java.io.Serializable;
+public class UploadedFile {
 
-public class UploadedFile implements Serializable {
+    private Integer id;
+    private byte[] fileByte;
+    private String extensionType;
+    private String fileName;
 
-	public static long serialVersionUID = -38331060124340967L;
-
-    /**
-     * @return the serialVersionUID
-     */
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
+    public String getFileName() {
+        return fileName;
     }
 
-    /**
-     * @param aSerialVersionUID the serialVersionUID to set
-     */
-    public static void setSerialVersionUID(long aSerialVersionUID) {
-        serialVersionUID = aSerialVersionUID;
-    }
-	public String name;
-	public Integer size;
-	public String url;
-	public String thumbnail_url;
-	public String delete_url;
-	public String delete_type;
-	
-	public UploadedFile() {
-		super();
-	}
-	
-	public UploadedFile(String name, Integer size, String url) {
-		super();
-		this.name = name;
-		this.size = size;
-		this.url = url;
-	}
-	
-	public UploadedFile(String name, Integer size, String url,
-			String thumbnail_url, String delete_url, String delete_type) {
-		super();
-		this.name = name;
-		this.size = size;
-		this.url = url;
-		this.thumbnail_url = thumbnail_url;
-		this.delete_url = delete_url;
-		this.delete_type = delete_type;
-	}
-
-    /**
-     * @return the name
-     */
-    public String getName() {
-        return name;
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
     }
 
-    /**
-     * @param name the name to set
-     */
-    public void setName(String name) {
-        this.name = name;
+    public Integer getId() {
+        return id;
     }
 
-    /**
-     * @return the size
-     */
-    public Integer getSize() {
-        return size;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    /**
-     * @param size the size to set
-     */
-    public void setSize(Integer size) {
-        this.size = size;
+    public byte[] getFileByte() {
+        return fileByte;
     }
 
-    /**
-     * @return the url
-     */
-    public String getUrl() {
-        return url;
+    public void setFileByte(byte[] fileByte) {
+        this.fileByte = fileByte;
+    }
+    
+    public Integer getLength()  {
+        
+        return fileByte.length;
     }
 
-    /**
-     * @param url the url to set
-     */
-    public void setUrl(String url) {
-        this.url = url;
+    public String getExtensionType() {
+        return extensionType;
     }
 
-    /**
-     * @return the thumbnail_url
-     */
-    public String getThumbnail_url() {
-        return thumbnail_url;
-    }
-
-    /**
-     * @param thumbnail_url the thumbnail_url to set
-     */
-    public void setThumbnail_url(String thumbnail_url) {
-        this.thumbnail_url = thumbnail_url;
-    }
-
-    /**
-     * @return the delete_url
-     */
-    public String getDelete_url() {
-        return delete_url;
-    }
-
-    /**
-     * @param delete_url the delete_url to set
-     */
-    public void setDelete_url(String delete_url) {
-        this.delete_url = delete_url;
-    }
-
-    /**
-     * @return the delete_type
-     */
-    public String getDelete_type() {
-        return delete_type;
-    }
-
-    /**
-     * @param delete_type the delete_type to set
-     */
-    public void setDelete_type(String delete_type) {
-        this.delete_type = delete_type;
+    public void setExtensionType(String extensionType) {
+        this.extensionType = extensionType;
     }
 	
 }

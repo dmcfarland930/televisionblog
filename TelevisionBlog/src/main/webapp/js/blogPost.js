@@ -163,40 +163,31 @@ $(document).ready(function () {
             }
         });
     });
-    $('#upload-button').on('click', function(e) { 
-        var formData = new FormData($('form')[0]);
-        console.log(formData);
-        $.ajax({
-            url: contextRoot + '/upload',  //Server script to process data
-            type: 'POST',
-            xhr: function() {  // Custom XMLHttpRequest
-                var myXhr = $.ajaxSettings.xhr();
-                if(myXhr.upload){ // Check if upload property exists
-                    myXhr.upload.addEventListener('progress',progressHandlingFunction, false); // For handling the progress of the upload
+    $('#file-upload-button').on('click', function(e) {
+        e.preventDefault();
+        var formData = new FormData();
+            console.log('file', $('input[type=file]')[0].files[0]);
+            formData.append('file', $('input[type=file]')[0].files[0]);
+            
+            console.log("form data " + formData);
+            $.ajax({
+                url : contextRoot + '/upload',
+                data : formData,
+                processData : false,
+                contentType : false,
+                type : 'POST',
+                success : function(data) {
+                    alert("<img  src='" + contextRoot + "/upload/showImage/" + data.id + "' alt='Not Found'>");
+                    $("#img-display ").html("<img class='uploaded-image' src='" + contextRoot + "/upload/showImage/" + data.id + "' alt='Not Found'>");
+                },
+                error : function(err) {
+                    alert(err);
                 }
-                return myXhr;
-            },
-            //Ajax events
-            beforeSend: beforeSendHandler,
-            success: completeHandler,
-            error: errorHandler,
-            // Form data
-            data: formData,
-            //Options to tell jQuery not to process data or worry about content-type.
-            cache: false,
-            contentType: false,
-            processData: false
+            });
         });
     
     
     
-    
-    });
-    function progressHandlingFunction(e){
-        if(e.lengthComputable){
-            $('progress').attr({value:e.loaded,max:e.total});
-        }
-    }
 //    $('#next-page-link').on('click', function (e) {
 //        
 //        e.preventDefault();

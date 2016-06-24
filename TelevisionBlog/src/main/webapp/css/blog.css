@@ -21,3 +21,7 @@ and open the template in the editor.
     min-height: 20px;
     text-align: center;
 }
+.uploaded-image {
+    max-height: 40px;
+    width: auto;
+}
