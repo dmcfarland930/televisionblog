@@ -30,13 +30,13 @@ public class UserController {
         this.categoryDao = categoryDao;
     }
 
-    @RequestMapping(value = "/createUser", method = RequestMethod.GET)
+    @RequestMapping(value = "/createUser", method = RequestMethod.POST)
     public String sayHi(Map<String, Object> model) {
         model.put("message", "Hello from the controller");
         return "createUser";
     }
 
-    @RequestMapping(value = "/create-user/", method = RequestMethod.POST)
+    @RequestMapping(value = "/", method = RequestMethod.POST)
     @ResponseBody
     public User create(@RequestBody User user) {
 
@@ -52,6 +52,20 @@ public class UserController {
         User user = userDao.get(id);
 
         return user;
+    }
+    
+    @RequestMapping(value="/", method=RequestMethod.PUT)
+    @ResponseBody
+    public User edit(@RequestBody User user) {
+        
+        userDao.update(user);
+        return user;
+    };
+    
+    @RequestMapping(value="/{id}", method=RequestMethod.DELETE)
+    @ResponseBody
+    public void delete(@PathVariable("id") Integer id) {
+        userDao.delete(id);
     }
 
 

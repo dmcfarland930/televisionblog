@@ -2,15 +2,18 @@ package com.mycompany.televisionblog.controller;
 
 import com.mycompany.televisionblog.dao.BlogPostDao;
 import com.mycompany.televisionblog.dao.CategoryDao;
+import com.mycompany.televisionblog.dao.FileUploadDao;
 import com.mycompany.televisionblog.dao.PageDao;
 import com.mycompany.televisionblog.dao.UserDao;
 import com.mycompany.televisionblog.dto.BlogPost;
 import com.mycompany.televisionblog.dto.BlogPostCommand;
 import com.mycompany.televisionblog.dto.Category;
 import com.mycompany.televisionblog.dto.Page;
+import com.mycompany.televisionblog.dto.UploadedFile;
 import com.mycompany.televisionblog.dto.User;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -33,20 +36,25 @@ public class BlogPostController {
     private UserDao userDao;
     private CategoryDao categoryDao;
     private PageDao pageDao;
-
+    private FileUploadDao fileUploadDao;
+    
     @Inject
-    public BlogPostController(BlogPostDao blogPostDao, UserDao userDao, CategoryDao categoryDao, PageDao pageDao) {
+    public BlogPostController(BlogPostDao blogPostDao, UserDao userDao, CategoryDao categoryDao, PageDao pageDao, FileUploadDao fileUploadDao) {
         this.blogPostDao = blogPostDao;
         this.userDao = userDao;
         this.pageDao = pageDao;
         this.categoryDao = categoryDao;
+        this.fileUploadDao = fileUploadDao;
     }
 
     @RequestMapping(value = "/writeBlog", method = RequestMethod.GET)
     public String writeBlogPost(Map model) {
+
         Date date = new Date();
         String inputDate = sdfSQL.format(date);
         String dateOnly = inputDate.substring(0, inputDate.length() - 9);
+
+        
         List<Page> pages = pageDao.list();
         model.put("pages", pages);
         List<Category> categories = categoryDao.list();
@@ -54,7 +62,12 @@ public class BlogPostController {
         List<User> authors = userDao.list();
         model.put("authors", authors);
         model.put("date", dateOnly);
-
+        List<UploadedFile> fileList = fileUploadDao.list();
+            List<Integer> idList = new ArrayList<>();
+            for (UploadedFile uf : fileList) {
+                idList.add(uf.getId());
+            }
+        model.put("idList", idList);
         return "writeBlog";
     }
 

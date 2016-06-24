@@ -21,3 +21,10 @@ and open the template in the editor.
     min-height: 20px;
     text-align: center;
 }
+.uploaded-image {
+    max-height: 40px;
+    width: auto;
+}
+.selected-image {
+    border: 2px #206ea1 solid;
+}

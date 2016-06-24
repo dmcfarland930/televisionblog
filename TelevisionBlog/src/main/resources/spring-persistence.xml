@@ -44,12 +44,14 @@
     <bean id="pageDao" class="com.mycompany.televisionblog.dao.PageDaoDbImpl">
         <constructor-arg ref="jdbcTemplate"/>
     </bean>
-    
+    <bean id="fileUploadDao" class="com.mycompany.televisionblog.dao.FileUploadDaoImpl">
+        <constructor-arg ref="jdbcTemplate"/>
+    </bean>
 
     <bean id="blogPostDao" class="com.mycompany.televisionblog.dao.BlogPostDaoDbImpl">    
         <constructor-arg ref="jdbcTemplate"/>
         <constructor-arg ref="userDao"/>
         <constructor-arg ref="categoryDao"/>
     </bean>
-
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
 </beans>

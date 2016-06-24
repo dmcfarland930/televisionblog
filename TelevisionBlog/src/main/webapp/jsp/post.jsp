@@ -51,12 +51,13 @@
                     <table class="table table-bordered" style="text-align: center;" id="pending-post-table">                       
 
                         <tr>
-                            <th colspan="6">Blog List</th>
+                            <th colspan="7">Blog List</th>
                         </tr>
 
                         <tr>
                             <th>Title</th>
-                            <th>Date</th>
+                            <th>Creation Date</th>
+                            <th>Expiration Date</th>
                             <th>Author</th>
                             <th>Edit</th>
                             <th>Revoke Approval</th>
@@ -67,6 +68,7 @@
                             <tr id="post-row-${post.id}">
                                 <td><a href="${pageContext.request.contextPath}/blog/${post.title}">${post.title}</a></td>
                                 <td>${post.postDate}</td>
+                                <td>${post.expirationDate}</td>
                                 <td>${post.user.username}</td>
                                 <td><a href="${pageContext.request.contextPath}/blog/edit/${post.id}"><span class="glyphicon glyphicon-edit" style="color:green;"/></a></td>
                                 <td><a href="" data-post-id="${post.id}" class="glyphicon glyphicon-thumbs-down disapprove-post-link" style="color:dodgerblue;"></a></td>
