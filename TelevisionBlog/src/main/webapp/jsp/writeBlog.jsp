@@ -88,6 +88,7 @@
 
                             <button class="form-control" id="file-upload-button" type="submit">Upload</button>Press here to upload the file!
                         </form>
+                        
                     </div>
             <div id="img-display"></div>
                 </div>
