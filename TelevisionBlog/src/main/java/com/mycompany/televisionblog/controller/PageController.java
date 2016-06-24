@@ -56,6 +56,14 @@ public class PageController {
         
         return "writePage";
     }
+    
+    @RequestMapping(value="/edit/{id}", method=RequestMethod.GET)
+    public String displatEdit(@PathVariable("id") Integer id, Map model) {
+        Page page = pageDao.get(id);
+        
+        model.put("page", page);
+        return "editPage";
+    }
 
     @RequestMapping(value = "/", method = RequestMethod.POST)
     @ResponseBody

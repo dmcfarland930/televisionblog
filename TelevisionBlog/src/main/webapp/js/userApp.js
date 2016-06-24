@@ -39,6 +39,92 @@ $(document).ready(function() {
         
     });
     
+    //Edit User Pop Up
+    $("#edit-user-modal").on("show.bs.modal", function(e) {
+       
+        var link = $(e.relatedTarget);
+        
+        var userId = link.data("user-id");
+
+        $.ajax({
+            url: contextRoot + "/user/" + userId,
+            type: "GET",
+            dataType: "json",
+            beforeSend: function(xhr) {
+                xhr.setRequestHeader("Accept", "application/json");
+            },
+            success: function(data, status) {
+                $("#edit-user-first-name").val(data.firstName);
+                $("#edit-user-last-name").val(data.lastName);
+                $("#edit-user-username").val(data.username);
+                $("#edit-user-password").val(data.password);
+                $("#edit-user-role").val(data.groupId);
+                $("#edit-user-id").val(data.id);
+               
+            },
+            error: function(data, status) {
+                alert("Error, showing edit user modal.");
+            }
+        });;
+                
+    });
+    
+    $("#edit-user-button").on("click", function(e) {
+       
+        var userData = JSON.stringify({
+            id: $("#edit-user-id").val(),
+            firstName: $("#edit-user-first-name").val(),
+            lastName: $("#edit-user-last-name").val(),
+            username: $("#edit-user-username").val(),
+            password: $("#edit-user-password").val(),
+            groupId: $("#edit-user-role").val()
+        });
+        
+        $.ajax({
+           url: contextRoot + "/user/",
+           type: "PUT",
+           data: userData,
+           dataType: "json",
+           beforeSend: function(xhr) {
+               xhr.setRequestHeader("Accept", "application/json");
+               xhr.setRequestHeader("Content-type", "application/json");
+           },
+           success: function(data, status) {
+               
+               $("#edit-user-modal").modal("hide");
+               
+               var tableRow = buildUserRow(data);
+               
+               $("#user-row-"+data.id).replaceWith($(tableRow));
+               
+           },
+           error: function(data, status) {
+               alert("Error saving change.");
+           }
+        });
+        
+        
+    });
+    
+    $(document).on("click", ".delete-user-link", function(e) {
+        
+        e.preventDefault();
+        
+        var userId = $(e.target).data("user-id");
+       
+        $.ajax({
+           url: contextRoot + "/user/" + userId,
+           type: "DELETE",
+           success: function(data, status) {
+               $("#user-row-"+userId).remove();
+           },
+           error: function(data, status) {
+              alert("Error");
+           }
+        });
+        
+    });
+    
     function buildUserRow(data) {
         return "<tr id='user-row-"+data.id+"'>\n\
                 <td>"+data.firstName+"</td>\n\
