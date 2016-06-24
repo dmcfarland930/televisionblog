@@ -1,3 +1,4 @@
+
 $(document).ready(function () {
 
     //Create Page
@@ -29,6 +30,7 @@ $(document).ready(function () {
         });
 
     });
+
 
 //    //Show Static Page
 //    $("#show-page-modal").on("show.bs.modal", function (e) {
