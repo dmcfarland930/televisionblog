@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Edit Static Pages</title>
+        <title>Pending Posts</title>
         <!-- Bootstrap core CSS -->
         <link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet">
 
@@ -41,7 +41,7 @@
                         <li class="list-group-item"><a href="${pageContext.request.contextPath}">Back to Blog</a></li>
                         <li class="list-group-item"><a href="${pageContext.request.contextPath}/admin/">Pending Posts</a></li>
                         <li class="list-group-item"><a href="${pageContext.request.contextPath}/admin/post/">Blog List</a></li>
-                        <li class="list-group-item"><a href="${pageContext.request.contextPath}/admin/categories">Category List</a></li>
+                        <li class="list-group-item"><a href="${pageContext.request.contextPath}/admin/category">Category List</a></li>
                         <li class="list-group-item"><a href="${pageContext.request.contextPath}/admin/page/">Page List</a></li>
                         <li class="list-group-item"><a href="${pageContext.request.contextPath}/admin/user/">User List</a></li>
                     </ul>    
@@ -51,11 +51,12 @@
                     <table class="table table-bordered" style="text-align: center;" id="pending-post-table">                       
 
                         <tr>
-                            <th colspan="4">Blog Posts Needing Approval</th>
+                            <th colspan="5">Blog Posts Needing Approval</th>
                         </tr>
 
                         <tr>
                             <th>Title</th>
+                            <th>Author</th>
                             <th>Edit</th>
                             <th>Approve</th>
                             <th>Delete</th>
@@ -64,9 +65,10 @@
                         <c:forEach items="${pendingPosts}" var="post">
                             <tr id="post-row-${post.id}">
                                 <td><a href="${pageContext.request.contextPath}/blog/${post.title}">${post.title}</a></td>
-                                <td><a href="${pageContext.request.contextPath}/blog/edit/${post.id}">Edit</a></td>
-                                <td><a href="" data-post-id="${post.id}" class="approve-post-link">Approve</a></td>
-                                <td><a href="" data-post-id="${post.id}" class="delete-post-link">Delete</a></td>
+                                <td>${post.user.username}</td>
+                                <td><a href="${pageContext.request.contextPath}/blog/" class="glyphicon glyphicon-edit" style="color: green;"></a></td>
+                                <td><a href="" data-post-id="${post.id}" class="approve-post-link glyphicon glyphicon-thumbs-up" style="color:dodgerblue"></a></td>
+                                <td><a href="" data-post-id="${post.id}" class="delete-post-link glyphicon glyphicon-remove" style="color:red"></a></td>
                             </tr>
                         </c:forEach>
                     </table>
