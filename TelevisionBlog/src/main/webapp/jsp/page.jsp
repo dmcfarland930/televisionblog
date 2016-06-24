@@ -63,7 +63,7 @@
                         <c:forEach items="${pages}" var="page">
                             <tr id="page-row-${page.id}">
                                 <td><a href="${pageContext.request.contextPath}/${page.url}">${page.name}</a></td>
-                                <td><a href="${pageContext.request.contextPath}/page/edit/${page.id}" class="glyphicon glyphicon-edit" style="color: green;"></a></td>
+                                <td><a href="" data-page-id="${page.id}" data-toggle="modal" data-target="#edit-page-modal" class="glyphicon glyphicon-edit" style="color: green;"></a></td>
                                 <td><a href="" data-page-id="${page.id}" class="delete-page-link glyphicon glyphicon-remove" style="color:red;"></a></td>
                             </tr>
                         </c:forEach>

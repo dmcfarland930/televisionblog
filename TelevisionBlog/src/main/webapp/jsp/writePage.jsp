@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>CCreate Static Page</title>
+        <title>Edit Static Pages</title>
         <!-- Bootstrap core CSS -->
         <link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet">
 
@@ -23,20 +23,21 @@
             <div class="row">
                 <div class="col-md-4"></div>
                 <div class="col-md-8">
-                    
+                    <div style="float: right">
+                        <button class="btn btn-default"><a href="${pageContext.request.contextPath}/page/create">Create New Page</a></button>
+                    </div>
                 </div>
             </div>
             <br />
             <div class="row">
                 <div class="col-md-4">
-                   <ul class="list list-group">
-                        <li class="list-group-item"><a href="${pageContext.request.contextPath}">Back to Blog</a></li>
-                        <li class="list-group-item"><a href="${pageContext.request.contextPath}/admin/">Pending Posts</a></li>
-                        <li class="list-group-item"><a href="${pageContext.request.contextPath}/admin/post/">Blog List</a></li>
-                        <li class="list-group-item"><a href="${pageContext.request.contextPath}/admin/category">Category List</a></li>
-                        <li class="list-group-item"><a href="${pageContext.request.contextPath}/admin/page/">Page List</a></li>
-                        <li class="list-group-item"><a href="${pageContext.request.contextPath}/admin/user/">User List</a></li>
-                    </ul>   
+                    <ul class="list list-group">
+                        <li class="list-group-item"><a href="${pageContext.request.contextPath}/index.jsp">Back to Blog</a></li>
+                        <li class="list-group-item"><a href="${pageContext.request.contextPath}/post.jsp">Posts</a></li>
+                        <li class="list-group-item"><a href="${pageContext.request.contextPath}/categories.jsp">Categories</a></li>
+                        <li class="list-group-item"><a href="${pageContext.request.contextPath}/pages.jsp">Pages</a></li>
+                        <li class="list-group-item"><a href="${pageContext.request.contextPath}/users.jsp">Users</a></li>
+                    </ul>    
                 </div>
 
                 <div class="col-md-8">
@@ -45,7 +46,7 @@
                         <div class="form-group">
                             <label for="" class="col-md-4 control-label">Title:</label>
                             <div class="col-md-8">
-                                <input type="text" id="page-title-input" class="form-control"></input>
+                                <input type="text" id="page-title-input" class="form-control"/>
                             </div>
                         </div>
 
@@ -60,7 +61,7 @@
                         <div class="form-group">
                             <label for="" class="col-md-4 control-label">Desired URL Path:</label>
                             <div class="col-md-8">
-                                <input type="text" id="page-url-input" class="form-control" placeholder="http://TelevisionBlog/page/YOUR-URL-PATH-HERE" />
+                                <input type="text" id="page-url-input" class="form-control" placeholder="http://TelevisionBlog/page/YOUR-URL-PATH-HERE"/>
                             </div>
                         </div>
 
@@ -81,7 +82,8 @@
             <script type="text/javascript">
                             tinymce.init({
                                 selector: '#page-content-input',
-                               height: 500
+                                height: 400,
+                                width: 800
                             });
             </script>
             <script src="${pageContext.request.contextPath}/js/pageApp.js"></script>
