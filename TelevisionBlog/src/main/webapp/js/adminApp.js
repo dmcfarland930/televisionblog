@@ -24,7 +24,7 @@ $(document).ready(function () {
                             +"Change the expiration date to approve.")
                 }
             },
-            error: function (status, data) {
+            error: function (data, status) {
 
             }
         });
