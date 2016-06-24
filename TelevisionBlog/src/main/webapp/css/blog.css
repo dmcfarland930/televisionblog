@@ -25,3 +25,6 @@ and open the template in the editor.
     max-height: 40px;
     width: auto;
 }
+.selected-image {
+    border: 2px #206ea1 solid;
+}

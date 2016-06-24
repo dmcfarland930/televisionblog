@@ -163,6 +163,19 @@ $(document).ready(function () {
             }
         });
     });
+    
+    $(document).on('click', '.image-upload', function(e) {
+        e.preventDefault();
+        $(this).removeClass('image-upload');
+        $(this).addClass('selected-image-link');
+        $(this).children().addClass('selected-image');
+    });
+    $(document).on('click', '.selected-image-link', function(e) {
+        e.preventDefault();
+        $(this).addClass('image-upload');
+        $(this).removeClass('selected-image-link');
+        $(this).children().removeClass('selected-image');
+    });
     $('#file-upload-button').on('click', function(e) {
         e.preventDefault();
         var formData = new FormData();

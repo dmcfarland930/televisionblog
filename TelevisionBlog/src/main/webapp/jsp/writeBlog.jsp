@@ -19,16 +19,7 @@
         <div class="container">
             <h1>Blog Writer</h1>
             <hr/>
-            <div>
-                <form class="form form-horizontal" method="POST" enctype="multipart/form-data">
-                    File to upload: <input class="form-control" type="file" name="file">
 
-                    Name: <input class="form-control" type="text" name="name">
-                    
-                    <button class="form-control" id="file-upload-button" type="submit">Upload</button>Press here to upload the file!
-                </form>	
-            </div>
-            <div id="img-display"></div>
             <form method="POST">
 
                 <fieldset class="form-group">
@@ -39,8 +30,8 @@
                     <div class="error-message" id="name-error" class="col-md-8">
                     </div>
                 </fieldset>
-                
-	
+
+
 	<div id='msgbox' title='' style='display:none'></div>
                 <fieldset class="form-group">
                     <div id="title-div" class="col-md-8">
@@ -71,6 +62,41 @@
                 </div>
             </form>
 
+            </div>
+                <div id="UploadModal" class="modal fade" role="dialog">
+            <div class="modal-dialog modal-lg">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Upload Image</h4>
+                </div>
+                <div class="modal-body">
+                    <div >
+                        <div class="col-md-12" id="image-upload-list" style="overflow-y: scroll; height:200px">
+                            <c:forEach items="${idList}" var="id">
+                                <div style="padding-bottom: 5px;" class="col-md-2">
+                                    <a href="#" class="image-upload" id="image-upload-${id}"><img  style="height: 50px; width: auto" src ="${pageContext.request.contextPath}/upload/showImage/${id}"></a>
+                                </div>
+                            </c:forEach>
+                        </div>
+                        <form class="form form-horizontal" method="POST" enctype="multipart/form-data">
+                            File to upload: <input class="form-control" type="file" name="file">
+
+                            Name: <input class="form-control" type="text" name="name">
+
+                            <button class="form-control" id="file-upload-button" type="submit">Upload</button>Press here to upload the file!
+                        </form>
+                    </div>
+            <div id="img-display"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" id="edit-category-button">Edit</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+            </div>
         </div>
         <!-- Placed at the end of the document so the pages load faster -->
         <script>
@@ -92,11 +118,21 @@
                         'insertdatetime media nonbreaking save table contextmenu directionality',
                         'emoticons template paste textcolor colorpicker textpattern imagetools'],
                         menubar: "insert",
-                        toolbar1: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+                        toolbar1: 'mybutton | insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
                         toolbar2: 'print preview media | forecolor backcolor emoticons',
-                        image_advtab: true
+                        image_advtab: true,
+                        setup: function (editor) {
+                            editor.addButton('mybutton', {
+                            text: 'Upload Image',
+                            icon: false,
+                            onclick: function () {
+                                $('#UploadModal').modal('show');
+                            }
+                        });
+                        }
                     });
                 </script>
+
         <script src="${pageContext.request.contextPath}/js/blogPost.js"></script>
 
     </body>

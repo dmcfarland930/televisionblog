@@ -9,6 +9,8 @@ import com.mycompany.televisionblog.dao.FileUploadDao;
 import com.mycompany.televisionblog.dto.UploadedFile;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -34,10 +36,6 @@ public class UploadController {
     public UploadController(FileUploadDao fileUploadDao) {
         this.fileUploadDao = fileUploadDao;
     }
-	@RequestMapping
-	public String form() {
-		return "form";
-	}
 	@RequestMapping(value="", method = RequestMethod.POST)
         @ResponseBody
         public UploadedFile doUpload(HttpServletRequest request, @RequestParam("file") MultipartFile multipartFile) throws IOException {
@@ -49,6 +47,7 @@ public class UploadController {
                 fileUploadDao.create(file);
                 return file;
         }
+        
         @RequestMapping(value = "showImage/{id}", method = RequestMethod.GET)
         public void showImage(@PathVariable("id") Integer id, HttpServletResponse response) throws IOException   {
         
@@ -57,6 +56,17 @@ public class UploadController {
             response.setContentType(file.getExtensionType());
         
         }
+        @RequestMapping(value = "", method = RequestMethod.GET)
+        @ResponseBody
+        public List<Integer> listImages() {
+            List<UploadedFile> fileList = fileUploadDao.list();
+            List<Integer> idList = new ArrayList<>();
+            for (UploadedFile uf : fileList) {
+                idList.add(uf.getId());
+            }
+            return idList;
+        }
+        
         @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
         @ResponseBody
         public void deleteImage(@PathVariable("id") Integer id) {
