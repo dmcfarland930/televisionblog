@@ -22,8 +22,9 @@
             <div class="container">
                 <div class="col-md-8">
                     <h1>${title}</h1>
-                    <p>Posted on: ${date} by ${author}</p>
-                    ${content}</br></br>
+                    <p>Posted by ${author} on ${date}</p>
+                    ${content}</br>
+                    <p>Category: ${category}</p>
                 </div>
 
             </div>
@@ -36,14 +37,7 @@
         <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
         <script src="${pageContext.request.contextPath}/js/tinymce/js/tinymce/tinymce.min.js"></script>
         <script src="${pageContext.request.contextPath}/js/blogPost.js"></script>
-        <!--        <script type="text/javascript">
-                    tinymce.init({
-                        selector: '#blog-post-input',
-                        height: 400,
-                        width: 800
-                    });
-                </script>-->
-
+       
 
     </body>
 </html>

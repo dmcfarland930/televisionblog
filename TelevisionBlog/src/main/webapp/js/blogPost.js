@@ -5,13 +5,15 @@ $(document).ready(function () {
         e.preventDefault();
         tinymce.triggerSave();
         var date = new Date();
-        var d = date.getDate();
         var blogPost = JSON.stringify({
             title: $('#title-input').val(),
             content: $('#blog-post-input').val(),
+            userId: $('#author-input').val(),
             categoryId: $('#category-input').val(),
+            active: false,
             approved: true,
-            postDate: date
+            postDate: $('#post-date-input').val(),
+            expirationDate: $('#expiration-date-input').val()
 
         });
 //        $('#name-div').removeClass('has-error');
@@ -30,7 +32,7 @@ $(document).ready(function () {
                 xhr.setRequestHeader("Content-type", "application/json");
             },
             success: function (data, status) {
-                
+
                 alert("BLOG SAVED!");
                 $('#title-input').val("");
                 $('#blog-post-input').val("");
@@ -41,6 +43,7 @@ $(document).ready(function () {
                 }
 
                 console.log("SUCCESS");
+                window.location = contextRoot + "/admin/post/";
             },
             error: function (data, status) {
 //            var errors = data.responseJSON.errors;
@@ -68,36 +71,14 @@ $(document).ready(function () {
         });
     });
     
-//        $('#blog-edit-submit').on('click', function (e){
-//            
-//            e.preventDefault();
-//            
-//            var postId = $(e.target).data("post-id");
-//            
-//               $.ajax({
-//            url: contextRoot + "/admin/,
-//            type: "POST",
-//            datatype: "json",
-//            beforeSend: function(xhr) {
-//                xhr.setRequestHeader("Accept", "application/json");
-//                xhr.setRequestHeader("Content-type", "application/json");
-//            },
-//            success: function(status, data) {
-//                
-//                $('#title-edit').val(data.title);
-//                $('#category-edit').val(data.category);
-//                $('#blog-post-edit').val(data.content);
-////                $("#post-row-"+postId).remove();
-//                
-//            },
-//            error: function(status, data) {
-//               
-//            }
-//        });
-//            
-//        });
-    
-        $('#blog-draft-button').on('click', function (e) {
+    $('#blog-modal-submit-button').on('click', function (e) {
+
+        $('#submitBlogModal').modal('show');
+        
+    });
+
+
+    $('#blog-draft-button').on('click', function (e) {
 
         e.preventDefault();
 
@@ -163,32 +144,6 @@ $(document).ready(function () {
             }
         });
     });
-    
-//    $('#next-page-link').on('click', function (e) {
-//        
-//        e.preventDefault();
-//        
-//        var pageNumber = $('#next-page-link').val();
-//        
-//        console.log(this.value);
-//        
-//        console.log($('#next-page-link').val());
-//        
-//        $.ajax({
-//            url: contextRoot + "/blog/page/" + pageNumber,
-//            type: "GET",
-//            data: pageNumber,
-//            dataType: 'json',
-//            beforeSend: function (xhr) {
-//                xhr.setRequestHeader("Accept", "application/json");
-//                xhr.setRequestHeader("Content-type", "application/json");
-//            },
-//            success: function (data, status) {
-//
-//            },
-//            error: function (data, status) {
-//
-//            }
-//        });
-//    });
+
+
 });

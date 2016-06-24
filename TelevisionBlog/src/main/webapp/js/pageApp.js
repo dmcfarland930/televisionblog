@@ -1,3 +1,4 @@
+
 $(document).ready(function () {
 
     //Create Page
@@ -59,7 +60,7 @@ $(document).ready(function () {
 
     //Show Edit Static Page
     $("#edit-page-modal").on("show.bs.modal", function (e) {
-        
+
         var link = $(e.relatedTarget);
 
         var pageId = link.data("page-id");
@@ -72,11 +73,9 @@ $(document).ready(function () {
                 xhr.setRequestHeader("Accept", "application/json");
             },
             success: function (data, status) {
-                
                 $("#edit-page-id").val(data.id);
                 $("#edit-page-title").val(data.name);
                 $("#edit-page-content").val(data.content);
-                tinyMCE.editors[0].setContent(data.content);
                 $("#edit-page-url").val(data.url);
             },
             error: function (data, status) {
@@ -88,8 +87,6 @@ $(document).ready(function () {
 
     //Edit Static Page
     $("#edit-page-button").on("click", function (e) {
-        
-        tinymce.triggerSave();
 
         var pageData = JSON.stringify({
             id: $("#edit-page-id").val(),

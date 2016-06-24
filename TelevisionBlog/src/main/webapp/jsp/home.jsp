@@ -24,7 +24,8 @@
                 <div class="col-md-8">
                     <a id="blog-title" href="${pageContext.request.contextPath}/blog/${post.title}"><h1>${post.title}</h1></a>
                     <p>Posted by ${author} on ${post.stringDateDisplay}</p>
-                    ${post.content}</br></br>
+                    ${post.content}</br>
+                    <p>Category: ${post.category.name}</p>
                 </div>
             </c:forEach>
 
