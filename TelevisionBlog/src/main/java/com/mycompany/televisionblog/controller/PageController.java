@@ -70,7 +70,8 @@ public class PageController {
     public Page create(@RequestBody PageCommand command) {
         Page page = new Page();
 
-        User user = userDao.get(command.getUserId());
+//        User user = userDao.get(command.getUserId());
+        User user = userDao.get(1);
         page.setUser(user);
 
         page.setName(command.getName());
@@ -85,7 +86,8 @@ public class PageController {
     public Page update(@RequestBody PageCommand command) {
         Page page = new Page();
 
-        User user = userDao.get(command.getUserId());
+//        User user = userDao.get(command.getUserId());
+        User user = userDao.get(1);
         page.setUser(user);
 
         page.setName(command.getName());
