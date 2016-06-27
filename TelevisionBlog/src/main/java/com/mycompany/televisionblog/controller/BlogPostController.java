@@ -157,6 +157,7 @@ public class BlogPostController {
         blogPost.setPostDate(sdfSQL.parse(dateTime));
         blogPost.setStringDateDisplay(sdfDisplay.format(blogPostCommand.getPostDate()));
         blogPost.setExpirationDate(blogPostCommand.getExpirationDate());
+        blogPost.setId(blogPostCommand.getId());
 
         if (dateString.equals(sdfSQL.format(time).substring(0, 10))) {
             blogPost.setActive(blogPostCommand.isActive());
