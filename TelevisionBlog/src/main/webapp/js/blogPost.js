@@ -33,7 +33,6 @@ $(document).ready(function () {
             },
             success: function (data, status) {
 
-                alert("BLOG SAVED!");
                 $('#title-input').val("");
                 tinyMCE.activeEditor.setContent("");
                 $('#no-order').remove();
@@ -108,7 +107,6 @@ $(document).ready(function () {
             },
             success: function (data, status) {
 
-                alert("BLOG SAVED AS DRAFT!");
                 $('#title-input').val("");
                 $('#blog-post-input').val("");
                 $('#no-order').remove();

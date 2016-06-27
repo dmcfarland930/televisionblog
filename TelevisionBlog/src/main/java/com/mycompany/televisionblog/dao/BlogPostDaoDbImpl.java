@@ -28,7 +28,9 @@ public class BlogPostDaoDbImpl implements BlogPostDao {
     private static final String SQL_SET_POSTS_TO_EXPIRED_DATE = "UPDATE post SET active = 0 where expiration_date <= curdate()";
     private static final String SQL_GET_POST_LIST_APPROVED = "SELECT * FROM post WHERE approved = 1";
     private static final String SQL_GET_POST_LIST_UNAPPROVED = "SELECT * FROM post WHERE approved = 0";
-    private static final String SQL_GET_POST_LIST_THREE_ENTRIES = "SELECT * FROM post WHERE approved AND active = 1 ORDER BY post_date DESC LIMIT ?, 3";
+    private static final String SQL_GET_POST_LIST_THREE_ENTRIES = "SELECT * FROM post WHERE approved AND active ORDER BY post_date DESC LIMIT ?, 3";
+    private static final String SQL_GET_POST_LIST_THREE_ENTRIES_AUTHOR = "SELECT * FROM post WHERE approved AND active AND user_id = ? ORDER BY post_date DESC LIMIT ?, 3";
+    private static final String SQL_GET_POST_LIST_THREE_ENTRIES_CATEGORY = "SELECT * FROM post WHERE approved AND active AND category_id = ? ORDER BY post_date DESC LIMIT ?, 3";
     private static final String SQL_GET_POST_LIST_DATE = "SELECT * FROM post WHERE order_date = ?";
 
     private JdbcTemplate jdbcTemplate;
@@ -119,12 +121,31 @@ public class BlogPostDaoDbImpl implements BlogPostDao {
 
     @Override
     public List<BlogPost> listOfThree(Integer pageNum) {
-        
-        
+
         jdbcTemplate.update(SQL_SET_POSTS_TO_ACTIVE_DATE);
         jdbcTemplate.update(SQL_SET_POSTS_TO_EXPIRED_DATE);
 
         return jdbcTemplate.query(SQL_GET_POST_LIST_THREE_ENTRIES, new BlogPostMapper(), pageNum);
+
+    }
+
+    @Override
+    public List<BlogPost> listOfThreeByAuthor(Integer pageNum, String author) {
+
+        jdbcTemplate.update(SQL_SET_POSTS_TO_ACTIVE_DATE);
+        jdbcTemplate.update(SQL_SET_POSTS_TO_EXPIRED_DATE);
+
+        return jdbcTemplate.query(SQL_GET_POST_LIST_THREE_ENTRIES_AUTHOR, new BlogPostMapper(), author, pageNum);
+
+    }
+
+    @Override
+    public List<BlogPost> listOfThreeByCategory(Integer pageNum, Integer category) {
+
+        jdbcTemplate.update(SQL_SET_POSTS_TO_ACTIVE_DATE);
+        jdbcTemplate.update(SQL_SET_POSTS_TO_EXPIRED_DATE);
+
+        return jdbcTemplate.query(SQL_GET_POST_LIST_THREE_ENTRIES_CATEGORY, new BlogPostMapper(), category, pageNum);
 
     }
 

@@ -70,6 +70,15 @@ public class PageController {
     public Page create(@RequestBody PageCommand command) {
         Page page = new Page();
 
+        
+        
+        //!!!!!!!!!!!!!!!!!!!
+        //DELETE ME
+        command.setUserId(1);
+        //DELETE ME
+        //!!!!!!!!!!!!!!!!!!!
+        
+        
         User user = userDao.get(command.getUserId());
         page.setUser(user);
 
