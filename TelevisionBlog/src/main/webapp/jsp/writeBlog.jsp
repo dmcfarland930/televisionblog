@@ -21,16 +21,16 @@
             <hr/>
             <div class="row">
                 <jsp:include page="adminMenu.jsp"/>
-                <div class="col-md-4">
-                    <ul class="list list-group">
-                        <li class="list-group-item"><a href="${pageContext.request.contextPath}">Back to Blog</a></li>
-                        <li class="list-group-item"><a href="${pageContext.request.contextPath}/admin/">Pending Posts</a></li>
-                        <li class="list-group-item"><a href="${pageContext.request.contextPath}/admin/post/">Blog List</a></li>
-                        <li class="list-group-item"><a href="${pageContext.request.contextPath}/admin/category">Category List</a></li>
-                        <li class="list-group-item"><a href="${pageContext.request.contextPath}/admin/page/">Page List</a></li>
-                        <li class="list-group-item"><a href="${pageContext.request.contextPath}/admin/user/">User List</a></li>
-                    </ul>    
-                </div>
+                <!--                <div class="col-md-4">
+                                    <ul class="list list-group">
+                                        <li class="list-group-item"><a href="${pageContext.request.contextPath}">Back to Blog</a></li>
+                                        <li class="list-group-item"><a href="${pageContext.request.contextPath}/admin/">Pending Posts</a></li>
+                                        <li class="list-group-item"><a href="${pageContext.request.contextPath}/admin/post/">Blog List</a></li>
+                                        <li class="list-group-item"><a href="${pageContext.request.contextPath}/admin/category">Category List</a></li>
+                                        <li class="list-group-item"><a href="${pageContext.request.contextPath}/admin/page/">Page List</a></li>
+                                        <li class="list-group-item"><a href="${pageContext.request.contextPath}/admin/user/">User List</a></li>
+                                    </ul>    
+                                </div>-->
 
 
                 <form method="POST">
@@ -58,6 +58,18 @@
                             </select>
                         </div>
                     </fieldset> 
+
+                    <fieldset class="form-group">
+                        <div id="title-div" class="col-md-8">
+                            <label for="title-input">Category: </label>
+                            <select class="form-control" name="categoryName" id="category-input">
+                                <c:forEach items="${categories}" var="category">
+                                    <option value="${category.id}">${category.name}</option>
+                                </c:forEach>
+                            </select>
+                        </div>
+                    </fieldset>
+
 
                     <fieldset class="form-group">
                         <div id="blog-div"  class="col-md-8">
