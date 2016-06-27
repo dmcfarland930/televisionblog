@@ -20,12 +20,7 @@
             <h1>Blog Writer</h1>
             <hr/>
             <div class="row">
-<<<<<<< HEAD
-                 <jsp:include page="adminMenu.jsp"/>
-            <h1>Blog Writer</h1>
-            <hr/>
-
-=======
+                <jsp:include page="adminMenu.jsp"/>
                 <div class="col-md-4">
                     <ul class="list list-group">
                         <li class="list-group-item"><a href="${pageContext.request.contextPath}">Back to Blog</a></li>
@@ -36,7 +31,6 @@
                         <li class="list-group-item"><a href="${pageContext.request.contextPath}/admin/user/">User List</a></li>
                     </ul>    
                 </div>
->>>>>>> 16b88cadf1458374a47967b5a630ad2d0588c2e5
 
 
                 <form method="POST">
@@ -115,10 +109,7 @@
                         <div id="img-display"></div>
                     </div>
                     <div class="modal-footer">
-
-                            <button class="form-control" id="file-upload-button" type="submit">Upload</button>Press here to upload the file!
-                        </form>
-                        
+                        <button class="btn btn-primary" id="add-images">Add Images</button>
                     </div>
                 </div>
             </div>
