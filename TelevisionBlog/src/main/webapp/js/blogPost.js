@@ -162,7 +162,7 @@ $(document).ready(function () {
         e.preventDefault();
         var body = $(tinymce.activeEditor.getBody());
         $('.selected-image').each(function() {
-            $(this).removeClass('.selected-image');
+            $(this).removeClass('selected-image');
             var a = $(this);
             body.append(a.clone());
         });
