@@ -6,6 +6,7 @@
 package com.mycompany.televisionblog.dao;
 
 import com.mycompany.televisionblog.dto.Tag;
+import java.util.List;
 
 /**
  *
@@ -17,5 +18,6 @@ public interface TagDao {
     Tag get(Integer id);
     void update(Tag tag);
     void delete(Integer id);
+    List<Tag> list();
     
 }

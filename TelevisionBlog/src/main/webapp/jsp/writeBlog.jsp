@@ -67,16 +67,6 @@
                         </div>
                     </fieldset> 
 
-                    <fieldset class="form-group">
-                        <div id="title-div" class="col-md-8">
-                            <label for="title-input">Category: </label>
-                            <select class="form-control" name="categoryName" id="category-input">
-                                <c:forEach items="${categories}" var="category">
-                                    <option value="${category.id}">${category.name}</option>
-                                </c:forEach>
-                            </select>
-                        </div>
-                    </fieldset>
 
                     <fieldset class="form-group">
                         <div id="blog-div"  class="col-md-8">

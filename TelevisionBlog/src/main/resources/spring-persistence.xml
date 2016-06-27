@@ -47,6 +47,10 @@
     <bean id="fileUploadDao" class="com.mycompany.televisionblog.dao.FileUploadDaoImpl">
         <constructor-arg ref="jdbcTemplate"/>
     </bean>
+    <bean id="tagDao" class="com.mycompany.televisionblog.dao.TagDaoImpl">
+        <constructor-arg ref="jdbcTemplate"/>
+    </bean>
+
 
     <bean id="blogPostDao" class="com.mycompany.televisionblog.dao.BlogPostDaoDbImpl">    
         <constructor-arg ref="jdbcTemplate"/>
