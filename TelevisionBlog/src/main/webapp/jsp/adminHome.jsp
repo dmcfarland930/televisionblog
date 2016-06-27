@@ -68,10 +68,17 @@
                             <tr id="post-row-${post.id}">
                                 <td><a href="${pageContext.request.contextPath}/blog/${post.title}">${post.title}</a></td>
                                 <td>${post.postDate}</td>
-                                <td><a href="" data-post-id="${post.id}" data-toggle="modal" data-target="#edit-date-modal" class="glyphicon glyphicon-adjust"> ${post.expirationDate}</a></td>
+                                <c:choose>
+                                    <c:when test="${empty post.expirationDate}">
+                                        <td><a href="" data-post-id="${post.id}" data-toggle="modal" data-target="#edit-date-modal" class="glyphicon glyphicon-calendar"> No Date</a></td>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <td><a href="" data-post-id="${post.id}" data-toggle="modal" data-target="#edit-date-modal" class="glyphicon glyphicon-calendar"> ${post.expirationDate}</a></td>
+                                        </c:otherwise>
+                                    </c:choose>
                                 <td>${post.user.username}</td>
                                 <td><a href="${pageContext.request.contextPath}/blog/edit/${post.id}" class="glyphicon glyphicon-edit" style="color: green;"></a></td>
-                                <td><a href="" data-post-id="${post.id}" class="approve-post-link glyphicon glyphicon-thumbs-up" style="color:dodgerblue"></a></td>
+                                <td><a href="" data-post-id="${post.id}" class="approve-post-link glyphicon glyphicon-transfer" style="color:dodgerblue"></a></td>
                                 <td><a href="" data-post-id="${post.id}" class="delete-post-link glyphicon glyphicon-remove" style="color:red"></a></td>
                             </tr>
                         </c:forEach>
@@ -79,10 +86,17 @@
                             <tr id="post-row-${exp.id}">
                                 <td><a href="${pageContext.request.contextPath}/blog/${exp.title}">${exp.title}</a></td>
                                 <td>${exp.postDate}</td>
-                                <td><a href="" data-post-id="${exp.id}" data-toggle="modal" data-target="#edit-date-modal" class="glyphicon glyphicon-adjust"> ${exp.expirationDate}</a></td>
+                                <c:choose>
+                                    <c:when test="${empty exp.expirationDate}">
+                                        <td><a href="" data-post-id="${exp.id}" data-toggle="modal" data-target="#edit-date-modal" class="glyphicon glyphicon-calendar"> No Date</a></td>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <td><a href="" data-post-id="${exp.id}" data-toggle="modal" data-target="#edit-date-modal" class="glyphicon glyphicon-calendar"> ${exp.expirationDate}</a></td>
+                                        </c:otherwise>
+                                    </c:choose>
                                 <td>${exp.user.username}</td>
                                 <td><a href="${pageContext.request.contextPath}/blog/edit/${exp.id}" class="glyphicon glyphicon-edit" style="color: green;"></a></td>
-                                <td><a href="" data-post-id="${exp.id}" class="approve-post-link glyphicon glyphicon-thumbs-up" style="color:graytext"></a></td>
+                                <td><a href="" data-post-id="${exp.id}" class="approve-post-link glyphicon glyphicon-transfer" style="color:graytext"></a></td>
                                 <td><a href="" data-post-id="${exp.id}" class="delete-post-link glyphicon glyphicon-remove" style="color:red"></a></td>
                             </tr>
                         </c:forEach>

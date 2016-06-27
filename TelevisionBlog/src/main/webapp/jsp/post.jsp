@@ -68,10 +68,17 @@
                             <tr id="post-row-${post.id}">
                                 <td><a href="${pageContext.request.contextPath}/blog/${post.title}">${post.title}</a></td>
                                 <td>${post.postDate}</td>
-                                <td><a href="" data-post-id="${post.id}" data-toggle="modal" data-target="#edit-date-modal" class="glyphicon glyphicon-adjust"> ${post.expirationDate}</a></td>
+                                <c:choose>
+                                    <c:when test="${empty post.expirationDate}">
+                                        <td><a href="" data-post-id="${post.id}" data-toggle="modal" data-target="#edit-date-modal" class="glyphicon glyphicon-calendar"> No Date</a></td>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <td><a href="" data-post-id="${post.id}" data-toggle="modal" data-target="#edit-date-modal" class="glyphicon glyphicon-calendar"> ${post.expirationDate}</a></td>
+                                        </c:otherwise>
+                                    </c:choose>
                                 <td>${post.user.username}</td>
                                 <td><a href="${pageContext.request.contextPath}/blog/edit/${post.id}"><span class="glyphicon glyphicon-edit" style="color:green;"/></a></td>
-                                <td><a href="" data-post-id="${post.id}" class="glyphicon glyphicon-thumbs-down disapprove-post-link" style="color:dodgerblue;"></a></td>
+                                <td><a href="" data-post-id="${post.id}" class="glyphicon glyphicon-transfer disapprove-post-link" style="color:dodgerblue;"></a></td>
                                 <td><a href="" data-post-id="${post.id}" class="delete-post-link glyphicon glyphicon-remove" style="color:red;"></a></td>
                             </tr>
                         </c:forEach>
@@ -88,7 +95,7 @@
                         <h4 class="modal-title">Set Expiration Date</h4>
                     </div>
                     <div class="modal-body">
-                        
+
                         <input type="hidden" id="edit-post-id" />
                         <input type="hidden" id="edit-post-title" />
                         <input type="hidden" id="edit-post-category" />
@@ -97,15 +104,15 @@
                         <input type="hidden" id="edit-post-user-id" />
                         <input type="hidden" id="edit-post-active" />
                         <input type="hidden" id="edit-post-approved" />
-                        
+
                         <div class="form-group">
                             <label class="col-md-4 control-label">Expiration Date:</label>
                             <div class="col-md-8">
                                 <input type="date" class="form-control" id="edit-post-expiration-date" />
                             </div>
                         </div>
-                            
-                        
+
+
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

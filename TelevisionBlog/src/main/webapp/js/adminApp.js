@@ -155,7 +155,7 @@ $(document).ready(function () {
                                 <td><a href='' data-post-id='"+data.id+"' data-toggle='modal' data-target='#edit-date-modal' class='glyphicon glyphicon-adjust' > "+data.expirationDate+"</a></td> \n\
                                 <td>"+data.user.username+"</td> \n\
                                 <td><a href='${pageContext.request.contextPath}/blog/edit/"+data.id+"' class='glyphicon glyphicon-edit' style='color:green;' ></a></td> \n\
-                                <td><a href='' data-post-id='"+data.id+"' class='glyphicon glyphicon-thumbs-down disapprove-post-link' style='color:dodgerblue;'></a></td> \n\
+                                <td><a href='' data-post-id='"+data.id+"' class='glyphicon glyphicon-transfer disapprove-post-link' style='color:dodgerblue;'></a></td> \n\
                                 <td><a href='' data-post-id='"+data.id+"' class='delete-post-link glyphicon glyphicon-remove' style='color:red;'></a></td>  \n\
                                 </tr>";
         
