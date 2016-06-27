@@ -22,15 +22,7 @@
             <h1>Dashboard</h1>
             <hr/>
             <div class="row">
-                <div class="col-md-4">
-                    <ul>
-                        <li><a href="${pageContext.request.contextPath}/index.jsp">Back to Blog</a></li>
-                        <li><a href="${pageContext.request.contextPath}/post.jsp">Posts</a></li>
-                        <li><a href="${pageContext.request.contextPath}/categories.jsp">Categories</a></li>
-                        <li><a href="${pageContext.request.contextPath}/pages.jsp">Pages</a></li>
-                        <li><a href="${pageContext.request.contextPath}/users.jsp">Users</a></li>
-                    </ul>    
-                </div>
+                <jsp:include page="adminMenu.jsp"/>
                 <div class="col-md-8">
                     <div style="float: right">
                         <button><a href="${pageContext.request.contextPath}/page/writePage.jsp">Create New Page</a></button>

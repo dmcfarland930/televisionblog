@@ -18,16 +18,7 @@
 
         <div class="container">
             <div class="row">
-                 <div class="col-md-4">
-                    <ul class="list list-group">
-                        <li class="list-group-item"><a href="${pageContext.request.contextPath}">Back to Blog</a></li>
-                        <li class="list-group-item"><a href="${pageContext.request.contextPath}/admin/">Pending Posts</a></li>
-                        <li class="list-group-item"><a href="${pageContext.request.contextPath}/admin/post/">Blog List</a></li>
-                        <li class="list-group-item"><a href="${pageContext.request.contextPath}/admin/categories">Category List</a></li>
-                        <li class="list-group-item"><a href="${pageContext.request.contextPath}/admin/page/">Page List</a></li>
-                        <li class="list-group-item"><a href="${pageContext.request.contextPath}/admin/user/">User List</a></li>
-                    </ul>    
-                </div>
+                 <jsp:include page="adminMenu.jsp"/>
             <h1>Blog Writer</h1>
             <hr/>
 

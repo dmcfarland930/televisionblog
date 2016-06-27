@@ -35,7 +35,7 @@ public class TagDaoImpl implements TagDao {
     @Override
     public Tag create(Tag tag) {
 //        List<Tag> tagList = jdbcTemplate.query(SQL_GET_TAG_BY_NAME, new TagMapper(), tag.getTagName());
-        jdbcTemplate.update(SQL_CREATE_TAG, tag.getTagName());
+        jdbcTemplate.update(SQL_CREATE_TAG, tag.getName());
         Integer id = jdbcTemplate.queryForObject("SELECT LAST_INSERT_ID()", Integer.class);
         tag.setId(id);
         return tag;
@@ -48,7 +48,7 @@ public class TagDaoImpl implements TagDao {
 
     @Override
     public void update(Tag tag) {
-        jdbcTemplate.update(SQL_UPDATE_TAG, tag.getTagName(), tag.getId());
+        jdbcTemplate.update(SQL_UPDATE_TAG, tag.getName(), tag.getId());
     }
 
     @Override
@@ -58,7 +58,7 @@ public class TagDaoImpl implements TagDao {
 
     @Override
     public List<Tag> list() {
-        return jdbcTemplate.query(SQL_GET_TAG, new TagMapper());
+        return jdbcTemplate.query(SQL_GET_TAG_LIST, new TagMapper());
     }
     private static final class TagMapper implements RowMapper<Tag> {
         @Override
@@ -66,7 +66,7 @@ public class TagDaoImpl implements TagDao {
             
             Tag tag = new Tag();
             tag.setId(rs.getInt("id"));
-            tag.setTagName(rs.getString("tag_name"));
+            tag.setName(rs.getString("tag_name"));
             
             
             return tag;

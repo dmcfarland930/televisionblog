@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @author apprentice
  */
 @Controller
-@RequestMapping("/tag")
+@RequestMapping("/admin/tag")
 public class TagController {
     private TagDao tagDao;
     private PageDao pageDao;
@@ -36,7 +36,7 @@ public class TagController {
         this.pageDao = pageDao;
     }
     
-    @RequestMapping(value = "/view", method = RequestMethod.GET)
+    @RequestMapping(value = "", method = RequestMethod.GET)
     public String display(Map<String, Object> model) {
         
         List<Tag> tags = tagDao.list();
@@ -44,7 +44,7 @@ public class TagController {
         List<Page> pages = pageDao.list();
         
         model.put("pages", pages);
-        model.put("categories", tags);
+        model.put("tags", tags);
         
         return "tags";
     }
