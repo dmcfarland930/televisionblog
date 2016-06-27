@@ -1,5 +1,6 @@
 package com.mycompany.televisionblog.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import java.util.Date;
 
 /**
@@ -13,7 +14,9 @@ public class BlogPost {
     User user;
     Category category;
     String content;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "EST")
     Date postDate;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "EST")
     Date expirationDate;
     private String stringDateDisplay;
     private boolean active;
@@ -75,7 +78,6 @@ public class BlogPost {
         this.expirationDate = expirationDate;
     }
 
-
     public boolean isApproved() {
         return approved;
     }
@@ -106,6 +108,4 @@ public class BlogPost {
         this.stringDateDisplay = stringDateDisplay;
     }
 
-    
-    
 }

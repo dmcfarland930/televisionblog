@@ -220,5 +220,23 @@ public class BlogPostController {
     public void delete(@PathVariable("id") Integer id) {
         blogPostDao.delete(id);
     }
+    
+    @RequestMapping(value="/", method=RequestMethod.PUT)
+    @ResponseBody
+    public BlogPost update(@RequestBody BlogPostCommand command) throws ParseException {
+      
+        BlogPost post = this.setBlogPostProperties(command);
+        
+        blogPostDao.update(post);
+        
+        return post;
+        
+    };
+    
+    @RequestMapping(value="/grab/{id}", method=RequestMethod.GET)
+    @ResponseBody
+    public BlogPost get(@PathVariable("id") Integer id) {
+        return blogPostDao.get(id);     
+    };
 
 }
