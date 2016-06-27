@@ -44,30 +44,23 @@
                         <div class="form-group">
                             <label for="" class="control-label">Desired URL Path:</label>
                             <div>
-                                <input type="text" id="page-url-input" class="form-control" placeholder="http://TelevisionBlog/page/YOUR-URL-PATH-HERE" />
+                                <input type="text" id="page-url-input" class="form-control" placeholder="http://TelevisionBlog/YOUR-URL-PATH-HERE" />
                             </div>
                         </div>
-                </div>
-            </div>
 
-            <div class="row">
-                <div class="col-md-12">
-
-                    <div class="form-group">
-                        <label for="" class="control-label">Page Content:</label>
-                        <div class="">
-                            <textarea type="text" id="page-content-input" class="form-control"></textarea>
+                        <div class="form-group">
+                            <label for="" class="control-label">Page Content:</label>
+                            <div class="">
+                                <textarea type="text" id="page-content-input" class="form-control"></textarea>
+                            </div>
                         </div>
-                    </div>
 
-
-
-
-
-                    <input class="btn btn-primary center-block" type="submit" id="create-submit" />
+                        <input class="btn btn-primary" type="submit" id="create-submit" />
                     </form>
+
                 </div>
             </div>
+
 
             <script>
                 var contextRoot = "${pageContext.request.contextPath}";
@@ -81,7 +74,7 @@
                 tinymce.init({
                     selector: '#page-content-input',
                     height: 400,
-                    width: 500,
+                    width: 800,
                     images_upload_url: 'postAcceptor.php',
                     images_upload_base_path: '/some/basepath',
                     images_upload_credentials: true,
