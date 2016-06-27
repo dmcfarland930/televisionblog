@@ -72,7 +72,7 @@
                                 <td>${post.user.username}</td>
                                 <td><a href="${pageContext.request.contextPath}/blog/edit/${post.id}"><span class="glyphicon glyphicon-edit" style="color:green;"/></a></td>
                                 <td><a href="" data-post-id="${post.id}" class="glyphicon glyphicon-thumbs-down disapprove-post-link" style="color:dodgerblue;"></a></td>
-                                <td><a href="" data-post-id="${post.id}" class="delete-post-link"><span class="glyphicon glyphicon-remove" style="color:red;" /></a></td>
+                                <td><a href="" data-post-id="${post.id}" class="delete-post-link glyphicon glyphicon-remove" style="color:red;"></a></td>
                             </tr>
                         </c:forEach>
                     </table>

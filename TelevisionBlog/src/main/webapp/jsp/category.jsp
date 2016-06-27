@@ -30,7 +30,7 @@
                 <div class="col-md-4"></div>
                 <div class="col-md-8">
                     <div style="float: right">
-                        <button class="btn btn-default"><a href="${pageContext.request.contextPath}/category/view">Create Category</a></button>
+                        <button class="btn btn-default"><a href="" data-toggle="modal" data-target="#createCategoryModal">Create Category</a></button>
                     </div>
                 </div>
             </div>
@@ -48,7 +48,7 @@
                 </div>
 
                 <div class="col-md-8">
-                    <table class="table table-bordered" style="text-align: center;" id="pending-post-table">                       
+                    <table class="table table-bordered" style="text-align: center;" id="category-table">                       
 
                         <tr>
                             <th colspan="6">Category List</th>
@@ -63,8 +63,8 @@
                         <c:forEach items="${categories}" var="category">
                             <tr id="category-row-${category.id}">
                                 <td>${category.name}</td>
-                                <td><a href="" class="glyphicon glyphicon-edit" style="color:green;"><span  /></a></td>
-                                <td><a href="" data-post-id="${category.id}" class="glyphicon glyphicon-remove delete-category-link" style="color:red;"></a></td>
+                                <td><a href="" class="glyphicon glyphicon-edit" style="color:green;" data-toggle="modal" data-category-id="${category.id}" data-target="#editCategoryModal"></a></td>
+                                <td><a href="" data-category-id="${category.id}" class="glyphicon glyphicon-remove delete-category-link" style="color:red;"></a></td>
                             </tr>
                         </c:forEach>
                     </table>
@@ -72,14 +72,73 @@
             </div>
         </div>
 
+        <!-- Modal -->
+        <div id="createCategoryModal" class="modal fade" role="dialog">
+            <div class="modal-dialog modal-sm">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Create Category</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div id="add-category-form" class="col-md-4" style="float:none; margin: 0 auto" class="form-horizontal">
+                            <div class="form-group">
+                                <form method="POST">
+                                    <label for="category-name">Add Category:</label>
+                                    <input id="name-input" class="form-control"/>
+                                    <div id="add-category-validation-errors"></div>
+                                    <div style = "text-align: center; margin-top: 15px">
+
+                                    </div>
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="submit" class="btn btn-danger" id="create-submit" value="Create"/>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div id="editCategoryModal" class="modal fade" role="dialog">
+            <div class="modal-dialog modal-sm">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Edit Category</h4>
+                    </div>
+                    <div class="modal-body">
+                        <input hidden="true" id="edit-category-id">
+                        <div class="form-group">
+                            <label for="edit-category-name">Name:</label>
+                            <input class="form-control" id="edit-category-name">
+                            <div id="edit-category-validation-errors"></div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" id="edit-category-button">Edit</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
 
         <script>
-                        var contextRoot = "${pageContext.request.contextPath}";
+            var contextRoot = "${pageContext.request.contextPath}";
         </script>
         <!-- Placed at the end of the document so the pages load faster -->
         <script src="${pageContext.request.contextPath}/js/jquery-1.11.1.min.js"></script>
         <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
-        <script src="${pageContext.request.contextPath}/js/adminApp.js"></script>
+        <script src="${pageContext.request.contextPath}/js/categories.js"></script>
 
     </body>
 </html>
