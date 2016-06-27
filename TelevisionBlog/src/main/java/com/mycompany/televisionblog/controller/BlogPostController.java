@@ -204,7 +204,7 @@ public class BlogPostController {
         blogPost.setId(blogPostCommand.getId());
 
         if (dateString.equals(sdfSQL.format(time).substring(0, 10))) {
-            blogPost.setActive(blogPostCommand.isActive());
+            blogPost.setActive(true);
         }
 
         blogPost.setApproved(blogPostCommand.isApproved());
