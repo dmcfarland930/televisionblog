@@ -214,5 +214,11 @@ public class BlogPostController {
         return "/home";
 
     }
+    
+    @RequestMapping(value="/{id}", method=RequestMethod.DELETE)
+    @ResponseBody
+    public void delete(@PathVariable("id") Integer id) {
+        blogPostDao.delete(id);
+    }
 
 }

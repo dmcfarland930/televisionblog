@@ -21,7 +21,7 @@ $(document).ready(function () {
                     $("#post-row-" + postId).remove();
                 } else {
                     alert("That post is expired.\n"
-                            +"Change the expiration date to approve.")
+                            + "Change the expiration date to approve.")
                 }
             },
             error: function (data, status) {
@@ -56,6 +56,28 @@ $(document).ready(function () {
         });
 
     });
+
+    //Remove Post
+    $(document).on("click", ".delete-post-link", function (e) {
+        
+        e.preventDefault();
+
+        var postId = $(e.target).data("post-id");
+
+        $.ajax({
+            url: contextRoot + "/blog/" + postId,
+            type: "DELETE",
+            success: function (data, status) {
+                $("#post-row-" + postId).remove();
+
+            },
+            error: function (data, status) {
+
+            }
+        });
+
+    });
+
 
 
 
