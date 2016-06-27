@@ -15,6 +15,8 @@ public class Category {
     @NotNull
     String name;
 
+    int postCount;
+    
     public int getId() {
         return id;
     }
@@ -29,6 +31,14 @@ public class Category {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public int getPostCount() {
+        return postCount;
+    }
+
+    public void setPostCount(int postCount) {
+        this.postCount = postCount;
     }
     
     

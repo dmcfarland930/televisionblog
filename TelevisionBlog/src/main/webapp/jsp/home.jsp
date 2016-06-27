@@ -19,16 +19,36 @@
         <%@include file="navBar.jsp"%>
 
         <div class="container">
-            <c:forEach items="${posts}" var="post">
-                <div class="col-md-8">
+            <div class="col-md-8">
+                <c:forEach items="${posts}" var="post">
                     <a id="blog-title" href="${pageContext.request.contextPath}/blog/${post.title}"><h1>${post.title}</h1></a>
                     <a id="author-name" href="${pageContext.request.contextPath}/blog/author/${post.user.id}"> Posted by ${post.user.firstName} ${post.user.lastName} on ${post.stringDateDisplay}</a>
                     ${post.content}</br>
                     <a id="category-name" href="${pageContext.request.contextPath}/blog/category/${post.category.id}"> Category: ${post.category.name}</a>
                     <hr/>
-                </div>
-            </c:forEach>
+                </c:forEach>
+            </div>
 
+            <div id="category-div" class="col-md-4">
+                <p>Categories:</p>
+                <hr>
+                <c:forEach items="${categories}" var="category">
+                    <c:if test="${category.postCount != 0}">
+                    <a id="category-name" href="${pageContext.request.contextPath}/blog/category/${category.id}">${category.name} (${category.postCount})</a>
+                    </c:if>
+                    <br/>
+                </c:forEach>
+            </div>
+            <div id="tag-div" class="col-md-4">
+            <br/>
+            <br/>
+                <p>Tags:</p>
+                <hr>
+                <c:forEach items="${tags}" var="tag">
+                    <a id="tag-name" href="${pageContext.request.contextPath}/blog/tag/${tag.id}">${tag.name}</a>
+                    <br/>
+                </c:forEach>
+            </div>
 
             <div class="row col-md-8" >
                 <div style="display: inline-block;">

@@ -18,6 +18,8 @@ public class CategoryCommand {
     @NotEmpty
     String categoryName;
 
+    int postCount;
+    
     public int getId() {
         return id;
     }
@@ -33,4 +35,15 @@ public class CategoryCommand {
     public void setCategoryName(String categoryName) {
         this.categoryName = categoryName;
     }
+
+    public int getPostCount() {
+        return postCount;
+    }
+
+    public void setPostCount(int postCount) {
+        this.postCount = postCount;
+    }
+    
+    
+    
 }

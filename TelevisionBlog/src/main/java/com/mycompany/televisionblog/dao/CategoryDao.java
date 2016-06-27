@@ -23,5 +23,7 @@ public interface CategoryDao {
     void delete(Integer id);
 
     List<Category> list();
+    
+    int getPostCount(Integer id);
 
 }

@@ -6,9 +6,11 @@
 package com.mycompany.televisionblog.controller;
 
 import com.mycompany.televisionblog.dao.BlogPostDao;
+import com.mycompany.televisionblog.dao.CategoryDao;
 import com.mycompany.televisionblog.dao.PageDao;
 import com.mycompany.televisionblog.dao.UserDao;
 import com.mycompany.televisionblog.dto.BlogPost;
+import com.mycompany.televisionblog.dto.Category;
 import com.mycompany.televisionblog.dto.Page;
 import com.mycompany.televisionblog.dto.User;
 import java.text.SimpleDateFormat;
@@ -30,23 +32,26 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class HomeController {
 
     
-    SimpleDateFormat sdfDisplay = new SimpleDateFormat("MMMM dd, yyyy hh:mm:ss a");
+    SimpleDateFormat sdfDisplay = new SimpleDateFormat("MMMM dd, yyyy hh:mm:ss");
     private BlogPostDao postDao;
     private PageDao pageDao;
     private UserDao userDao;
+    private CategoryDao categoryDao;
 
     @Inject
-    public HomeController(BlogPostDao postDao, PageDao pageDao, UserDao userDao) {
+    public HomeController(BlogPostDao postDao, PageDao pageDao, UserDao userDao, CategoryDao categoryDao) {
         this.postDao = postDao;
         this.pageDao = pageDao;
         this.userDao = userDao;
+        this.categoryDao = categoryDao;
     }
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String home(Map<String, Object> model) {
 
         List<BlogPost> posts = postDao.listOfThree(0);
-
+        List<Category> categories = categoryDao.list();
+        
         for (BlogPost blogView : posts) {
 
             blogView.setStringDateDisplay(sdfDisplay.format(blogView.getPostDate()));
@@ -54,8 +59,13 @@ public class HomeController {
             model.put("author", blogView.getUser().getFirstName() + " " + blogView.getUser().getLastName());
             model.put("posts", posts);
         }
+        
+        
         boolean nextPage = postDao.checkIfNextPage(3);
         List<Page> pages = pageDao.list();
+        
+        
+        model.put("categories", categories);
         model.put("pages", pages);
         model.put("pageNext", 2);
         model.put("nextPage", nextPage);
