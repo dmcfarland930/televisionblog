@@ -51,11 +51,13 @@
                     <table class="table table-bordered" style="text-align: center;" id="pending-post-table">                       
 
                         <tr>
-                            <th colspan="5">Blog Posts Needing Approval</th>
+                            <th colspan="7">Blog Posts Needing Approval</th>
                         </tr>
 
                         <tr>
                             <th>Title</th>
+                            <th>Post Date</th>
+                            <th>Expiration Date</th>
                             <th>Author</th>
                             <th>Edit</th>
                             <th>Approve</th>
@@ -65,18 +67,36 @@
                         <c:forEach items="${active}" var="post">
                             <tr id="post-row-${post.id}">
                                 <td><a href="${pageContext.request.contextPath}/blog/${post.title}">${post.title}</a></td>
+                                <td>${post.postDate}</td>
+                                <c:choose>
+                                    <c:when test="${empty post.expirationDate}">
+                                        <td><a href="" data-post-id="${post.id}" data-toggle="modal" data-target="#edit-date-modal" class="glyphicon glyphicon-calendar"> No Date</a></td>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <td><a href="" data-post-id="${post.id}" data-toggle="modal" data-target="#edit-date-modal" class="glyphicon glyphicon-calendar"> ${post.expirationDate}</a></td>
+                                        </c:otherwise>
+                                    </c:choose>
                                 <td>${post.user.username}</td>
-                                <td><a href="${pageContext.request.contextPath}/blog/" class="glyphicon glyphicon-edit" style="color: green;"></a></td>
-                                <td><a href="" data-post-id="${post.id}" class="approve-post-link glyphicon glyphicon-thumbs-up" style="color:dodgerblue"></a></td>
+                                <td><a href="${pageContext.request.contextPath}/blog/edit/${post.id}" class="glyphicon glyphicon-edit" style="color: green;"></a></td>
+                                <td><a href="" data-post-id="${post.id}" class="approve-post-link glyphicon glyphicon-transfer" style="color:dodgerblue"></a></td>
                                 <td><a href="" data-post-id="${post.id}" class="delete-post-link glyphicon glyphicon-remove" style="color:red"></a></td>
                             </tr>
                         </c:forEach>
                         <c:forEach items="${expired}" var="exp">
                             <tr id="post-row-${exp.id}">
                                 <td><a href="${pageContext.request.contextPath}/blog/${exp.title}">${exp.title}</a></td>
+                                <td>${exp.postDate}</td>
+                                <c:choose>
+                                    <c:when test="${empty exp.expirationDate}">
+                                        <td><a href="" data-post-id="${exp.id}" data-toggle="modal" data-target="#edit-date-modal" class="glyphicon glyphicon-calendar"> No Date</a></td>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <td><a href="" data-post-id="${exp.id}" data-toggle="modal" data-target="#edit-date-modal" class="glyphicon glyphicon-calendar"> ${exp.expirationDate}</a></td>
+                                        </c:otherwise>
+                                    </c:choose>
                                 <td>${exp.user.username}</td>
-                                <td><a href="${pageContext.request.contextPath}/blog/" class="glyphicon glyphicon-edit" style="color: green;"></a></td>
-                                <td><a href="" data-post-id="${exp.id}" class="approve-post-link glyphicon glyphicon-thumbs-up" style="color:graytext"></a></td>
+                                <td><a href="${pageContext.request.contextPath}/blog/edit/${exp.id}" class="glyphicon glyphicon-edit" style="color: green;"></a></td>
+                                <td><a href="" data-post-id="${exp.id}" class="approve-post-link glyphicon glyphicon-transfer" style="color:graytext"></a></td>
                                 <td><a href="" data-post-id="${exp.id}" class="delete-post-link glyphicon glyphicon-remove" style="color:red"></a></td>
                             </tr>
                         </c:forEach>
@@ -85,9 +105,44 @@
             </div>
         </div>
 
+        <div id="edit-date-modal" class="modal fade" tabindex="-1" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">Set Expiration Date</h4>
+                    </div>
+                    <div class="modal-body">
+
+                        <input type="hidden" id="edit-post-id" />
+                        <input type="hidden" id="edit-post-title" />
+                        <input type="hidden" id="edit-post-category" />
+                        <input type="hidden" id="edit-post-content" />
+                        <input type="hidden" id="edit-post-date" />
+                        <input type="hidden" id="edit-post-user-id" />
+                        <input type="hidden" id="edit-post-active" />
+                        <input type="hidden" id="edit-post-approved" />
+
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Expiration Date:</label>
+                            <div class="col-md-8">
+                                <input type="date" class="form-control" id="edit-post-expiration-date" />
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" id="edit-date-button" class="btn btn-primary">Save changes</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+
 
         <script>
-                        var contextRoot = "${pageContext.request.contextPath}";
+            var contextRoot = "${pageContext.request.contextPath}";
         </script>
         <!-- Placed at the end of the document so the pages load faster -->
         <script src="${pageContext.request.contextPath}/js/jquery-1.11.1.min.js"></script>

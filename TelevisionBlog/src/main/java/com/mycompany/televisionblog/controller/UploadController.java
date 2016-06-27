@@ -54,8 +54,8 @@ public class UploadController {
             UploadedFile file = fileUploadDao.get(id);
             IOUtils.copy(new ByteArrayInputStream(file.getFileByte()), response.getOutputStream());
             response.setContentType(file.getExtensionType());
-        
         }
+        
         @RequestMapping(value = "", method = RequestMethod.GET)
         @ResponseBody
         public List<Integer> listImages() {

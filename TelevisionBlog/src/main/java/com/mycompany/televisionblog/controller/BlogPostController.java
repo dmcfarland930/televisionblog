@@ -201,6 +201,7 @@ public class BlogPostController {
         blogPost.setPostDate(sdfSQL.parse(dateTime));
         blogPost.setStringDateDisplay(sdfDisplay.format(blogPostCommand.getPostDate()));
         blogPost.setExpirationDate(blogPostCommand.getExpirationDate());
+        blogPost.setId(blogPostCommand.getId());
 
         if (dateString.equals(sdfSQL.format(time).substring(0, 10))) {
             blogPost.setActive(blogPostCommand.isActive());
@@ -258,6 +259,30 @@ public class BlogPostController {
         return "/home";
 
     }
+    
+    @RequestMapping(value="/{id}", method=RequestMethod.DELETE)
+    @ResponseBody
+    public void delete(@PathVariable("id") Integer id) {
+        blogPostDao.delete(id);
+    }
+    
+    @RequestMapping(value="/", method=RequestMethod.PUT)
+    @ResponseBody
+    public BlogPost update(@RequestBody BlogPostCommand command) throws ParseException {
+      
+        BlogPost post = this.setBlogPostProperties(command);
+        
+        blogPostDao.update(post);
+        
+        return post;
+        
+    };
+    
+    @RequestMapping(value="/grab/{id}", method=RequestMethod.GET)
+    @ResponseBody
+    public BlogPost get(@PathVariable("id") Integer id) {
+        return blogPostDao.get(id);     
+    };
 
     @RequestMapping(value = "author/{id}/page/{pageNum}", method = RequestMethod.GET)
     public String nextAuthorPage(@PathVariable("pageNum") Integer pageNum, @PathVariable("id") String authorId, Map model) {

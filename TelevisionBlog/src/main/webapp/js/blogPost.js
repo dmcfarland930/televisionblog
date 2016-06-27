@@ -162,6 +162,7 @@ $(document).ready(function () {
         e.preventDefault();
         var body = $(tinymce.activeEditor.getBody());
         $('.selected-image').each(function() {
+            $(this).removeClass('.selected-image');
             var a = $(this);
             body.append(a.clone());
         });
@@ -183,7 +184,6 @@ $(document).ready(function () {
                 contentType : false,
                 type : 'POST',
                 success : function(data) {
-                    alert("<img  src='" + contextRoot + "/upload/showImage/" + data.id + "' alt='Not Found'>");
                     $("#image-upload-list").append("<div style='padding-bottom: 5px;' class='col-md-2'> \n\
                                                     <a href='#' class='image-upload' id='image-upload-" + data.id + "'><img  style='height: 50px; width: auto' src ='" + contextRoot + "/upload/showImage/" + data.id + "'></a> \n\
                                                     </div>");

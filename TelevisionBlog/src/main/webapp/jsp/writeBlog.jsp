@@ -25,7 +25,7 @@
                         <li class="list-group-item"><a href="${pageContext.request.contextPath}">Back to Blog</a></li>
                         <li class="list-group-item"><a href="${pageContext.request.contextPath}/admin/">Pending Posts</a></li>
                         <li class="list-group-item"><a href="${pageContext.request.contextPath}/admin/post/">Blog List</a></li>
-                        <li class="list-group-item"><a href="${pageContext.request.contextPath}/admin/categories">Category List</a></li>
+                        <li class="list-group-item"><a href="${pageContext.request.contextPath}/admin/category">Category List</a></li>
                         <li class="list-group-item"><a href="${pageContext.request.contextPath}/admin/page/">Page List</a></li>
                         <li class="list-group-item"><a href="${pageContext.request.contextPath}/admin/user/">User List</a></li>
                     </ul>    
@@ -119,8 +119,9 @@
                     </div>
                     <div class="modal-footer">
 
-                        <button type="button" class="btn btn-danger" id="add-images">Add Images</button>
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button class="form-control" id="file-upload-button" type="submit">Upload</button>Press here to upload the file!
+                        </form>
+                        
                     </div>
                 </div>
             </div>
@@ -132,6 +133,7 @@
         <script src="${pageContext.request.contextPath}/js/jquery-1.11.1.min.js"></script>
         <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
         <script src="${pageContext.request.contextPath}/js/tinymce/js/tinymce/tinymce.min.js"></script>
+
         <script type="text/javascript">
             tinymce.init({
                 selector: '#blog-post-input',
@@ -156,6 +158,7 @@
                         icon: false,
                         onclick: function () {
                             $('#UploadModal').modal('show');
+
                         }
                     });
                 }
