@@ -23,7 +23,7 @@
             <div class="row">
                 <div class="col-md-4"></div>
                 <div class="col-md-8">
-                    
+
                 </div>
             </div>
             <br />
@@ -35,35 +35,42 @@
                     <form method="POST" class="form-horizontal">
 
                         <div class="form-group">
-                            <label for="" class="col-md-4 control-label">Title:</label>
-                            <div class="col-md-8">
+                            <label for="" class="control-label">Title:</label>
+                            <div>
                                 <input type="text" id="page-title-input" class="form-control"></input>
                             </div>
                         </div>
 
-
                         <div class="form-group">
-                            <label for="" class="col-md-4 control-label">Page Content:</label>
-                            <div class="col-md-8">
-                                <textarea type="text" id="page-content-input" class="form-control"></textarea>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="" class="col-md-4 control-label">Desired URL Path:</label>
-                            <div class="col-md-8">
+                            <label for="" class="control-label">Desired URL Path:</label>
+                            <div>
                                 <input type="text" id="page-url-input" class="form-control" placeholder="http://TelevisionBlog/page/YOUR-URL-PATH-HERE" />
                             </div>
                         </div>
+                </div>
+            </div>
 
-                        <input class="btn btn-default center-block" type="submit" id="create-submit" />
+            <div class="row">
+                <div class="col-md-12">
+
+                    <div class="form-group">
+                        <label for="" class="control-label">Page Content:</label>
+                        <div class="">
+                            <textarea type="text" id="page-content-input" class="form-control"></textarea>
+                        </div>
+                    </div>
+
+
+
+
+
+                    <input class="btn btn-primary center-block" type="submit" id="create-submit" />
                     </form>
-
                 </div>
             </div>
 
             <script>
-                        var contextRoot = "${pageContext.request.contextPath}";
+                var contextRoot = "${pageContext.request.contextPath}";
             </script>
             <!-- Placed at the end of the document so the pages load faster -->
             <script src="${pageContext.request.contextPath}/js/jquery-1.11.1.min.js"></script>
@@ -71,12 +78,37 @@
             <script src="${pageContext.request.contextPath}/js/tinymce/js/tinymce/tinymce.min.js"></script>
 
             <script type="text/javascript">
-                            tinymce.init({
-                                selector: '#page-content-input',
-                               height: 500
-                            });
+                tinymce.init({
+                    selector: '#page-content-input',
+                    height: 400,
+                    width: 500,
+                    images_upload_url: 'postAcceptor.php',
+                    images_upload_base_path: '/some/basepath',
+                    images_upload_credentials: true,
+                    fontsize_formats: "8pt 10pt 12pt 14pt 18pt 24pt 36pt",
+                    plugins: ['advlist autolink lists link image charmap print preview hr anchor pagebreak',
+                        'searchreplace wordcount visualblocks visualchars code fullscreen',
+                        'insertdatetime media nonbreaking save table contextmenu directionality',
+                        'emoticons template paste textcolor colorpicker textpattern imagetools'],
+                    menubar: "insert",
+                    toolbar1: 'mybutton | insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+                    toolbar2: 'print preview media | forecolor backcolor emoticons',
+                    image_advtab: true,
+                    relative_urls: false,
+                    setup: function (editor) {
+                        editor.addButton('mybutton', {
+                            text: 'Upload Image',
+                            icon: false,
+                            onclick: function () {
+                                $('#UploadModal').modal('show');
+                            }
+                        });
+                    }
+                });
             </script>
+
             <script src="${pageContext.request.contextPath}/js/pageApp.js"></script>
+
 
 
     </body>

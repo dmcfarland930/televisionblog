@@ -11,6 +11,7 @@ import com.mycompany.televisionblog.dto.BlogPost;
 import com.mycompany.televisionblog.dto.Category;
 import com.mycompany.televisionblog.dto.User;
 import java.util.Date;
+import junit.framework.Assert;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -44,18 +45,15 @@ public class blogPostTests {
     public void createBlogPost() {
 
         User user;
+        Category category;
 
         Date postDate = new Date();
         Date expirationDate = new Date();
 
-        Category category = new Category();
         BlogPost blogPost = new BlogPost();
 
         user = userDao.get(1);
 
-//        category.setCategoryName("Testing");
-
-        categoryDao.create(category);
         category = categoryDao.get(1);
 
         blogPost.setTitle("TEST POST");
@@ -67,9 +65,54 @@ public class blogPostTests {
         blogPost.setApproved(true);
 
         blogPostDao.create(blogPost);
-              
+
+        BlogPost test = blogPostDao.get(blogPost.getId());
+
+        Assert.assertEquals("TEST POST", test.getTitle());
+        Assert.assertEquals("THIS IS A POST FOR MY BLOG", test.getContent());
+
         blogPostDao.delete(blogPost.getId());
-        categoryDao.delete(category.getId());
 
     }
+
+    @Test
+    public void update() {
+
+        User user;
+        Category category;
+
+        Date postDate = new Date();
+        Date expirationDate = new Date();
+
+        BlogPost blogPost = new BlogPost();
+
+        user = userDao.get(1);
+
+        category = categoryDao.get(1);
+
+        blogPost.setTitle("TEST POST");
+        blogPost.setContent("THIS IS A POST FOR MY BLOG");
+        blogPost.setCategory(category);
+        blogPost.setUser(user);
+        blogPost.setPostDate(postDate);
+        blogPost.setExpirationDate(expirationDate);
+        blogPost.setApproved(true);
+
+        blogPostDao.create(blogPost);
+
+        Assert.assertEquals("TEST POST", blogPost.getTitle());
+        blogPost.setTitle("UPDATED POST");
+
+
+        blogPostDao.update(blogPost);
+
+        BlogPost test = blogPostDao.get(blogPost.getId());
+
+        Assert.assertEquals("UPDATED POST", test.getTitle());
+        Assert.assertEquals("THIS IS A POST FOR MY BLOG", test.getContent());
+
+        blogPostDao.delete(blogPost.getId());
+
+    }
+
 }

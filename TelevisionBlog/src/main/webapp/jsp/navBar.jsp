@@ -21,8 +21,7 @@
     <div class="collapse navbar-collapse navbar-ex1-collapse">
 
         <ul class="nav navbar-nav">
-            <li><a class="navbar-item" href="${pageContext.request.contextPath}/blog/writeBlog"><span class="navbar-item">Posts</span></a></li>
-            <li><a class="navbar-item" href="${pageContext.request.contextPath}/category/view"><span class="navbar-item">Categories</span></a></li>
+            <li><a class="navbar-item" href="${pageContext.request.contextPath}/admin/"><span class="navbar-item">Admin</span></a></li>
 
             <c:forEach items="${pages}" var="p">
                 <li><a class="navbar-item" href="${pageContext.request.contextPath}/${p.url}"><span class="navbar-item">${p.name}</span></a></li>

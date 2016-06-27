@@ -28,6 +28,10 @@ public interface BlogPostDao {
     
     List<BlogPost> listOfThree(Integer pageNum);
     
+    List<BlogPost> listOfThreeByAuthor(Integer pageNum, String author);
+    
+    List<BlogPost> listOfThreeByCategory(Integer pageNum, Integer category);
+    
     List<BlogPost> listApproved();
 
     List<BlogPost> listUnapproved();

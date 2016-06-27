@@ -16,10 +16,10 @@
     </head>
     <body>
         <div class="container">
+            <h1>Blog Edit</h1>
+            <hr/>
             <div class="row">
-
-                <h1>Blog Edit</h1>
-                <hr/>
+                <jsp:include page="adminMenu.jsp"/>
 
                 <div>
                     <form action="${pageContext.request.contextPath}/blog/editsubmit/" name="editForm" method="POST">
@@ -90,9 +90,32 @@
             tinymce.init({
                 selector: '#blog-post-edit',
                 height: 400,
-                width: 800
+                width: 800,
+                fontsize_formats: "8pt 10pt 12pt 14pt 18pt 24pt 36pt",
+                images_upload_url: 'postAcceptor.php',
+                images_upload_base_path: '/some/basepath',
+                images_upload_credentials: true,
+                plugins: ['advlist autolink lists link image charmap print preview hr anchor pagebreak',
+                    'searchreplace wordcount visualblocks visualchars code fullscreen',
+                    'insertdatetime media nonbreaking save table contextmenu directionality',
+                    'emoticons template paste textcolor colorpicker textpattern imagetools'],
+                menubar: "insert",
+                toolbar1: 'mybutton | insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+                toolbar2: 'print preview media | forecolor backcolor emoticons',
+                image_advtab: true,
+                relative_urls: false,
+                setup: function (editor) {
+                    editor.addButton('mybutton', {
+                        text: 'Upload Image',
+                        icon: false,
+                        onclick: function () {
+                            $('#UploadModal').modal('show');
+                        }
+                    });
+                }
             });
         </script>
+
         <script src="${pageContext.request.contextPath}/js/blogPost.js"></script>
 
     </body>

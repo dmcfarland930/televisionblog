@@ -22,15 +22,16 @@
             <c:forEach items="${posts}" var="post">
                 <div class="col-md-8">
                     <a id="blog-title" href="${pageContext.request.contextPath}/blog/${post.title}"><h1>${post.title}</h1></a>
-                    <p>Posted by ${author} on ${post.stringDateDisplay}</p>
+                    <a id="author-name" href="${pageContext.request.contextPath}/blog/author/${post.user.id}"> Posted by ${post.user.firstName} ${post.user.lastName} on ${post.stringDateDisplay}</a>
                     ${post.content}</br>
-                    <p>Category: ${post.category.name}</p>
+                    <a id="category-name" href="${pageContext.request.contextPath}/blog/category/${post.category.id}"> Category: ${post.category.name}</a>
+                    <hr/>
                 </div>
             </c:forEach>
 
 
             <div class="row col-md-8" >
-                 <div style="display: inline-block;">
+                <div style="display: inline-block;">
 
                     <a class="${hidden}" id="last-page" href="${pageContext.request.contextPath}/blog/page/${pageLast}" > < Last Page</a>
 
@@ -47,7 +48,7 @@
         <script src="${pageContext.request.contextPath}/js/jquery-1.11.1.min.js"></script>
         <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
         <script src="${pageContext.request.contextPath}/js/blogPost.js"></script>
-       
+
 
 
     </body>
