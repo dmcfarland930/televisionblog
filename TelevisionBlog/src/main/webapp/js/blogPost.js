@@ -17,11 +17,7 @@ $(document).ready(function () {
             expirationDate: $('#expiration-date-input').val()
 
         });
-//        $('#name-div').removeClass('has-error');
-//        $('#area-div').removeClass('has-error');
-//        $('#name-error').empty();
-//        $('#area-error').empty();
-//        var date = $('#last-date').val();
+        
         console.log(date);
         $.ajax({
             url: contextRoot + "/blog/create-blog-post/",
@@ -46,27 +42,7 @@ $(document).ready(function () {
                 window.location = contextRoot + "/admin/post/";
             },
             error: function (data, status) {
-//            var errors = data.responseJSON.errors;
-//            $('#name-error').empty();
-//            $('#area-error').empty();
-//
-//            $.each(errors, function (index, error) {
-//
-//                switch (error.fieldName) {
-//                    case "customerName":
-//                        $('#name-error').append(error.message);
-//                        $('#name-div').addClass('has-error');
-//                        break;
-//                    case "area":
-//                        $('#area-error').append(error.message);
-//                        $('#area-div').addClass('has-error');
-//                        break;
-//                    default:
-//                        break;
-//
-//                }
-//
-//            });
+
             }
         });
     });
@@ -90,10 +66,7 @@ $(document).ready(function () {
             postDate: date
 
         });
-//        $('#name-div').removeClass('has-error');
-//        $('#area-div').removeClass('has-error');
-//        $('#name-error').empty();
-//        $('#area-error').empty();
+        
         var date = $('#last-date').val();
         console.log(date);
         $.ajax({
@@ -118,27 +91,7 @@ $(document).ready(function () {
                 console.log("SUCCESS");
             },
             error: function (data, status) {
-//            var errors = data.responseJSON.errors;
-//            $('#name-error').empty();
-//            $('#area-error').empty();
-//
-//            $.each(errors, function (index, error) {
-//
-//                switch (error.fieldName) {
-//                    case "customerName":
-//                        $('#name-error').append(error.message);
-//                        $('#name-div').addClass('has-error');
-//                        break;
-//                    case "area":
-//                        $('#area-error').append(error.message);
-//                        $('#area-div').addClass('has-error');
-//                        break;
-//                    default:
-//                        break;
-//
-//                }
-//
-//            });
+                
             }
         });
     });
@@ -195,32 +148,4 @@ $(document).ready(function () {
     $('.chosen-select').chosen();
         
     
-    
-//    $('#next-page-link').on('click', function (e) {
-//        
-//        e.preventDefault();
-//        
-//        var pageNumber = $('#next-page-link').val();
-//        
-//        console.log(this.value);
-//        
-//        console.log($('#next-page-link').val());
-//        
-//        $.ajax({
-//            url: contextRoot + "/blog/page/" + pageNumber,
-//            type: "GET",
-//            data: pageNumber,
-//            dataType: 'json',
-//            beforeSend: function (xhr) {
-//                xhr.setRequestHeader("Accept", "application/json");
-//                xhr.setRequestHeader("Content-type", "application/json");
-//            },
-//            success: function (data, status) {
-//
-//            },
-//            error: function (data, status) {
-//
-//            }
-//        });
-//    });
 });

@@ -123,7 +123,7 @@
                 </div>
             </div>
         </div>
-
+        <%@include file="deleteCategoryModal.jsp"%>
 
         <script>
             var contextRoot = "${pageContext.request.contextPath}";

@@ -112,6 +112,9 @@ $(document).ready(function () {
             },
             error: function (data, status) {
 
+
+                $('#deleteCategoryModal').modal('show');
+
             }
         });
     });
