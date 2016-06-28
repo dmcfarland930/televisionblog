@@ -28,7 +28,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @author apprentice
  */
 @Controller
-@RequestMapping("/category")
+@RequestMapping("/admin/category")
 public class CategoryController {
 
     private CategoryDao categoryDao;

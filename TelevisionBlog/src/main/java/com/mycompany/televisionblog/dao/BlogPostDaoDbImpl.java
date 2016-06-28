@@ -32,7 +32,8 @@ public class BlogPostDaoDbImpl implements BlogPostDao {
     private static final String SQL_GET_POST_LIST_THREE_ENTRIES_AUTHOR = "SELECT * FROM post WHERE approved AND active AND user_id = ? ORDER BY post_date DESC LIMIT ?, 3";
     private static final String SQL_GET_POST_LIST_THREE_ENTRIES_CATEGORY = "SELECT * FROM post WHERE approved AND active AND category_id = ? ORDER BY post_date DESC LIMIT ?, 3";
     private static final String SQL_GET_POST_LIST_DATE = "SELECT * FROM post WHERE order_date = ?";
-
+    private static final String SQL_GET_POST_LIST_THREE_ENTRIES_TAG = "SELECT * FROM post LEFT OUTER JOIN post_tag WHERE post.approved AND post.active AND post_tag.tag_id = ? ORDER BY post.post_date DESC LIMIT ?, 3";
+    
     private JdbcTemplate jdbcTemplate;
     private CategoryDao categoryDao;
     private UserDao userDao;
@@ -157,6 +158,14 @@ public class BlogPostDaoDbImpl implements BlogPostDao {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public List<BlogPost> listOfThreeByTag(Integer pageNum, Integer tag) {
+        jdbcTemplate.update(SQL_SET_POSTS_TO_ACTIVE_DATE);
+        jdbcTemplate.update(SQL_SET_POSTS_TO_EXPIRED_DATE);
+
+        return jdbcTemplate.query(SQL_GET_POST_LIST_THREE_ENTRIES_TAG, new BlogPostMapper(), tag, pageNum);
     }
 
     private final class BlogPostMapper implements RowMapper<BlogPost> {

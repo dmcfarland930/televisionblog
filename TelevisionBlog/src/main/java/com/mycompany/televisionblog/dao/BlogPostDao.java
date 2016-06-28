@@ -37,4 +37,6 @@ public interface BlogPostDao {
     List<BlogPost> listUnapproved();
     
     boolean checkIfNextPage(Integer nextPageNum);
+    
+    List<BlogPost> listOfThreeByTag(Integer pageNum, Integer tag);
 }
