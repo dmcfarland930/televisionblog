@@ -22,10 +22,16 @@ $(document).ready(function () {
                 xhr.setRequestHeader("Content-type", "application/json");
             },
             success: function (data, status) {
-                alert("Page creation successful.");
+                
             },
             error: function (data, status) {
-                alert("ERROR: The page was not created.");
+                var errors = data.responseJSON.errors;
+                
+                $.each(errors, function(index,error){
+                   
+                   $("#add-page-validation-errors").append(error.fieldName + ": " + error.message + "<br />");
+                   
+               });
             }
         });
 
