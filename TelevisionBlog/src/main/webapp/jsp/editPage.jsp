@@ -33,6 +33,8 @@
 
                 <div class="col-md-8">
                     <form method="POST" class="form-horizontal">
+                        
+                        <input type="hidden" id="page-id" value="${page.id}" />
 
                         <div class="form-group">
                             <label for="" class="control-label">Title:</label>
@@ -54,7 +56,7 @@
                                 <textarea type="text" id="page-content-input" class="form-control">${page.content}</textarea>
                             </div>
                         </div>
-                        <input class="btn btn-primary" type="submit" id="create-submit" />
+                        <input class="btn btn-primary" type="submit" id="edit-submit" />
                     </form>
                 </div>
             </div>

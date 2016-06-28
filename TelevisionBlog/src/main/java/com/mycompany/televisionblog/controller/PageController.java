@@ -10,6 +10,7 @@ import com.mycompany.televisionblog.dao.UserDao;
 import com.mycompany.televisionblog.dto.Page;
 import com.mycompany.televisionblog.dto.PageCommand;
 import com.mycompany.televisionblog.dto.User;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import javax.inject.Inject;
@@ -89,12 +90,11 @@ public class PageController {
 
         try {
             return pageDao.create(page);
-            
+
         } catch (DuplicateKeyException e) {
-        
-            
+
         }
-        
+
         return pageDao.create(page);
     }
 
@@ -102,6 +102,7 @@ public class PageController {
     @ResponseBody
     public Page update(@RequestBody PageCommand command) {
         Page page = new Page();
+        page.setId(command.getId());
 
 //        User user = userDao.get(command.getUserId());
         User user = userDao.get(1);
@@ -133,12 +134,29 @@ public class PageController {
     public void delete(@PathVariable("id") Integer id) {
         pageDao.delete(id);
     }
-    
+
     public String pathEx(Map model) {
-        
+
         model.put("pathex", "A page already exists with that path-name.");
-        
+
         return "writePage";
     }
 
+    @RequestMapping(value = "/position", method = RequestMethod.POST)
+    @ResponseBody
+    public List<Page> savePosition(@RequestBody String pages[]) {
+        
+        List<Page> pageList = new ArrayList();
+
+        for (int i = 0; i < pages.length; i++) {
+            String strId = pages[i].replaceAll("\\D+", "");
+            Integer id = Integer.parseInt(strId);
+            Page page = pageDao.get(id);
+            page.setPosition(i + 1);
+            pageDao.update(page);
+            pageList.add(page);
+        }
+        
+        return pageList;
+    }
 }
