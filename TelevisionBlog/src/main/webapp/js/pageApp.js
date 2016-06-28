@@ -22,16 +22,16 @@ $(document).ready(function () {
                 xhr.setRequestHeader("Content-type", "application/json");
             },
             success: function (data, status) {
-                
+
             },
             error: function (data, status) {
                 var errors = data.responseJSON.errors;
-                
-                $.each(errors, function(index,error){
-                   
-                   $("#add-page-validation-errors").append(error.fieldName + ": " + error.message + "<br />");
-                   
-               });
+
+                $.each(errors, function (index, error) {
+
+                    $("#add-page-validation-errors").append(error.fieldName + ": " + error.message + "<br />");
+
+                });
             }
         });
 
@@ -151,5 +151,23 @@ $(document).ready(function () {
                 .append($("<td></td>"));
 
     }
+
+
+    $("#page-title-input").on("input", function (e) {
+        
+//        var myRegex= /(([a-zA-Z0-9])+)/g;
+
+        var titleData = $("#page-title-input").val();
+        
+        var noSpecialChars = titleData.replace(/[^\w\s]/gi, '');
+        
+//        var match = myRegex.exec(titleData);
+
+        $("#page-url-input").val(noSpecialChars.replace(/[\s]+/g, '-').toLowerCase());
+//        $("#page-url-input").val(match[1]);
+
+    });
+
+
 
 });

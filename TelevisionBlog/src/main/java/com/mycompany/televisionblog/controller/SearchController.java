@@ -17,19 +17,19 @@ import org.springframework.web.bind.annotation.RequestMethod;
  *
  * @author apprentice
  */
-@Controller
-@RequestMapping("/search")
-public class SearchController {
-    @RequestMapping(value = "", method = RequestMethod.GET)
-    public String search(Map<String, Object> model) {
-        
-        List<Category> categories = categoryDao.list();
-        
-        List<Page> pages = pageDao.list();
-        
-        model.put("pages", pages);
-        model.put("categories", categories);
-        
-        return "categories";
-    }
-}
+//@Controller
+//@RequestMapping("/search")
+//public class SearchController {
+//    @RequestMapping(value = "", method = RequestMethod.GET)
+//    public String search(Map<String, Object> model) {
+//        
+//        List<Category> categories = categoryDao.list();
+//        
+//        List<Page> pages = pageDao.list();
+//        
+//        model.put("pages", pages);
+//        model.put("categories", categories);
+//        
+//        return "categories";
+//    }
+//}
