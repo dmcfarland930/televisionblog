@@ -87,13 +87,7 @@ public class PageController {
         page.setName(command.getName());
         page.setUrl(command.getUrl());
         page.setContent(command.getContent());
-
-        try {
-            return pageDao.create(page);
-
-        } catch (DuplicateKeyException e) {
-
-        }
+        page.setActive(false);
 
         return pageDao.create(page);
     }
@@ -111,6 +105,7 @@ public class PageController {
         page.setName(command.getName());
         page.setUrl(command.getUrl());
         page.setContent(command.getContent());
+        page.setActive(command.isActive());
 
         pageDao.update(page);
 
@@ -145,7 +140,7 @@ public class PageController {
     @RequestMapping(value = "/position", method = RequestMethod.POST)
     @ResponseBody
     public List<Page> savePosition(@RequestBody String pages[]) {
-        
+
         List<Page> pageList = new ArrayList();
 
         for (int i = 0; i < pages.length; i++) {
@@ -156,7 +151,20 @@ public class PageController {
             pageDao.update(page);
             pageList.add(page);
         }
-        
+
         return pageList;
+    }
+
+    @RequestMapping(value = "/toggle-active/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public Page toggleActive(@PathVariable("id") Integer id) {
+
+        Page page = pageDao.get(id);
+        if (page.getPosition() > 0) {
+            page.setActive(!page.isActive());
+        }
+        pageDao.update(page);
+
+        return page;
     }
 }

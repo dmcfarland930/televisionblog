@@ -16,6 +16,7 @@ public class PageCommand {
     private String url;
     private Integer userId;
     private String content;
+    private boolean active;
 
     public int getId() {
         return id;
@@ -55,6 +56,14 @@ public class PageCommand {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
     
     

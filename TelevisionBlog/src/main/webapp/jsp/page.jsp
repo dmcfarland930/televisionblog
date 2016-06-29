@@ -43,7 +43,7 @@
                         <thead>
 
                             <tr>
-                                <th colspan="4">Static Page List</th>
+                                <th colspan="5">Static Page List</th>
                             </tr>
 
                             <tr>
@@ -51,6 +51,7 @@
                                 <th>Edit</th>
                                 <th>Delete</th>
                                 <th>Position</th>
+                                <th>Active</th>
                             </tr>
                         </thead>
                         <tbody id="sortable">
@@ -68,6 +69,16 @@
                                             <td>${page.position}</td>
                                         </c:otherwise>
                                     </c:choose>
+
+                                    <c:choose>
+                                        <c:when test="${page.active}">
+                                            <td><a href="" data-page-id="${page.id}" class="active-page-link glyphicon glyphicon-check" style="color:dodgerblue;"></a></td>
+                                            </c:when>
+                                            <c:otherwise>
+                                            <td><a href="" data-page-id="${page.id}" class="active-page-link glyphicon glyphicon-unchecked" style="color:red;"></a></td>
+                                            </c:otherwise>
+                                        </c:choose>
+
                                 </tr>
                             </c:forEach>
                         </tbody>
@@ -87,6 +98,7 @@
                         <table class="table table-bordered">
 
                             <input type="hidden" id="edit-page-id" />
+                            <input type="hidden" id="edit-page-active" />
 
                             <tr>
                                 <th>Title:</th>

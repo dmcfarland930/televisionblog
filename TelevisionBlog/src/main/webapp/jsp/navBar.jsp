@@ -26,7 +26,7 @@
             <li><a class="navbar-item" href="${pageContext.request.contextPath}/contact/send-script/"><span class="navbar-item">Send Script</span></a></li>
             <c:forEach items="${pages}" var="p">
                 <c:choose>
-                    <c:when test="${p.position > 0}">
+                    <c:when test="${p.active}">
                         <li><a class="navbar-item" href="${pageContext.request.contextPath}/${p.url}"><span class="navbar-item">${p.name}</span></a></li>
                             </c:when>
                         </c:choose>
