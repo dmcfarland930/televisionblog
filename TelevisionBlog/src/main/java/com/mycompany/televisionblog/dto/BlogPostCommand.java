@@ -22,7 +22,7 @@ public class BlogPostCommand {
     private String stringDateDisplay;
     private boolean active;
     private boolean approved;
-    private List<Integer> tagIdList;
+    private List<String> tagNameList;
     
     public Integer getId() {
         return id;
@@ -107,15 +107,15 @@ public class BlogPostCommand {
     /**
      * @return the tagIdList
      */
-    public List<Integer> getTagIdList() {
-        return tagIdList;
+    public List<String> getTagNameList() {
+        return tagNameList;
     }
 
     /**
-     * @param tagIdList the tagIdList to set
+     * @param tagNameList the tagIdList to set
      */
-    public void setTagIdList(List<Integer> tagIdList) {
-        this.tagIdList = tagIdList;
+    public void setTagNameList(List<String> tagNameList) {
+        this.tagNameList = tagNameList;
     }
     
     

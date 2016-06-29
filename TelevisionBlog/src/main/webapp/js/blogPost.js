@@ -1,16 +1,23 @@
 $(document).ready(function () {
-
     $('#blog-post-button').on('click', function (e) {
 
         e.preventDefault();
         tinymce.triggerSave();
         var date = new Date();
+        var reg = /(#)([a-z\d-]+)/gi;
+        var tags = [];
+        var content = $('#blog-post-input').val();
+        var result;
+        while((result = reg.exec(content)) !== null) {
+            tags.push(result[2]);
+        }
+        console.log(tags);
         var blogPost = JSON.stringify({
             title: $('#title-input').val(),
             content: $('#blog-post-input').val(),
             userId: $('#author-input').val(),
             categoryId: $('#category-input').val(),
-            tagIdList: $('#tag-input').val(),
+            tagNameList: tags,
             active: false,
             approved: true,
             postDate: $('#post-date-input').val(),

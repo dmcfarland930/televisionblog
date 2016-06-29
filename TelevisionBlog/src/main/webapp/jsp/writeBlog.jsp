@@ -117,13 +117,13 @@
 
                                 Name: <input class="form-control" type="text" name="name">
 
-                                <button class="form-control" id="file-upload-button" type="submit">Upload</button>Press here to upload the file!
+                                <button class="btn btn-primary" id="file-upload-button" type="submit">Upload</button>Press here to upload the file!
                             </form>
                         </div>
                         <div id="img-display"></div>
                     </div>
                     <div class="modal-footer">
-                        <button class="btn btn-primary" id="add-images">Add Images</button>
+                        <button class="btn btn-success" id="add-images">Add Images</button>
                     </div>
                 </div>
             </div>

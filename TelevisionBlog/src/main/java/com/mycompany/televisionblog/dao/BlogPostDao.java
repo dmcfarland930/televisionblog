@@ -38,5 +38,5 @@ public interface BlogPostDao {
     
     boolean checkIfNextPage(Integer nextPageNum);
     
-    List<BlogPost> listOfThreeByTag(Integer pageNum, Integer tag);
+    List<BlogPost> listOfThreeByTag(Integer pageNum, String tagName);
 }
