@@ -35,6 +35,7 @@
                     <form method="POST" class="form-horizontal">
                         
                         <input type="hidden" id="page-id" value="${page.id}" />
+                        <input type="hidden" id="page-active" value="${page.active}" />
 
                         <div class="form-group">
                             <label for="" class="control-label">Title:</label>

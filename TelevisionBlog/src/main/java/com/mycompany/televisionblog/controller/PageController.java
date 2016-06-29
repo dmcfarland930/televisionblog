@@ -87,6 +87,7 @@ public class PageController {
         page.setName(command.getName());
         page.setUrl(command.getUrl());
         page.setContent(command.getContent());
+        page.setActive(false);
 
         try {
             return pageDao.create(page);
@@ -111,6 +112,7 @@ public class PageController {
         page.setName(command.getName());
         page.setUrl(command.getUrl());
         page.setContent(command.getContent());
+        page.setActive(command.isActive());
 
         pageDao.update(page);
 
@@ -158,5 +160,18 @@ public class PageController {
         }
         
         return pageList;
+    }
+    
+    @RequestMapping(value = "/toggle-active/{id}", method=RequestMethod.GET)
+    @ResponseBody
+    public Page toggleActive(@PathVariable("id") Integer id) {
+        
+        Page page = pageDao.get(id);
+        
+        page.setActive(!page.isActive());
+        
+        pageDao.update(page);
+        
+        return page;
     }
 }

@@ -33,17 +33,16 @@ $(document).ready(function () {
             }
         });
     });
-
     $("#edit-submit").on("click", function (e) {
 
         e.preventDefault();
         tinymce.triggerSave();
-
         var pageData = JSON.stringify({
             id: $("#page-id").val(),
             name: $("#page-title-input").val(),
             content: $("#page-content-input").val(),
-            url: $("#page-url-input").val()
+            url: $("#page-url-input").val(),
+            active: $("#page-active").val()
         });
         $.ajax({
             url: contextRoot + "/page/",
@@ -169,17 +168,32 @@ $(document).ready(function () {
             }
         });
     });
+    //Create active page row
     function buildPageRow(data) {
 
-        return "<tr id='page-row-${data.id}' class='page-rows'> \n\
-                                    <td><a href='${pageContext.request.contextPath}/" + data.url + "'>data.name</a></td> \n\
+        return "<tr id='page-row-"+data.id+"' class='page-rows'> \n\
+                                    <td><a href='${pageContext.request.contextPath}/" + data.url + "'>"+data.name+"</a></td> \n\
                                     <td><a href='${pageContext.request.contextPath}/page/edit/" + data.id + "' class='glyphicon glyphicon-edit' style='color: green;'></a></td> \n\
                                     <td><a href='' data-page-id='" + data.id + "' class='delete-page-link glyphicon glyphicon-remove' style='color:red;'></a></td> \n\
                                     <td>" + data.position + "</td> \n\
+                                    <td><a href='' data-page-id='" + data.id + "' class='active-page-link glyphicon glyphicon-check' style='color:dodgerblue;'></a></td>\n\
+                                </tr>";
+    }
+
+    //Create inactive page row
+    function buildPageRowIA(data) {
+
+        return "<tr id='page-row-"+data.id+"' class='page-rows'> \n\
+                                    <td><a href='${pageContext.request.contextPath}/" + data.url + "'>"+data.name+"</a></td> \n\
+                                    <td><a href='${pageContext.request.contextPath}/page/edit/" + data.id + "' class='glyphicon glyphicon-edit' style='color: green;'></a></td> \n\
+                                    <td><a href='' data-page-id='" + data.id + "' class='delete-page-link glyphicon glyphicon-remove' style='color:red;'></a></td> \n\
+                                    <td>" + data.position + "</td> \n\
+                                    <td><a href='' data-page-id='" + data.id + "' class='active-page-link glyphicon glyphicon-unchecked' style='color:red;'></a></td>\n\
                                 </tr>";
     }
 
 
+    //Used to Auto Populate Static Page Path with title
     $("#page-title-input").on("input", function (e) {
 
 //        var myRegex= /(([a-zA-Z0-9])+)/g;
@@ -192,7 +206,7 @@ $(document).ready(function () {
 //        $("#page-url-input").val(match[1]);
 
     });
-
+    //Jquery Ui Sortable - Used for drag and drop static Page order
     $(document).ready(function () {
 
         var fixHelper = function (e, ui) {
@@ -201,14 +215,11 @@ $(document).ready(function () {
             });
             return ui;
         };
-
         $("tbody").sortable({
             helper: fixHelper,
             axis: 'y',
             update: function (event, ui) {
                 var data = $(this).sortable("toArray");
-
-
                 // POST to server using $.post or $.ajax
                 $.ajax({
                     data: JSON.stringify(data),
@@ -220,8 +231,6 @@ $(document).ready(function () {
                     },
                     success: function (data, status) {
                         location.reload();
-
-
                     },
                     error: function (data, status) {
 
@@ -229,7 +238,31 @@ $(document).ready(function () {
                 });
             }
         });
-
     });
+    //Toggle Static Page Active/Inactive
+    $(document).on("click", ".active-page-link", function (e) {
+        e.preventDefault();
 
+        var pageId = $(e.target).data("page-id");
+        $.ajax({
+            url: contextRoot + "/page/toggle-active/" + pageId,
+            type: "GET",
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("Accept", "application/json");
+            },
+            success: function (data, status) {
+                var tableRow;
+                if (data.active === true) {
+                    tableRow = buildPageRow(data);
+
+                } else {
+                    tableRow = buildPageRowIA(data);
+                }
+                $("#page-row-" + pageId).replaceWith($(tableRow));
+            },
+            error: function (data, status) {
+
+            }
+        });
+    });
 });
