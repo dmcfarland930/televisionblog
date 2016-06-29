@@ -147,7 +147,7 @@ public class PageController {
     @RequestMapping(value = "/position", method = RequestMethod.POST)
     @ResponseBody
     public List<Page> savePosition(@RequestBody String pages[]) {
-        
+
         List<Page> pageList = new ArrayList();
 
         for (int i = 0; i < pages.length; i++) {
@@ -158,20 +158,20 @@ public class PageController {
             pageDao.update(page);
             pageList.add(page);
         }
-        
+
         return pageList;
     }
-    
-    @RequestMapping(value = "/toggle-active/{id}", method=RequestMethod.GET)
+
+    @RequestMapping(value = "/toggle-active/{id}", method = RequestMethod.GET)
     @ResponseBody
     public Page toggleActive(@PathVariable("id") Integer id) {
-        
+
         Page page = pageDao.get(id);
-        
-        page.setActive(!page.isActive());
-        
+        if (page.getPosition() > 0) {
+            page.setActive(!page.isActive());
+        }
         pageDao.update(page);
-        
+
         return page;
     }
 }

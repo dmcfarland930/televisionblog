@@ -171,8 +171,8 @@ $(document).ready(function () {
     //Create active page row
     function buildPageRow(data) {
 
-        return "<tr id='page-row-"+data.id+"' class='page-rows'> \n\
-                                    <td><a href='${pageContext.request.contextPath}/" + data.url + "'>"+data.name+"</a></td> \n\
+        return "<tr id='page-row-" + data.id + "' class='page-rows'> \n\
+                                    <td><a href='${pageContext.request.contextPath}/" + data.url + "'>" + data.name + "</a></td> \n\
                                     <td><a href='${pageContext.request.contextPath}/page/edit/" + data.id + "' class='glyphicon glyphicon-edit' style='color: green;'></a></td> \n\
                                     <td><a href='' data-page-id='" + data.id + "' class='delete-page-link glyphicon glyphicon-remove' style='color:red;'></a></td> \n\
                                     <td>" + data.position + "</td> \n\
@@ -183,8 +183,8 @@ $(document).ready(function () {
     //Create inactive page row
     function buildPageRowIA(data) {
 
-        return "<tr id='page-row-"+data.id+"' class='page-rows'> \n\
-                                    <td><a href='${pageContext.request.contextPath}/" + data.url + "'>"+data.name+"</a></td> \n\
+        return "<tr id='page-row-" + data.id + "' class='page-rows'> \n\
+                                    <td><a href='${pageContext.request.contextPath}/" + data.url + "'>" + data.name + "</a></td> \n\
                                     <td><a href='${pageContext.request.contextPath}/page/edit/" + data.id + "' class='glyphicon glyphicon-edit' style='color: green;'></a></td> \n\
                                     <td><a href='' data-page-id='" + data.id + "' class='delete-page-link glyphicon glyphicon-remove' style='color:red;'></a></td> \n\
                                     <td>" + data.position + "</td> \n\
@@ -258,7 +258,11 @@ $(document).ready(function () {
                 } else {
                     tableRow = buildPageRowIA(data);
                 }
-                $("#page-row-" + pageId).replaceWith($(tableRow));
+                if (data.position > 0) {
+                    $("#page-row-" + pageId).replaceWith($(tableRow));
+                } else {
+                    alert("Page position must be set before you can Activate.")
+                }
             },
             error: function (data, status) {
 
