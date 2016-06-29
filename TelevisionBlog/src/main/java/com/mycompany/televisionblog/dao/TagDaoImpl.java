@@ -60,6 +60,11 @@ public class TagDaoImpl implements TagDao {
     public List<Tag> list() {
         return jdbcTemplate.query(SQL_GET_TAG_LIST, new TagMapper());
     }
+
+    @Override
+    public void link(Integer postId, Integer tagId) {
+        jdbcTemplate.update(SQL_CREATE_POST_TAG, tagId, postId);
+    }
     private static final class TagMapper implements RowMapper<Tag> {
         @Override
         public Tag mapRow(ResultSet rs, int i) throws SQLException {

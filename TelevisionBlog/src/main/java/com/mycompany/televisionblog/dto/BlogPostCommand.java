@@ -2,6 +2,7 @@ package com.mycompany.televisionblog.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import java.util.Date;
+import java.util.List;
 
 /**
  *
@@ -9,7 +10,7 @@ import java.util.Date;
  */
 public class BlogPostCommand {
 
-    private int id;
+    private Integer id;
     private String title;
     private int userId;
     private int categoryId;        
@@ -21,12 +22,13 @@ public class BlogPostCommand {
     private String stringDateDisplay;
     private boolean active;
     private boolean approved;
-
-    public int getId() {
+    private List<Integer> tagIdList;
+    
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -100,6 +102,20 @@ public class BlogPostCommand {
 
     public void setStringDateDisplay(String stringDateDisplay) {
         this.stringDateDisplay = stringDateDisplay;
+    }
+
+    /**
+     * @return the tagIdList
+     */
+    public List<Integer> getTagIdList() {
+        return tagIdList;
+    }
+
+    /**
+     * @param tagIdList the tagIdList to set
+     */
+    public void setTagIdList(List<Integer> tagIdList) {
+        this.tagIdList = tagIdList;
     }
     
     

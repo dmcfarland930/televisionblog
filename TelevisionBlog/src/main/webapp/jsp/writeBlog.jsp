@@ -10,7 +10,7 @@
         <!-- Bootstrap core CSS -->
         <link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet">
         <link href="${pageContext.request.contextPath}/css/blog.css" rel="stylesheet">
-
+        <link href="${pageContext.request.contextPath}/plugins/chosen/chosen.css" rel="stylesheet">
         <!-- SWC Icon -->
         <link rel="shortcut icon" href="${pageContext.request.contextPath}/img/icon.png">
     </head>
@@ -21,17 +21,6 @@
             <hr/>
             <div class="row">
                 <jsp:include page="adminMenu.jsp"/>
-                <!--                <div class="col-md-4">
-                                    <ul class="list list-group">
-                                        <li class="list-group-item"><a href="${pageContext.request.contextPath}">Back to Blog</a></li>
-                                        <li class="list-group-item"><a href="${pageContext.request.contextPath}/admin/">Pending Posts</a></li>
-                                        <li class="list-group-item"><a href="${pageContext.request.contextPath}/admin/post/">Blog List</a></li>
-                                        <li class="list-group-item"><a href="${pageContext.request.contextPath}/admin/category">Category List</a></li>
-                                        <li class="list-group-item"><a href="${pageContext.request.contextPath}/admin/page/">Page List</a></li>
-                                        <li class="list-group-item"><a href="${pageContext.request.contextPath}/admin/user/">User List</a></li>
-                                    </ul>    
-                                </div>-->
-
 
                 <form method="POST">
 
@@ -60,16 +49,29 @@
                     </fieldset> 
 
                     <fieldset class="form-group">
-                        <div id="title-div" class="col-md-8">
+                        <div id="title-div" class="col-md-6">
                             <label for="title-input">Category: </label>
-                            <select class="form-control" name="categoryName" id="category-input">
+                            <select class="form-control"   name="categoryName" id="category-input">
                                 <c:forEach items="${categories}" var="category">
                                     <option value="${category.id}">${category.name}</option>
                                 </c:forEach>
                             </select>
                         </div>
+                        <div id="title-div" class="col-md-6">
+                            <label for="title-input">Tag: </label>
+                            <select multiple class="form-control chosen-select" data-placeholder="Choose a Tag..." name="tagName" id="tag-input">
+                                <option></option>
+                                <c:forEach items="${tags}" var="tag">
+                                    <option value="${tag.id}">${tag.name}</option>
+                                </c:forEach>
+                            </select>
+                        </div>
                     </fieldset>
-
+                    <fieldset class="form-group">
+                        
+                    </fieldset>
+                    
+                    
 
                     <fieldset class="form-group">
                         <div id="blog-div"  class="col-md-8">
@@ -164,7 +166,8 @@
                 }
             });
         </script>
-
+        
+        <script src="${pageContext.request.contextPath}/plugins/chosen/chosen.jquery.js" type="text/javascript"></script>
         <script src="${pageContext.request.contextPath}/js/blogPost.js"></script>
 
     </body>

@@ -19,5 +19,5 @@ public interface TagDao {
     void update(Tag tag);
     void delete(Integer id);
     List<Tag> list();
-    
+    void link(Integer postId, Integer tagId);
 }

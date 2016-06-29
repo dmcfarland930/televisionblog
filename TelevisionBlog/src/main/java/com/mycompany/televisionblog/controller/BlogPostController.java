@@ -4,11 +4,13 @@ import com.mycompany.televisionblog.dao.BlogPostDao;
 import com.mycompany.televisionblog.dao.CategoryDao;
 import com.mycompany.televisionblog.dao.FileUploadDao;
 import com.mycompany.televisionblog.dao.PageDao;
+import com.mycompany.televisionblog.dao.TagDao;
 import com.mycompany.televisionblog.dao.UserDao;
 import com.mycompany.televisionblog.dto.BlogPost;
 import com.mycompany.televisionblog.dto.BlogPostCommand;
 import com.mycompany.televisionblog.dto.Category;
 import com.mycompany.televisionblog.dto.Page;
+import com.mycompany.televisionblog.dto.Tag;
 import com.mycompany.televisionblog.dto.UploadedFile;
 import com.mycompany.televisionblog.dto.User;
 import java.text.ParseException;
@@ -37,14 +39,16 @@ public class BlogPostController {
     private CategoryDao categoryDao;
     private PageDao pageDao;
     private FileUploadDao fileUploadDao;
+    private TagDao tagDao;
 
     @Inject
-    public BlogPostController(BlogPostDao blogPostDao, UserDao userDao, CategoryDao categoryDao, PageDao pageDao, FileUploadDao fileUploadDao) {
+    public BlogPostController(BlogPostDao blogPostDao, UserDao userDao, CategoryDao categoryDao, PageDao pageDao, FileUploadDao fileUploadDao, TagDao tagDao) {
         this.blogPostDao = blogPostDao;
         this.userDao = userDao;
         this.pageDao = pageDao;
         this.categoryDao = categoryDao;
         this.fileUploadDao = fileUploadDao;
+        this.tagDao = tagDao;
     }
 
     @RequestMapping(value = "/writeBlog", method = RequestMethod.GET)
@@ -58,6 +62,8 @@ public class BlogPostController {
         model.put("pages", pages);
         List<Category> categories = categoryDao.list();
         model.put("categories", categories);
+        List<Tag> tags = tagDao.list();
+        model.put("tags", tags);
         List<User> authors = userDao.list();
         model.put("authors", authors);
         model.put("date", dateOnly);
@@ -136,10 +142,16 @@ public class BlogPostController {
     @ResponseBody
     public BlogPost create(@RequestBody BlogPostCommand blogPostCommand) throws ParseException {
 
+        blogPostCommand.setId(0);
         BlogPost blogPost = setBlogPostProperties(blogPostCommand);
-
-        return blogPostDao.create(blogPost);
-
+        
+        blogPost = blogPostDao.create(blogPost);
+        List<Integer> tagIdList = blogPostCommand.getTagIdList();
+        Integer postId = blogPost.getId();
+        for (Integer tagId : tagIdList) {
+            tagDao.link(postId, tagId);
+        }
+        return blogPost;
     }
 
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
@@ -202,7 +214,7 @@ public class BlogPostController {
         blogPost.setStringDateDisplay(sdfDisplay.format(blogPostCommand.getPostDate()));
         blogPost.setExpirationDate(blogPostCommand.getExpirationDate());
         blogPost.setId(blogPostCommand.getId());
-
+        
         if (dateString.equals(sdfSQL.format(time).substring(0, 10))) {
             blogPost.setActive(true);
         }

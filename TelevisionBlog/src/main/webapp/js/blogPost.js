@@ -10,6 +10,7 @@ $(document).ready(function () {
             content: $('#blog-post-input').val(),
             userId: $('#author-input').val(),
             categoryId: $('#category-input').val(),
+            tagIdList: $('#tag-input').val(),
             active: false,
             approved: true,
             postDate: $('#post-date-input').val(),
@@ -71,7 +72,6 @@ $(document).ready(function () {
     });
     
     $('#blog-modal-submit-button').on('click', function (e) {
-
         $('#submitBlogModal').modal('show');
         
     });
@@ -162,7 +162,7 @@ $(document).ready(function () {
         e.preventDefault();
         var body = $(tinymce.activeEditor.getBody());
         $('.selected-image').each(function() {
-            $(this).removeClass('.selected-image');
+            $(this).removeClass('selected-image');
             var a = $(this);
             body.append(a.clone());
         });
@@ -173,27 +173,27 @@ $(document).ready(function () {
     $('#file-upload-button').on('click', function(e) {
         e.preventDefault();
         var formData = new FormData();
-            console.log('file', $('input[type=file]')[0].files[0]);
-            formData.append('file', $('input[type=file]')[0].files[0]);
-            
-            console.log("form data " + formData);
-            $.ajax({
-                url : contextRoot + '/upload',
-                data : formData,
-                processData : false,
-                contentType : false,
-                type : 'POST',
-                success : function(data) {
-                    $("#image-upload-list").append("<div style='padding-bottom: 5px;' class='col-md-2'> \n\
-                                                    <a href='#' class='image-upload' id='image-upload-" + data.id + "'><img  style='height: 50px; width: auto' src ='" + contextRoot + "/upload/showImage/" + data.id + "'></a> \n\
-                                                    </div>");
-                },
-                error : function(err) {
-                    alert(err);
-                }
-            });
+        console.log('file', $('input[type=file]')[0].files[0]);
+        formData.append('file', $('input[type=file]')[0].files[0]);
+
+        console.log("form data " + formData);
+        $.ajax({
+            url : contextRoot + '/upload',
+            data : formData,
+            processData : false,
+            contentType : false,
+            type : 'POST',
+            success : function(data) {
+                $("#image-upload-list").append("<div style='padding-bottom: 5px;' class='col-md-2'> \n\
+                                                <a href='#' class='image-upload' id='image-upload-" + data.id + "'><img  style='height: 50px; width: auto' src ='" + contextRoot + "/upload/showImage/" + data.id + "'></a> \n\
+                                                </div>");
+            },
+            error : function(data) {
+            }
         });
-    
+    });
+    $('.chosen-select').chosen();
+        
     
     
 //    $('#next-page-link').on('click', function (e) {
