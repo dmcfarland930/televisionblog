@@ -20,16 +20,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 @RequestMapping("/search")
 public class SearchController {
-    @RequestMapping(value = "", method = RequestMethod.GET)
+    @RequestMapping(value = "/{searchType}/{searchValue}", method = RequestMethod.GET)
     public String search(Map<String, Object> model) {
         
-        List<Category> categories = categoryDao.list();
-        
-        List<Page> pages = pageDao.list();
-        
-        model.put("pages", pages);
-        model.put("categories", categories);
-        
-        return "categories";
+        return "searchResults";
     }
 }

@@ -23,7 +23,9 @@
                 <div class="col-md-8">
                     <h1>${title}</h1>
                     <p>Posted by ${author} on ${date}</p>
-                    ${content}</br>
+                    <div id="blog-post">
+                        ${content}</br>
+                    </div>
                     <p>Category: ${category}</p>
                 </div>
 
@@ -60,6 +62,7 @@
             var contextRoot = '${pageContext.request.contextPath}';
         </script>
         <script src="${pageContext.request.contextPath}/js/jquery-1.11.1.min.js"></script>
+        <script src="${pageContext.request.contextPath}/js/hashtags.js"></script>
         <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
         <script src="${pageContext.request.contextPath}/js/tinymce/js/tinymce/tinymce.min.js"></script>
         <script src="${pageContext.request.contextPath}/js/blogPost.js"></script>

@@ -18,11 +18,11 @@ import org.springframework.jdbc.core.RowMapper;
  * @author apprentice
  */
 public class TagDaoImpl implements TagDao {
-    private static final String SQL_CREATE_TAG = "INSERT INTO tag (tag_name) VALUES (?)";
+    private static final String SQL_CREATE_TAG = "INSERT INTO tag (name) VALUES (?)";
     private static final String SQL_CREATE_POST_TAG = "INSERT INTO post_tag (tag_id, post_id) VALUES  (?,?)";
-    private static final String SQL_UPDATE_TAG = "UPDATE tag SET tag_name = ? WHERE id = ?";
+    private static final String SQL_UPDATE_TAG = "UPDATE tag SET name = ? WHERE id = ?";
     private static final String SQL_DELETE_TAG = "DELETE FROM tag WHERE id = ?";
-    private static final String SQL_GET_TAG_BY_NAME = "SELECT * FROM tag WHERE tag_name = ?";
+    private static final String SQL_GET_TAG_BY_NAME = "SELECT id FROM tag WHERE name = ?";
     private static final String SQL_GET_TAG = "SELECT * FROM tag WHERE id = ?";
     private static final String SQL_GET_TAG_LIST = "SELECT * FROM tag";
     
@@ -44,6 +44,12 @@ public class TagDaoImpl implements TagDao {
     @Override
     public Tag get(Integer id) {
         return jdbcTemplate.queryForObject(SQL_GET_TAG, new TagMapper(), id);
+    }
+    
+    @Override
+    public Integer getIdByName(String name) {
+        System.out.println(name);
+        return jdbcTemplate.queryForObject(SQL_GET_TAG_BY_NAME, Integer.class, name);
     }
 
     @Override
@@ -71,7 +77,7 @@ public class TagDaoImpl implements TagDao {
             
             Tag tag = new Tag();
             tag.setId(rs.getInt("id"));
-            tag.setName(rs.getString("tag_name"));
+            tag.setName(rs.getString("name"));
             
             
             return tag;

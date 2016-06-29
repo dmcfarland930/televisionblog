@@ -16,6 +16,7 @@ public interface TagDao {
     
     Tag create(Tag tag);
     Tag get(Integer id);
+    Integer getIdByName(String name);
     void update(Tag tag);
     void delete(Integer id);
     List<Tag> list();
