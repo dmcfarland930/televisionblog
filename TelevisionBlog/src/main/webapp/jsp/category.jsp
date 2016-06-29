@@ -48,6 +48,7 @@
                         <tr>
                             <th>Name</th>
                             <th>Edit</th>
+                            <th>Post Count</th>
                             <th>Delete</th>
                         </tr>
 
@@ -55,6 +56,7 @@
                             <tr id="category-row-${category.id}">
                                 <td>${category.name}</td>
                                 <td><a href="" class="glyphicon glyphicon-edit" style="color:green;" data-toggle="modal" data-category-id="${category.id}" data-target="#editCategoryModal"></a></td>
+                                <td>${category.postCount}</td>
                                 <td><a href="" data-category-id="${category.id}" class="glyphicon glyphicon-remove delete-category-link" style="color:red;"></a></td>
                             </tr>
                         </c:forEach>

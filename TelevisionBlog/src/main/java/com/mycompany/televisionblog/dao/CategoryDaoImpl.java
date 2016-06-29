@@ -22,6 +22,7 @@ public class CategoryDaoImpl implements CategoryDao {
     private static final String SQL_UPDATE_CATEGORY = "UPDATE category SET name = ? WHERE id = ?";
     private static final String SQL_DELETE_CATEGORY = "DELETE FROM category WHERE id = ?";
     private static final String SQL_GET_CATEGORY_LIST = "SELECT * FROM category";
+    private static final String SQL_GET_CATEGORY_POST_COUNT = "SELECT * FROM category where id = ?";
     
     private JdbcTemplate jdbcTemplate;
     
@@ -40,6 +41,8 @@ public class CategoryDaoImpl implements CategoryDao {
     public Category get(Integer id) {
         return jdbcTemplate.queryForObject(SQL_GET_CATEGORY, new CategoryMapper(), id);
     }
+    
+    
 
     @Override
     public void update(Category category) {
@@ -55,6 +58,12 @@ public class CategoryDaoImpl implements CategoryDao {
     public List<Category> list() {
         return jdbcTemplate.query(SQL_GET_CATEGORY_LIST, new CategoryMapper());
     }
+
+    @Override
+    public int getPostCount(Integer id) {
+        return jdbcTemplate.queryForObject(SQL_GET_CATEGORY_POST_COUNT, Integer.class, id);
+    }
+    
     private static final class CategoryMapper implements RowMapper<Category> {
         @Override
         public Category mapRow(ResultSet rs, int i) throws SQLException {
@@ -62,6 +71,7 @@ public class CategoryDaoImpl implements CategoryDao {
             Category category = new Category();
             category.setId(rs.getInt("id"));
             category.setName(rs.getString("name"));
+            category.setPostCount(rs.getInt("post_count"));
             
             
             return category;

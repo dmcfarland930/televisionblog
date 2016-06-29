@@ -236,6 +236,7 @@ public class BlogPostController {
         int pageLast = pageNum - 1;
         int articles = (pageNum - 1) * 3;
         List<BlogPost> posts = blogPostDao.listOfThree(articles);
+        List<Category> categories = categoryDao.list();
         boolean nextPage = blogPostDao.checkIfNextPage(articles + 3);
         System.out.println(nextPage);
         for (BlogPost blogView : posts) {
@@ -252,6 +253,7 @@ public class BlogPostController {
         if (pageNum == 1) {
             model.put("hidden", "hidden");
         }
+        model.put("categories", categories);
         model.put("pages", pages);
         model.put("pageLast", pageLast);
         model.put("pageNext", pageNext);
