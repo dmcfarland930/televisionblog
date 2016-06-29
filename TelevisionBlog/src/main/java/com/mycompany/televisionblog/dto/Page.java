@@ -12,6 +12,7 @@ public class Page {
     int userId;
     String content;
     User user;
+    int position;
 
     public int getId() {
         return id;
@@ -60,5 +61,15 @@ public class Page {
     public void setUser(User user) {
         this.user = user;
     }
+
+    public int getPosition() {
+        return position;
+    }
+
+    public void setPosition(int position) {
+        this.position = position;
+    }
+    
+    
 
 }

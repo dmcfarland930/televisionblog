@@ -31,20 +31,23 @@
 
                 <jsp:include page="adminMenu.jsp"/>
 
+                <div id="add-page-validation-errors"></div>
+
                 <div class="col-md-8">
                     <form method="POST" class="form-horizontal">
 
                         <div class="form-group">
                             <label for="" class="control-label">Title:</label>
                             <div>
-                                <input type="text" id="page-title-input" class="form-control"></input>
+                                <input type="text" id="page-title-input" class="form-control" />
+                     
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label for="" class="control-label">Desired URL Path:</label>
                             <div>
-                                <input type="text" id="page-url-input" class="form-control" placeholder="http://TelevisionBlog/YOUR-URL-PATH-HERE" />
+                                <input type="text" id="page-url-input" class="form-control"  />
                             </div>
                         </div>
 
@@ -61,46 +64,47 @@
                 </div>
             </div>
 
+        </div>
+        <script>
+            var contextRoot = "${pageContext.request.contextPath}";
+        </script>
+        <!-- Placed at the end of the document so the pages load faster -->
+        <script src="${pageContext.request.contextPath}/js/jquery-1.11.1.min.js"></script>
+        <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
+        <script src="${pageContext.request.contextPath}/js/tinymce/js/tinymce/tinymce.min.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+        <script src="${pageContext.request.contextPath}/js/pageApp.js"></script>
 
-            <script>
-                var contextRoot = "${pageContext.request.contextPath}";
-            </script>
-            <!-- Placed at the end of the document so the pages load faster -->
-            <script src="${pageContext.request.contextPath}/js/jquery-1.11.1.min.js"></script>
-            <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
-            <script src="${pageContext.request.contextPath}/js/tinymce/js/tinymce/tinymce.min.js"></script>
-
-            <script type="text/javascript">
-                tinymce.init({
-                    selector: '#page-content-input',
-                    height: 400,
-                    width: 800,
-                    images_upload_url: 'postAcceptor.php',
-                    images_upload_base_path: '/some/basepath',
-                    images_upload_credentials: true,
-                    fontsize_formats: "8pt 10pt 12pt 14pt 18pt 24pt 36pt",
-                    plugins: ['advlist autolink lists link image charmap print preview hr anchor pagebreak',
-                        'searchreplace wordcount visualblocks visualchars code fullscreen',
-                        'insertdatetime media nonbreaking save table contextmenu directionality',
-                        'emoticons template paste textcolor colorpicker textpattern imagetools'],
-                    menubar: "insert",
-                    toolbar1: 'mybutton | insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
-                    toolbar2: 'print preview media | forecolor backcolor emoticons',
-                    image_advtab: true,
-                    relative_urls: false,
-                    setup: function (editor) {
-                        editor.addButton('mybutton', {
-                            text: 'Upload Image',
-                            icon: false,
-                            onclick: function () {
-                                $('#UploadModal').modal('show');
-                            }
-                        });
-                    }
-                });
-            </script>
-
-            <script src="${pageContext.request.contextPath}/js/pageApp.js"></script>
+        <script type="text/javascript">
+            tinymce.init({
+                selector: '#page-content-input',
+                height: 400,
+                width: 800,
+                images_upload_url: 'postAcceptor.php',
+                images_upload_base_path: '/some/basepath',
+                images_upload_credentials: true,
+                fontsize_formats: "8pt 10pt 12pt 14pt 18pt 24pt 36pt",
+                plugins: ['advlist autolink lists link image charmap print preview hr anchor pagebreak',
+                    'searchreplace wordcount visualblocks visualchars code fullscreen',
+                    'insertdatetime media nonbreaking save table contextmenu directionality',
+                    'emoticons template paste textcolor colorpicker textpattern imagetools'],
+                menubar: "insert",
+                toolbar1: 'mybutton | insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+                toolbar2: 'print preview media | forecolor backcolor emoticons',
+                image_advtab: true,
+                relative_urls: false,
+                setup: function (editor) {
+                    editor.addButton('mybutton', {
+                        text: 'Upload Image',
+                        icon: false,
+                        onclick: function () {
+                            $('#UploadModal').modal('show');
+                        }
+                    });
+                }
+            });
+        </script>
+        
 
 
 

@@ -4,6 +4,7 @@
     Author     : apprentice
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <div class="navbar navbar-inverse navbar-static-top" role="navigation">
@@ -24,8 +25,12 @@
             <li><a class="navbar-item" href="${pageContext.request.contextPath}/admin/"><span class="navbar-item">Admin</span></a></li>
 
             <c:forEach items="${pages}" var="p">
-                <li><a class="navbar-item" href="${pageContext.request.contextPath}/${p.url}"><span class="navbar-item">${p.name}</span></a></li>
-            </c:forEach>
+                <c:choose>
+                    <c:when test="${p.position > 0}">
+                        <li><a class="navbar-item" href="${pageContext.request.contextPath}/${p.url}"><span class="navbar-item">${p.name}</span></a></li>
+                            </c:when>
+                        </c:choose>
+                    </c:forEach>
         </ul>
         <div class="col-sm-4 col-md-4 pull-right">
             <form class="navbar-form" method="POST" action="${pageContext.request.contextPath}/dvd/search"role="search">
@@ -39,7 +44,7 @@
                         </select>
                     </div>
                     <div class="input-group-btn">
-                            <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                        <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
                     </div>
                 </div>
             </form>

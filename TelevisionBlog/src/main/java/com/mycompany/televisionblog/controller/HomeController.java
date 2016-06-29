@@ -8,10 +8,12 @@ package com.mycompany.televisionblog.controller;
 import com.mycompany.televisionblog.dao.BlogPostDao;
 import com.mycompany.televisionblog.dao.CategoryDao;
 import com.mycompany.televisionblog.dao.PageDao;
+import com.mycompany.televisionblog.dao.TagDao;
 import com.mycompany.televisionblog.dao.UserDao;
 import com.mycompany.televisionblog.dto.BlogPost;
 import com.mycompany.televisionblog.dto.Category;
 import com.mycompany.televisionblog.dto.Page;
+import com.mycompany.televisionblog.dto.Tag;
 import com.mycompany.televisionblog.dto.User;
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -37,13 +39,15 @@ public class HomeController {
     private PageDao pageDao;
     private UserDao userDao;
     private CategoryDao categoryDao;
-
+    private TagDao tagDao;
+    
     @Inject
-    public HomeController(BlogPostDao postDao, PageDao pageDao, UserDao userDao, CategoryDao categoryDao) {
+    public HomeController(BlogPostDao postDao, PageDao pageDao, UserDao userDao, CategoryDao categoryDao, TagDao tagDao) {
         this.postDao = postDao;
         this.pageDao = pageDao;
         this.userDao = userDao;
         this.categoryDao = categoryDao;
+        this.tagDao = tagDao;
     }
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
@@ -51,6 +55,7 @@ public class HomeController {
 
         List<BlogPost> posts = postDao.listOfThree(0);
         List<Category> categories = categoryDao.list();
+        List<Tag> tags = tagDao.list();
         
         for (BlogPost blogView : posts) {
 
@@ -64,7 +69,7 @@ public class HomeController {
         boolean nextPage = postDao.checkIfNextPage(3);
         List<Page> pages = pageDao.list();
         
-        
+        model.put("tags", tags);
         model.put("categories", categories);
         model.put("pages", pages);
         model.put("pageNext", 2);

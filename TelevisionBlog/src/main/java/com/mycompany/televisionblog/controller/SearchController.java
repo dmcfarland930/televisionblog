@@ -20,9 +20,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 @RequestMapping("/search")
 public class SearchController {
-    @RequestMapping(value = "/{searchType}/{searchValue}", method = RequestMethod.GET)
-    public String search(Map<String, Object> model) {
+    @RequestMapping(value = "", method = RequestMethod.GET)
+    public void search(Map<String, Object> model) {
         
-        return "searchResults";
     }
 }
