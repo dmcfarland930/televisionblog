@@ -89,13 +89,6 @@ public class PageController {
         page.setContent(command.getContent());
         page.setActive(false);
 
-        try {
-            return pageDao.create(page);
-
-        } catch (DuplicateKeyException e) {
-
-        }
-
         return pageDao.create(page);
     }
 

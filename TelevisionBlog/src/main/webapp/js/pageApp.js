@@ -239,6 +239,7 @@ $(document).ready(function () {
             }
         });
     });
+    
     //Toggle Static Page Active/Inactive
     $(document).on("click", ".active-page-link", function (e) {
         e.preventDefault();
@@ -261,7 +262,7 @@ $(document).ready(function () {
                 if (data.position > 0) {
                     $("#page-row-" + pageId).replaceWith($(tableRow));
                 } else {
-                    alert("Page position must be set before you can Activate.")
+                    alert("Page position must be set before you can Activate.");
                 }
             },
             error: function (data, status) {
