@@ -28,3 +28,8 @@ and open the template in the editor.
 .selected-image {
     border: 2px #206ea1 solid;
 }
+
+#insert-tags {
+    margin-left: 10px;
+    margin-right: 10px;
+}
