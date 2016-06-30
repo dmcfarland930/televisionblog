@@ -52,7 +52,7 @@
                     <p id="tag-head">Tags:</p>
                     <hr>
                     <c:forEach items="${tags}" var="tag">
-                        <a id="tag-name" href="${pageContext.request.contextPath}/blog/tag/${tag.id}">${tag.name}</a>
+                        <a id="tag-name" href="${pageContext.request.contextPath}/blog/tag/${tag.name}">${tag.name}</a>
                         <br/>
                     </c:forEach>
                     <br/>

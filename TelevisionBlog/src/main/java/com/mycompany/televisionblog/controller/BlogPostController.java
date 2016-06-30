@@ -123,32 +123,34 @@ public class BlogPostController {
         model.put("hidden", "hidden");
         return "/categoryBlogs";
     }
-//    @RequestMapping(value = "/tag/{tag}", method = RequestMethod.GET)
-//    public String showByTag(@PathVariable("tag") String tagName, Map<String, Object> model) {
-//
-//        List<BlogPost> posts = blogPostDao.listOfThreeByTag(0, tagName);
-//        model.put("posts", posts);
-//        List<String> titles = new ArrayList();
-//        List<String> authors = new ArrayList();
-//        for (BlogPost blogView : posts) {
-//
-//            blogView.setStringDateDisplay(sdfDisplay.format(blogView.getPostDate()));
-//            titles.add(blogView.getTitle());
-//            authors.add(blogView.getUser().getFirstName() + " " + blogView.getUser().getLastName());
-//            
-//        }
-//        boolean nextPage = blogPostDao.checkIfNextPage(3);
-//        List<Page> pages = pageDao.list();
-//        model.put("tag", tagName);
-//        model.put("pages", pages);
-//        model.put("titles", titles);
-//        model.put("authors", authors);
-//        
-//        model.put("pageNext", 2);
-//        model.put("nextPage", nextPage);
-//        model.put("hidden", "hidden");
-//        return "/tagBlogs";
-//    }
+
+    @RequestMapping(value = "/tag/{tag}", method = RequestMethod.GET)
+    public String showByTag(@PathVariable("tag") String tagName, Map<String, Object> model) {
+
+        List<BlogPost> posts = blogPostDao.listOfThreeByTag(0, 3, tagName);
+        model.put("posts", posts);
+        List<String> titles = new ArrayList();
+        List<String> authors = new ArrayList();
+        for (BlogPost blogView : posts) {
+
+            blogView.setStringDateDisplay(sdfDisplay.format(blogView.getPostDate()));
+            titles.add(blogView.getTitle());
+            authors.add(blogView.getUser().getFirstName() + " " + blogView.getUser().getLastName());
+            
+        }
+        boolean nextPage = blogPostDao.checkIfNextPage(0, 3);
+        List<Page> pages = pageDao.list();
+        model.put("tag", tagName);
+        model.put("pages", pages);
+        model.put("titles", titles);
+        model.put("authors", authors);
+        
+        model.put("pageNext", 2);
+        model.put("nextPage", nextPage);
+        model.put("hidden", "hidden");
+        return "/tagBlogs";
+    }
+
 
     @RequestMapping(value = "/{postName}", method = RequestMethod.GET)
     public String showBlog(@PathVariable("postName") String postName, Map model) {

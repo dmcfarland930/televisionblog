@@ -46,6 +46,10 @@ h1{
     border: 2px #206ea1 solid;
 }
 
+#insert-tags {
+    margin-left: 10px;
+    margin-right: 10px;
+}
 body{
     background-color: #D6E2EA;
 }
@@ -116,4 +120,3 @@ a{
     margin-top: 2em;
     border-width: 2px;
 }
-

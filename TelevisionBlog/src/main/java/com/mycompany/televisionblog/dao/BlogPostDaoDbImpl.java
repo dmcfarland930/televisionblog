@@ -211,8 +211,7 @@ public class BlogPostDaoDbImpl implements BlogPostDao {
     }
 
     @Override
-
-    public List<BlogPost> listOfThreeByTag(Integer pageNum, Integer range, Integer tag) {
+    public List<BlogPost> listOfThreeByTag(Integer pageNum, Integer range, String tag) {
 
         Date date = new Date();
         jdbcTemplate.update(SQL_SET_POSTS_TO_ACTIVE_DATE, date);

@@ -121,23 +121,22 @@
             </div>
         </div>
         <div id="HashtagModal" class="modal fade" role="dialog">
-            <div class="modal-dialog modal-lg">
+            <div class="modal-dialog modal-sm">
 
                 <!-- Modal content-->
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Insert Tag</h4>
+                        <h4 class="modal-title">Insert Tags</h4>
                     </div>
                     <div class="modal-body">
-                        <div class="form-group">
+                        <div class="form-group" id="insert-tags">
                             <form class="form form-horizontal" method="POST">
                                 <div class="form-group">
-                                    <label for="title-input">Tag: </label>
-                                    <select multiple class="form-control" data-placeholder="Choose a Tag..." name="tagName" id="tag-input">
+                                    <select multiple class="form-control chosen-select" data-placeholder="Choose Tags..." name="tagName" id="tag-input">
                                         <option></option>
                                         <c:forEach items="${tags}" var="tag">
-                                            <option value="${tag.id}">${tag.name}</option>
+                                            <option value="${tag.name}">${tag.name}</option>
                                         </c:forEach>
                                     </select>
                                 </div>
@@ -145,7 +144,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button class="btn btn-primary">Insert Tags</button>
+                        <button class="btn btn-primary" id="insert-tags-button">Insert Tags</button>
                     </div>
                 </div>
             </div>
@@ -169,8 +168,8 @@
                     'insertdatetime media nonbreaking save table contextmenu directionality',
                     'emoticons template paste textcolor colorpicker textpattern imagetools'],
                 menubar: "insert",
-                toolbar1: 'mybutton | insertfile undo redo | fontselect | fontsizeselect | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
-                toolbar2: 'print preview media | forecolor backcolor emoticons | tagbutton',
+                toolbar1: 'mybutton | insertfile undo redo | fontselect | fontsizeselect | styleselect | bold italic | alignleft aligncenter alignright alignjustify',
+                toolbar2: 'print preview media | forecolor backcolor emoticons | bullist numlist outdent indent | link image | tagbutton',
                 image_advtab: true,
                 relative_urls: false,
                 setup: function (editor) {
@@ -185,6 +184,9 @@
                     editor.addButton('tagbutton', {
                         text: 'Insert Tag',
                         icon: false,
+                        onmouseover: function () {
+                            
+                        },
                         onclick: function () {
                             $('#HashtagModal').modal('show');
 

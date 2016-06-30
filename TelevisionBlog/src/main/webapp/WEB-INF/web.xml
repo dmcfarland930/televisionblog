@@ -51,7 +51,6 @@
         <servlet-name>default</servlet-name>
         <url-pattern>*.gif</url-pattern>
     </servlet-mapping>
-    
 
     <filter>
         <filter-name>springSecurityFilterChain</filter-name>
