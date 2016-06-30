@@ -12,54 +12,67 @@
         <!-- Bootstrap core CSS -->
         <link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet">
         <link href="${pageContext.request.contextPath}/css/blog.css" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+
+
         <!-- SWC Icon -->
         <link rel="shortcut icon" href="${pageContext.request.contextPath}/img/icon.png">
     </head>
     <body>
         <%@include file="navBar.jsp"%>
 
-        <div class="container">
-            <div class="col-md-8">
+        <div id="blog-content" class="container">
+            <div class="row" style="display: inline">
                 <c:forEach items="${posts}" var="post">
-                    <a id="blog-title" href="${pageContext.request.contextPath}/blog/${post.title}"><h1>${post.title}</h1></a>
-                    <a id="author-name" href="${pageContext.request.contextPath}/blog/author/${post.user.id}"> Posted by ${post.user.firstName} ${post.user.lastName} on ${post.stringDateDisplay}</a>
-                    ${post.content}</br>
-                    <a id="category-name" href="${pageContext.request.contextPath}/blog/category/${post.category.id}"> Category: ${post.category.name}</a>
-                    <hr/>
+                    <div id="blog-post-div" class="col-md-8">
+                        <a id="blog-title" href="${pageContext.request.contextPath}/blog/${post.url}"><h1>${post.title}</h1></a>
+                        <a id="author-name" href="${pageContext.request.contextPath}/blog/author/${post.user.id}"> Posted by ${post.user.firstName} ${post.user.lastName} on ${post.stringDateDisplay}</a>
+                        <hr>
+                        ${post.content}
+                        <hr/>
+                        <a id="category-name" href="${pageContext.request.contextPath}/blog/category/${post.category.id}"> Category: ${post.category.name}</a>
+                        <br/><br/>
+                    </div>
                 </c:forEach>
-            </div>
 
-            <div id="category-div" class="col-md-4">
-                <p>Categories:</p>
-                <hr>
-                <c:forEach items="${categories}" var="category">
-                    <c:if test="${category.postCount != 0}">
-                    <a id="category-name" href="${pageContext.request.contextPath}/blog/category/${category.id}">${category.name} (${category.postCount})</a>
-                    </c:if>
+                <div id="category-div" class="col-md-4">
                     <br/>
-                </c:forEach>
-            </div>
-            <div id="tag-div" class="col-md-4">
-            <br/>
-            <br/>
-                <p>Tags:</p>
-                <hr>
-                <c:forEach items="${tags}" var="tag">
-                    <a id="tag-name" href="${pageContext.request.contextPath}/blog/tag/${tag.id}">${tag.name}</a>
+                    <p id="cat-head">Categories:</p>
+                    <hr>
+                    <c:forEach items="${categories}" var="category">
+                        <c:if test="${category.postCount != 0}">
+                            <a id="category-name" href="${pageContext.request.contextPath}/blog/category/${category.id}">${category.name}</a>
+                        </c:if>
+                    </c:forEach>
                     <br/>
-                </c:forEach>
-            </div>
+                    <br/>
+                </div>
+                <div id="tag-div" class="col-md-4">
+                    <br/>
+                    <p id="tag-head">Tags:</p>
+                    <hr>
+                    <c:forEach items="${tags}" var="tag">
+                        <a id="tag-name" href="${pageContext.request.contextPath}/blog/tag/${tag.id}">${tag.name}</a>
+                        <br/>
+                    </c:forEach>
+                    <br/>
+                </div>
 
-            <div class="row col-md-8" >
-                <div style="display: inline-block;">
-
-                    <a class="${hidden}" id="last-page" href="${pageContext.request.contextPath}/blog/page/${pageLast}" > < Last Page</a>
-
-                    <c:if test="${nextPage}">
-                        <a id="next-page" href="${pageContext.request.contextPath}/blog/page/${pageNext}" >Next Page > </a>
-                    </c:if>
+                <div class="row col-md-8" >
+                    <div style="display: inline-block;">
+                        <div id="last-page-div">
+                            <a class="${hidden} btn bg-white" id="last-page" href="${pageContext.request.contextPath}/blog/page/${pageLast}" > < Last Page</a>
+                        </div>
+                        <div id="next-page-div">
+                            <c:if test="${nextPage}">
+                                <a class="btn bg-white" id="next-page" href="${pageContext.request.contextPath}/blog/page/${pageNext}" >Next Page > </a>
+                            </c:if>
+                        </div>
+                    </div>
                 </div>
             </div>
+
+
         </div> 
         <!-- Placed at the end of the document so the pages load faster -->
         <script>
@@ -68,8 +81,5 @@
         <script src="${pageContext.request.contextPath}/js/jquery-1.11.1.min.js"></script>
         <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
         <script src="${pageContext.request.contextPath}/js/blogPost.js"></script>
-
-
-
     </body>
 </html>

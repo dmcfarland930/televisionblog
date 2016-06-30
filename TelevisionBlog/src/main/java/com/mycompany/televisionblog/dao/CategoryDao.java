@@ -18,12 +18,14 @@ public interface CategoryDao {
 
     Category get(Integer id);
 
+    Integer getDefaultCategory();
+
     void update(Category category);
 
     void delete(Integer id);
 
     List<Category> list();
-    
+
     int getPostCount(Integer id);
 
 }

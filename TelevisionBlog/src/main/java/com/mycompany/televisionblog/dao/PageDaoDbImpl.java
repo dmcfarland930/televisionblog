@@ -27,7 +27,7 @@ public class PageDaoDbImpl implements PageDao {
     private static final String SQL_UPDATE_PAGE = "UPDATE page SET name = ?, url = ?, content = ?, userId = ? WHERE id = ?";
     private static final String SQL_GET_PAGE = "SELECT * FROM page WHERE id = ?";
     private static final String SQL_GET_PAGE_URL = "SELECT * FROM page WHERE url = ?";
-    private static final String SQL_DELETE_PAGE = "DELETE * FROM page WHERE id = ?";
+    private static final String SQL_DELETE_PAGE = "DELETE FROM page WHERE id = ?";
     private static final String SQL_GET_PAGE_LIST = "SELECT * FROM page";
 
     public PageDaoDbImpl(JdbcTemplate jdbcTemplate) {

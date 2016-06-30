@@ -19,14 +19,13 @@
         <%@include file="navBar.jsp"%>
 
         <h1>Posts by ${author}</h1>
-        <div class="container">
+        <div id="blog-content" class="container">
             <c:forEach items="${posts}" var="post">
-                <div class="col-md-8">
-                    <a id="blog-title" href="${pageContext.request.contextPath}/blog/${post.title}"><h1>${post.title}</h1></a>
+                <div id="blog-post-div" class="col-md-8">
+                    <a id="blog-title" href="${pageContext.request.contextPath}/blog/${post.url}"><h1>${post.title}</h1></a>
                     <a id="author-name" href="${pageContext.request.contextPath}/blog/author/${post.user.id}"> Posted by ${author} on ${post.stringDateDisplay}</a>
                     ${post.content}</br>
                     <a id="category-name" href="${pageContext.request.contextPath}/blog/category/${post.category.id}"> Category: ${post.category.name}</a>
-                    <hr/>
                 </div>
             </c:forEach>
 
@@ -34,10 +33,10 @@
             <div class="row col-md-8" >
                 <div style="display: inline-block;">
 
-                    <a class="${hidden}" id="last-page" href="${pageContext.request.contextPath}/blog/author/${authorId}/page/${pageLast}" > < Last Page</a>
+                    <a class="${hidden} btn bg-white" id="last-page" href="${pageContext.request.contextPath}/blog/author/${authorId}/page/${pageLast}" > < Last Page</a>
 
                     <c:if test="${nextPage}">
-                        <a id="next-page" href="${pageContext.request.contextPath}/blog/author/${authorId}/page/${pageNext}" >Next Page > </a>
+                        <a class="btn bg-white" id="next-page" href="${pageContext.request.contextPath}/blog/author/${authorId}/page/${pageNext}" >Next Page > </a>
                     </c:if>
                 </div>
             </div>

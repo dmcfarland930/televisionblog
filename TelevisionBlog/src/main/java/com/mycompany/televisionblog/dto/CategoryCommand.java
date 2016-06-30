@@ -17,6 +17,7 @@ public class CategoryCommand {
     
     @NotEmpty
     String categoryName;
+    boolean defaultCategory;
 
     int postCount;
     
@@ -42,6 +43,14 @@ public class CategoryCommand {
 
     public void setPostCount(int postCount) {
         this.postCount = postCount;
+    }
+
+    public boolean isDefaultCategory() {
+        return defaultCategory;
+    }
+
+    public void setDefaultCategory(boolean defaultCategory) {
+        this.defaultCategory = defaultCategory;
     }
     
     

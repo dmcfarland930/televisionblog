@@ -5,13 +5,11 @@
  */
 package com.mycompany.televisionblog.controller;
 
+import com.mycompany.televisionblog.dao.BlogPostDao;
 import com.mycompany.televisionblog.dao.CategoryDao;
 import com.mycompany.televisionblog.dao.PageDao;
-import com.mycompany.televisionblog.dao.UserDao;
 import com.mycompany.televisionblog.dto.Category;
 import com.mycompany.televisionblog.dto.Page;
-import com.mycompany.televisionblog.dto.PageCommand;
-import com.mycompany.televisionblog.dto.User;
 import java.util.List;
 import java.util.Map;
 import javax.inject.Inject;
@@ -32,12 +30,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class CategoryController {
 
     private CategoryDao categoryDao;
+    private BlogPostDao blogPostDao;
     private PageDao pageDao;
     
     @Inject
-    public CategoryController(CategoryDao categoryDao, PageDao pageDao) {
+    public CategoryController(CategoryDao categoryDao, BlogPostDao blogPostDao, PageDao pageDao) {
         this.categoryDao = categoryDao;
         this.pageDao = pageDao;
+        this.blogPostDao = blogPostDao;
     }
     
     @RequestMapping(value = "/view", method = RequestMethod.GET)
@@ -77,5 +77,17 @@ public class CategoryController {
     @ResponseBody
     public void delete(@PathVariable("id") Integer id) {
         categoryDao.delete(id);
+    }
+    
+    @RequestMapping(value="/reassign/{id}", method = RequestMethod.DELETE)
+    @ResponseBody
+    public String reassign(@PathVariable("id") Integer id) {
+        
+        Integer defaultCategory = categoryDao.getDefaultCategory();
+        
+        blogPostDao.reassignBlogCategory(defaultCategory, id);
+        
+        return "/";
+        
     }
 }

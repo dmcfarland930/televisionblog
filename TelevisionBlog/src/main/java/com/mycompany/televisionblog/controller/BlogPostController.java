@@ -13,6 +13,8 @@ import com.mycompany.televisionblog.dto.Page;
 import com.mycompany.televisionblog.dto.Tag;
 import com.mycompany.televisionblog.dto.UploadedFile;
 import com.mycompany.televisionblog.dto.User;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -32,8 +34,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping({"/blog"})
 public class BlogPostController {
 
-    SimpleDateFormat sdfDisplay = new SimpleDateFormat("MMMM dd, yyyy hh:mm:ss a");
-    SimpleDateFormat sdfSQL = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+    SimpleDateFormat sdfDisplay = new SimpleDateFormat("MMMM dd, yyyy");
+    SimpleDateFormat sdfSQL = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     private BlogPostDao blogPostDao;
     private UserDao userDao;
     private CategoryDao categoryDao;
@@ -79,7 +81,7 @@ public class BlogPostController {
     @RequestMapping(value = "/author/{author}", method = RequestMethod.GET)
     public String showByAuthor(@PathVariable("author") String author, Map<String, Object> model) {
 
-        List<BlogPost> posts = blogPostDao.listOfThreeByAuthor(0, author);
+        List<BlogPost> posts = blogPostDao.listOfThreeByAuthor(0, 3, author);
 
         for (BlogPost blogView : posts) {
 
@@ -88,7 +90,7 @@ public class BlogPostController {
             model.put("author", blogView.getUser().getFirstName() + " " + blogView.getUser().getLastName());
             model.put("posts", posts);
         }
-        boolean nextPage = blogPostDao.checkIfNextPage(3);
+        boolean nextPage = blogPostDao.checkIfNextPage(3, 3);
         List<Page> pages = pageDao.list();
         model.put("authorId", author);
         model.put("pages", pages);
@@ -101,7 +103,7 @@ public class BlogPostController {
     @RequestMapping(value = "/category/{category}", method = RequestMethod.GET)
     public String showByCategory(@PathVariable("category") Integer category, Map<String, Object> model) {
 
-        List<BlogPost> posts = blogPostDao.listOfThreeByCategory(0, category);
+        List<BlogPost> posts = blogPostDao.listOfThreeByCategory(0, 3, category);
 
         for (BlogPost blogView : posts) {
 
@@ -110,7 +112,7 @@ public class BlogPostController {
             model.put("author", blogView.getUser().getFirstName() + " " + blogView.getUser().getLastName());
             model.put("posts", posts);
         }
-        boolean nextPage = blogPostDao.checkIfNextPage(3);
+        boolean nextPage = blogPostDao.checkIfNextPage(3, 3);
         List<Page> pages = pageDao.list();
         model.put("category", categoryDao.get(category).getName());
         model.put("categoryId", category);
@@ -140,17 +142,18 @@ public class BlogPostController {
 
     @RequestMapping(value = "/create-blog-post/", method = RequestMethod.POST)
     @ResponseBody
-    public BlogPost create(@RequestBody BlogPostCommand blogPostCommand) throws ParseException {
+    public BlogPost create(@RequestBody BlogPostCommand blogPostCommand) throws ParseException, UnsupportedEncodingException {
 
         blogPostCommand.setId(0);
         BlogPost blogPost = setBlogPostProperties(blogPostCommand);
-        
+
         blogPost = blogPostDao.create(blogPost);
         List<Integer> tagIdList = blogPostCommand.getTagIdList();
-        Integer postId = blogPost.getId();
-        for (Integer tagId : tagIdList) {
-            tagDao.link(postId, tagId);
-        }
+//        Integer postId = blogPost.getId();
+//        
+//        for (Integer tagId : tagIdList) {
+//            tagDao.link(postId, tagId);
+//        }
         return blogPost;
     }
 
@@ -179,13 +182,14 @@ public class BlogPostController {
 
     @RequestMapping(value = "/editsubmit/", method = RequestMethod.POST)
     public String editPostSubmit(@RequestParam("id") Integer id, @RequestParam("date") String date, @RequestParam("title") String title, @RequestParam("author") Integer author,
-            @RequestParam("category") Integer category, @RequestParam("content") String content, Map model) throws ParseException {
+            @RequestParam("category") Integer category, @RequestParam("content") String content, Map model) throws ParseException, UnsupportedEncodingException {
 
         Date postDate = sdfSQL.parse(date);
 
         BlogPost blogEdit = new BlogPost();
         blogEdit.setId(id);
         blogEdit.setTitle(title);
+        blogEdit.setUrl(urlConverter(title));
         blogEdit.setUser(userDao.get(author));
         blogEdit.setCategory(categoryDao.get(category));
         blogEdit.setContent(content);
@@ -198,24 +202,23 @@ public class BlogPostController {
 
     }
 
-    public BlogPost setBlogPostProperties(BlogPostCommand blogPostCommand) throws ParseException {
+    public BlogPost setBlogPostProperties(BlogPostCommand blogPostCommand) throws ParseException, UnsupportedEncodingException {
 
         Date time = new Date();
-        String timeString = sdfSQL.format(time).substring(10);
-        String dateString = sdfSQL.format(blogPostCommand.getPostDate()).substring(0, 10);
-        String dateTime = dateString + timeString;
+        String dateString = sdfSQL.format(blogPostCommand.getPostDate());
         BlogPost blogPost = new BlogPost();
 
         blogPost.setTitle(blogPostCommand.getTitle());
+        blogPost.setUrl(urlConverter(blogPostCommand.getTitle()));
         blogPost.setUser(userDao.get(blogPostCommand.getUserId()));
         blogPost.setCategory(categoryDao.get(blogPostCommand.getCategoryId()));
         blogPost.setContent(blogPostCommand.getContent());
-        blogPost.setPostDate(sdfSQL.parse(dateTime));
+        blogPost.setPostDate(blogPostCommand.getPostDate());
         blogPost.setStringDateDisplay(sdfDisplay.format(blogPostCommand.getPostDate()));
         blogPost.setExpirationDate(blogPostCommand.getExpirationDate());
         blogPost.setId(blogPostCommand.getId());
-        
-        if (dateString.equals(sdfSQL.format(time).substring(0, 10))) {
+
+        if (dateString.equals(sdfSQL.format(time))) {
             blogPost.setActive(true);
         }
 
@@ -247,10 +250,10 @@ public class BlogPostController {
         int pageNext = pageNum + 1;
         int pageLast = pageNum - 1;
         int articles = (pageNum - 1) * 3;
-        List<BlogPost> posts = blogPostDao.listOfThree(articles);
+        List<BlogPost> posts = blogPostDao.listOfThree(articles, 3);
         List<Category> categories = categoryDao.list();
         List<Tag> tags = tagDao.list();
-        boolean nextPage = blogPostDao.checkIfNextPage(articles + 3);
+        boolean nextPage = blogPostDao.checkIfNextPage(articles + 3, 3);
         System.out.println(nextPage);
         for (BlogPost blogView : posts) {
 
@@ -275,30 +278,35 @@ public class BlogPostController {
         return "/home";
 
     }
-    
-    @RequestMapping(value="/{id}", method=RequestMethod.DELETE)
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     @ResponseBody
     public void delete(@PathVariable("id") Integer id) {
-        blogPostDao.delete(id);
+        BlogPost delBlog = blogPostDao.get(id);
+        blogPostDao.delete(delBlog);
     }
-    
-    @RequestMapping(value="/", method=RequestMethod.PUT)
-    @ResponseBody
-    public BlogPost update(@RequestBody BlogPostCommand command) throws ParseException {
-      
-        BlogPost post = this.setBlogPostProperties(command);
-        
-        blogPostDao.update(post);
-        
-        return post;
-        
-    };
-    
-    @RequestMapping(value="/grab/{id}", method=RequestMethod.GET)
-    @ResponseBody
-    public BlogPost get(@PathVariable("id") Integer id) {
-        return blogPostDao.get(id);     
-    };
+
+//    @RequestMapping(value = "/", method = RequestMethod.PUT)
+//    @ResponseBody
+//    public BlogPost update(@RequestBody BlogPostCommand command) throws ParseException {
+//
+//        BlogPost post = this.setBlogPostProperties(command);
+//
+//        blogPostDao.update(post);
+//
+//        return post;
+//
+//    }
+//
+//    ;
+//    
+//    @RequestMapping(value = "/grab/{id}", method = RequestMethod.GET)
+//    @ResponseBody
+//    public BlogPost get(@PathVariable("id") Integer id) {
+//        return blogPostDao.get(id);
+//    }
+//
+//    ;
 
     @RequestMapping(value = "author/{id}/page/{pageNum}", method = RequestMethod.GET)
     public String nextAuthorPage(@PathVariable("pageNum") Integer pageNum, @PathVariable("id") String authorId, Map model) {
@@ -306,8 +314,8 @@ public class BlogPostController {
         int pageNext = pageNum + 1;
         int pageLast = pageNum - 1;
         int articles = (pageNum - 1) * 3;
-        List<BlogPost> posts = blogPostDao.listOfThreeByAuthor(articles, authorId);
-        boolean nextPage = blogPostDao.checkIfNextPage(articles + 3);
+        List<BlogPost> posts = blogPostDao.listOfThreeByAuthor(articles, 3, authorId);
+        boolean nextPage = blogPostDao.checkIfNextPage(articles + 3, 3);
         System.out.println(nextPage);
         for (BlogPost blogView : posts) {
 
@@ -338,8 +346,8 @@ public class BlogPostController {
         int pageNext = pageNum + 1;
         int pageLast = pageNum - 1;
         int articles = (pageNum - 1) * 3;
-        List<BlogPost> posts = blogPostDao.listOfThreeByCategory(articles, categoryId);
-        boolean nextPage = blogPostDao.checkIfNextPage(articles + 3);
+        List<BlogPost> posts = blogPostDao.listOfThreeByCategory(articles, 3, categoryId);
+        boolean nextPage = blogPostDao.checkIfNextPage(articles + 3, 3);
         System.out.println(nextPage);
         for (BlogPost blogView : posts) {
 
@@ -364,4 +372,14 @@ public class BlogPostController {
         return "/categoryBlogs";
 
     }
+
+    public String urlConverter(String title) throws UnsupportedEncodingException {
+
+        String url = URLEncoder.encode(title, "UTF-8");
+
+        return url;
+
+    }
+
+    
 }

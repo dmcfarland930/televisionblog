@@ -12,6 +12,7 @@ public class BlogPostCommand {
 
     private Integer id;
     private String title;
+    private String url;
     private int userId;
     private int categoryId;        
     private String content;
@@ -116,6 +117,14 @@ public class BlogPostCommand {
      */
     public void setTagIdList(List<Integer> tagIdList) {
         this.tagIdList = tagIdList;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
     
     
