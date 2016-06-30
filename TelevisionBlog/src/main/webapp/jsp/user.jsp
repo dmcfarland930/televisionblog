@@ -154,8 +154,8 @@
                                 <td>Role:</td>
                                 <td><select class="form-control" id="edit-user-role">
                                        
-                                        <option value="1" class="form-control" id="option-1">Administrator</option>
-                                        <option value="2" class="form-control" id="option-2">Marketing Team</option>
+                                        <option value="1" class="form-control">Administrator</option>
+                                        <option value="2" class="form-control">Marketing Team</option>
                                       
                                     </select></td>
                             </tr>

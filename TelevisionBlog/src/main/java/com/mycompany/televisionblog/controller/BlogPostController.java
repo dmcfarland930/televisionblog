@@ -152,7 +152,7 @@ public class BlogPostController {
     }
 
 
-    @RequestMapping(value = "/{postName}", method = RequestMethod.GET)
+    @RequestMapping(value = "/show/{postName}", method = RequestMethod.GET)
     public String showBlog(@PathVariable("postName") String postName, Map model) {
 
         BlogPost post = blogPostDao.get(postName);
