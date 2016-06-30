@@ -9,56 +9,46 @@ package com.mycompany.televisionblog.controller;
  *
  * @author apprentice
  */
-import com.google.api.client.util.Base64;
-import com.google.api.services.gmail.Gmail;
-import com.google.api.services.gmail.model.Message;
-import java.io.ByteArrayOutputStream;
+import com.mycompany.televisionblog.dao.EmailDao;
+import java.io.File;
 import java.io.IOException;
-import java.util.Properties;
+import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
-import javax.mail.MessagingException;
-import javax.mail.Session;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
-
-/**
- *
- * @author doraemon
- */
+@Controller
+@RequestMapping("/contact")
 public class EmailController {
-    private EmailController() {
+    
+    private EmailDao emailDao;
+    
+    @Inject
+    public EmailController (EmailDao emailDao) {
+        this.emailDao = emailDao;
     }
-
-    private static MimeMessage createEmail(String to, String cc, String from, String subject, String bodyText) throws MessagingException {
-        Properties props = new Properties();
-        Session session = Session.getDefaultInstance(props, null);
-
-        MimeMessage email = new MimeMessage(session);
-        InternetAddress tAddress = new InternetAddress(to);
-        InternetAddress cAddress = cc.isEmpty() ? null : new InternetAddress(cc);
-        InternetAddress fAddress = new InternetAddress(from);
-
-        email.setFrom(fAddress);
-        if (cAddress != null) {
-            email.addRecipient(javax.mail.Message.RecipientType.CC, cAddress);
-        }
-        email.addRecipient(javax.mail.Message.RecipientType.TO, tAddress);
-        email.setSubject(subject);
-        email.setText(bodyText);
-        return email;
+    
+    @RequestMapping(value = "/send-script", method = RequestMethod.POST)
+    @ResponseBody
+    public void sendScript (HttpServletRequest request, @RequestParam("file") MultipartFile multipartFile, @RequestParam("sender") String sender) throws IOException {
+        String path = request.getSession().getServletContext().getRealPath("/");
+        String fileSender = sender.replaceAll("\\s+", "");
+        String fileNamePart = multipartFile.getOriginalFilename();
+        String filename = path + fileNamePart;
+        System.out.println(filename);
+        File file = new File(filename);
+        System.out.println(multipartFile);
+        multipartFile.transferTo(file);
+        emailDao.sendScript(sender, filename, fileNamePart);
     }
-
-    private static Message createMessageWithEmail(MimeMessage email) throws MessagingException, IOException {
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        email.writeTo(baos);
-        String encodedEmail = Base64.encodeBase64URLSafeString(baos.toByteArray());
-        Message message = new Message();
-        message.setRaw(encodedEmail);
-        return message;
-    }
-
-    public static void Send(Gmail service, String recipientEmail, String ccEmail, String fromEmail, String title, String message) throws IOException, MessagingException {
-        Message m = createMessageWithEmail(createEmail(recipientEmail, ccEmail, fromEmail, title, message));
-        service.users().messages().send("me", m).execute();
+    
+    @RequestMapping(value = "/send-script", method = RequestMethod.GET)
+    public String sendScript () {
+        return "emailScript";
     }
 }
+
