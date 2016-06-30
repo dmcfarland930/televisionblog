@@ -198,6 +198,7 @@
         
         <script src="${pageContext.request.contextPath}/plugins/chosen/chosen.jquery.js" type="text/javascript"></script>
         <script src="${pageContext.request.contextPath}/js/blogPost.js"></script>
+        <script src="${pageContext.request.contextPath}/js/tag-select.js"></script>
 
     </body>
 </html>
