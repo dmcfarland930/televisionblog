@@ -7,12 +7,29 @@ and open the template in the editor.
     Created on : Jun 22, 2016, 9:57:13 AM
     Author     : apprentice
 */
- .navbar-inverse {
+.navbar-inverse {
     background-color: #B22222;
 }
+
+.navbar{
+    font-family: 'Roboto', sans-serif;
+    margin-bottom:  -.5em;
+}
+
+h1{
+    font-family: 'Roboto', sans-serif;
+
+}
+
 .navbar-item {
     color: white;
 }
+
+.bg-white{
+    border: gray thin solid;
+    background: white;
+}
+
 #add-category-form {
     margin:auto;
 }
@@ -28,3 +45,75 @@ and open the template in the editor.
 .selected-image {
     border: 2px #206ea1 solid;
 }
+
+body{
+    background-color: #D6E2EA;
+}
+
+#category-div{
+    margin-left: 2em;
+    width:30%;
+    margin-top: 2em;
+    background: white;
+    border-radius: 5px;
+    border: #CDDEB1 thin solid;
+}
+
+#cat-head{
+    
+    font-family: 'Roboto', sans-serif;
+    font-size: 20px;
+    margin-bottom: -1em;
+    
+}
+
+#tag-head{
+    
+    font-family: 'Roboto', sans-serif;
+    font-size: 20px;
+    margin-bottom: -1em;
+    
+}
+
+#tag-div{
+    margin-left: 2em;
+    width:30%;
+    margin-top: 2em;
+    background: white;
+    border-radius: 5px;
+    border: #CDDEB1 thin solid;
+}
+
+#blog-content{
+    width: 75%;
+}
+
+#blog-post-div{
+
+    margin-bottom: 1em;
+    background: white;
+    border: #CDDEB1 thin solid;
+    border-radius: 5px;
+}
+
+a{
+    color: gray;
+}
+
+#last-page{
+    border: #CDDEB1 thin solid;
+    font-family: 'Roboto', sans-serif;
+    border-radius: 50px 10px 50px 10px;
+}
+
+#next-page{
+    border: #CDDEB1 thin solid;
+    font-family: 'Roboto', sans-serif;
+    border-radius: 50px 10px 50px 10px;
+}
+
+#side-bar{
+    margin-top: 2em;
+    border-width: 2px;
+}
+

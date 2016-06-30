@@ -57,7 +57,7 @@
 
                         <c:forEach items="${posts}" var="post">
                             <tr id="post-row-${post.id}">
-                                <td><a href="${pageContext.request.contextPath}/blog/${post.title}">${post.title}</a></td>
+                                <td><a href="${pageContext.request.contextPath}/blog/${post.url}">${post.title}</a></td>
                                 <td>${post.postDate}</td>
                                 <c:choose>
                                     <c:when test="${empty post.expirationDate}">

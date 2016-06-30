@@ -52,6 +52,8 @@
         <url-pattern>*.gif</url-pattern>
     </servlet-mapping>
     
+<<<<<<< HEAD
+=======
     <filter>
         <filter-name>springSecurityFilterChain</filter-name>
         <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
@@ -60,6 +62,7 @@
         <filter-name>springSecurityFilterChain</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
+>>>>>>> ddb289504c87abedfabe7f785d71c27a6aaa824b
     
     <context-param>
         <param-name>contextConfigLocation</param-name>

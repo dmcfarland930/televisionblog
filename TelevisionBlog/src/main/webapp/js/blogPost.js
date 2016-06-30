@@ -49,7 +49,7 @@ $(document).ready(function () {
                 window.location = contextRoot + "/admin/post/";
             },
             error: function (data, status) {
-
+                console.log("error creating blog post");
             }
         });
     });

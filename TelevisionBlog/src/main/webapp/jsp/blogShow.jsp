@@ -16,25 +16,47 @@
     </head>
     <body>
         <%@include file="navBar.jsp"%>
-        <div class="container">
-
-
-            <div class="container">
-                <div class="col-md-8">
-                    <h1>${title}</h1>
-                    <p>Posted by ${author} on ${date}</p>
-                    <div id="blog-post">
-                        ${content}</br>
-                    </div>
-                    <p>Category: ${category}</p>
-                </div>
-
+        <div id="blog-content" class="container">
+            <br/>
+            <div id="blog-post-div" class="col-md-8">
+                <h1>${title}</h1>
+                <p>Posted by ${author} on ${date}</p>
+                <hr>
+                ${content}
+                </br>
+                <p>Category: ${category}</p>
+                <hr>
+                <div id="disqus_thread"></div>
             </div>
+
+
+            <div id="category-div" class="col-md-4">
+                    <br/>
+                <p id="cat-head">Categories:</p>
+                <hr>
+                <c:forEach items="${categories}" var="category">
+                    <c:if test="${category.postCount != 0}">
+                        <a id="category-name" href="${pageContext.request.contextPath}/blog/category/${category.id}">${category.name}</a>
+                    </c:if>
+                    <br/>
+                </c:forEach>
+                    <br/>
+            </div>
+            <div id="tag-div" class="col-md-4">
+                    <br/>
+                <p id="tag-head">Tags:</p>
+                <hr>
+                <c:forEach items="${tags}" var="tag">
+                    <a id="tag-name" href="${pageContext.request.contextPath}/blog/tag/${tag.id}">${tag.name}</a>
+                    <br/>
+                </c:forEach>
+                    <br/>
+            </div>
+
+
+
+
         </div>
-
-        <div class="col-md-4 col-md-offset-2" id="disqus_thread"></div>
-
-
         <!-- Placed at the end of the document so the pages load faster -->
         <script>
             /**
@@ -66,7 +88,6 @@
         <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
         <script src="${pageContext.request.contextPath}/js/tinymce/js/tinymce/tinymce.min.js"></script>
         <script src="${pageContext.request.contextPath}/js/blogPost.js"></script>
-
-
+       
     </body>
 </html>

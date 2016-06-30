@@ -18,25 +18,27 @@ public interface BlogPostDao {
 
     BlogPost get(Integer id);
     
-    BlogPost get(String postName);
+    BlogPost get(String url);
 
     void update(BlogPost blogPost);
 
-    void delete(Integer id);
+    void delete(BlogPost blogPost);
 
     List<BlogPost> list();
     
-    List<BlogPost> listOfThree(Integer pageNum);
+    List<BlogPost> listOfThree(Integer pageNum, Integer range);
     
-    List<BlogPost> listOfThreeByAuthor(Integer pageNum, String author);
+    List<BlogPost> listOfThreeByAuthor(Integer pageNum, Integer range, String author);
     
-    List<BlogPost> listOfThreeByCategory(Integer pageNum, Integer category);
+    List<BlogPost> listOfThreeByCategory(Integer pageNum, Integer range, Integer category);
     
     List<BlogPost> listApproved();
 
     List<BlogPost> listUnapproved();
     
-    boolean checkIfNextPage(Integer nextPageNum);
+    void reassignBlogCategory(Integer defaultId, Integer originalId);
+   
+    boolean checkIfNextPage(Integer nextPageNum, Integer range);
     
-    List<BlogPost> listOfThreeByTag(Integer pageNum, String tagName);
+    List<BlogPost> listOfThreeByTag(Integer pageNum, Integer range, Integer tag);
 }
