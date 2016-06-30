@@ -5,20 +5,21 @@
  */
 package com.mycompany.televisionblog.dao;
 
-import com.mycompany.televisionblog.dto.Tag;
+import com.mycompany.televisionblog.dto.Role;
 import java.util.List;
 
 /**
  *
  * @author apprentice
  */
-public interface TagDao {
+public interface RoleDao {
     
-    Tag create(Tag tag);
-    Tag get(Integer id);
-    Integer getIdByName(String name);
-    void update(Tag tag);
+    Role create(Role role);
+    Role get(Integer id);
+    void update(Role role);
     void delete(Integer id);
-    List<Tag> list();
-    void link(Integer postId, Integer tagId);
+    
+    List<Role> list();
+    List<Role> getUserRoles(Integer id);
+    
 }

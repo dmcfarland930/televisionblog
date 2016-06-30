@@ -23,12 +23,12 @@ public class PageDaoDbImpl implements PageDao {
 
     JdbcTemplate jdbcTemplate;
 
-    private static final String SQL_INSERT_PAGE = "INSERT INTO page (name, url, content, user_id) VALUES (?, ?, ?, ?)";
-    private static final String SQL_UPDATE_PAGE = "UPDATE page SET name = ?, url = ?, content = ?, userId = ? WHERE id = ?";
+    private static final String SQL_INSERT_PAGE = "INSERT INTO page (name, url, content, user_id, active) VALUES (?, ?, ?, ?, ?)";
+    private static final String SQL_UPDATE_PAGE = "UPDATE page SET name = ?, url = ?, content = ?, user_id = ?, position = ?, active = ? WHERE id = ?";
     private static final String SQL_GET_PAGE = "SELECT * FROM page WHERE id = ?";
     private static final String SQL_GET_PAGE_URL = "SELECT * FROM page WHERE url = ?";
     private static final String SQL_DELETE_PAGE = "DELETE FROM page WHERE id = ?";
-    private static final String SQL_GET_PAGE_LIST = "SELECT * FROM page";
+    private static final String SQL_GET_PAGE_LIST = "SELECT * FROM page ORDER BY position ASC";
 
     public PageDaoDbImpl(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
@@ -41,7 +41,8 @@ public class PageDaoDbImpl implements PageDao {
                 page.getName(),
                 page.getUrl(),
                 page.getContent(),
-                page.getUser().getId());
+                page.getUser().getId(),
+                page.isActive());
         Integer id = jdbcTemplate.queryForObject("SELECT LAST_INSERT_ID()", Integer.class);
 
         page.setId(id);
@@ -66,6 +67,8 @@ public class PageDaoDbImpl implements PageDao {
                 page.getUrl(),
                 page.getContent(),
                 page.getUser().getId(),
+                page.getPosition(),
+                page.isActive(),
                 page.getId());
     }
 
@@ -93,6 +96,8 @@ public class PageDaoDbImpl implements PageDao {
             page.setName(rs.getString("name"));
             page.setUrl(rs.getString("url"));
             page.setContent(rs.getString("content"));
+            page.setPosition(rs.getInt("position"));
+            page.setActive(rs.getBoolean("active"));
             page.setUser(user);
 
             return page;

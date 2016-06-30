@@ -3,7 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html ng-app="root">
+<html>
     <head>
         <title>Create Static Page</title>
         <!-- Bootstrap core CSS -->
@@ -17,7 +17,7 @@
 
     </head>
     <body>
-        <div class="container" ng-controller="index">
+        <div class="container">
             <h1>Dashboard</h1>
             <hr/>
             <div class="row">
@@ -39,7 +39,7 @@
                         <div class="form-group">
                             <label for="" class="control-label">Title:</label>
                             <div>
-                                <input ng-model="title" type="text" id="page-title-input" class="form-control" />
+                                <input type="text" id="page-title-input" class="form-control" />
                      
                             </div>
                         </div>
@@ -47,7 +47,7 @@
                         <div class="form-group">
                             <label for="" class="control-label">Desired URL Path:</label>
                             <div>
-                                <input ng-value="url" type="text" id="page-url-input" class="form-control"  />
+                                <input type="text" id="page-url-input" class="form-control"  />
                             </div>
                         </div>
 
@@ -74,7 +74,6 @@
         <script src="${pageContext.request.contextPath}/js/tinymce/js/tinymce/tinymce.min.js"></script>
         <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
         <script src="${pageContext.request.contextPath}/js/pageApp.js"></script>
-        <script src="${pageContext.request.contextPath}/js/pageAngl.js"></script>
 
         <script type="text/javascript">
             tinymce.init({

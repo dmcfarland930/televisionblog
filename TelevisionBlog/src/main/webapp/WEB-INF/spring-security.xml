@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<b:beans xmlns="http://www.springframework.org/schema/security"
+         xmlns:b="http://www.springframework.org/schema/beans"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+						http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
+
+    
+    <b:bean id="encoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
+    
+    
+    <http pattern="/authenticate/login" security="none" />
+    <http pattern="/css/**" security="none" />
+    <http pattern="/js/**" security="none" />
+    <http pattern="/img/**" security="none" />
+    <http pattern="/fonts/**" security="none" />
+    <http pattern="/*" security="none" />
+    <http pattern="/admin/user/**" security="none" />
+    <http pattern="/user/**" security="none" />
+    <http pattern="/blog/*" security="none" />
+    <http pattern="/blog/category/*" security="none" />
+    
+    <http auto-config="true" use-expressions="false">
+        <csrf disabled="true" />
+        <form-login 
+            login-processing-url="/authenticate/j_spring_security_check"
+            login-page="/authenticate/login"
+            authentication-failure-url="/authenticate/login?login_error=1"
+       
+        />
+        
+        <intercept-url pattern="/admin/" access="ROLE_MARKETING" />
+        <intercept-url pattern="/blog/*/" access="ROLE_MARKETING" />
+        <intercept-url pattern="/**" access="ROLE_ADMIN" />
+
+        
+        <logout logout-url="/authenticate/logout" logout-success-url="/" />
+    </http> 
+        
+    <authentication-manager>
+       
+        
+        <authentication-provider>
+            
+            <password-encoder ref="encoder" />
+            
+            <jdbc-user-service id="userService" 
+                               data-source-ref="dataSource" 
+                               users-by-username-query="select username, password, enable from user where username = ?" 
+                               authorities-by-username-query="select u.username, r.name from authorities a inner 
+                                                              join user u on a.user_id = u.id inner join role r on a.role_id = r.id where u.username = ?"
+            />
+            
+        </authentication-provider>
+        
+    </authentication-manager>
+    
+</b:beans>

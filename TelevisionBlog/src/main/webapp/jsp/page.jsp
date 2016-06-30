@@ -39,25 +39,49 @@
                 <jsp:include page="adminMenu.jsp"/>
 
                 <div class="col-md-8">
-                    <table class="table table-bordered" style="text-align: center;">                       
+                    <table id="page-table" class="table table-bordered" style="text-align: center;">   
+                        <thead>
 
-                        <tr>
-                            <th colspan="3">Static Page List</th>
-                        </tr>
-
-                        <tr>
-                            <th>Title</th>
-                            <th>Edit</th>
-                            <th>Delete</th>
-                        </tr>
-
-                        <c:forEach items="${pages}" var="page">
-                            <tr id="page-row-${page.id}">
-                                <td><a href="${pageContext.request.contextPath}/${page.url}">${page.name}</a></td>
-                                <td><a href="${pageContext.request.contextPath}/page/edit/${page.id}" class="glyphicon glyphicon-edit" style="color: green;"></a></td>
-                                <td><a href="" data-page-id="${page.id}" class="delete-page-link glyphicon glyphicon-remove" style="color:red;"></a></td>
+                            <tr>
+                                <th colspan="5">Static Page List</th>
                             </tr>
-                        </c:forEach>
+
+                            <tr>
+                                <th>Title</th>
+                                <th>Edit</th>
+                                <th>Delete</th>
+                                <th>Position</th>
+                                <th>Active</th>
+                            </tr>
+                        </thead>
+                        <tbody id="sortable">
+
+                            <c:forEach items="${pages}" var="page">
+                                <tr id="page-row-${page.id}" class="page-rows">
+                                    <td><a href="${pageContext.request.contextPath}/${page.url}">${page.name}</a></td>
+                                    <td><a href="${pageContext.request.contextPath}/page/edit/${page.id}" class="glyphicon glyphicon-edit" style="color: green;"></a></td>
+                                    <td><a href="" data-page-id="${page.id}" class="delete-page-link glyphicon glyphicon-remove" style="color:red;"></a></td>
+                                        <c:choose>
+                                            <c:when test="${page.position == 0}">
+                                            <td>Not Set</td>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <td>${page.position}</td>
+                                        </c:otherwise>
+                                    </c:choose>
+
+                                    <c:choose>
+                                        <c:when test="${page.active}">
+                                            <td><a href="" data-page-id="${page.id}" class="active-page-link glyphicon glyphicon-check" style="color:dodgerblue;"></a></td>
+                                            </c:when>
+                                            <c:otherwise>
+                                            <td><a href="" data-page-id="${page.id}" class="active-page-link glyphicon glyphicon-unchecked" style="color:red;"></a></td>
+                                            </c:otherwise>
+                                        </c:choose>
+
+                                </tr>
+                            </c:forEach>
+                        </tbody>
                     </table>
                 </div>
             </div>
@@ -74,6 +98,7 @@
                         <table class="table table-bordered">
 
                             <input type="hidden" id="edit-page-id" />
+                            <input type="hidden" id="edit-page-active" />
 
                             <tr>
                                 <th>Title:</th>
@@ -107,10 +132,14 @@
             var contextRoot = "${pageContext.request.contextPath}";
         </script>
         <!-- Placed at the end of the document so the pages load faster -->
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
         <script src="${pageContext.request.contextPath}/js/jquery-1.11.1.min.js"></script>
         <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
         <script src="${pageContext.request.contextPath}/js/pageApp.js"></script>
         <script src="${pageContext.request.contextPath}/js/tinymce/js/tinymce/tinymce.min.js"></script>
+        <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+        <link rel="stylesheet" href="/resources/demos/style.css">
+
         <script type="text/javascript">
             tinymce.init({
                 selector: '#edit-page-content',

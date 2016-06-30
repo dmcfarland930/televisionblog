@@ -6,12 +6,14 @@ package com.mycompany.televisionblog.dto;
  */
 public class Page {
 
-    int id;
-    String name;
-    String url;
-    int userId;
-    String content;
-    User user;
+    private int id;
+    private String name;
+    private String url;
+    private int userId;
+    private String content;
+    private User user;
+    private int position;
+    private boolean active;
 
     public int getId() {
         return id;
@@ -60,5 +62,23 @@ public class Page {
     public void setUser(User user) {
         this.user = user;
     }
+
+    public int getPosition() {
+        return position;
+    }
+
+    public void setPosition(int position) {
+        this.position = position;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+    
+    
 
 }

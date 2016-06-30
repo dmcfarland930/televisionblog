@@ -39,7 +39,7 @@ public class UploadController {
 	@RequestMapping(value="", method = RequestMethod.POST)
         @ResponseBody
         public UploadedFile doUpload(HttpServletRequest request, @RequestParam("file") MultipartFile multipartFile) throws IOException {
-                System.out.println(request.getSession().getServletContext().getRealPath("/"));
+                System.out.println();
                 UploadedFile file = new UploadedFile();
                 file.setFileName(multipartFile.getOriginalFilename());
                 file.setFileByte(multipartFile.getBytes());

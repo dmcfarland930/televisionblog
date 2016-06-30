@@ -57,15 +57,7 @@
                                 </c:forEach>
                             </select>
                         </div>
-                        <div id="title-div" class="col-md-6">
-                            <label for="title-input">Tag: </label>
-                            <select multiple class="form-control chosen-select" data-placeholder="Choose a Tag..." name="tagName" id="tag-input">
-                                <option></option>
-                                <c:forEach items="${tags}" var="tag">
-                                    <option value="${tag.id}">${tag.name}</option>
-                                </c:forEach>
-                            </select>
-                        </div>
+                        
                     </fieldset>
                     <fieldset class="form-group">
                         
@@ -117,13 +109,43 @@
 
                                 Name: <input class="form-control" type="text" name="name">
 
-                                <button class="form-control" id="file-upload-button" type="submit">Upload</button>Press here to upload the file!
+                                <button class="btn btn-primary" id="file-upload-button" type="submit">Upload</button>Press here to upload the file!
                             </form>
                         </div>
                         <div id="img-display"></div>
                     </div>
                     <div class="modal-footer">
-                        <button class="btn btn-primary" id="add-images">Add Images</button>
+                        <button class="btn btn-success" id="add-images">Add Images</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="HashtagModal" class="modal fade" role="dialog">
+            <div class="modal-dialog modal-lg">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Insert Tag</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <form class="form form-horizontal" method="POST">
+                                <div class="form-group">
+                                    <label for="title-input">Tag: </label>
+                                    <select multiple class="form-control" data-placeholder="Choose a Tag..." name="tagName" id="tag-input">
+                                        <option></option>
+                                        <c:forEach items="${tags}" var="tag">
+                                            <option value="${tag.id}">${tag.name}</option>
+                                        </c:forEach>
+                                    </select>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary">Insert Tags</button>
                     </div>
                 </div>
             </div>
@@ -142,16 +164,13 @@
                 height: 400,
                 width: 800,
                 fontsize_formats: "8pt 10pt 12pt 14pt 18pt 24pt 36pt",
-                images_upload_url: 'postAcceptor.php',
-                images_upload_base_path: '/some/basepath',
-                images_upload_credentials: true,
                 plugins: ['advlist autolink lists link image charmap print preview hr anchor pagebreak',
                     'searchreplace wordcount visualblocks visualchars code fullscreen',
                     'insertdatetime media nonbreaking save table contextmenu directionality',
                     'emoticons template paste textcolor colorpicker textpattern imagetools'],
                 menubar: "insert",
                 toolbar1: 'mybutton | insertfile undo redo | fontselect | fontsizeselect | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
-                toolbar2: 'print preview media | forecolor backcolor emoticons',
+                toolbar2: 'print preview media | forecolor backcolor emoticons | tagbutton',
                 image_advtab: true,
                 relative_urls: false,
                 setup: function (editor) {
@@ -160,6 +179,14 @@
                         icon: false,
                         onclick: function () {
                             $('#UploadModal').modal('show');
+
+                        }
+                    });
+                    editor.addButton('tagbutton', {
+                        text: 'Insert Tag',
+                        icon: false,
+                        onclick: function () {
+                            $('#HashtagModal').modal('show');
 
                         }
                     });

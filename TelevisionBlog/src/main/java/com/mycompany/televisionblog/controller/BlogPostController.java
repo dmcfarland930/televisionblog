@@ -19,6 +19,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.inject.Inject;
@@ -122,6 +123,32 @@ public class BlogPostController {
         model.put("hidden", "hidden");
         return "/categoryBlogs";
     }
+    @RequestMapping(value = "/tag/{tag}", method = RequestMethod.GET)
+    public String showByTag(@PathVariable("tag") String tagName, Map<String, Object> model) {
+
+        List<BlogPost> posts = blogPostDao.listOfThreeByTag(0, tagName);
+        model.put("posts", posts);
+        List<String> titles = new ArrayList();
+        List<String> authors = new ArrayList();
+        for (BlogPost blogView : posts) {
+
+            blogView.setStringDateDisplay(sdfDisplay.format(blogView.getPostDate()));
+            titles.add(blogView.getTitle());
+            authors.add(blogView.getUser().getFirstName() + " " + blogView.getUser().getLastName());
+            
+        }
+        boolean nextPage = blogPostDao.checkIfNextPage(3);
+        List<Page> pages = pageDao.list();
+        model.put("tag", tagName);
+        model.put("pages", pages);
+        model.put("titles", titles);
+        model.put("authors", authors);
+        
+        model.put("pageNext", 2);
+        model.put("nextPage", nextPage);
+        model.put("hidden", "hidden");
+        return "/tagBlogs";
+    }
 
     @RequestMapping(value = "/{postName}", method = RequestMethod.GET)
     public String showBlog(@PathVariable("postName") String postName, Map model) {
@@ -148,13 +175,35 @@ public class BlogPostController {
         BlogPost blogPost = setBlogPostProperties(blogPostCommand);
 
         blogPost = blogPostDao.create(blogPost);
-        List<Integer> tagIdList = blogPostCommand.getTagIdList();
-//        Integer postId = blogPost.getId();
-//        
-//        for (Integer tagId : tagIdList) {
-//            tagDao.link(postId, tagId);
-//        }
+
+        List<String> tagList = blogPostCommand.getTagNameList();
+        Integer postId = blogPost.getId();
+        List<Tag> tagObjList = tagDao.list();
+        
+        linkTags(tagObjList, tagList, postId);
         return blogPost;
+    }
+
+    private void linkTags(List<Tag> tagObjList, List<String> tagList, Integer postId) {
+        //checks if tag already exists and creates those that don't
+        //links posts to tags
+        List<String> tagNameList = new ArrayList();
+        
+        for (Tag myTag : tagObjList) {
+            tagNameList.add(myTag.getName());
+        }
+        for (String tagName : tagList) {
+            if (tagNameList.contains(tagName)) {
+                Integer tagId = tagDao.getIdByName(tagName);
+                tagDao.link(postId, tagId);
+            }
+            else {
+                Tag tag = new Tag();
+                tag.setName(tagName);
+                tag = tagDao.create(tag);
+                tagDao.link(postId, tag.getId());
+            }
+        }
     }
 
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
@@ -171,7 +220,8 @@ public class BlogPostController {
         model.put("category", blogEdit.getCategory());
         model.put("authors", authors);
         model.put("author", blogEdit.getUser().getFirstName() + " " + blogEdit.getUser().getLastName());
-        model.put("content", blogEdit.getContent());
+        String content = blogEdit.getContent();
+        model.put("content", content);
 
         List<Page> pages = pageDao.list();
         model.put("pages", pages);
