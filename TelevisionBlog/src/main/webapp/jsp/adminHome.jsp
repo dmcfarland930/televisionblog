@@ -113,6 +113,7 @@
                         <input type="hidden" id="edit-post-user-id" />
                         <input type="hidden" id="edit-post-active" />
                         <input type="hidden" id="edit-post-approved" />
+                        <input type="hidden" id="edit-post-url" />
 
                         <div class="form-group">
                             <label class="col-md-4 control-label">Expiration Date:</label>
