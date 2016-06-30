@@ -9,19 +9,19 @@ import java.util.Date;
  */
 public class BlogPost {
 
-    int id;
-    String title;
+    private int id;
+    private String title;
     private String url;
-    User user;
-    Category category;
-    String content;
+    private User user;
+    private Category category;
+    private String content;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "EST")
-    Date postDate;
+    private Date postDate;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "EST")
-    Date expirationDate;
+    private Date expirationDate;
     private String stringDateDisplay;
     private boolean active;
-    boolean approved;
+    private boolean approved;
 
     public int getId() {
         return id;

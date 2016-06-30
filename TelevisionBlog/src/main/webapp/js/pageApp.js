@@ -212,6 +212,22 @@ $(document).ready(function () {
 //        $("#page-url-input").val(match[1]);
 
     });
+    
+    //Used to Remove special characters and redundant spacing from URL pattern
+    $("#page-url-input").on("input", function (e) {
+
+//        var myRegex= /(([a-zA-Z0-9])+)/g;
+
+        var urlData = $("#page-url-input").val();
+        var noSpecialChars = urlData.replace(/[^\w\s]/gi, '');
+//        var match = myRegex.exec(titleData);
+
+        $("#page-url-input").val(noSpecialChars.replace(/[\s]+/g, '-').toLowerCase());
+//        $("#page-url-input").val(match[1]);
+
+    });
+    
+    
     //Jquery Ui Sortable - Used for drag and drop static Page order
     $(document).ready(function () {
 

@@ -6,8 +6,8 @@ package com.mycompany.televisionblog.dto;
  */
 public class Role {
 
-    int id;
-    String name;
+    private int id;
+    private String name;
 
     public int getId() {
         return id;

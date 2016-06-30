@@ -9,12 +9,12 @@ import org.hibernate.validator.constraints.NotEmpty;
  */
 public class Category {
     
-    int id;
+    private int id;
     
     @NotEmpty
     @NotNull
-    String name;
-    boolean defaultCategory;
+    private String name;
+    private boolean defaultCategory;
 
     int postCount;
     

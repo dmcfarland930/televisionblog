@@ -8,11 +8,11 @@ import java.util.Date;
  */
 public class Comment {
 
-    int id;
-    int postId;
-    String comment;
-    String name;
-    Date date;
+    private int id;
+    private int postId;
+    private String comment;
+    private String name;
+    private Date date;
 
     public int getId() {
         return id;

@@ -5,8 +5,8 @@ package com.mycompany.televisionblog.dto;
  * @author apprentice
  */
 public class Tag {
-    int id;
-    String name;
+    private int id;
+    private String name;
 
     public int getId() {
         return id;
