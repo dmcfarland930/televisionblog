@@ -59,7 +59,7 @@
                                 <td>${user.lastName}</td>
                                 <td>${user.username}</td>
                                 <td><a href="" class="glyphicon glyphicon-edit" style="color:green;" data-user-id="${user.id}" data-toggle="modal" data-target="#edit-user-modal"></a></td>
-                                <td><a href="" data-user-id="${user.id}" class="delete-user-link"><span class="glyphicon glyphicon-remove" style="color:red;" /></a></td>
+                                <td><a href="" data-user-id="${user.id}" class="delete-user-link glyphicon glyphicon-remove" style="color:red;"></a></td>
                             </tr>
                         </c:forEach>
                     </table>
@@ -94,7 +94,7 @@
                             
                             <div class="form-group">
                                 <label for="" class="col-md-4 control-label">Password:</label>
-                                <div class="col-md-8"><input type="text" class="form-control" id="password-input"/></div>
+                                <div class="col-md-8"><input type="password" class="form-control" id="password-input"/></div>
                             </div>
                             
                             
@@ -147,14 +147,16 @@
                             
                             <tr>
                                 <td>Password:</td>
-                                <td><input type="text" class="form-control" id="edit-user-password" /></td>
+                                <td><input type="password" class="form-control" id="edit-user-password" /></td>
                             </tr>
                             
                             <tr>
                                 <td>Role:</td>
                                 <td><select class="form-control" id="edit-user-role">
+                                       
                                         <option value="1" class="form-control" id="option-1">Administrator</option>
                                         <option value="2" class="form-control" id="option-2">Marketing Team</option>
+                                      
                                     </select></td>
                             </tr>
                         </table>

@@ -50,6 +50,9 @@
     <bean id="tagDao" class="com.mycompany.televisionblog.dao.TagDaoImpl">
         <constructor-arg ref="jdbcTemplate"/>
     </bean>
+    <bean id="roleDao" class="com.mycompany.televisionblog.dao.RoleDaoDbImpl">
+        <constructor-arg ref="jdbcTemplate"/>
+    </bean>
 
 
     <bean id="blogPostDao" class="com.mycompany.televisionblog.dao.BlogPostDaoDbImpl">    

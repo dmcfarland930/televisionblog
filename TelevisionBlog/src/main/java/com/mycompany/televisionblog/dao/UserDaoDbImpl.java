@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.util.List;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 /**
  *
@@ -17,11 +18,14 @@ import org.springframework.jdbc.core.RowMapper;
  */
 public class UserDaoDbImpl implements UserDao {
 
-    private static final String SQL_INSERT_USER = "INSERT INTO user (first_name, last_name, user_name, password, group_id) VALUES (?, ?, ?, ?, ?)";
-    private static final String SQL_UPDATE_USER = "UPDATE user SET first_name = ?, last_name = ?, user_name = ?, password = ?, group_id = ? WHERE id = ?";
+    private static final String SQL_INSERT_USER = "INSERT INTO user (first_name, last_name, username, password, group_id) VALUES (?, ?, ?, ?, ?)";
+    private static final String SQL_UPDATE_USER = "UPDATE user SET first_name = ?, last_name = ?, username = ?, password = ?, group_id = ? WHERE id = ?";
     private static final String SQL_DELETE_USER = "DELETE FROM user WHERE id = ?";
     private static final String SQL_GET_USER = "SELECT * FROM user WHERE id = ?";
     private static final String SQL_GET_USER_LIST = "SELECT * FROM user";
+    
+    private static final String SQL_ASSIGN_USER_ROLES = "INSERT INTO authorities (user_id, role_id) VALUES (?, ?)";
+    private static final String SQL_DELETE_USER_ROLES = "DELETE FROM authorities WHERE user_id = ?";
     
     private JdbcTemplate jdbcTemplate;
 
@@ -32,12 +36,14 @@ public class UserDaoDbImpl implements UserDao {
 
     @Override
     public User create(User user) {
+        
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
         jdbcTemplate.update(SQL_INSERT_USER,
                 user.getFirstName(),
                 user.getLastName(),
                 user.getUsername(),
-                user.getPassword(),
+                encoder.encode(user.getPassword()),
                 user.getGroupId());
 
         Integer id = jdbcTemplate.queryForObject("SELECT LAST_INSERT_ID()", Integer.class);
@@ -79,6 +85,19 @@ public class UserDaoDbImpl implements UserDao {
 
     }
 
+    @Override
+    public void assignRoles(Integer userId, Integer roleId) {
+        jdbcTemplate.update(SQL_ASSIGN_USER_ROLES,
+                userId,
+                roleId);
+    }
+
+    @Override
+    public void removeRoles(Integer userId) {
+        jdbcTemplate.update(SQL_DELETE_USER_ROLES,
+                userId);
+    }
+
     private final class UserMapper implements RowMapper<User> {
 
         @Override
@@ -89,9 +108,8 @@ public class UserDaoDbImpl implements UserDao {
             user.setId(rs.getInt("id"));
             user.setFirstName(rs.getString("first_name"));
             user.setLastName(rs.getString("last_name"));
-            user.setUsername(rs.getString("user_name"));
+            user.setUsername(rs.getString("username"));
             user.setPassword(rs.getString("password"));
-            user.setGroupId(rs.getInt("group_id"));
 
             return user;
 
