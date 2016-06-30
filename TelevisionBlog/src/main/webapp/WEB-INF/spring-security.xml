@@ -18,7 +18,8 @@
     <http pattern="/img/**" security="none" />
     <http pattern="/fonts/**" security="none" />
     <http pattern="/*" security="none" />
-    <http pattern="/admin/user/*" security="none" />
+    <http pattern="/admin/user/**" security="none" />
+    <http pattern="/user/**" security="none" />
     <http pattern="/blog/*" security="none" />
     <http pattern="/blog/category/*" security="none" />
     
