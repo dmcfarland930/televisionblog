@@ -49,6 +49,7 @@
                             <div>
                                 <input type="text" id="page-url-input" class="form-control"  />
                             </div>
+                            <div id="page-url-error"></div>
                         </div>
 
                         <div class="form-group">
@@ -72,7 +73,6 @@
         <script src="${pageContext.request.contextPath}/js/jquery-1.11.1.min.js"></script>
         <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
         <script src="${pageContext.request.contextPath}/js/tinymce/js/tinymce/tinymce.min.js"></script>
-        <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
         <script src="${pageContext.request.contextPath}/js/pageApp.js"></script>
 
         <script type="text/javascript">
