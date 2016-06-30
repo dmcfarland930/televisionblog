@@ -11,10 +11,11 @@ public class BlogPost {
 
     int id;
     String title;
+    private String url;
     User user;
     Category category;
     String content;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd hh:mm:ss", timezone = "EST")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "EST")
     Date postDate;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "EST")
     Date expirationDate;
@@ -108,4 +109,13 @@ public class BlogPost {
         this.stringDateDisplay = stringDateDisplay;
     }
 
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+        
 }

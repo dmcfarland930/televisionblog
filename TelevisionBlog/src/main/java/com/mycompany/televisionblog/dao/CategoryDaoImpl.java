@@ -17,18 +17,21 @@ import org.springframework.jdbc.core.RowMapper;
  * @author apprentice
  */
 public class CategoryDaoImpl implements CategoryDao {
+
     private static final String SQL_CREATE_CATEGORY = "INSERT INTO category (name) VALUES (?)";
     private static final String SQL_GET_CATEGORY = "SELECT * FROM category WHERE id = ?";
+    private static final String SQL_GET_DEFAULT_CATEGORY_ID = "SELECT id FROM category WHERE default_category";
     private static final String SQL_UPDATE_CATEGORY = "UPDATE category SET name = ? WHERE id = ?";
     private static final String SQL_DELETE_CATEGORY = "DELETE FROM category WHERE id = ?";
     private static final String SQL_GET_CATEGORY_LIST = "SELECT * FROM category";
-    private static final String SQL_GET_CATEGORY_POST_COUNT = "SELECT * FROM category where id = ?";
-    
+    private static final String SQL_GET_CATEGORY_POST_COUNT = "SELECT post_count FROM category where id = ?";
+
     private JdbcTemplate jdbcTemplate;
-    
-    public CategoryDaoImpl (JdbcTemplate jdbcTemplate) {
+
+    public CategoryDaoImpl(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
+
     @Override
     public Category create(Category category) {
         jdbcTemplate.update(SQL_CREATE_CATEGORY, category.getName());
@@ -41,8 +44,11 @@ public class CategoryDaoImpl implements CategoryDao {
     public Category get(Integer id) {
         return jdbcTemplate.queryForObject(SQL_GET_CATEGORY, new CategoryMapper(), id);
     }
-    
-    
+
+    @Override
+    public Integer getDefaultCategory() {
+        return jdbcTemplate.queryForObject(SQL_GET_DEFAULT_CATEGORY_ID, Integer.class);
+    }
 
     @Override
     public void update(Category category) {
@@ -63,17 +69,18 @@ public class CategoryDaoImpl implements CategoryDao {
     public int getPostCount(Integer id) {
         return jdbcTemplate.queryForObject(SQL_GET_CATEGORY_POST_COUNT, Integer.class, id);
     }
-    
+
     private static final class CategoryMapper implements RowMapper<Category> {
+
         @Override
         public Category mapRow(ResultSet rs, int i) throws SQLException {
-            
+
             Category category = new Category();
             category.setId(rs.getInt("id"));
             category.setName(rs.getString("name"));
             category.setPostCount(rs.getInt("post_count"));
-            
-            
+            category.setDefaultCategory(rs.getBoolean("default_category"));
+
             return category;
         }
     }

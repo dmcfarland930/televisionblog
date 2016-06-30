@@ -28,7 +28,13 @@ $(document).ready(function () {
                 var errors = data.responseJSON.errors;
                 $.each(errors, function (index, error) {
 
-                    $("#add-page-validation-errors").append(error.fieldName + ": " + error.message + "<br />");
+                    if (error.fieldName === "url") {
+                        $("#page-url-error").append(error.message + "<br />");
+
+                    } else {
+
+                        $("#add-page-validation-errors").append(error.fieldName + ": " + error.message + "<br />");
+                    }
                 });
             }
         });
@@ -239,7 +245,7 @@ $(document).ready(function () {
             }
         });
     });
-    
+
     //Toggle Static Page Active/Inactive
     $(document).on("click", ".active-page-link", function (e) {
         e.preventDefault();

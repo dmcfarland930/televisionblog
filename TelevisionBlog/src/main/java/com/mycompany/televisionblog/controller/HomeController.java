@@ -34,7 +34,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class HomeController {
 
     
-    SimpleDateFormat sdfDisplay = new SimpleDateFormat("MMMM dd, yyyy hh:mm:ss");
+    SimpleDateFormat sdfDisplay = new SimpleDateFormat("MMMM dd, yyyy");
     private BlogPostDao postDao;
     private PageDao pageDao;
     private UserDao userDao;
@@ -53,7 +53,7 @@ public class HomeController {
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String home(Map<String, Object> model) {
 
-        List<BlogPost> posts = postDao.listOfThree(0);
+        List<BlogPost> posts = postDao.listOfThree(0, 3);
         List<Category> categories = categoryDao.list();
         List<Tag> tags = tagDao.list();
         
@@ -66,7 +66,7 @@ public class HomeController {
         }
         
         
-        boolean nextPage = postDao.checkIfNextPage(3);
+        boolean nextPage = postDao.checkIfNextPage(3, 3);
         List<Page> pages = pageDao.list();
         
         model.put("tags", tags);

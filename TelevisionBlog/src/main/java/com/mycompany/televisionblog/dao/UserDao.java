@@ -21,6 +21,10 @@ public interface UserDao {
     void update(User user);
 
     void delete(Integer id);
+    
+    void assignRoles(Integer userId, Integer roleId);
+    
+    void removeRoles(Integer userId);
 
     List <User> list();
 

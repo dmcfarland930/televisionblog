@@ -8,13 +8,14 @@ package com.mycompany.televisionblog.controller;
 import com.mycompany.televisionblog.dao.BlogPostDao;
 import com.mycompany.televisionblog.dao.CategoryDao;
 import com.mycompany.televisionblog.dao.PageDao;
+import com.mycompany.televisionblog.dao.RoleDao;
 import com.mycompany.televisionblog.dao.UserDao;
 import com.mycompany.televisionblog.dto.BlogPost;
 import com.mycompany.televisionblog.dto.Category;
 import com.mycompany.televisionblog.dto.Page;
+import com.mycompany.televisionblog.dto.Role;
 import com.mycompany.televisionblog.dto.User;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import javax.inject.Inject;
@@ -36,13 +37,16 @@ public class AdminController {
     PageDao pageDao;
     UserDao userDao;
     CategoryDao categoryDao;
+    RoleDao roleDao;
 
     @Inject
-    public AdminController(BlogPostDao postDao, PageDao pageDao, UserDao userDao, CategoryDao categoryDao) {
+    public AdminController(BlogPostDao postDao, PageDao pageDao, UserDao userDao, CategoryDao categoryDao, RoleDao roleDao) {
         this.postDao = postDao;
         this.pageDao = pageDao;
         this.userDao = userDao;
         this.categoryDao = categoryDao;
+        this.roleDao = roleDao;
+                
     }
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
@@ -83,6 +87,9 @@ public class AdminController {
     public String users(Map model) {
 
         List<User> users = userDao.list();
+        List<Role> roles = roleDao.list();
+        
+        model.put("roles", roles);
         model.put("users", users);
         return "user";
     }

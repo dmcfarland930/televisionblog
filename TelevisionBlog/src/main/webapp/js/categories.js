@@ -99,25 +99,48 @@ $(document).ready(function () {
         //alert("alert after ajax");
 
     });
+
     $(document).on('click', '.delete-category-link', function (e) {
         e.preventDefault();
 
         var categoryId = $(e.target).data('category-id');
 
+        $('#category-delete-button').val(categoryId);
+        console.log(categoryId);
+        console.log($('#category-delete-button').val());
         $.ajax({
             type: "DELETE",
-            url: contextRoot + "/category/" + categoryId,
+            url: contextRoot + "/admin/category/" + categoryId,
             success: function (data, status) {
                 $('#category-row-' + categoryId).remove();
             },
             error: function (data, status) {
-
 
                 $('#deleteCategoryModal').modal('show');
 
             }
         });
     });
+
+    $(document).on('click', '#category-delete-button', function (e) {
+        e.preventDefault();
+
+        var categoryId = $("#category-delete-button").val();
+
+        $.ajax({
+            type: "DELETE",
+            url: contextRoot + "/admin/category/reassign/" + categoryId,
+            success: function (data, status) {
+                $('#category-row-' + categoryId).remove();
+            },
+            error: function (data, status) {
+
+                console.log("error deleting category");
+
+            }
+        });
+    });
+
     function buildCategoryRow(data) {
         return "<tr id='category-row-" + data.id + "'> \n\
                     <td>" + data.name + "</td> \n\
