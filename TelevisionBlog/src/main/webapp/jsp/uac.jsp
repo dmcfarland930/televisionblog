@@ -41,8 +41,10 @@
                 <div class="col-md-8">
 
                     <jsp:include page="uacMenu.jsp"/>
+                    
+                    <h1>UAC Home page <br /> Work In Progress <br /> Click a Tab</h1> <br /> By the way, only the Group Roles work right now, individual Users and Custom doesn't work yet.
 
-                    <table class="table table-bordered" style="text-align: center;" id="user-table">                       
+<!--                    <table class="table table-bordered" style="text-align: center;" id="user-table">                       
 
                         <tr>
                             <th colspan="6">User Roles</th>
@@ -97,7 +99,7 @@
                                 <td><input type="checkbox" data-target="${user.id}" class="chkbox checkbox checkbox-inline" name="user-role-${user.id}" value="delete"></td>
                             </tr>
                         </c:forEach>
-                    </table>
+                    </table>-->
                 </div>
 
             </div>

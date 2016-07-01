@@ -21,7 +21,7 @@
     <http pattern="/blog/show/*" security="none" />
     <http pattern="/blog/page/*" security="none" />
     <http pattern="/blog/author/**" security="none" />
-    <http pattern="/contact/send-script/" security="none" />
+    <http pattern="/contact/send-script" security="none" />
     <http pattern="/upload/**" security="none" />
     <http pattern="/search/**" security="none" />
     
@@ -38,7 +38,7 @@
         <intercept-url pattern="/blog/writeBlog" access="ROLE_CREATE_POST" />
         <intercept-url pattern="/blog/create-blog-post/" access="ROLE_CREATE_POST" />
         <intercept-url pattern="/blog/edit/*" access="ROLE_UPDATE_POST" />
-        <intercept-url pattern="/blog/editsubmit/" access="ROLE_UPDATE_POST" />
+        <intercept-url pattern="/blog/editsubmit" access="ROLE_UPDATE_POST" />
         <intercept-url pattern="/blog/" access="ROLE_UPDATE_POST" />
         <intercept-url pattern="/blog/grab/*" access="ROLE_UPDATE_POST" />
         <intercept-url pattern="/blog/*" access="ROLE_DELETE_POST" />
