@@ -19,6 +19,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
@@ -41,13 +42,13 @@ public class UACController {
     }
 
     @RequestMapping(value = "/blogs", method = RequestMethod.GET)
-    public String blogs(Map model) {
+    public String blogs(@RequestParam("group") String group, Map model) {
 
         List<User> users = userDao.list();
         List<Role> roles = roleDao.list();
         List<UserRight> rights = rightsDao.listByGroup("POST");
         for (Role r : roles) {
-            List<Integer> currentRights = rightsDao.listRoleRightsByIdGroup(r.getId(), "POST");
+            List<Integer> currentRights = rightsDao.listRoleRightsByIdGroup(r.getId(), group);
             r.setUserRights(currentRights);
         }
 
@@ -59,13 +60,13 @@ public class UACController {
     }
 
     @RequestMapping(value = "/pages", method = RequestMethod.GET)
-    public String pages(Map model) {
+    public String pages(@RequestParam("group") String group, Map model) {
 
         List<User> users = userDao.list();
         List<Role> roles = roleDao.list();
         List<UserRight> rights = rightsDao.listByGroup("PAGE");
         for (Role r : roles) {
-            List<Integer> currentRights = rightsDao.listRoleRightsByIdGroup(r.getId(), "PAGE");
+            List<Integer> currentRights = rightsDao.listRoleRightsByIdGroup(r.getId(), group);
             r.setUserRights(currentRights);
         }
 
@@ -77,13 +78,13 @@ public class UACController {
     }
 
     @RequestMapping(value = "/users", method = RequestMethod.GET)
-    public String users(Map model) {
+    public String users(@RequestParam("group") String group, Map model) {
 
         List<User> users = userDao.list();
         List<Role> roles = roleDao.list();
         List<UserRight> rights = rightsDao.listByGroup("USER");
         for (Role r : roles) {
-            List<Integer> currentRights = rightsDao.listRoleRightsByIdGroup(r.getId(), "USER");
+            List<Integer> currentRights = rightsDao.listRoleRightsByIdGroup(r.getId(), group);
             r.setUserRights(currentRights);
         }
 
@@ -95,13 +96,13 @@ public class UACController {
     }
 
     @RequestMapping(value = "/categories", method = RequestMethod.GET)
-    public String categories(Map model) {
+    public String categories(@RequestParam("group") String group, Map model) {
 
         List<User> users = userDao.list();
         List<Role> roles = roleDao.list();
         List<UserRight> rights = rightsDao.listByGroup("CATEGORY");
         for (Role r : roles) {
-            List<Integer> currentRights = rightsDao.listRoleRightsByIdGroup(r.getId(), "CATEGORY");
+            List<Integer> currentRights = rightsDao.listRoleRightsByIdGroup(r.getId(), group);
             r.setUserRights(currentRights);
         }
 
@@ -113,13 +114,13 @@ public class UACController {
     }
 
     @RequestMapping(value = "/tag", method = RequestMethod.GET)
-    public String tag(Map model) {
+    public String tag(@RequestParam("group") String group, Map model) {
 
         List<User> users = userDao.list();
         List<Role> roles = roleDao.list();
         List<UserRight> rights = rightsDao.listByGroup("TAG");
         for (Role r : roles) {
-            List<Integer> currentRights = rightsDao.listRoleRightsByIdGroup(r.getId(), "TAG");
+            List<Integer> currentRights = rightsDao.listRoleRightsByIdGroup(r.getId(), group);
             r.setUserRights(currentRights);
         }
 
