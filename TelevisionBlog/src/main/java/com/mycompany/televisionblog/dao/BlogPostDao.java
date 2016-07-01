@@ -47,5 +47,7 @@ public interface BlogPostDao {
     boolean checkIfNextPageCategory(Integer categoryId, Integer nextPageNum, Integer range);
     
     
-    List<BlogPost> listOfThreeByTag(Integer pageNum, String tagName);
+    List<BlogPost> listOfThreeByTag(Integer pageNum, Integer range, String tag);
+    
+    List<BlogPost> listOfThreeBySearch(Integer pageNum, Integer range, String searchValue);
 }

@@ -34,7 +34,8 @@ public class BlogPostDaoDbImpl implements BlogPostDao {
     private static final String SQL_GET_POST_LIST_THREE_ENTRIES = "SELECT * FROM post WHERE approved AND active ORDER BY post_date DESC LIMIT ?, ?";
     private static final String SQL_GET_POST_LIST_THREE_ENTRIES_AUTHOR = "SELECT * FROM post WHERE approved AND active AND user_id = ? ORDER BY post_date DESC LIMIT ?, ?";
     private static final String SQL_GET_POST_LIST_THREE_ENTRIES_CATEGORY = "SELECT * FROM post WHERE approved AND active AND category_id = ? ORDER BY post_date DESC LIMIT ?, ?";
-    private static final String SQL_GET_POST_LIST_THREE_ENTRIES_TAG = "SELECT * FROM post LEFT OUTER JOIN post_tag ON post_tag.post_id = post.id JOIN tag ON tag.id = post_tag.tag_id WHERE post.approved AND post.active AND tag.name = ? ORDER BY post.post_date DESC LIMIT ?, 3";
+    private static final String SQL_GET_POST_LIST_THREE_ENTRIES_TAG = "SELECT * FROM post LEFT OUTER JOIN post_tag ON post_tag.post_id = post.id JOIN tag ON tag.id = post_tag.tag_id WHERE post.approved AND post.active AND tag.name = ? ORDER BY post.post_date DESC LIMIT ?, ?";
+    private static final String SQL_GET_POST_LIST_THREE_ENTRIES_SEARCH = "SELECT * FROM post WHERE approved AND active AND (content LIKE ? OR title LIKE ?) ORDER BY post_date DESC LIMIT ?, ?";
 
     private JdbcTemplate jdbcTemplate;
     private CategoryDao categoryDao;
@@ -200,7 +201,7 @@ public class BlogPostDaoDbImpl implements BlogPostDao {
         }
         return false;
     }
-    
+
     @Override
     public boolean checkIfNextPageAuthor(String author, Integer nextPageNum, Integer range) {
         // checks if there are posts on next page
@@ -210,7 +211,7 @@ public class BlogPostDaoDbImpl implements BlogPostDao {
         }
         return false;
     }
-    
+
     @Override
     public boolean checkIfNextPageCategory(Integer categoryId, Integer nextPageNum, Integer range) {
         // checks if there are posts on next page
@@ -222,14 +223,22 @@ public class BlogPostDaoDbImpl implements BlogPostDao {
     }
 
     @Override
-
-    public List<BlogPost> listOfThreeByTag(Integer pageNum, String tagName) {
+    public List<BlogPost> listOfThreeByTag(Integer pageNum, Integer range, String tag) {
 
         Date date = new Date();
         jdbcTemplate.update(SQL_SET_POSTS_TO_ACTIVE_DATE, date);
         jdbcTemplate.update(SQL_SET_POSTS_TO_EXPIRED_DATE, date);
 
-        return jdbcTemplate.query(SQL_GET_POST_LIST_THREE_ENTRIES_TAG, new BlogPostMapper(), tagName, pageNum);
+        return jdbcTemplate.query(SQL_GET_POST_LIST_THREE_ENTRIES_TAG, new BlogPostMapper(), tag, pageNum);
+    }
+
+    @Override
+    public List<BlogPost> listOfThreeBySearch(Integer pageNum, Integer range, String searchValue) {
+        Date date = new Date();
+        jdbcTemplate.update(SQL_SET_POSTS_TO_ACTIVE_DATE, date);
+        jdbcTemplate.update(SQL_SET_POSTS_TO_EXPIRED_DATE, date);
+
+        return jdbcTemplate.query(SQL_GET_POST_LIST_THREE_ENTRIES_SEARCH, new BlogPostMapper(), "%" + searchValue + "%", "%" + searchValue + "%", pageNum, range);
     }
 
     private final class BlogPostMapper implements RowMapper<BlogPost> {

@@ -102,6 +102,18 @@ public class AdminController {
         
         return "category";
     }
+    
+    @RequestMapping(value="/uac", method=RequestMethod.GET)
+    public String uac(Map model) {
+        
+        List<Role> roles = roleDao.list();
+        List<User>  users = userDao.list();
+        
+        model.put("users", users);
+        model.put("roles", roles);
+        
+        return "uac";
+    }
 
     @RequestMapping(value = "/approval/{val}/{id}", method = RequestMethod.POST)
     @ResponseBody

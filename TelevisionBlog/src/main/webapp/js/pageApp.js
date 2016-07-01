@@ -12,7 +12,7 @@ $(document).ready(function () {
             url: $("#page-url-input").val()
         });
         $.ajax({
-            url: contextRoot + "/page/",
+            url: contextRoot + "/admin/page/create/",
             type: "POST",
             data: pageData,
             dataType: "json",
@@ -22,13 +22,19 @@ $(document).ready(function () {
             },
             success: function (data, status) {
 
-                window.location = contextRoot + "/admin/page/";
+                window.location = contextRoot + "/admin/page/create/";
             },
             error: function (data, status) {
                 var errors = data.responseJSON.errors;
                 $.each(errors, function (index, error) {
 
-                    $("#add-page-validation-errors").append(error.fieldName + ": " + error.message + "<br />");
+                    if (error.fieldName === "url") {
+                        $("#page-url-error").append(error.message + "<br />");
+
+                    } else {
+
+                        $("#add-page-validation-errors").append(error.fieldName + ": " + error.message + "<br />");
+                    }
                 });
             }
         });
@@ -45,7 +51,7 @@ $(document).ready(function () {
             active: $("#page-active").val()
         });
         $.ajax({
-            url: contextRoot + "/page/",
+            url: contextRoot + "/admin/page/update/",
             type: "PUT",
             data: pageData,
             dataType: "json",
@@ -55,7 +61,7 @@ $(document).ready(function () {
             },
             success: function (data, status) {
 
-                window.location(contextRoot + "/admin/page/");
+                window.location(contextRoot + "/admin/page/update/");
             },
             error: function (data, status) {
                 var errors = data.responseJSON.errors;
@@ -158,7 +164,7 @@ $(document).ready(function () {
         e.preventDefault();
         var pageId = $(e.target).data("page-id");
         $.ajax({
-            url: contextRoot + "/page/" + pageId,
+            url: contextRoot + "/admin/page/delete/" + pageId,
             type: "DELETE",
             success: function (data, status) {
                 $("#page-row-" + pageId).remove();
@@ -206,6 +212,22 @@ $(document).ready(function () {
 //        $("#page-url-input").val(match[1]);
 
     });
+    
+    //Used to Remove special characters and redundant spacing from URL pattern
+    $("#page-url-input").on("input", function (e) {
+
+//        var myRegex= /(([a-zA-Z0-9])+)/g;
+
+        var urlData = $("#page-url-input").val();
+        var noSpecialChars = urlData.replace(/[^\w\s]/gi, '');
+//        var match = myRegex.exec(titleData);
+
+        $("#page-url-input").val(noSpecialChars.replace(/[\s]+/g, '-').toLowerCase());
+//        $("#page-url-input").val(match[1]);
+
+    });
+    
+    
     //Jquery Ui Sortable - Used for drag and drop static Page order
     $(document).ready(function () {
 
@@ -224,7 +246,7 @@ $(document).ready(function () {
                 $.ajax({
                     data: JSON.stringify(data),
                     type: "POST",
-                    url: contextRoot + "/page/position",
+                    url: contextRoot + "/admin/page/position",
                     beforeSend: function (xhr) {
                         xhr.setRequestHeader("Accept", "application/json");
                         xhr.setRequestHeader("Content-type", "application/json");
@@ -239,14 +261,14 @@ $(document).ready(function () {
             }
         });
     });
-    
+
     //Toggle Static Page Active/Inactive
     $(document).on("click", ".active-page-link", function (e) {
         e.preventDefault();
 
         var pageId = $(e.target).data("page-id");
         $.ajax({
-            url: contextRoot + "/page/toggle-active/" + pageId,
+            url: contextRoot + "/admin/page/toggle-active/" + pageId,
             type: "GET",
             beforeSend: function (xhr) {
                 xhr.setRequestHeader("Accept", "application/json");

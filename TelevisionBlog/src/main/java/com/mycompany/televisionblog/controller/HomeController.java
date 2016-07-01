@@ -51,7 +51,7 @@ public class HomeController {
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String home(Map<String, Object> model) {
-        
+
         List<BlogPost> posts = postDao.listOfThree(0, 3);
         List<BlogPost> latestPosts = postDao.listOfThree(0, 5);
         List<CategoryPost> categories = categoryDao.getPostCount();
@@ -64,7 +64,7 @@ public class HomeController {
             model.put("author", blogView.getUser().getFirstName() + " " + blogView.getUser().getLastName());
             model.put("posts", posts);
         }
-                
+
         boolean nextPage = postDao.checkIfNextPage(3, 3);
         List<Page> pages = pageDao.list();
 

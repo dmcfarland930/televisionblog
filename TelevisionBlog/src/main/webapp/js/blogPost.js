@@ -137,14 +137,36 @@ $(document).ready(function () {
         var body = $(tinymce.activeEditor.getBody());
         $('.selected-image').each(function () {
             $(this).removeClass('selected-image');
-            var a = $(this);
+            var a = $(this).clone();
+            $(a).height(200).width('auto');
             body.append(a.clone());
         });
         $('#UploadModal').modal('hide');
 
 
     });
-    $('#file-upload-button').on('click', function (e) {
+    
+    $(document).on('click', '#delete-images', function(e) {
+        e.preventDefault();
+        $('.selected-image-link').each(function() {
+            var img = $(this);
+            var imgId = $(this).attr('id');
+            imgId = imgId.replace('image-upload-', '');
+            console.log(imgId);
+            $.ajax({
+                url : contextRoot + '/upload/'+imgId,
+                type : 'DELETE',
+                success : function(data) {
+                    img.parent().remove();
+                    img.remove();
+                },
+                error : function(data) {
+                }
+            });
+        });
+    });
+    
+    $('#file-upload-button').on('click', function(e) {
         e.preventDefault();
         var formData = new FormData();
         console.log('file', $('input[type=file]')[0].files[0]);
@@ -166,6 +188,7 @@ $(document).ready(function () {
             }
         });
     });
+    
     $('.chosen-select').chosen();
 
     $("#title-input").on("input", function (e) {

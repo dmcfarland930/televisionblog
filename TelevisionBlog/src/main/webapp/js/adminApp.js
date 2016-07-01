@@ -101,6 +101,7 @@ $(document).ready(function () {
                 $("#edit-post-date").val(data.postDate);
                 $("#edit-post-active").val(data.active);
                 $("#edit-post-approved").val(data.approved);
+                $("#edit-post-url").val(data.url);
                 $("#edit-post-id").val(data.id);
             },
             error: function (data, status) {
@@ -110,6 +111,16 @@ $(document).ready(function () {
 
         //Edit Expiration Date Button
         $("#edit-date-button").on("click", function (e) {
+            
+            var expDate = $("#edit-post-expiration-date").val();
+            var startDate = $("#edit-post-date").val();
+            var active;
+            
+            if(startDate >= Date.now() && expDate <= Date.now()) {
+                active = true;
+            } else {
+                active = false;
+            }
 
             var postData = JSON.stringify({
                 id: $("#edit-post-id").val(),
@@ -119,8 +130,9 @@ $(document).ready(function () {
                 categoryId: $("#edit-post-category").val(),
                 content: $("#edit-post-content").val(),
                 postDate: $("#edit-post-date").val(),
-                active: $("#edit-post-active").val(),
-                approved: $("#edit-post-approved").val()
+                active: active,
+                approved: $("#edit-post-approved").val(),
+                url: $("#edit-post-url").val()
             });
             
             $.ajax({

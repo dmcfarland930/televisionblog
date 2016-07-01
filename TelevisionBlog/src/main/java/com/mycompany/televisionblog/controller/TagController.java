@@ -9,6 +9,7 @@ import com.mycompany.televisionblog.dao.PageDao;
 import com.mycompany.televisionblog.dao.TagDao;
 import com.mycompany.televisionblog.dto.Page;
 import com.mycompany.televisionblog.dto.Tag;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import javax.inject.Inject;
@@ -40,11 +41,15 @@ public class TagController {
     public String display(Map<String, Object> model) {
         
         List<Tag> tags = tagDao.list();
-        
+        List<Integer> counts = new ArrayList();
+        for (Tag myTag : tags) {
+            counts.add(tagDao.tagPostCount(myTag.getName()));
+        }
         List<Page> pages = pageDao.list();
         
         model.put("pages", pages);
         model.put("tags", tags);
+        model.put("counts", counts);
         
         return "tags";
     }
@@ -56,20 +61,20 @@ public class TagController {
         return tag;
     }
     
-    @RequestMapping(value="", method = RequestMethod.POST)
+    @RequestMapping(value="/create/", method = RequestMethod.POST)
     @ResponseBody
     public Tag create(@Valid @RequestBody Tag tag) {
         tagDao.create(tag);
         return tag;
     }
-    @RequestMapping(value="", method = RequestMethod.PUT)
+    @RequestMapping(value="/update/", method = RequestMethod.PUT)
     @ResponseBody
     public Tag update(@Valid @RequestBody Tag tag) {
         tagDao.update(tag);
         return tag;
     }
     
-    @RequestMapping(value="/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value="/delete/{id}", method = RequestMethod.DELETE)
     @ResponseBody
     public void delete(@PathVariable("id") Integer id) {
         tagDao.delete(id);

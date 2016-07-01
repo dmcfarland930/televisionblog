@@ -22,8 +22,13 @@
     <body>
         <%@include file="navBar.jsp"%>
         <div class="container">
+            <div id="script-contact-info" class="col-md-12" style="text-align: center">
+                <h4>Your script will be sent to:</h4>
+                <h4>Patrick Toner</h4>
+                <h4>(patstvblog@gmail.com)</h4>
+            </div>
             <form class="form form-horizontal" method="POST" enctype="multipart/form-data">
-                <label for="sender">Enter your name:</label>
+                <label for="name-">Enter your name:</label>
                 <input class="form-control" type="text" id="name-input">
                 <label for="file">Upload Script</label>
                 <input class="form-control" type="file" name="file">

@@ -13,11 +13,11 @@ import org.hibernate.validator.constraints.NotEmpty;
  */
 public class CategoryCommand {
     
-    int id;
+    private int id;
     
     @NotEmpty
-    String categoryName;
-    boolean defaultCategory;
+    private String categoryName;
+    private boolean defaultCategory;
 
     int postCount;
     

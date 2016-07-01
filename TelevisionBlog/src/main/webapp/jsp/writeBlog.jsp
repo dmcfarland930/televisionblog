@@ -111,40 +111,43 @@
                                     </div>
                                 </c:forEach>
                             </div>
-                            <form class="form form-horizontal" method="POST" enctype="multipart/form-data">
-                                File to upload: <input class="form-control" type="file" name="file">
-
-                                Name: <input class="form-control" type="text" name="name">
-
-                                <button class="btn btn-primary" id="file-upload-button" type="submit">Upload</button>Press here to upload the file!
-                            </form>
+                                <form class="form form-horizontal" method="POST" enctype="multipart/form-data">
+                                    <div class="form-group">
+                                        <div class="col-md-4">
+                                            <input class="form-control" type="file" name="file">
+                                        </div>
+                                        <div class="col-md-2">
+                                            <button class="btn btn-primary" id="file-upload-button" type="submit">Upload</button>
+                                        </div>
+                                    </div>
+                                </form>
                         </div>
                         <div id="img-display"></div>
                     </div>
                     <div class="modal-footer">
-                        <button class="btn btn-success" id="add-images">Add Images</button>
+                        <button class="btn btn-danger" id="delete-images">Delete Selected Images</button>
+                        <button class="btn btn-success" id="add-images">Add Selected Images</button>
                     </div>
                 </div>
             </div>
         </div>
         <div id="HashtagModal" class="modal fade" role="dialog">
-            <div class="modal-dialog modal-lg">
+            <div class="modal-dialog modal-sm">
 
                 <!-- Modal content-->
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Insert Tag</h4>
+                        <h4 class="modal-title">Insert Tags</h4>
                     </div>
                     <div class="modal-body">
-                        <div class="form-group">
+                        <div class="form-group" id="insert-tags">
                             <form class="form form-horizontal" method="POST">
                                 <div class="form-group">
-                                    <label for="title-input">Tag: </label>
-                                    <select multiple class="form-control" data-placeholder="Choose a Tag..." name="tagName" id="tag-input">
+                                    <select multiple class="form-control chosen-select" data-placeholder="Choose Tags..." name="tagName" id="tag-input">
                                         <option></option>
                                         <c:forEach items="${tags}" var="tag">
-                                            <option value="${tag.id}">${tag.name}</option>
+                                            <option value="${tag.name}">${tag.name}</option>
                                         </c:forEach>
                                     </select>
                                 </div>
@@ -152,7 +155,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button class="btn btn-primary">Insert Tags</button>
+                        <button class="btn btn-primary" id="insert-tags-button">Insert Tags</button>
                     </div>
                 </div>
             </div>
@@ -176,8 +179,8 @@
                     'insertdatetime media nonbreaking save table contextmenu directionality',
                     'emoticons template paste textcolor colorpicker textpattern imagetools'],
                 menubar: "insert",
-                toolbar1: 'mybutton | insertfile undo redo | fontselect | fontsizeselect | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
-                toolbar2: 'print preview media | forecolor backcolor emoticons | tagbutton',
+                toolbar1: 'mybutton | insertfile undo redo | fontselect | fontsizeselect | styleselect | bold italic | alignleft aligncenter alignright alignjustify',
+                toolbar2: 'print preview media | forecolor backcolor emoticons | bullist numlist outdent indent | link image | tagbutton',
                 image_advtab: true,
                 relative_urls: false,
                 setup: function (editor) {
@@ -192,6 +195,9 @@
                     editor.addButton('tagbutton', {
                         text: 'Insert Tag',
                         icon: false,
+                        onmouseover: function () {
+                            
+                        },
                         onclick: function () {
                             $('#HashtagModal').modal('show');
 
@@ -203,6 +209,7 @@
 
         <script src="${pageContext.request.contextPath}/plugins/chosen/chosen.jquery.js" type="text/javascript"></script>
         <script src="${pageContext.request.contextPath}/js/blogPost.js"></script>
+        <script src="${pageContext.request.contextPath}/js/tag-select.js"></script>
 
     </body>
 </html>

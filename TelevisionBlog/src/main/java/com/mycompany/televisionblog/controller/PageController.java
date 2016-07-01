@@ -10,6 +10,7 @@ import com.mycompany.televisionblog.dao.UserDao;
 import com.mycompany.televisionblog.dto.Page;
 import com.mycompany.televisionblog.dto.PageCommand;
 import com.mycompany.televisionblog.dto.User;
+import com.mycompany.televisionblog.validation.ValidationErrorContainer;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -18,6 +19,7 @@ import javax.validation.Valid;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -30,7 +32,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @author apprentice
  */
 @Controller
-@RequestMapping("/page")
+@RequestMapping("/admin/page")
 public class PageController {
 
     PageDao pageDao;
@@ -70,9 +72,9 @@ public class PageController {
         return "editPage";
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.POST)
+    @RequestMapping(value = "/create/", method = RequestMethod.POST)
     @ResponseBody
-    public Page create(@Valid @RequestBody PageCommand command) {
+    public Page create(@Valid @RequestBody PageCommand command, BindingResult result) {
         Page page = new Page();
 
         //!!!!!!!!!!!!!!!!!!!
@@ -92,7 +94,7 @@ public class PageController {
         return pageDao.create(page);
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.PUT)
+    @RequestMapping(value = "/update/", method = RequestMethod.PUT)
     @ResponseBody
     public Page update(@RequestBody PageCommand command) {
         Page page = new Page();
@@ -124,7 +126,7 @@ public class PageController {
         return page;
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
     @ResponseBody
     public void delete(@PathVariable("id") Integer id) {
         pageDao.delete(id);

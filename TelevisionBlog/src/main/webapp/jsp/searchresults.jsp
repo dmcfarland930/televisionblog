@@ -1,6 +1,6 @@
 <%-- 
-    Document   : tagBlogs
-    Created on : Jun 28, 2016, 1:55:32 PM
+    Document   : searchresults
+    Created on : Jun 30, 2016, 1:49:04 PM
     Author     : apprentice
 --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -11,7 +11,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Posts Matching Tag</title>
+        <title>Search Results</title>
         <!-- Bootstrap core CSS -->
         <link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet">
         <link href="${pageContext.request.contextPath}/css/blog.css" rel="stylesheet">
@@ -21,10 +21,10 @@
     <body>
         <%@include file="navBar.jsp"%>
 
-        <h1>Tag: ${tag}</h1>
+        <h1>Showing matching results for "${searchValue}":</h1>
         <div class="container">
             <c:forEach items="${posts}"  var="post" varStatus="count">
-                <div class="col-md-8" id="blog-post-div">
+                <div class="col-md-8">
                     <a id="blog-title" href="${pageContext.request.contextPath}/blog/${post.title}"><h1>${post.title}</h1></a>
                     <a id="author-name" href="${pageContext.request.contextPath}/blog/author/${post.user.id}"> Posted by ${authors[count.index]} on ${post.stringDateDisplay}</a>
                     ${post.content}<br>

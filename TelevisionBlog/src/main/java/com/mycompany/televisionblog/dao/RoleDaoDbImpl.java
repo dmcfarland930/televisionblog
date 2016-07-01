@@ -81,6 +81,7 @@ public class RoleDaoDbImpl implements RoleDao {
 
             role.setId(rs.getInt("id"));
             role.setName(rs.getString("name"));
+            role.setDisplayName(rs.getString("display_name"));
 
             return role;
         }

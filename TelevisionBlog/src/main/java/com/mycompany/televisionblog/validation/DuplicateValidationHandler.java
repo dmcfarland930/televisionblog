@@ -7,6 +7,7 @@ package com.mycompany.televisionblog.validation;
 
 import java.util.List;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -22,26 +23,18 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  */
 @ControllerAdvice
 public class DuplicateValidationHandler {
-    
-    @ExceptionHandler(DataIntegrityViolationException.class)
+
+    @ExceptionHandler(DuplicateKeyException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ResponseBody
-    public ValidationErrorContainer processValidationErrors(MethodArgumentNotValidException e) {
-        
-        BindingResult result = e.getBindingResult();
-        
-        List<FieldError> errors = result.getFieldErrors();
-               
+    public ValidationErrorContainer processValidationErrors(DuplicateKeyException e) {
+
         ValidationErrorContainer container = new ValidationErrorContainer();
         
-        for (FieldError fieldError : errors) {
-            
-            container.addError(fieldError.getDefaultMessage(), fieldError.getField());
-            
-        }
-            
+        container.addError("A path with that name already exists", "url");
+
         return container;
-     
-    }   
-    
+
+    }
+
 }

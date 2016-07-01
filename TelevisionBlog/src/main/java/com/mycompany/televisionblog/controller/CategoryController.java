@@ -60,20 +60,20 @@ public class CategoryController {
         return category;
     }
     
-    @RequestMapping(value="", method = RequestMethod.POST)
+    @RequestMapping(value="/create/", method = RequestMethod.POST)
     @ResponseBody
     public Category create(@Valid @RequestBody Category category) {
         categoryDao.create(category);
         return category;
     }
-    @RequestMapping(value="", method = RequestMethod.PUT)
+    @RequestMapping(value="/update/", method = RequestMethod.PUT)
     @ResponseBody
     public Category update(@Valid @RequestBody Category category) {
         categoryDao.update(category);
         return category;
     }
     
-    @RequestMapping(value="/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value="/delete/{id}", method = RequestMethod.DELETE)
     @ResponseBody
     public void delete(@PathVariable("id") Integer id) {
         categoryDao.delete(id);

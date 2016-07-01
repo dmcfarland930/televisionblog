@@ -22,8 +22,8 @@
     <div class="collapse navbar-collapse navbar-ex1-collapse">
 
         <ul class="nav navbar-nav">
+            <li><a class="navbar-item" href="${pageContext.request.contextPath}/contact/send-script"><span class="navbar-item">Send Script</span></a></li>
             <li><a class="navbar-item" href="${pageContext.request.contextPath}/admin/"><span class="navbar-item">Admin</span></a></li>
-            <li><a class="navbar-item" href="${pageContext.request.contextPath}/contact/send-script/"><span class="navbar-item">Send Script</span></a></li>
             <c:forEach items="${pages}" var="p">
                 <c:choose>
                     <c:when test="${p.active}">
@@ -33,14 +33,14 @@
                     </c:forEach>
         </ul>
         <div class="col-sm-4 col-md-4 pull-right">
-            <form class="navbar-form" method="POST" action="${pageContext.request.contextPath}/dvd/search"role="search">
+            <form class="navbar-form" method="POST" action="${pageContext.request.contextPath}/search" role="search">
                 <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search" name="srch-term" id="srch-term">
-                    <div class="input-group-btn" style="width: 15%">
-                        <select class="form-control" name="srch-type">
-                            <option value="All">All Content</option>
-                            <option value="posts">Posts</option>
-                            <option value="comments">Comments</option>
+                    <input type="text" class="form-control" placeholder="Search" name="search-value">
+                    <div class="input-group-btn" style="width: 15%; overflow-x: auto">
+                        <select class="form-control" name="search-type">
+                            <option value="All">All</option>
+                            <option value="Posts">Post Titles</option>
+                            <option value="Titles">Post Content</option>
                         </select>
                     </div>
                     <div class="input-group-btn">

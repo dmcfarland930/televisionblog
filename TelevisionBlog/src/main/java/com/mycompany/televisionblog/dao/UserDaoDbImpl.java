@@ -62,12 +62,15 @@ public class UserDaoDbImpl implements UserDao {
 
     @Override
     public void update(User user) {
+        
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        
         jdbcTemplate.update(SQL_UPDATE_USER,
                 
                 user.getFirstName(),
                 user.getLastName(),
                 user.getUsername(),
-                user.getPassword(),
+                encoder.encode(user.getPassword()),
                 user.getGroupId(),
                 user.getId());
 
@@ -110,6 +113,7 @@ public class UserDaoDbImpl implements UserDao {
             user.setLastName(rs.getString("last_name"));
             user.setUsername(rs.getString("username"));
             user.setPassword(rs.getString("password"));
+            user.setGroupId(rs.getInt("group_id"));
 
             return user;
 
