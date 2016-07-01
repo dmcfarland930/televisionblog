@@ -34,7 +34,7 @@
        
         />
         
-        <intercept-url pattern="/admin/" access="ROLE_READ_POST" />
+        <intercept-url pattern="/admin" access="ROLE_READ_POST" />
         <intercept-url pattern="/blog/writeBlog" access="ROLE_CREATE_POST" />
         <intercept-url pattern="/blog/create-blog-post/" access="ROLE_CREATE_POST" />
         <intercept-url pattern="/blog/edit/*" access="ROLE_UPDATE_POST" />

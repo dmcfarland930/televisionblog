@@ -9,7 +9,7 @@ $(document).ready(function () {
 
     //Disables Admin checkboxes and checks all roles.
     $(document).ready(function () {
-        $("input[name='ROLE_ADMIN']").prop("disabled", true);
+//        $("input[name='ROLE_ADMIN']").prop("disabled", true);
 //        $("input[name='ROLE_ADMIN']").prop("checked", true);
     });
 
