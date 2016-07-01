@@ -17,4 +17,7 @@
         <li class="list-group-item"><a href="${pageContext.request.contextPath}/admin/user/">User List</a></li>
         <li class="list-group-item"><a href="${pageContext.request.contextPath}/admin/uac/">User Access Control</a></li>
     </ul>    
+
+    <a class="btn bg-primary" href="${pageContext.request.contextPath}/authenticate/logout">Log Out</a>
+
 </div>

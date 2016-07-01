@@ -6,6 +6,7 @@
 package com.mycompany.televisionblog.dao;
 
 import com.mycompany.televisionblog.dto.Category;
+import com.mycompany.televisionblog.dto.CategoryPost;
 import java.util.List;
 
 /**
@@ -26,6 +27,6 @@ public interface CategoryDao {
 
     List<Category> list();
 
-    int getPostCount(Integer id);
+    List<CategoryPost> getPostCount();
 
 }

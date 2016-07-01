@@ -57,7 +57,14 @@
 
                         <c:forEach items="${posts}" var="post">
                             <tr id="post-row-${post.id}">
-                                <td><a href="${pageContext.request.contextPath}/blog/${post.url}">${post.title}</a></td>
+                                <c:choose>                                    
+                                    <c:when test="${not post.isDraft}">
+                                        <td><a href="${pageContext.request.contextPath}/blog/show/${post.url}">${post.title}</a></td>
+                                        </c:when>
+                                        <c:otherwise>
+                                        <td>${post.title} (DRAFT)</td>
+                                    </c:otherwise>
+                                </c:choose>
                                 <td>${post.postDate}</td>
                                 <c:choose>
                                     <c:when test="${empty post.expirationDate}">
@@ -65,8 +72,8 @@
                                     </c:when>
                                     <c:otherwise>
                                         <td><a href="" data-post-id="${post.id}" data-toggle="modal" data-target="#edit-date-modal" class="glyphicon glyphicon-calendar"> ${post.expirationDate}</a></td>
-                                        </c:otherwise>
-                                    </c:choose>
+                                    </c:otherwise>
+                                </c:choose>
                                 <td>${post.user.username}</td>
                                 <td><a href="${pageContext.request.contextPath}/blog/edit/${post.id}"><span class="glyphicon glyphicon-edit" style="color:green;"/></a></td>
                                 <td><a href="" data-post-id="${post.id}" class="glyphicon glyphicon-transfer disapprove-post-link" style="color:dodgerblue;"></a></td>

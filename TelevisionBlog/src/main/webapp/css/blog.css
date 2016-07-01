@@ -60,7 +60,24 @@ body{
     margin-top: 2em;
     background: white;
     border-radius: 5px;
-    border: #CDDEB1 thin solid;
+    border: #D9EBF4 thin solid;
+}
+
+#latest-posts-div{
+    margin-left: 2em;
+    width:30%;
+    margin-top: 2em;
+    background: white;
+    border-radius: 5px;
+    border: #D9EBF4 thin solid;
+}
+
+#latest-head{
+    
+    font-family: 'Roboto', sans-serif;
+    font-size: 20px;
+    margin-bottom: -1em;
+    
 }
 
 #cat-head{
@@ -85,7 +102,7 @@ body{
     margin-top: 2em;
     background: white;
     border-radius: 5px;
-    border: #CDDEB1 thin solid;
+    border: #D9EBF4 thin solid;
 }
 
 #blog-content{
@@ -96,7 +113,7 @@ body{
 
     margin-bottom: 1em;
     background: white;
-    border: #CDDEB1 thin solid;
+    border: #D9EBF4 thin solid;
     border-radius: 5px;
 }
 
@@ -105,13 +122,13 @@ a{
 }
 
 #last-page{
-    border: #CDDEB1 thin solid;
+    border: #D9EBF4 thin solid;
     font-family: 'Roboto', sans-serif;
     border-radius: 50px 10px 50px 10px;
 }
 
 #next-page{
-    border: #CDDEB1 thin solid;
+    border: #D9EBF4 thin solid;
     font-family: 'Roboto', sans-serif;
     border-radius: 50px 10px 50px 10px;
 }
@@ -119,4 +136,18 @@ a{
 #side-bar{
     margin-top: 2em;
     border-width: 2px;
+}
+
+#category-div{
+    
+    max-height: 15em;
+    overflow-y: auto;
+    
+}
+
+#tag-div{
+    
+    max-height: 15em;
+    overflow-y: auto;
+    
 }

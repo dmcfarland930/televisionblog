@@ -37,6 +37,13 @@
                         </fieldset>
 
                         <fieldset class="form-group">
+                            <div id="slug-div"  class="col-md-8">
+                                <label for="" class="control-label">Slug:</label>
+                                <div>
+                                    <input name="slug" type="text" id="slug-input" class="form-control" value="${slug}" />
+                                </div>
+                        </fieldset>
+                        <fieldset class="form-group">
                             <div id="title-div" class="col-md-8">
                                 <label for="title-input">Author: </label>
                                 <select name="author" class="form-control" value="${author}" id="author-edit">
@@ -61,7 +68,7 @@
                         <fieldset class="form-group">
                             <div id="blog-div"  class="col-md-8">
                                 <div>
-                                    <textarea name="content" style="width: 100%;" rows="10" id="blog-post-edit" >${content}</textarea>
+                                    <textarea name="content" style="width: 100%;" rows="10" id="blog-post-input" >${content}</textarea>
                                 </div>
                             </div>
                         </fieldset>
@@ -88,7 +95,7 @@
 
         <script type="text/javascript">
             tinymce.init({
-                selector: '#blog-post-edit',
+                selector: '#blog-post-input',
                 height: 400,
                 width: 800,
                 fontsize_formats: "8pt 10pt 12pt 14pt 18pt 24pt 36pt",
@@ -116,6 +123,7 @@
             });
         </script>
 
+        <script src="${pageContext.request.contextPath}/plugins/chosen/chosen.jquery.js" type="text/javascript"></script>
         <script src="${pageContext.request.contextPath}/js/blogPost.js"></script>
 
     </body>

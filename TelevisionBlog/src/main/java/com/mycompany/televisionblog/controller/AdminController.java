@@ -11,7 +11,7 @@ import com.mycompany.televisionblog.dao.PageDao;
 import com.mycompany.televisionblog.dao.RoleDao;
 import com.mycompany.televisionblog.dao.UserDao;
 import com.mycompany.televisionblog.dto.BlogPost;
-import com.mycompany.televisionblog.dto.Category;
+import com.mycompany.televisionblog.dto.CategoryPost;
 import com.mycompany.televisionblog.dto.Page;
 import com.mycompany.televisionblog.dto.Role;
 import com.mycompany.televisionblog.dto.User;
@@ -97,8 +97,9 @@ public class AdminController {
     @RequestMapping(value = "/category", method = RequestMethod.GET)
     public String categories(Map model) {
 
-        List<Category> categories = categoryDao.list();
+        List<CategoryPost> categories = categoryDao.getPostCount();
         model.put("categories", categories);
+        
         return "category";
     }
     

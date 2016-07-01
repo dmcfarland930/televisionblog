@@ -33,6 +33,13 @@
                         </div>
                     </fieldset>
 
+                    <fieldset class="form-group">
+                        <div id="slug-div"  class="col-md-8">
+                            <label for="" class="control-label">Slug:</label>
+                            <div>
+                                <input type="text" id="slug-input" class="form-control"  />
+                            </div>
+                    </fieldset>
 
                     <div id='msgbox' title='' style='display:none'></div>
 
@@ -57,13 +64,13 @@
                                 </c:forEach>
                             </select>
                         </div>
-                        
+
                     </fieldset>
                     <fieldset class="form-group">
-                        
+
                     </fieldset>
-                    
-                    
+
+
 
                     <fieldset class="form-group">
                         <div id="blog-div"  class="col-md-8">
@@ -199,7 +206,7 @@
                 }
             });
         </script>
-        
+
         <script src="${pageContext.request.contextPath}/plugins/chosen/chosen.jquery.js" type="text/javascript"></script>
         <script src="${pageContext.request.contextPath}/js/blogPost.js"></script>
         <script src="${pageContext.request.contextPath}/js/tag-select.js"></script>

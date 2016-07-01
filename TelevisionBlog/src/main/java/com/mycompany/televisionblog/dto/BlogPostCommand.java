@@ -23,6 +23,7 @@ public class BlogPostCommand {
     private String stringDateDisplay;
     private boolean active;
     private boolean approved;
+    private boolean isDraft;
     private List<String> tagNameList;
     
     public Integer getId() {
@@ -125,6 +126,14 @@ public class BlogPostCommand {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public boolean isIsDraft() {
+        return isDraft;
+    }
+
+    public void setIsDraft(boolean isDraft) {
+        this.isDraft = isDraft;
     }
     
     

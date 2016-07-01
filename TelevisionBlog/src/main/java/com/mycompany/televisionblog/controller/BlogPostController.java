@@ -9,6 +9,7 @@ import com.mycompany.televisionblog.dao.UserDao;
 import com.mycompany.televisionblog.dto.BlogPost;
 import com.mycompany.televisionblog.dto.BlogPostCommand;
 import com.mycompany.televisionblog.dto.Category;
+import com.mycompany.televisionblog.dto.CategoryPost;
 import com.mycompany.televisionblog.dto.Page;
 import com.mycompany.televisionblog.dto.Tag;
 import com.mycompany.televisionblog.dto.UploadedFile;
@@ -19,7 +20,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.inject.Inject;
@@ -36,7 +36,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class BlogPostController {
 
     SimpleDateFormat sdfDisplay = new SimpleDateFormat("MMMM dd, yyyy");
-    SimpleDateFormat sdfSQL = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    SimpleDateFormat sdfSQL = new SimpleDateFormat("yyyy-MM-dd");
     private BlogPostDao blogPostDao;
     private UserDao userDao;
     private CategoryDao categoryDao;
@@ -59,7 +59,7 @@ public class BlogPostController {
 
         Date date = new Date();
         String inputDate = sdfSQL.format(date);
-        String dateOnly = inputDate.substring(0, inputDate.length() - 9);
+        String dateOnly = inputDate;
 
         List<Page> pages = pageDao.list();
         model.put("pages", pages);
@@ -83,6 +83,9 @@ public class BlogPostController {
     public String showByAuthor(@PathVariable("author") String author, Map<String, Object> model) {
 
         List<BlogPost> posts = blogPostDao.listOfThreeByAuthor(0, 3, author);
+        List<BlogPost> latestPosts = blogPostDao.listOfThree(0, 5);
+        List<CategoryPost> categories = categoryDao.getPostCount();
+        model.put("categories", categories);
 
         for (BlogPost blogView : posts) {
 
@@ -91,13 +94,14 @@ public class BlogPostController {
             model.put("author", blogView.getUser().getFirstName() + " " + blogView.getUser().getLastName());
             model.put("posts", posts);
         }
-        boolean nextPage = blogPostDao.checkIfNextPage(3, 3);
+        boolean nextPage = blogPostDao.checkIfNextPageAuthor(author, 3, 3);
         List<Page> pages = pageDao.list();
         model.put("authorId", author);
         model.put("pages", pages);
         model.put("pageNext", 2);
         model.put("nextPage", nextPage);
         model.put("hidden", "hidden");
+        model.put("latestPosts", latestPosts);
         return "/authorBlogs";
     }
 
@@ -105,6 +109,9 @@ public class BlogPostController {
     public String showByCategory(@PathVariable("category") Integer category, Map<String, Object> model) {
 
         List<BlogPost> posts = blogPostDao.listOfThreeByCategory(0, 3, category);
+        List<BlogPost> latestPosts = blogPostDao.listOfThree(0, 5);
+        List<CategoryPost> categories = categoryDao.getPostCount();
+        model.put("categories", categories);
 
         for (BlogPost blogView : posts) {
 
@@ -113,7 +120,7 @@ public class BlogPostController {
             model.put("author", blogView.getUser().getFirstName() + " " + blogView.getUser().getLastName());
             model.put("posts", posts);
         }
-        boolean nextPage = blogPostDao.checkIfNextPage(3, 3);
+        boolean nextPage = blogPostDao.checkIfNextPageCategory(category, 3, 3);
         List<Page> pages = pageDao.list();
         model.put("category", categoryDao.get(category).getName());
         model.put("categoryId", category);
@@ -121,11 +128,13 @@ public class BlogPostController {
         model.put("pageNext", 2);
         model.put("nextPage", nextPage);
         model.put("hidden", "hidden");
+        model.put("latestPosts", latestPosts);
         return "/categoryBlogs";
     }
 
     @RequestMapping(value = "/tag/{tag}", method = RequestMethod.GET)
     public String showByTag(@PathVariable("tag") String tagName, Map<String, Object> model) {
+
 
         List<BlogPost> posts = blogPostDao.listOfThreeByTag(0, 3, tagName);
         model.put("posts", posts);
@@ -136,7 +145,7 @@ public class BlogPostController {
             blogView.setStringDateDisplay(sdfDisplay.format(blogView.getPostDate()));
             titles.add(blogView.getTitle());
             authors.add(blogView.getUser().getFirstName() + " " + blogView.getUser().getLastName());
-            
+
         }
         boolean nextPage = blogPostDao.checkIfNextPage(0, 3);
         List<Page> pages = pageDao.list();
@@ -144,25 +153,27 @@ public class BlogPostController {
         model.put("pages", pages);
         model.put("titles", titles);
         model.put("authors", authors);
-        
+
         model.put("pageNext", 2);
         model.put("nextPage", nextPage);
         model.put("hidden", "hidden");
         return "/tagBlogs";
     }
 
-
     @RequestMapping(value = "/show/{postName}", method = RequestMethod.GET)
     public String showBlog(@PathVariable("postName") String postName, Map model) {
 
         BlogPost post = blogPostDao.get(postName);
+        List<BlogPost> latestPosts = blogPostDao.listOfThree(0, 5);
 
+        List<CategoryPost> categories = categoryDao.getPostCount();
+        model.put("categories", categories);
         model.put("title", post.getTitle());
         model.put("date", sdfDisplay.format(post.getPostDate()));
         model.put("author", post.getUser().getFirstName() + " " + post.getUser().getLastName());
         model.put("content", post.getContent());
         model.put("category", post.getCategory().getName());
-
+        model.put("latestPosts", latestPosts);
         List<Page> pages = pageDao.list();
         model.put("pages", pages);
         return "/blogShow";
@@ -181,7 +192,7 @@ public class BlogPostController {
         List<String> tagList = blogPostCommand.getTagNameList();
         Integer postId = blogPost.getId();
         List<Tag> tagObjList = tagDao.list();
-        
+
         linkTags(tagObjList, tagList, postId);
         return blogPost;
     }
@@ -190,7 +201,7 @@ public class BlogPostController {
         //checks if tag already exists and creates those that don't
         //links posts to tags
         List<String> tagNameList = new ArrayList();
-        
+
         for (Tag myTag : tagObjList) {
             tagNameList.add(myTag.getName());
         }
@@ -198,8 +209,7 @@ public class BlogPostController {
             if (tagNameList.contains(tagName)) {
                 Integer tagId = tagDao.getIdByName(tagName);
                 tagDao.link(postId, tagId);
-            }
-            else {
+            } else {
                 Tag tag = new Tag();
                 tag.setName(tagName);
                 tag = tagDao.create(tag);
@@ -218,6 +228,7 @@ public class BlogPostController {
         model.put("id", blogEdit.getId());
         model.put("date", blogEdit.getPostDate());
         model.put("title", blogEdit.getTitle());
+        model.put("slug", blogEdit.getUrl());
         model.put("categories", categories);
         model.put("category", blogEdit.getCategory());
         model.put("authors", authors);
@@ -233,7 +244,7 @@ public class BlogPostController {
     }
 
     @RequestMapping(value = "/editsubmit/", method = RequestMethod.POST)
-    public String editPostSubmit(@RequestParam("id") Integer id, @RequestParam("date") String date, @RequestParam("title") String title, @RequestParam("author") Integer author,
+    public String editPostSubmit(@RequestParam("id") Integer id, @RequestParam("date") String date, @RequestParam("title") String title, @RequestParam("slug") String slug, @RequestParam("author") Integer author,
             @RequestParam("category") Integer category, @RequestParam("content") String content, Map model) throws ParseException, UnsupportedEncodingException {
 
         Date postDate = sdfSQL.parse(date);
@@ -241,12 +252,13 @@ public class BlogPostController {
         BlogPost blogEdit = new BlogPost();
         blogEdit.setId(id);
         blogEdit.setTitle(title);
-        blogEdit.setUrl(urlConverter(title));
+        blogEdit.setUrl(slug);
         blogEdit.setUser(userDao.get(author));
         blogEdit.setCategory(categoryDao.get(category));
         blogEdit.setContent(content);
         blogEdit.setPostDate(postDate);
         blogEdit.setApproved(true);
+        blogEdit.setIsDraft(false);
 
         blogPostDao.update(blogEdit);
 
@@ -261,50 +273,57 @@ public class BlogPostController {
         BlogPost blogPost = new BlogPost();
 
         blogPost.setTitle(blogPostCommand.getTitle());
-        blogPost.setUrl(urlConverter(blogPostCommand.getTitle()));
+        blogPost.setUrl(blogPostCommand.getUrl());
         blogPost.setUser(userDao.get(blogPostCommand.getUserId()));
         blogPost.setCategory(categoryDao.get(blogPostCommand.getCategoryId()));
         blogPost.setContent(blogPostCommand.getContent());
-        blogPost.setPostDate(blogPostCommand.getPostDate());
         blogPost.setStringDateDisplay(sdfDisplay.format(blogPostCommand.getPostDate()));
         blogPost.setExpirationDate(blogPostCommand.getExpirationDate());
         blogPost.setId(blogPostCommand.getId());
+        blogPost.setIsDraft(blogPostCommand.isIsDraft());
 
-        if (dateString.equals(sdfSQL.format(time))) {
+        if (dateString.equals(sdfSQL.format(time)) && !blogPost.isIsDraft()) {
+            blogPost.setPostDate(time);
             blogPost.setActive(true);
+        } else if (blogPost.isIsDraft()) {
+            blogPost.setActive(true);
+            blogPost.setApproved(false);
+            blogPost.setIsDraft(true);
+            blogPost.setPostDate(time);
+
         }
 
-        blogPost.setApproved(blogPostCommand.isApproved());
         return blogPost;
     }
 
-    @RequestMapping(value = "/blogShow/{id}", method = RequestMethod.GET)
-    public String showBlog(@PathVariable("id") Integer id, Map model) {
-
-        List<BlogPost> posts = blogPostDao.list();
-
-        for (BlogPost blogView : posts) {
-
-            blogView.setStringDateDisplay(sdfDisplay.format(blogView.getPostDate()));
-            model.put("title", blogView.getTitle());
-            model.put("date", blogView.getPostDate());
-            model.put("author", blogView.getUser().getFirstName() + " " + blogView.getUser().getLastName());
-            model.put("posts", posts);
-        }
-
-        return "/blogShow";
-
-    }
-
+//    @RequestMapping(value = "/blogShow/{id}", method = RequestMethod.GET)
+//    public String showBlog(@PathVariable("id") Integer id, Map model) {
+//
+//        List<BlogPost> posts = blogPostDao.list();
+//
+//        for (BlogPost blogView : posts) {
+//
+//            blogView.setStringDateDisplay(sdfDisplay.format(blogView.getPostDate()));
+//            model.put("title", blogView.getTitle());
+//            model.put("date", blogView.getPostDate());
+//            model.put("author", blogView.getUser().getFirstName() + " " + blogView.getUser().getLastName());
+//            model.put("posts", posts);
+//        }
+//
+//        return "/blogShow";
+//
+//    }
     @RequestMapping(value = "/page/{pageNum}", method = RequestMethod.GET)
     public String nextPage(@PathVariable("pageNum") Integer pageNum, Map model) {
 
+        List<CategoryPost> categories = categoryDao.getPostCount();
+        List<BlogPost> latestPosts = blogPostDao.listOfThree(0, 5);
+        model.put("categories", categories);
         int pageNext = pageNum + 1;
         int pageLast = pageNum - 1;
         int articles = (pageNum - 1) * 3;
         List<BlogPost> posts = blogPostDao.listOfThree(articles, 3);
-        List<Category> categories = categoryDao.list();
-        List<Tag> tags = tagDao.listWithPosts();
+        List<Tag> tags = tagDao.list();
         boolean nextPage = blogPostDao.checkIfNextPage(articles + 3, 3);
         System.out.println(nextPage);
         for (BlogPost blogView : posts) {
@@ -321,8 +340,8 @@ public class BlogPostController {
         if (pageNum == 1) {
             model.put("hidden", "hidden");
         }
+        model.put("latestPosts", latestPosts);
         model.put("tags", tags);
-        model.put("categories", categories);
         model.put("pages", pages);
         model.put("pageLast", pageLast);
         model.put("pageNext", pageNext);
@@ -338,36 +357,17 @@ public class BlogPostController {
         blogPostDao.delete(delBlog);
     }
 
-//    @RequestMapping(value = "/", method = RequestMethod.PUT)
-//    @ResponseBody
-//    public BlogPost update(@RequestBody BlogPostCommand command) throws ParseException {
-//
-//        BlogPost post = this.setBlogPostProperties(command);
-//
-//        blogPostDao.update(post);
-//
-//        return post;
-//
-//    }
-//
-//    ;
-//    
-//    @RequestMapping(value = "/grab/{id}", method = RequestMethod.GET)
-//    @ResponseBody
-//    public BlogPost get(@PathVariable("id") Integer id) {
-//        return blogPostDao.get(id);
-//    }
-//
-//    ;
-
     @RequestMapping(value = "author/{id}/page/{pageNum}", method = RequestMethod.GET)
     public String nextAuthorPage(@PathVariable("pageNum") Integer pageNum, @PathVariable("id") String authorId, Map model) {
 
+        List<CategoryPost> categories = categoryDao.getPostCount();
+        List<BlogPost> latestPosts = blogPostDao.listOfThree(0, 5);
+        model.put("categories", categories);
         int pageNext = pageNum + 1;
         int pageLast = pageNum - 1;
         int articles = (pageNum - 1) * 3;
         List<BlogPost> posts = blogPostDao.listOfThreeByAuthor(articles, 3, authorId);
-        boolean nextPage = blogPostDao.checkIfNextPage(articles + 3, 3);
+        boolean nextPage = blogPostDao.checkIfNextPageAuthor(authorId, articles + 3, 3);
         System.out.println(nextPage);
         for (BlogPost blogView : posts) {
 
@@ -384,6 +384,7 @@ public class BlogPostController {
             model.put("hidden", "hidden");
         }
         model.put("pages", pages);
+        model.put("latestPosts", latestPosts);
         model.put("pageLast", pageLast);
         model.put("authorId", authorId);
         model.put("pageNext", pageNext);
@@ -395,11 +396,14 @@ public class BlogPostController {
     @RequestMapping(value = "category/{id}/page/{pageNum}", method = RequestMethod.GET)
     public String nextCategooryPage(@PathVariable("pageNum") Integer pageNum, @PathVariable("id") Integer categoryId, Map model) {
 
+        List<CategoryPost> categories = categoryDao.getPostCount();
+        List<BlogPost> latestPosts = blogPostDao.listOfThree(0, 5);
+        model.put("categories", categories);
         int pageNext = pageNum + 1;
         int pageLast = pageNum - 1;
         int articles = (pageNum - 1) * 3;
         List<BlogPost> posts = blogPostDao.listOfThreeByCategory(articles, 3, categoryId);
-        boolean nextPage = blogPostDao.checkIfNextPage(articles + 3, 3);
+        boolean nextPage = blogPostDao.checkIfNextPageCategory(categoryId, articles + 3, 3);
         System.out.println(nextPage);
         for (BlogPost blogView : posts) {
 
@@ -418,6 +422,7 @@ public class BlogPostController {
         model.put("category", categoryDao.get(categoryId).getName());
         model.put("pages", pages);
         model.put("pageLast", pageLast);
+        model.put("latestPosts", latestPosts);
         model.put("categoryId", categoryId);
         model.put("pageNext", pageNext);
         model.put("nextPage", nextPage);
@@ -465,5 +470,4 @@ public class BlogPostController {
         
     };
 
-    
 }

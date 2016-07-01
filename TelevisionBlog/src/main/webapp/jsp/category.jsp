@@ -40,24 +40,28 @@
 
                 <div class="col-md-8">
                     <table class="table table-bordered" style="text-align: center;" id="category-table">                       
-
                         <tr>
                             <th colspan="6">Category List</th>
                         </tr>
-
                         <tr>
                             <th>Name</th>
                             <th>Edit</th>
                             <th>Post Count</th>
                             <th>Delete</th>
                         </tr>
-
                         <c:forEach items="${categories}" var="category">
                             <tr id="category-row-${category.id}">
-                                <td>${category.name}</td>
+                                <c:choose>
+                                    <c:when test="${not category.defaultCategory}">
+                                        <td>${category.name}</td>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <td>${category.name} (DEFAULT)</td>
+                                    </c:otherwise>
+                                </c:choose>
                                 <td><a href="" class="glyphicon glyphicon-edit" style="color:green;" data-toggle="modal" data-category-id="${category.id}" data-target="#editCategoryModal"></a></td>
                                 <td>${category.postCount}</td>
-                                <td><a href="" data-category-id="${category.id}" class="glyphicon glyphicon-remove delete-category-link" style="color:red;"></a></td>
+                                <td><a href="" data-category-id="${category.id}" data-category-default="${category.defaultCategory}" class="glyphicon glyphicon-remove delete-category-link" style="color:red;"></a></td>
                             </tr>
                         </c:forEach>
                     </table>
@@ -123,7 +127,11 @@
                 </div>
             </div>
         </div>
+
+
         <%@include file="deleteCategoryModal.jsp"%>
+        <%@include file="defaultCategoryDelete.jsp"%>
+
 
         <script>
             var contextRoot = "${pageContext.request.contextPath}";
