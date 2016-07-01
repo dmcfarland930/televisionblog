@@ -21,7 +21,8 @@ public class BlogPost {
     Date expirationDate;
     private String stringDateDisplay;
     private boolean active;
-    boolean approved;
+    private boolean approved;
+    private boolean isDraft;
 
     public int getId() {
         return id;
@@ -117,5 +118,12 @@ public class BlogPost {
         this.url = url;
     }
 
-        
+    public boolean isIsDraft() {
+        return isDraft;
+    }
+
+    public void setIsDraft(boolean isDraft) {
+        this.isDraft = isDraft;
+    }
+
 }

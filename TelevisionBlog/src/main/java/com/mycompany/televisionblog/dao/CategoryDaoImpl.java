@@ -6,6 +6,7 @@
 package com.mycompany.televisionblog.dao;
 
 import com.mycompany.televisionblog.dto.Category;
+import com.mycompany.televisionblog.dto.CategoryPost;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
@@ -24,7 +25,7 @@ public class CategoryDaoImpl implements CategoryDao {
     private static final String SQL_UPDATE_CATEGORY = "UPDATE category SET name = ? WHERE id = ?";
     private static final String SQL_DELETE_CATEGORY = "DELETE FROM category WHERE id = ?";
     private static final String SQL_GET_CATEGORY_LIST = "SELECT * FROM category";
-    private static final String SQL_GET_CATEGORY_POST_COUNT = "SELECT post_count FROM category where id = ?";
+    private static final String SQL_GET_CATEGORY_POST_COUNT = "SELECT b.name, b.id, b.default_category, COUNT(a.category_id) FROM post a INNER JOIN category b ON a.category_id = b.id GROUP BY b.name DESC";
 
     private JdbcTemplate jdbcTemplate;
 
@@ -66,8 +67,8 @@ public class CategoryDaoImpl implements CategoryDao {
     }
 
     @Override
-    public int getPostCount(Integer id) {
-        return jdbcTemplate.queryForObject(SQL_GET_CATEGORY_POST_COUNT, Integer.class, id);
+    public List<CategoryPost> getPostCount() {
+        return jdbcTemplate.query(SQL_GET_CATEGORY_POST_COUNT, new CategoryPostMapper());
     }
 
     private static final class CategoryMapper implements RowMapper<Category> {
@@ -78,10 +79,26 @@ public class CategoryDaoImpl implements CategoryDao {
             Category category = new Category();
             category.setId(rs.getInt("id"));
             category.setName(rs.getString("name"));
-            category.setPostCount(rs.getInt("post_count"));
             category.setDefaultCategory(rs.getBoolean("default_category"));
 
             return category;
         }
+    }
+    
+    private static final class CategoryPostMapper implements RowMapper<CategoryPost>{
+        
+        
+        @Override
+        public CategoryPost mapRow(ResultSet rs, int i) throws SQLException {
+
+            CategoryPost categoryPost = new CategoryPost();
+            categoryPost.setId(rs.getInt("id"));
+            categoryPost.setName(rs.getString("name"));
+            categoryPost.setPostCount(rs.getInt("COUNT(a.category_id)"));
+            categoryPost.setDefaultCategory(rs.getBoolean("default_category"));
+
+            return categoryPost;
+        }
+        
     }
 }

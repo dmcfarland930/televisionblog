@@ -55,9 +55,21 @@
                             <th>Delete</th>
                         </tr>
 
+
+
+
+
                         <c:forEach items="${active}" var="post">
                             <tr id="post-row-${post.id}">
-                                <td>${post.title}</td>
+
+                                <c:choose>                                    
+                                    <c:when test="${not post.isDraft}">
+                                        <td>${post.title}</td>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <td>${post.title} (DRAFT)</td>  
+                                    </c:otherwise>
+                                </c:choose>
                                 <td>${post.postDate}</td>
                                 <c:choose>
                                     <c:when test="${empty post.expirationDate}">
@@ -65,14 +77,32 @@
                                     </c:when>
                                     <c:otherwise>
                                         <td><a href="" data-post-id="${post.id}" data-toggle="modal" data-target="#edit-date-modal" class="glyphicon glyphicon-calendar"> ${post.expirationDate}</a></td>
-                                        </c:otherwise>
-                                    </c:choose>
+                                    </c:otherwise>
+                                </c:choose>
                                 <td>${post.user.username}</td>
                                 <td><a href="${pageContext.request.contextPath}/blog/edit/${post.id}" class="glyphicon glyphicon-edit" style="color: green;"></a></td>
-                                <td><a href="" data-post-id="${post.id}" class="approve-post-link glyphicon glyphicon-transfer" style="color:dodgerblue"></a></td>
+
+
+                                <c:choose>                                    
+                                    <c:when test="${not post.isDraft}">
+                                        <td><a href="" data-post-id="${post.id}" class="approve-post-link glyphicon glyphicon-transfer" style="color:dodgerblue"></a></td>
+                                        </c:when>
+                                        <c:otherwise>
+                                        <td><i class="approve-post-link glyphicon glyphicon-transfer" style="color:grey"/></td>
+                                    </c:otherwise>
+                                </c:choose>
+
+
                                 <td><a href="" data-post-id="${post.id}" class="delete-post-link glyphicon glyphicon-remove" style="color:red"></a></td>
                             </tr>
                         </c:forEach>
+
+
+
+
+
+
+
                         <c:forEach items="${expired}" var="exp">
                             <tr id="post-row-${exp.id}">
                                 <td><a href="${pageContext.request.contextPath}/blog/${exp.title}">${exp.title}</a></td>
@@ -83,8 +113,8 @@
                                     </c:when>
                                     <c:otherwise>
                                         <td><a href="" data-post-id="${exp.id}" data-toggle="modal" data-target="#edit-date-modal" class="glyphicon glyphicon-calendar"> ${exp.expirationDate}</a></td>
-                                        </c:otherwise>
-                                    </c:choose>
+                                    </c:otherwise>
+                                </c:choose>
                                 <td>${exp.user.username}</td>
                                 <td><a href="${pageContext.request.contextPath}/blog/edit/${exp.id}" class="glyphicon glyphicon-edit" style="color: green;"></a></td>
                                 <td><a href="" data-post-id="${exp.id}" class="approve-post-link glyphicon glyphicon-transfer" style="color:graytext"></a></td>

@@ -11,7 +11,7 @@ import com.mycompany.televisionblog.dao.PageDao;
 import com.mycompany.televisionblog.dao.TagDao;
 import com.mycompany.televisionblog.dao.UserDao;
 import com.mycompany.televisionblog.dto.BlogPost;
-import com.mycompany.televisionblog.dto.Category;
+import com.mycompany.televisionblog.dto.CategoryPost;
 import com.mycompany.televisionblog.dto.Page;
 import com.mycompany.televisionblog.dto.Tag;
 import com.mycompany.televisionblog.dto.User;
@@ -33,14 +33,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping
 public class HomeController {
 
-    
     SimpleDateFormat sdfDisplay = new SimpleDateFormat("MMMM dd, yyyy");
     private BlogPostDao postDao;
     private PageDao pageDao;
     private UserDao userDao;
     private CategoryDao categoryDao;
     private TagDao tagDao;
-    
+
     @Inject
     public HomeController(BlogPostDao postDao, PageDao pageDao, UserDao userDao, CategoryDao categoryDao, TagDao tagDao) {
         this.postDao = postDao;
@@ -52,11 +51,12 @@ public class HomeController {
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String home(Map<String, Object> model) {
-
-        List<BlogPost> posts = postDao.listOfThree(0, 3);
-        List<Category> categories = categoryDao.list();
-        List<Tag> tags = tagDao.list();
         
+        List<BlogPost> posts = postDao.listOfThree(0, 3);
+        List<BlogPost> latestPosts = postDao.listOfThree(0, 5);
+        List<CategoryPost> categories = categoryDao.getPostCount();
+        List<Tag> tags = tagDao.list();
+
         for (BlogPost blogView : posts) {
 
             blogView.setStringDateDisplay(sdfDisplay.format(blogView.getPostDate()));
@@ -64,12 +64,12 @@ public class HomeController {
             model.put("author", blogView.getUser().getFirstName() + " " + blogView.getUser().getLastName());
             model.put("posts", posts);
         }
-        
-        
+                
         boolean nextPage = postDao.checkIfNextPage(3, 3);
         List<Page> pages = pageDao.list();
-        
+
         model.put("tags", tags);
+        model.put("latestPosts", latestPosts);
         model.put("categories", categories);
         model.put("pages", pages);
         model.put("pageNext", 2);

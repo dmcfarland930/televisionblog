@@ -8,23 +8,24 @@ $(document).ready(function () {
         var tags = [];
         var content = $('#blog-post-input').val();
         var result;
-        while((result = reg.exec(content)) !== null) {
+        while ((result = reg.exec(content)) !== null) {
             tags.push(result[2]);
         }
         console.log(tags);
         var blogPost = JSON.stringify({
             title: $('#title-input').val(),
+            url: $('#slug-input').val(),
             content: $('#blog-post-input').val(),
             userId: $('#author-input').val(),
             categoryId: $('#category-input').val(),
             tagNameList: tags,
-            active: false,
-            approved: true,
-            postDate: $('#post-date-input').val(),
+            postDate: $('#post-date-input').val(),     
+            isDraft: false,
+            approved: false,
             expirationDate: $('#expiration-date-input').val()
 
         });
-        
+
         console.log(date);
         $.ajax({
             url: contextRoot + "/blog/create-blog-post/",
@@ -46,35 +47,47 @@ $(document).ready(function () {
                 }
 
                 console.log("SUCCESS");
-                window.location = contextRoot + "/admin/post/";
+                window.location = contextRoot + "/admin/";
             },
             error: function (data, status) {
                 console.log("error creating blog post");
             }
         });
     });
-    
+
     $('#blog-modal-submit-button').on('click', function (e) {
         $('#submitBlogModal').modal('show');
-        
+
     });
 
 
     $('#blog-draft-button').on('click', function (e) {
 
         e.preventDefault();
-
+        tinymce.triggerSave();
         var date = new Date();
+        var reg = /(#)([a-z\d-]+)/gi;
+        var tags = [];
+        var content = $('#blog-post-input').val();
+        var result;
+        while ((result = reg.exec(content)) !== null) {
+            tags.push(result[2]);
+        }
 
         var blogPost = JSON.stringify({
             title: $('#title-input').val(),
+            url: $('#slug-input').val(),
             content: $('#blog-post-input').val(),
+            userId: $('#author-input').val(),
+            categoryId: $('#category-input').val(),
+            tagNameList: tags,
+            postDate: $('#post-date-input').val(),
+            expirationDate: $('#expiration-date-input').val(),
             approved: false,
-            postDate: date
+            isDraft: true
 
         });
-        
-        var date = $('#last-date').val();
+
         console.log(date);
         $.ajax({
             url: contextRoot + "/blog/create-blog-post/",
@@ -96,41 +109,42 @@ $(document).ready(function () {
                 }
 
                 console.log("SUCCESS");
+                window.location = contextRoot + "/admin/";
             },
             error: function (data, status) {
-                
+
             }
         });
     });
 
-    
-    $(document).on('click', '.image-upload', function(e) {
+
+    $(document).on('click', '.image-upload', function (e) {
         e.preventDefault();
         $(this).removeClass('image-upload');
         $(this).addClass('selected-image-link');
         $(this).children().addClass('selected-image');
     });
-    
-    $(document).on('click', '.selected-image-link', function(e) {
+
+    $(document).on('click', '.selected-image-link', function (e) {
         e.preventDefault();
         $(this).addClass('image-upload');
         $(this).removeClass('selected-image-link');
         $(this).children().removeClass('selected-image');
     });
-    
-    $(document).on('click', '#add-images', function(e) {
+
+    $(document).on('click', '#add-images', function (e) {
         e.preventDefault();
         var body = $(tinymce.activeEditor.getBody());
-        $('.selected-image').each(function() {
+        $('.selected-image').each(function () {
             $(this).removeClass('selected-image');
             var a = $(this);
             body.append(a.clone());
         });
         $('#UploadModal').modal('hide');
-        
-        
+
+
     });
-    $('#file-upload-button').on('click', function(e) {
+    $('#file-upload-button').on('click', function (e) {
         e.preventDefault();
         var formData = new FormData();
         console.log('file', $('input[type=file]')[0].files[0]);
@@ -138,21 +152,32 @@ $(document).ready(function () {
 
         console.log("form data " + formData);
         $.ajax({
-            url : contextRoot + '/upload',
-            data : formData,
-            processData : false,
-            contentType : false,
-            type : 'POST',
-            success : function(data) {
+            url: contextRoot + '/upload',
+            data: formData,
+            processData: false,
+            contentType: false,
+            type: 'POST',
+            success: function (data) {
                 $("#image-upload-list").append("<div style='padding-bottom: 5px;' class='col-md-2'> \n\
                                                 <a href='#' class='image-upload' id='image-upload-" + data.id + "'><img  style='height: 50px; width: auto' src ='" + contextRoot + "/upload/showImage/" + data.id + "'></a> \n\
                                                 </div>");
             },
-            error : function(data) {
+            error: function (data) {
             }
         });
     });
     $('.chosen-select').chosen();
-        
-    
+
+    $("#title-input").on("input", function (e) {
+
+//        var myRegex= /(([a-zA-Z0-9])+)/g;
+
+        var titleData = $("#title-input").val();
+        var noSpecialChars = titleData.replace(/[^\w\s]/gi, '');
+//        var match = myRegex.exec(titleData);
+
+        $("#slug-input").val(noSpecialChars.replace(/[\s]+/g, '-').toLowerCase());
+//        $("#page-url-input").val(match[1]);
+
+    });
 });

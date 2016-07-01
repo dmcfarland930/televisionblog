@@ -104,6 +104,7 @@ $(document).ready(function () {
         e.preventDefault();
 
         var categoryId = $(e.target).data('category-id');
+        var categoryDefault = $(e.target).data('category-default');
 
         $('#category-delete-button').val(categoryId);
         console.log(categoryId);
@@ -116,7 +117,12 @@ $(document).ready(function () {
             },
             error: function (data, status) {
 
-                $('#deleteCategoryModal').modal('show');
+                if (categoryDefault === true) {
+                    $('#defaultCategoryDelete').modal('show');
+                } else {
+                    $('#deleteCategoryModal').modal('show');
+                }
+
 
             }
         });
@@ -140,6 +146,7 @@ $(document).ready(function () {
             }
         });
     });
+
 
     function buildCategoryRow(data) {
         return "<tr id='category-row-" + data.id + "'> \n\

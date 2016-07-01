@@ -5,14 +5,11 @@
 package com.mycompany.televisionblog.dao;
 
 import com.mycompany.televisionblog.dto.BlogPost;
-import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
@@ -22,8 +19,8 @@ import org.springframework.jdbc.core.RowMapper;
  */
 public class BlogPostDaoDbImpl implements BlogPostDao {
 
-    private static final String SQL_INSERT_POST = "INSERT INTO post (title, url, user_id, category_id, content, post_date, expiration_date, active, approved) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-    private static final String SQL_UPDATE_POST = "UPDATE post SET title = ?, url = ?, user_id = ?, category_id = ?, content = ?, post_date = ?, expiration_date = ?, active = ?, approved = ? WHERE id = ?";
+    private static final String SQL_INSERT_POST = "INSERT INTO post (title, url, user_id, category_id, content, post_date, expiration_date, active, is_draft, approved) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    private static final String SQL_UPDATE_POST = "UPDATE post SET title = ?, url = ?, user_id = ?, category_id = ?, content = ?, post_date = ?, expiration_date = ?, active = ?, approved = ?, is_draft = ? WHERE id = ?";
     private static final String SQL_DELETE_POST = "DELETE FROM post WHERE id = ?";
     private static final String SQL_GET_POST = "SELECT * FROM post WHERE id = ?";
     private static final String SQL_GET_POST_URL = "SELECT * FROM post WHERE url = ?";
@@ -53,11 +50,7 @@ public class BlogPostDaoDbImpl implements BlogPostDao {
     @Override
     public BlogPost create(BlogPost blogPost) {
 
-        try {
-            blogPost = setDuplicateUrl(blogPost);
-        } catch (UnsupportedEncodingException ex) {
-            Logger.getLogger(BlogPostDaoDbImpl.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        blogPost = setDuplicateUrl(blogPost);
 
         jdbcTemplate.update(SQL_INSERT_POST,
                 blogPost.getTitle(),
@@ -68,6 +61,7 @@ public class BlogPostDaoDbImpl implements BlogPostDao {
                 blogPost.getPostDate(),
                 blogPost.getExpirationDate(),
                 blogPost.isActive(),
+                blogPost.isIsDraft(),
                 blogPost.isApproved());
 
         Integer id = jdbcTemplate.queryForObject("SELECT LAST_INSERT_ID()", Integer.class);
@@ -78,10 +72,10 @@ public class BlogPostDaoDbImpl implements BlogPostDao {
 
     }
 
-    public BlogPost setDuplicateUrl(BlogPost post) throws UnsupportedEncodingException {
+    public BlogPost setDuplicateUrl(BlogPost post) {
         int duplicate = 0;
         String duplicateUrl;
-        List<BlogPost> exists = jdbcTemplate.query(SQL_GET_POST_LIST_TITLE, new BlogPostMapper(), post.getTitle());
+        List<BlogPost> exists = jdbcTemplate.query(SQL_GET_POST_LIST_TITLE, new BlogPostMapper(), post.getUrl());
 
         if (!exists.isEmpty()) {
 
@@ -89,7 +83,7 @@ public class BlogPostDaoDbImpl implements BlogPostDao {
 
                 duplicate++;
 
-                duplicateUrl = URLEncoder.encode(post.getTitle(), "UTF-8") + "+" + duplicate;
+                duplicateUrl = post.getUrl() + "-" + duplicate;
                 post.setUrl(duplicateUrl);
             }
 
@@ -113,11 +107,7 @@ public class BlogPostDaoDbImpl implements BlogPostDao {
     @Override
     public void update(BlogPost blogPost) {
 
-        try {
-            blogPost = setDuplicateUrl(blogPost);
-        } catch (UnsupportedEncodingException ex) {
-            Logger.getLogger(BlogPostDaoDbImpl.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        blogPost = setDuplicateUrl(blogPost);
 
         jdbcTemplate.update(SQL_UPDATE_POST,
                 blogPost.getTitle(),
@@ -129,6 +119,7 @@ public class BlogPostDaoDbImpl implements BlogPostDao {
                 blogPost.getExpirationDate(),
                 blogPost.isActive(),
                 blogPost.isApproved(),
+                blogPost.isIsDraft(),
                 blogPost.getId());
 
     }
@@ -209,16 +200,36 @@ public class BlogPostDaoDbImpl implements BlogPostDao {
         }
         return false;
     }
+    
+    @Override
+    public boolean checkIfNextPageAuthor(String author, Integer nextPageNum, Integer range) {
+        // checks if there are posts on next page
+        List<BlogPost> nextPage = jdbcTemplate.query(SQL_GET_POST_LIST_THREE_ENTRIES_AUTHOR, new BlogPostMapper(), author, nextPageNum, range);
+        if (nextPage.size() > 0) {
+            return true;
+        }
+        return false;
+    }
+    
+    @Override
+    public boolean checkIfNextPageCategory(Integer categoryId, Integer nextPageNum, Integer range) {
+        // checks if there are posts on next page
+        List<BlogPost> nextPage = jdbcTemplate.query(SQL_GET_POST_LIST_THREE_ENTRIES_CATEGORY, new BlogPostMapper(), categoryId, nextPageNum, range);
+        if (nextPage.size() > 0) {
+            return true;
+        }
+        return false;
+    }
 
     @Override
 
-    public List<BlogPost> listOfThreeByTag(Integer pageNum, Integer range, Integer tag) {
+    public List<BlogPost> listOfThreeByTag(Integer pageNum, String tagName) {
 
         Date date = new Date();
         jdbcTemplate.update(SQL_SET_POSTS_TO_ACTIVE_DATE, date);
         jdbcTemplate.update(SQL_SET_POSTS_TO_EXPIRED_DATE, date);
 
-        return jdbcTemplate.query(SQL_GET_POST_LIST_THREE_ENTRIES_TAG, new BlogPostMapper(), tag, pageNum, range);
+        return jdbcTemplate.query(SQL_GET_POST_LIST_THREE_ENTRIES_TAG, new BlogPostMapper(), tagName, pageNum);
     }
 
     private final class BlogPostMapper implements RowMapper<BlogPost> {
@@ -238,6 +249,7 @@ public class BlogPostDaoDbImpl implements BlogPostDao {
             blogPost.setExpirationDate(rs.getDate("expiration_date"));
             blogPost.setActive(rs.getBoolean("active"));
             blogPost.setApproved(rs.getBoolean("approved"));
+            blogPost.setIsDraft(rs.getBoolean("is_draft"));
 
             return blogPost;
 
