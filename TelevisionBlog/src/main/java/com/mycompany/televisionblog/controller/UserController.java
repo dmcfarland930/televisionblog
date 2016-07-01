@@ -47,11 +47,7 @@ public class UserController {
 
         user = userDao.create(user);
 
-        List<Role> userRoles = roleDao.getUserRoles(user.getGroupId());
-        
-        for(Role r : userRoles) {
-            userDao.assignRoles(user.getId(), r.getId());
-        }
+        userDao.assignRoles(user.getId(), user.getGroupId());
 
         return user;
     }
@@ -73,21 +69,17 @@ public class UserController {
 
         userDao.removeRoles(user.getId());
 
-        List<Role> userRoles = roleDao.getUserRoles(user.getGroupId());
-        
-        for(Role r : userRoles) {
-            userDao.assignRoles(user.getId(), r.getId());
-        }
+        userDao.assignRoles(user.getId(), user.getGroupId());
 
         return user;
     }
-    
+
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
     @ResponseBody
     public void delete(@PathVariable("id") Integer id) {
-        
+
         userDao.removeRoles(id);
-        
+
         userDao.delete(id);
     }
 
