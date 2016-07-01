@@ -51,13 +51,15 @@
 
                         <tr>
                             <th>Name</th>
+                            <th># of Posts</th>
                             <th>Edit</th>
                             <th>Delete</th>
                         </tr>
 
-                        <c:forEach items="${tags}" var="tag">
+                        <c:forEach items="${tags}" var="tag" varStatus="count">
                             <tr id="tag-row-${tag.id}">
                                 <td>${tag.name}</td>
+                                <td>${counts[count.index]}</td>
                                 <td><a href="" class="glyphicon glyphicon-edit" style="color:green;" data-toggle="modal" data-tag-id="${tag.id}" data-target="#editTagModal"></a></td>
                                 <td><a href="" data-tag-id="${tag.id}" class="glyphicon glyphicon-remove delete-tag-link" style="color:red;"></a></td>
                             </tr>

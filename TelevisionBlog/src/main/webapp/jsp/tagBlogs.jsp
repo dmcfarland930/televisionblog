@@ -24,7 +24,7 @@
         <h1>Tag: ${tag}</h1>
         <div class="container">
             <c:forEach items="${posts}"  var="post" varStatus="count">
-                <div class="col-md-8">
+                <div class="col-md-8" id="blog-post-div">
                     <a id="blog-title" href="${pageContext.request.contextPath}/blog/${post.title}"><h1>${post.title}</h1></a>
                     <a id="author-name" href="${pageContext.request.contextPath}/blog/author/${post.user.id}"> Posted by ${authors[count.index]} on ${post.stringDateDisplay}</a>
                     ${post.content}<br>

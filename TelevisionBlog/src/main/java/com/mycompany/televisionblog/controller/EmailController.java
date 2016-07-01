@@ -36,7 +36,6 @@ public class EmailController {
     @ResponseBody
     public void sendScript (HttpServletRequest request, @RequestParam("file") MultipartFile multipartFile, @RequestParam("sender") String sender) throws IOException {
         String path = request.getSession().getServletContext().getRealPath("/");
-        String fileSender = sender.replaceAll("\\s+", "");
         String fileNamePart = multipartFile.getOriginalFilename();
         String filename = path + fileNamePart;
         System.out.println(filename);

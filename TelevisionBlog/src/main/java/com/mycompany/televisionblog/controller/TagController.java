@@ -9,6 +9,7 @@ import com.mycompany.televisionblog.dao.PageDao;
 import com.mycompany.televisionblog.dao.TagDao;
 import com.mycompany.televisionblog.dto.Page;
 import com.mycompany.televisionblog.dto.Tag;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import javax.inject.Inject;
@@ -40,11 +41,15 @@ public class TagController {
     public String display(Map<String, Object> model) {
         
         List<Tag> tags = tagDao.list();
-        
+        List<Integer> counts = new ArrayList();
+        for (Tag myTag : tags) {
+            counts.add(tagDao.tagPostCount(myTag.getName()));
+        }
         List<Page> pages = pageDao.list();
         
         model.put("pages", pages);
         model.put("tags", tags);
+        model.put("counts", counts);
         
         return "tags";
     }
