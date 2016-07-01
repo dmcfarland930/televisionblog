@@ -14,7 +14,7 @@ $(document).ready(function () {
         });
         $('#add-category-validation-errors').empty();
         $.ajax({
-            url: contextRoot + "/category",
+            url: contextRoot + "/admin/category/create/",
             type: "POST",
             data: categoryData,
             dataType: 'json',
@@ -45,7 +45,7 @@ $(document).ready(function () {
         var categoryId = link.data('category-id');
 
         $.ajax({
-            url: contextRoot + "/category/" + categoryId,
+            url: contextRoot + "/admin/category/" + categoryId,
             type: 'GET',
             dataType: 'json',
             beforeSend: function (xhr) {
@@ -73,7 +73,7 @@ $(document).ready(function () {
         });
 
         $.ajax({
-            url: contextRoot + "/category",
+            url: contextRoot + "/admin/category/update/",
             type: "PUT",
             data: categoryData,
             dataType: 'json',
@@ -110,7 +110,7 @@ $(document).ready(function () {
         console.log($('#category-delete-button').val());
         $.ajax({
             type: "DELETE",
-            url: contextRoot + "/admin/category/" + categoryId,
+            url: contextRoot + "/category/delete/" + categoryId,
             success: function (data, status) {
                 $('#category-row-' + categoryId).remove();
             },

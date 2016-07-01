@@ -13,7 +13,7 @@ $(document).ready(function() {
             groupId: $("#role-id-input").val()
         });
         $.ajax({
-           url: contextRoot + "/user/" ,
+           url: contextRoot + "/admin/user/create/" ,
            type: "POST",
            data: userData,
            dataType: "json",
@@ -47,7 +47,7 @@ $(document).ready(function() {
         var userId = link.data("user-id");
 
         $.ajax({
-            url: contextRoot + "/user/" + userId,
+            url: contextRoot + "/admin/user/" + userId,
             type: "GET",
             dataType: "json",
             beforeSend: function(xhr) {
@@ -81,7 +81,7 @@ $(document).ready(function() {
         });
         
         $.ajax({
-           url: contextRoot + "/user/",
+           url: contextRoot + "/admin/user/update/",
            type: "PUT",
            data: userData,
            dataType: "json",
@@ -113,7 +113,7 @@ $(document).ready(function() {
         var userId = $(e.target).data("user-id");
        
         $.ajax({
-           url: contextRoot + "/user/" + userId,
+           url: contextRoot + "/admin/user/delete/" + userId,
            type: "DELETE",
            success: function(data, status) {
                $("#user-row-"+userId).remove();

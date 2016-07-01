@@ -30,7 +30,7 @@
                 <div class="col-md-4"></div>
                 <div class="col-md-8">
                     <div style="float: right">
-                        <button class="btn btn-default"><a href="${pageContext.request.contextPath}/page/create">Create New Page</a></button>
+                        <button class="btn btn-default"><a href="${pageContext.request.contextPath}/admin/page/create/">Create New Page</a></button>
                     </div>
                 </div>
             </div>
@@ -59,7 +59,7 @@
                             <c:forEach items="${pages}" var="page">
                                 <tr id="page-row-${page.id}" class="page-rows">
                                     <td><a href="${pageContext.request.contextPath}/${page.url}">${page.name}</a></td>
-                                    <td><a href="${pageContext.request.contextPath}/page/edit/${page.id}" class="glyphicon glyphicon-edit" style="color: green;"></a></td>
+                                    <td><a href="${pageContext.request.contextPath}/admin/page/edit/${page.id}" class="glyphicon glyphicon-edit" style="color: green;"></a></td>
                                     <td><a href="" data-page-id="${page.id}" class="delete-page-link glyphicon glyphicon-remove" style="color:red;"></a></td>
                                         <c:choose>
                                             <c:when test="${page.position == 0}">

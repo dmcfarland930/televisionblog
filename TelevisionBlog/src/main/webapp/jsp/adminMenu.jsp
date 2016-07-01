@@ -15,5 +15,6 @@
         <li class="list-group-item"><a href="${pageContext.request.contextPath}/admin/tag">Tag List</a></li>
         <li class="list-group-item"><a href="${pageContext.request.contextPath}/admin/page/">Page List</a></li>
         <li class="list-group-item"><a href="${pageContext.request.contextPath}/admin/user/">User List</a></li>
+        <li class="list-group-item"><a href="${pageContext.request.contextPath}/admin/uac/">User Access Control</a></li>
     </ul>    
 </div>
