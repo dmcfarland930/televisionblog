@@ -22,7 +22,7 @@
     <div class="collapse navbar-collapse navbar-ex1-collapse">
 
         <ul class="nav navbar-nav">
-            <li><a class="navbar-item" href="${pageContext.request.contextPath}/contact/send-script/"><span class="navbar-item">Send Script</span></a></li>
+            <li><a class="navbar-item" href="${pageContext.request.contextPath}/contact/send-script"><span class="navbar-item">Send Script</span></a></li>
             <li><a class="navbar-item" href="${pageContext.request.contextPath}/admin/"><span class="navbar-item">Admin</span></a></li>
             <c:forEach items="${pages}" var="p">
                 <c:choose>

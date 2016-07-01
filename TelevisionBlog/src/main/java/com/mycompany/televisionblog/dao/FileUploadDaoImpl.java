@@ -21,8 +21,8 @@ import org.springframework.jdbc.core.RowMapper;
 public class FileUploadDaoImpl implements FileUploadDao {
     private final static String SQL_CREATE_FILE = "INSERT INTO upload (name, extension_type, bytes) VALUES (?, ?, ?)";
     private final static String SQL_GET_FILE = "SELECT * FROM upload WHERE id = ?";
-    private final static String SQL_DELETE_FILE = "DELETE FROM upload WHERE id = ?";
-    private final static String SQL_FILE_LIST = "SELECT * FROM upload";
+    private final static String SQL_DELETE_FILE = "UPDATE upload SET deleted = 1 WHERE id = ?";
+    private final static String SQL_FILE_LIST = "SELECT * FROM upload WHERE deleted = 0";
     
     private JdbcTemplate jdbcTemplate;
     

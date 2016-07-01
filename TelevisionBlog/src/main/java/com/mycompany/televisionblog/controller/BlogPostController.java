@@ -65,7 +65,7 @@ public class BlogPostController {
         model.put("pages", pages);
         List<Category> categories = categoryDao.list();
         model.put("categories", categories);
-        List<Tag> tags = tagDao.list();
+        List<Tag> tags = tagDao.listWithPosts();
         model.put("tags", tags);
         List<User> authors = userDao.list();
         model.put("authors", authors);
@@ -304,7 +304,7 @@ public class BlogPostController {
         int articles = (pageNum - 1) * 3;
         List<BlogPost> posts = blogPostDao.listOfThree(articles, 3);
         List<Category> categories = categoryDao.list();
-        List<Tag> tags = tagDao.list();
+        List<Tag> tags = tagDao.listWithPosts();
         boolean nextPage = blogPostDao.checkIfNextPage(articles + 3, 3);
         System.out.println(nextPage);
         for (BlogPost blogView : posts) {

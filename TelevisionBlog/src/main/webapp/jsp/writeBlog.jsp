@@ -104,18 +104,22 @@
                                     </div>
                                 </c:forEach>
                             </div>
-                            <form class="form form-horizontal" method="POST" enctype="multipart/form-data">
-                                File to upload: <input class="form-control" type="file" name="file">
-
-                                Name: <input class="form-control" type="text" name="name">
-
-                                <button class="btn btn-primary" id="file-upload-button" type="submit">Upload</button>Press here to upload the file!
-                            </form>
+                                <form class="form form-horizontal" method="POST" enctype="multipart/form-data">
+                                    <div class="form-group">
+                                        <div class="col-md-4">
+                                            <input class="form-control" type="file" name="file">
+                                        </div>
+                                        <div class="col-md-2">
+                                            <button class="btn btn-primary" id="file-upload-button" type="submit">Upload</button>
+                                        </div>
+                                    </div>
+                                </form>
                         </div>
                         <div id="img-display"></div>
                     </div>
                     <div class="modal-footer">
-                        <button class="btn btn-success" id="add-images">Add Images</button>
+                        <button class="btn btn-danger" id="delete-images">Delete Selected Images</button>
+                        <button class="btn btn-success" id="add-images">Add Selected Images</button>
                     </div>
                 </div>
             </div>

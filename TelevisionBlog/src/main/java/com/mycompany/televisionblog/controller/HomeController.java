@@ -55,7 +55,7 @@ public class HomeController {
 
         List<BlogPost> posts = postDao.listOfThree(0, 3);
         List<Category> categories = categoryDao.list();
-        List<Tag> tags = tagDao.list();
+        List<Tag> tags = tagDao.listWithPosts();
         
         for (BlogPost blogView : posts) {
 
@@ -64,7 +64,6 @@ public class HomeController {
             model.put("author", blogView.getUser().getFirstName() + " " + blogView.getUser().getLastName());
             model.put("posts", posts);
         }
-        
         
         boolean nextPage = postDao.checkIfNextPage(3, 3);
         List<Page> pages = pageDao.list();
