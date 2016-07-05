@@ -25,21 +25,31 @@
  
         <div class="container">
             <div class="row" style="display: inline">
-                <div class='col-md-8'>
                 <c:forEach items="${posts}" var="post">
-                    <div id="blog-post-div">
-                        <a id="blog-title" href="${pageContext.request.contextPath}/blog/${post.url}"><h1>${post.title}</h1></a>
+                    <div id="blog-post-div" class="col-md-8">
+                        <a id="blog-title" href="${pageContext.request.contextPath}/blog/show/${post.url}"><h1>${post.title}</h1></a>
                         <a id="author-name" href="${pageContext.request.contextPath}/blog/author/${post.user.id}"> Posted by ${post.user.firstName} ${post.user.lastName} on ${post.stringDateDisplay}</a>
                         <div id="blog-content">
                             ${post.content}
                         </div>
                         <a id="category-name" href="${pageContext.request.contextPath}/blog/category/${post.category.id}"> Category: ${post.category.name}</a>
-                        <br/><br/>
+                        <br/>
+                        <br/>
                     </div>
                 </c:forEach>
-                </div>
+                
                 <div id="sidebar" class="col-md-4">
-                    <div id="category-div">
+                    <div id="latest-posts-div" class="col-md-12">
+                        <br/>
+                        <p id="latest-head">Latest Posts:</p>
+                        <hr>
+                        <c:forEach items="${latestPosts}" var="latestPost">
+                            <a id="blog-title" href="${pageContext.request.contextPath}/blog/show/${latestPost.url}">${latestPost.title}</a> 
+                            <br/>
+                        </c:forEach>
+                        <br/>
+                    </div>
+                    <div id="category-div" class="col-md-12">
                         <br/>
                         <p id="cat-head">Categories:</p>
                         <hr>
@@ -51,7 +61,7 @@
                         <br/>
                         <br/>
                     </div>
-                    <div id="tag-div">
+                    <div id="tag-div" class="col-md-12">
                         <br/>
                         <p id="tag-head">Tags:</p>
                         <hr>
@@ -60,7 +70,7 @@
                         </c:forEach>
                         <br/>
                     </div>
-                    <div id='twitter-container'>
+                    <div id='twitter-container' class="col-md-12">
                     <div id="twitter">
                         <a class="twitter-timeline"  data-height="360" href="https://twitter.com/patstvblog">Tweets by patstvblog</a> 
                     </div>
@@ -82,9 +92,10 @@
                     </div>
                 </div>
             </div>
+            
+            </div>
             <jsp:include page="footer.jsp"/>
-        </div>
-                       
+        </div>            
         <!-- Placed at the end of the document so the pages load faster -->
         <script>
             var contextRoot = '${pageContext.request.contextPath}';

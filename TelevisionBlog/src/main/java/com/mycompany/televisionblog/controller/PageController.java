@@ -32,7 +32,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @author apprentice
  */
 @Controller
-@RequestMapping("/page")
+@RequestMapping("/admin/page")
 public class PageController {
 
     PageDao pageDao;
@@ -72,7 +72,7 @@ public class PageController {
         return "editPage";
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.POST)
+    @RequestMapping(value = "/create/", method = RequestMethod.POST)
     @ResponseBody
     public Page create(@Valid @RequestBody PageCommand command, BindingResult result) {
         Page page = new Page();
@@ -94,7 +94,7 @@ public class PageController {
         return pageDao.create(page);
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.PUT)
+    @RequestMapping(value = "/update/", method = RequestMethod.PUT)
     @ResponseBody
     public Page update(@RequestBody PageCommand command) {
         Page page = new Page();
@@ -126,7 +126,7 @@ public class PageController {
         return page;
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
     @ResponseBody
     public void delete(@PathVariable("id") Integer id) {
         pageDao.delete(id);

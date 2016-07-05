@@ -14,7 +14,7 @@ $(document).ready(function () {
         });
         $('#add-category-validation-errors').empty();
         $.ajax({
-            url: contextRoot + "/category",
+            url: contextRoot + "/admin/category/create/",
             type: "POST",
             data: categoryData,
             dataType: 'json',
@@ -45,7 +45,7 @@ $(document).ready(function () {
         var categoryId = link.data('category-id');
 
         $.ajax({
-            url: contextRoot + "/category/" + categoryId,
+            url: contextRoot + "/admin/category/" + categoryId,
             type: 'GET',
             dataType: 'json',
             beforeSend: function (xhr) {
@@ -73,7 +73,7 @@ $(document).ready(function () {
         });
 
         $.ajax({
-            url: contextRoot + "/category",
+            url: contextRoot + "/admin/category/update/",
             type: "PUT",
             data: categoryData,
             dataType: 'json',
@@ -104,19 +104,25 @@ $(document).ready(function () {
         e.preventDefault();
 
         var categoryId = $(e.target).data('category-id');
+        var categoryDefault = $(e.target).data('category-default');
 
         $('#category-delete-button').val(categoryId);
         console.log(categoryId);
         console.log($('#category-delete-button').val());
         $.ajax({
             type: "DELETE",
-            url: contextRoot + "/admin/category/" + categoryId,
+            url: contextRoot + "/category/delete/" + categoryId,
             success: function (data, status) {
                 $('#category-row-' + categoryId).remove();
             },
             error: function (data, status) {
 
-                $('#deleteCategoryModal').modal('show');
+                if (categoryDefault === true) {
+                    $('#defaultCategoryDelete').modal('show');
+                } else {
+                    $('#deleteCategoryModal').modal('show');
+                }
+
 
             }
         });
@@ -140,6 +146,7 @@ $(document).ready(function () {
             }
         });
     });
+
 
     function buildCategoryRow(data) {
         return "<tr id='category-row-" + data.id + "'> \n\

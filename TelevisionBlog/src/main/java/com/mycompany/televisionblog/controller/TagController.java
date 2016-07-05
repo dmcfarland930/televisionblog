@@ -61,20 +61,20 @@ public class TagController {
         return tag;
     }
     
-    @RequestMapping(value="", method = RequestMethod.POST)
+    @RequestMapping(value="/create/", method = RequestMethod.POST)
     @ResponseBody
     public Tag create(@Valid @RequestBody Tag tag) {
         tagDao.create(tag);
         return tag;
     }
-    @RequestMapping(value="", method = RequestMethod.PUT)
+    @RequestMapping(value="/update/", method = RequestMethod.PUT)
     @ResponseBody
     public Tag update(@Valid @RequestBody Tag tag) {
         tagDao.update(tag);
         return tag;
     }
     
-    @RequestMapping(value="/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value="/delete/{id}", method = RequestMethod.DELETE)
     @ResponseBody
     public void delete(@PathVariable("id") Integer id) {
         tagDao.delete(id);

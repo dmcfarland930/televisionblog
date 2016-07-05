@@ -14,7 +14,7 @@ $(document).ready(function () {
         });
         $('#add-tag-validation-errors').empty();
         $.ajax({
-            url: contextRoot + "/admin/tag",
+            url: contextRoot + "/admin/tag/create/",
             type: "POST",
             data: tagData,
             dataType: 'json',
@@ -75,7 +75,7 @@ $(document).ready(function () {
         });
 
         $.ajax({
-            url: contextRoot + "/admin/tag",
+            url: contextRoot + "/admin/tag/update/",
             type: "PUT",
             data: tagData,
             dataType: 'json',
@@ -108,7 +108,7 @@ $(document).ready(function () {
 
         $.ajax({
             type: "DELETE",
-            url: contextRoot + "/tag/" + tagId,
+            url: contextRoot + "/tag/delete/" + tagId,
             success: function (data, status) {
                 $('#tag-row-' + tagId).remove();
             },

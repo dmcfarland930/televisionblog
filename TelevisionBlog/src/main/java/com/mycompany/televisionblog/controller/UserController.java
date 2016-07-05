@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
-@RequestMapping({"/user"})
+@RequestMapping({"/admin/user"})
 public class UserController {
 
     private BlogPostDao blogPostDao;
@@ -41,17 +41,13 @@ public class UserController {
         return "createUser";
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.POST)
+    @RequestMapping(value = "/create/", method = RequestMethod.POST)
     @ResponseBody
     public User create(@RequestBody User user) {
 
         user = userDao.create(user);
 
-        List<Role> userRoles = roleDao.getUserRoles(user.getGroupId());
-        
-        for(Role r : userRoles) {
-            userDao.assignRoles(user.getId(), r.getId());
-        }
+        userDao.assignRoles(user.getId(), user.getGroupId());
 
         return user;
     }
@@ -65,7 +61,7 @@ public class UserController {
         return user;
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.PUT)
+    @RequestMapping(value = "/update/", method = RequestMethod.PUT)
     @ResponseBody
     public User edit(@RequestBody User user) {
 
@@ -73,21 +69,17 @@ public class UserController {
 
         userDao.removeRoles(user.getId());
 
-        List<Role> userRoles = roleDao.getUserRoles(user.getGroupId());
-        
-        for(Role r : userRoles) {
-            userDao.assignRoles(user.getId(), r.getId());
-        }
+        userDao.assignRoles(user.getId(), user.getGroupId());
 
         return user;
     }
-    
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
     @ResponseBody
     public void delete(@PathVariable("id") Integer id) {
-        
+
         userDao.removeRoles(id);
-        
+
         userDao.delete(id);
     }
 

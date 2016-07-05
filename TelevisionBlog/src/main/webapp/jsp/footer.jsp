@@ -6,7 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<div class="blog-footer">
+<div class="blog-footer col-md-12">
     <div class="col-md-4">
         <p>Copyright info</p>
     </div>
