@@ -16,15 +16,15 @@
     <http pattern="/js/**" security="none" />
     <http pattern="/img/**" security="none" />
     <http pattern="/fonts/**" security="none" />
-    <http pattern="/*" security="none" />
+    <!--<http pattern="/*" security="none" />-->
     <http pattern="/blog/category/**" security="none" />
     <http pattern="/blog/show/*" security="none" />
     <http pattern="/blog/page/*" security="none" />
     <http pattern="/contact/send-script" security="none" />
     <http pattern="/search/**" security="none" />   
-    <http pattern="/admin/user/**" security="none" />
+    <!--<http pattern="/admin/user/**" security="none" />-->
     <http pattern="/user/**" security="none" />
-    <http pattern="/blog/*" security="none" />
+    <!--<http pattern="/blog/*" security="none" />-->
     <http pattern="/upload/**" security="none" />
     <http pattern="/blog/author/**" security="none" />
     
@@ -38,7 +38,10 @@
         />
         
         <intercept-url pattern="/admin" access="ROLE_READ_POST" />
-        <intercept-url pattern="/blog/writeBlog" access="ROLE_CREATE_POST" />
+        <intercept-url pattern="/admin/" access="ROLE_READ_POST" />
+        <intercept-url pattern="/admin/post/" access="ROLE_READ_POST" />
+        <intercept-url pattern="/admin/post" access="ROLE_READ_POST" />
+        <intercept-url pattern="/blog/writeBlog/" access="ROLE_CREATE_POST" />
         <intercept-url pattern="/blog/create-blog-post/" access="ROLE_CREATE_POST" />
         <intercept-url pattern="/blog/edit/*" access="ROLE_UPDATE_POST" />
         <intercept-url pattern="/blog/editsubmit" access="ROLE_UPDATE_POST" />
@@ -46,18 +49,21 @@
         <intercept-url pattern="/blog/grab/*" access="ROLE_UPDATE_POST" />
         <intercept-url pattern="/blog/*" access="ROLE_DELETE_POST" />
         
+        <intercept-url pattern="/admin/page" access="ROLE_READ_PAGE" />
         <intercept-url pattern="/admin/page/" access="ROLE_READ_PAGE" />
         <intercept-url pattern="/admin/page/create/" access="ROLE_CREATE_PAGE" />
         <intercept-url pattern="/admin/page/edit/*" access="ROLE_UPDATE_PAGE" />
         <intercept-url pattern="/admin/page/update/" access="ROLE_UPDATE_PAGE" />
         <intercept-url pattern="/admin/page/delete/*" access="ROLE_DELETE_PAGE" />
         
+        <intercept-url pattern="/admin/user" access="ROLE_READ_USER" />
         <intercept-url pattern="/admin/user/" access="ROLE_READ_USER" />
         <intercept-url pattern="/admin/user/create/" access="ROLE_CREATE_USER" />
         <intercept-url pattern="/admin/user/*" access="ROLE_UPDATE_USER" />
         <intercept-url pattern="/admin/user/update/" access="ROLE_UPDATE_USER" />
         <intercept-url pattern="/admin/user/delete/*" access="ROLE_DELETE_USER" />
         
+        <intercept-url pattern="/admin/category" access="ROLE_READ_CATEGORY" />
         <intercept-url pattern="/admin/category/" access="ROLE_READ_CATEGORY" />
         <intercept-url pattern="/admin/category/create/" access="ROLE_CREATE_CATEGORY" />
         <intercept-url pattern="/admin/category/*" access="ROLE_UPDATE_CATEGORY" />
@@ -65,18 +71,13 @@
         <intercept-url pattern="/admin/category/delete/*" access="ROLE_DELETE_CATEGORY" />
         
         <intercept-url pattern="/admin/tag" access="ROLE_READ_TAG" />
-        <intercept-url pattern="/admin/tag/create/" access="ROLE_CREATE_TAG" />
+        <intercept-url pattern="/admin/tag/" access="ROLE_READ_TAG" />
+        <intercept-url pattern="/admin/tag/create" access="ROLE_CREATE_TAG" />
         <intercept-url pattern="/admin/tag/*" access="ROLE_UPDATE_TAG" />
-        <intercept-url pattern="/admin/tag/update/" access="ROLE_UPDATE_TAG" />
+        <intercept-url pattern="/admin/tag/update" access="ROLE_UPDATE_TAG" />
         <intercept-url pattern="/admin/tag/delete/*" access="ROLE_DELETE_TAG" />
-        
-        <intercept-url pattern="/admin/post/" access="ROLE_MARKETING" />
-        <intercept-url pattern="/blog/writeBlog/" access="ROLE_MARKETING" />
-        <intercept-url pattern="/blog/edit/*" access="ROLE_MARKETING" />
-        <intercept-url pattern="/blog/editsubmit/*" access="ROLE_MARKETING" />
-        <intercept-url pattern="/blog/grab/*" access="ROLE_MARKETING" />
-        <intercept-url pattern="/blog/create-blog-post/*" access="ROLE_MARKETING" />
-        <intercept-url pattern="/**" access="ROLE_ADMIN" />
+
+        <!--<intercept-url pattern="/**" access="ROLE_ADMIN" />-->
 
         
         <logout logout-url="/authenticate/logout" logout-success-url="/" />
