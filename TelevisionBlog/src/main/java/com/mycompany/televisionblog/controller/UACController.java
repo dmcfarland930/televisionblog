@@ -58,7 +58,7 @@ public class UACController {
         
         //Assign a list of privledge IDs to the corresponding roles.
         for (Role r : roles) {
-            List<Integer> currentRights = rightsDao.listRoleRightsByIdGroup(r.getId(), "POST");
+            List<Integer> currentRights = rightsDao.listRoleRightsByIdGroup(r.getId(), group);
             r.setUserRights(currentRights);
         }
 
@@ -86,7 +86,7 @@ public class UACController {
         }
         
         for (Role r : roles) {
-            List<Integer> currentRights = rightsDao.listRoleRightsByIdGroup(r.getId(), "PAGE");
+            List<Integer> currentRights = rightsDao.listRoleRightsByIdGroup(r.getId(), group);
             r.setUserRights(currentRights);
         }
         
@@ -104,14 +104,14 @@ public class UACController {
     }
 
     @RequestMapping(value = "/users", method = RequestMethod.GET)
-    public String users(Map model) {
+    public String users(@RequestParam("group") String group, Map model) {
 
         List<User> users = userDao.list();
         List<Role> roles = roleDao.listNoCustom();
         List<Role> customRoles = roleDao.listCustom();
         List<UserRight> rights = rightsDao.listByGroup("USER");
         for (Role r : roles) {
-            List<Integer> currentRights = rightsDao.listRoleRightsByIdGroup(r.getId(), "USER");
+            List<Integer> currentRights = rightsDao.listRoleRightsByIdGroup(r.getId(), group);
             r.setUserRights(currentRights);
         }
 
@@ -124,14 +124,14 @@ public class UACController {
     }
 
     @RequestMapping(value = "/categories", method = RequestMethod.GET)
-    public String categories(Map model) {
+    public String categories(@RequestParam("group") String group, Map model) {
 
         List<User> users = userDao.list();
         List<Role> roles = roleDao.listNoCustom();
         List<Role> customRoles = roleDao.listCustom();
         List<UserRight> rights = rightsDao.listByGroup("CATEGORY");
         for (Role r : roles) {
-            List<Integer> currentRights = rightsDao.listRoleRightsByIdGroup(r.getId(), "CATEGORY");
+            List<Integer> currentRights = rightsDao.listRoleRightsByIdGroup(r.getId(), group);
             r.setUserRights(currentRights);
         }
 
@@ -144,14 +144,14 @@ public class UACController {
     }
 
     @RequestMapping(value = "/tag", method = RequestMethod.GET)
-    public String tag(Map model) {
+    public String tag(@RequestParam("group") String group, Map model) {
 
         List<User> users = userDao.list();
         List<Role> roles = roleDao.listNoCustom();
         List<Role> customRoles = roleDao.listCustom();
         List<UserRight> rights = rightsDao.listByGroup("TAG");
         for (Role r : roles) {
-            List<Integer> currentRights = rightsDao.listRoleRightsByIdGroup(r.getId(), "TAG");
+            List<Integer> currentRights = rightsDao.listRoleRightsByIdGroup(r.getId(), group);
             r.setUserRights(currentRights);
         }
 

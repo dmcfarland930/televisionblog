@@ -94,21 +94,21 @@
                         <c:forEach items="${users}" var="user">
                             <tr id="user-row-${user.id}">
                                 <td>${user.lastName}, ${user.firstName} (${user.username})</td>
-                                <td><select id="user-role-${user.id}" class="user-role-checkbox form-control">
+                                <td><select id="user-role-${user.id}" class="user-role-checkbox form-control" name="user-role">
                                         <c:forEach items="${roles}" var="role">
-                                            <option data-role-id="${role.id}" value="${role.name}" ${role.id == user.groupId ? "selected='selected'":''}class="user-options form-control">${role.name}</option> 
+                                            <option name="${role.name} "value="${role.id}" ${role.id == user.groupId ? "selected='selected'":''}class="user-options form-control">${role.name}</option> 
                                         </c:forEach>
                                             <c:choose>
                                                 <c:when test="${fn:contains(customRolesId , user.groupId)}">
                                                     <c:forEach items="${customRoles}" var="custom">
                                                         <c:if test="${custom.id == user.groupId}">
-                                                            <option data-role-id="${custom.id}" value="${custom.name}" ${custom.id == user.groupId ? "selected='selected'":''}class="user-options form-control">${custom.name}</option>
+                                                            <option name="${custom.name}" value="${custom.id}" ${custom.id == user.groupId ? "selected='selected'":''}class="user-options form-control">${custom.name}</option>
                                                         </c:if>
                                                             
                                                     </c:forEach>
                                                 </c:when>
                                                     <c:otherwise>
-                                                        <option data-role-id="3" value="Custom"class="user-options form-control">Custom</option>
+                                                        <option name="Custom" value="3" class="user-options form-control">Custom</option>
                                                     </c:otherwise>
                                             </c:choose>
                                             
@@ -117,10 +117,10 @@
                                     <c:forEach items="${rights}" var="right">
                                         <c:choose>
                                             <c:when test="${fn:contains(user.roles, right.id)}">
-                                            <td><input type="checkbox" checked data-user-id="${user.id}" class="checkbox checkbox-inline" value="${right.id}"></td>
+                                            <td><input type="checkbox" checked data-user-id="${user.id}" class="user-checkbox checkbox checkbox-inline" value="${right.id}"></td>
                                             </c:when>
                                             <c:otherwise>
-                                            <td><input type="checkbox" data-user-id="${user.id}" class="checkbox checkbox-inline" value="${right.id}"></td>
+                                            <td><input type="checkbox" data-user-id="${user.id}" class="user-checkbox checkbox checkbox-inline" value="${right.id}"></td>
                                             </c:otherwise>
                                         </c:choose>
 
