@@ -33,10 +33,10 @@ $(document).ready(function () {
         var currentRole = $("select[name='user-role']");
 
         $.each(currentRole, function (key, value) {
-            if (currentRole.val() === "Custom") {
-                $(this).closest("tr").find(".checkbox").prop("disabled", true);
+            if ($(this).find("option:selected").attr("name") === "Custom") {
+                $(this).closest("tr").find(".checkbox").prop("disabled", false);
             } else {
-                $(this).closest("tr").find("input[type='checkbox']").prop("disabled", true);
+                $(this).closest("tr").find(".checkbox").prop("disabled", true);
             }
         });
 
@@ -46,9 +46,11 @@ $(document).ready(function () {
     //When changing to custom Role, checkbboxes are enabled.
     $("select").on('change', function (e) {
 
-        var userRole = $(this).val();
+        var userRole = $(this).find("option:selected").attr("name");
         if (userRole === "Custom") {
             $(this).closest("tr").find(".user-checkbox").prop("disabled", false);
+            $(this).closest("tr").find(".user-checkbox").prop("checked", false);
+            
         } else {
             $(this).closest("tr").find(".user-checkbox").prop("disabled", true);
         }

@@ -46,17 +46,22 @@ public class AdminController {
         this.userDao = userDao;
         this.categoryDao = categoryDao;
         this.roleDao = roleDao;
-                
+
     }
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String home(Map model) {
+        return "adminHome";
+    }
+
+    @RequestMapping(value = "/pending", method = RequestMethod.GET)
+    public String pendingPosts(Map model) {
 
         List<BlogPost> pendingPosts = postDao.listUnapproved();
         List<BlogPost> expired = new ArrayList();
         List<BlogPost> active = new ArrayList();
-        for(BlogPost bp : pendingPosts) {
-            if(bp.isActive()) {
+        for (BlogPost bp : pendingPosts) {
+            if (bp.isActive()) {
                 active.add(bp);
             } else {
                 expired.add(bp);
@@ -64,7 +69,7 @@ public class AdminController {
         }
         model.put("expired", expired);
         model.put("active", active);
-        return "adminHome";
+        return "pendingPost";
     }
 
     @RequestMapping(value = "/post", method = RequestMethod.GET)
@@ -88,7 +93,7 @@ public class AdminController {
 
         List<User> users = userDao.list();
         List<Role> roles = roleDao.list();
-        
+
         model.put("roles", roles);
         model.put("users", users);
         return "user";
@@ -99,19 +104,19 @@ public class AdminController {
 
         List<CategoryPost> categories = categoryDao.getPostCount();
         model.put("categories", categories);
-        
+
         return "category";
     }
-    
-    @RequestMapping(value="/uac", method=RequestMethod.GET)
+
+    @RequestMapping(value = "/uac", method = RequestMethod.GET)
     public String uac(Map model) {
-        
+
         List<Role> roles = roleDao.list();
-        List<User>  users = userDao.list();
-        
+        List<User> users = userDao.list();
+
         model.put("users", users);
         model.put("roles", roles);
-        
+
         return "uac";
     }
 
