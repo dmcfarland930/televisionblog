@@ -281,11 +281,11 @@ $(document).ready(function () {
                 } else {
                     tableRow = buildPageRowIA(data);
                 }
-                if (data.position > 0) {
+//                if (data.position > 0) {
                     $("#page-row-" + pageId).replaceWith($(tableRow));
-                } else {
-                    alert("Page position must be set before you can Activate.");
-                }
+//                } else {
+//                    alert("Page position must be set before you can Activate.");
+//                }
             },
             error: function (data, status) {
 

@@ -6,11 +6,11 @@
 
 
 $(document).ready(function () {
-    
+
     //Change active tab
-    $(".uac-tab").on("click", function() {
-       $(this).addClass("active");
-        
+    $(".uac-tab").on("click", function () {
+        $(this).addClass("active");
+
     });
 
     //Disables Admin checkboxes.
@@ -194,122 +194,150 @@ $(document).ready(function () {
             }
         });
     });
-    
+
     //Edit Show
-    $("#edit-role-modal").on("show.bs.modal", function(e) {
-       
-       var link = e.relatedTarget;
-       var roleId = $(link).data("role-id");
-       
-       $.ajax({
-          url: contextRoot + "/admin/role/get/" + roleId,
-          type: "GET",
-          dataType: "json",
-          beforeSend: function(xhr) {
-              xhr.setRequestHeader("Accept", "application/json");
-          },
-          success: function(data, status) {
-              $("#edit-role-id").val(data.id);
-              $("#edit-role-name").val(data.name);
-          },
-          error: function(data, status) {
-              
-          }
-       });
-        
+    $("#edit-role-modal").on("show.bs.modal", function (e) {
+
+        var link = e.relatedTarget;
+        var roleId = $(link).data("role-id");
+
+        $.ajax({
+            url: contextRoot + "/admin/role/get/" + roleId,
+            type: "GET",
+            dataType: "json",
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("Accept", "application/json");
+            },
+            success: function (data, status) {
+                $("#edit-role-id").val(data.id);
+                $("#edit-role-name").val(data.name);
+            },
+            error: function (data, status) {
+
+            }
+        });
+
     });
-    
+
     //Edit Submit
-    $("#edit-role-button").on("click", function(e) {
-       
+    $("#edit-role-button").on("click", function (e) {
+
         var roleData = JSON.stringify({
-           id: $("#edit-role-id").val(),
-           name: $("#edit-role-name").val(),
+            id: $("#edit-role-id").val(),
+            name: $("#edit-role-name").val(),
         });
-        
+
         $.ajax({
-           url: contextRoot +"/admin/role/update/",
-           type: "PUT",
-           data: roleData,
-           dataType: "json",
-           beforeSend: function(xhr) {
-               xhr.setRequestHeader("Accept", "application/json");
-               xhr.setRequestHeader("Content-type", "application/json");
-           },
-           success: function(data, status) {
-               location.reload();
-           },
-           error: function(data, status) {
-               
-           }
+            url: contextRoot + "/admin/role/update/",
+            type: "PUT",
+            data: roleData,
+            dataType: "json",
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("Accept", "application/json");
+                xhr.setRequestHeader("Content-type", "application/json");
+            },
+            success: function (data, status) {
+                location.reload();
+            },
+            error: function (data, status) {
+
+            }
         });
     });
-    
+
     //Delete Role
-    $(document).on("click", ".delete-role-link", function(e) {
-       
+    $(document).on("click", ".delete-role-link", function (e) {
+
         e.preventDefault();
-        
+
         var roleId = $(e.target).data("role-id");
-        
+
         $.ajax({
-           url: contextRoot + "/admin/role/delete/" + roleId,
-           type: "DELETE",
-           beforeSend: function(xhr) {
-               xhr.setRequestHeader("Accept", "application/json");
-           },
-           success: function(data, status) {
-               $("#role-row-"+roleId).remove();
-           },
-           error: function(data, status) {
-               
-               $("#error-delete-modal").modal("show");
-               showUsers(roleId);
-           }
+            url: contextRoot + "/admin/role/delete/" + roleId,
+            type: "DELETE",
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("Accept", "application/json");
+            },
+            success: function (data, status) {
+                $("#role-row-" + roleId).remove();
+            },
+            error: function (data, status) {
+
+                $("#error-delete-modal").modal("show");
+                showUsers(roleId);
+            }
         });
-        
+
     });
-    
+
     //Removes Users that aren't related to the Role that is being deleted
     function showUsers(id) {
         var currentRole = $("select[name='edit-user-role']");
         $.each(currentRole, function (key, value) {
             var userRole = $(this).val();
-            if (userRole != id) {   
+            if (userRole != id) {
                 $(this).closest("tr").remove();
-            } 
+            }
         });
 
     }
-    
-    //Remove items from table
-    $(".remove-role-select").on("change", function() {
-       
-        var roleId = $(this).val();
+
+    //Remove Users from table  by changing roles
+    $(".remove-role-select").on("change", function () {
+
         var userId = $(this).data("user-id");
+        var roleId = $("#user-role-" + userId).val();
 
         $.ajax({
-            url: contextRoot + "/admin/uac/change-role/" + roleId + "/" + userId,
+            url: contextRoot + "/admin/uac/change-role/" + newRoleId + "/" + userId,
             type: "POST",
             beforeSend: function (xhr) {
                 xhr.setRequestHeader("Accept", "application/json");
                 xhr.setRequestHeader("Content-type", "application/json");
             },
             success: function (data, status) {
-                $(this).closest("tr").remove();
-                var count = $("#delete-role-table tr").length;
-                
-                if(count <= 1) {
-                    $("#can-not-remove-role").replaceWith("<button type='button' id='remove-role' class='btn btn-default' data-dismiss='modal'>Remove Role</button>")
-                }
+                $("#edit-user-row-" + userId).remove();
+                checkRemainingUsers(roleId);
             },
             error: function (data, status) {
 
             }
         });
-        
+
     });
-    
-    
-    
+
+    //Delete User From Table
+    $(document).on("click", ".delete-user-link", function (e) {
+
+        e.preventDefault();
+
+        var userId = $(e.target).data("user-id");
+        var roleId = $("#user-role-" + userId).val();
+
+        $.ajax({
+            url: contextRoot + "/admin/user/delete/" + userId,
+            type: "DELETE",
+            success: function (data, status) {
+                $("#edit-user-row-" + userId).remove();
+                $("#user-row-" + userId).remove();
+                checkRemainingUsers(roleId);
+            },
+            error: function (data, status) {
+                alert("Error");
+            }
+        });
+
+    });
+
+    function checkRemainingUsers(id) {
+        var count = $("#delete-role-table tr").length;
+
+        if (count <= 1) {
+            $("#can-not-remove-role").replaceWith("<button type='button' data-role-id='" + id + "' id='remove-role' class='delete-role-link btn btn-default' data-dismiss='modal'>Remove Role</button>")
+
+        }
+    }
+
+
+
 });

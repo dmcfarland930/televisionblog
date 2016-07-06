@@ -78,7 +78,7 @@
                     </tr>
 
                     <c:forEach items="${users}" var="user">
-                        <tr id="user-row-${user.id}">
+                        <tr id="edit-user-row-${user.id}">
                             <td>${user.lastName}, ${user.firstName} (${user.username})</td>
                             <td><select id="user-role-${user.id}" data-user-id="${user.id}" class="remove-role-select form-control" name="edit-user-role">
                                     <c:forEach items="${roles}" var="role">
@@ -98,7 +98,7 @@
                                         </c:otherwise>
                                     </c:choose>
                                 </select></td>
-                                <td><a href="" class="delete-user-link glyphicon glyphicon-remove" data-role-id="${role.id}" style="color:red;"></a></td>
+                                <td><a href="" class="delete-user-link glyphicon glyphicon-remove" data-user-id="${user.id}" style="color:red;"></a></td>
                         </tr>
                     </c:forEach>
 

@@ -103,7 +103,7 @@ public class UserRightDaoDbImpl implements UserRightDao {
 
     @Override
     public void deleteByRole(Integer roleId) {
-        jdbcTemplate.update(SQL_DELETE_RIGHTS_BY_ROLE);
+        jdbcTemplate.update(SQL_DELETE_RIGHTS_BY_ROLE, roleId);
     }
 
     private static final class RightMapperId implements RowMapper<Integer> {
