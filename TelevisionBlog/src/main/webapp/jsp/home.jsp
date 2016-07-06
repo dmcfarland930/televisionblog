@@ -36,7 +36,7 @@
                         <hr>
                         ${post.content}
                         <hr/>
-                        <a id="category-name" href="${pageContext.request.contextPath}/blog/category/${post.category.name}"> Category: ${post.category.name}</a>
+                        <a id="category-name" href="${pageContext.request.contextPath}/blog/category/${post.category.id}"> Category: ${post.category.name}</a>
                         <br/>
                         <br/>
                     </div>

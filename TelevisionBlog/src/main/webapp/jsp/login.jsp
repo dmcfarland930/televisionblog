@@ -44,11 +44,11 @@
 
                 <!--<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />-->
 
-                        <input type="submit" value="Login" class="btn  btn-default center-block" />
+                        <input type="submit" value="Login" class="btn login-btn btn-default center-block" />
 
 
                         <c:if test="${loginError == 1}">
-                            <div>Error logging in. Please supply valid credentials.</div>
+                            <div id="error-login">Error logging in. Please supply valid credentials.</div>
                         </c:if>
 
                     </form>

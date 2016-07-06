@@ -51,6 +51,7 @@
 
             </div>
         </div>
+                <%@include file="footer.jsp" %>
         <!-- Placed at the end of the document so the pages load faster -->
         <script>
             var contextRoot = '${pageContext.request.contextPath}';

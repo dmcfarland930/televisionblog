@@ -32,10 +32,9 @@
                                 <label for="title-input">Title: </label>
                                 <input name="title" type="text" id="title-edit" class="form-control ${hasError}" value="${title}"/>
                             </div>
-                            <div class="error-message" id="name-error" class="col-md-8">
-                            </div>
                         </fieldset>
-
+                        <div class="error-message" id="title-error" class="col-md-8">
+                        </div>
                         <fieldset class="form-group">
                             <div id="slug-div"  class="col-md-8">
                                 <label for="" class="control-label">Slug:</label>
@@ -43,6 +42,8 @@
                                     <input name="slug" type="text" id="slug-input" class="form-control" value="${slug}" />
                                 </div>
                         </fieldset>
+                        <div class="error-message" id="title-error" class="col-md-8">
+                        </div>
                         <fieldset class="form-group">
                             <div id="title-div" class="col-md-8">
                                 <label for="title-input">Author: </label>
@@ -73,7 +74,7 @@
                             </div>
                         </fieldset>
 
-                        <div style="display: inline-block;" class="col-md-8 pull">
+                        <div style="display: inline-block;" class="col-md-8 pull-right">
                             <input id="blog-edit-submit" class="btn bg-primary button-size" type="submit" value="Update Blog Post"/>
 
 

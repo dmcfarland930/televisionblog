@@ -23,6 +23,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import javax.inject.Inject;
+import javax.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -186,7 +187,7 @@ public class BlogPostController {
 
     @RequestMapping(value = "/create-blog-post/", method = RequestMethod.POST)
     @ResponseBody
-    public BlogPost create(@RequestBody BlogPostCommand blogPostCommand) throws ParseException, UnsupportedEncodingException {
+    public BlogPost create(@Valid @RequestBody BlogPostCommand blogPostCommand) throws ParseException, UnsupportedEncodingException {
 
         blogPostCommand.setId(0);
         BlogPost blogPost = setBlogPostProperties(blogPostCommand);
@@ -248,9 +249,11 @@ public class BlogPostController {
     }
 
     @RequestMapping(value = "/editsubmit/", method = RequestMethod.POST)
-    public String editPostSubmit(@RequestParam("id") Integer id, @RequestParam("date") String date, @RequestParam("title") String title, @RequestParam("slug") String slug, @RequestParam("author") Integer author,
+    public String editPostSubmit( @RequestParam("id") Integer id, @RequestParam("date") String date, @RequestParam("title") String title, @RequestParam("slug") String slug, @RequestParam("author") Integer author,
             @RequestParam("category") Integer category, @RequestParam("content") String content, Map model) throws ParseException, UnsupportedEncodingException {
 
+        
+        
         System.out.println(date);
         Date postDate = sdfSQLDateTime.parse(date);
 

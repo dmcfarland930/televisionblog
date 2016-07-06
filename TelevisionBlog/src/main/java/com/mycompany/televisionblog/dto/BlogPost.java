@@ -2,6 +2,7 @@ package com.mycompany.televisionblog.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import java.util.Date;
+import org.hibernate.validator.constraints.NotEmpty;
 
 /**
  *
@@ -10,7 +11,9 @@ import java.util.Date;
 public class BlogPost {
 
     private int id;
+    @NotEmpty(message = ("This field cannot be blank!"))
     private String title;
+    @NotEmpty(message = ("This field cannot be blank!"))
     private String url;
     private User user;
     private Category category;
