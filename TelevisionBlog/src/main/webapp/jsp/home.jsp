@@ -15,59 +15,78 @@
         <link href="https://fonts.googleapis.com/css?family=Cabin" rel="stylesheet">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/rrssb-master/css/rrssb.css" />
 
+        
+
 
         <!-- SWC Icon -->
         <link rel="shortcut icon" href="${pageContext.request.contextPath}/img/icon.png">
     </head>
     <body>
         <%@include file="navBar.jsp"%>
-
-        <div id="blog-content" class="container">
+ 
+        <div class="container">
             <div class="row" style="display: inline">
                 <c:forEach items="${posts}" var="post">
                     <div id="blog-post-div" class="col-md-8">
                         <a id="blog-title" href="${pageContext.request.contextPath}/blog/show/${post.url}"><h1>${post.title}</h1></a>
                         <a id="author-name" href="${pageContext.request.contextPath}/blog/author/${post.user.id}"> Posted by ${post.user.firstName} ${post.user.lastName} on ${post.stringDateDisplay}</a>
+<<<<<<< HEAD
                         <br/><br/>
                         <%@include file="socialShare.jsp"%>
                         <hr>
                         ${post.content}
                         <hr/>
+=======
+                        <div id="blog-content">
+                            ${post.content}
+                        </div>
+>>>>>>> a805f895a386b2368c44fadae4d9d22c76ce8d54
                         <a id="category-name" href="${pageContext.request.contextPath}/blog/category/${post.category.id}"> Category: ${post.category.name}</a>
                         <br/>
                         <br/>
                     </div>
                 </c:forEach>
-                <div id="latest-posts-div" class="col-md-4">
-                    <br/>
-                    <p id="latest-head">Latest Posts:</p>
-                    <hr>
-                    <c:forEach items="${latestPosts}" var="latestPost">
-                        <a id="blog-title" href="${pageContext.request.contextPath}/blog/show/${latestPost.url}">${latestPost.title}</a> 
+                
+                <div id="sidebar" class="col-md-4">
+                    <div id="latest-posts-div" class="col-md-12">
                         <br/>
-                    </c:forEach>
-                    <br/>
-                </div>
-                <div id="category-div" class="col-md-4">
-                    <br/>
-                    <p id="cat-head">Categories:</p>
-                    <hr>
-                    <c:forEach items="${categories}" var="categoryPost">
-                        <a id="category-name" href="${pageContext.request.contextPath}/blog/category/${categoryPost.id}">${categoryPost.name} (${categoryPost.postCount})</a>
+                        <p id="latest-head">Latest Posts:</p>
+                        <hr>
+                        <c:forEach items="${latestPosts}" var="latestPost">
+                            <a id="blog-title" href="${pageContext.request.contextPath}/blog/show/${latestPost.url}">${latestPost.title}</a> 
+                            <br/>
+                        </c:forEach>
                         <br/>
-                    </c:forEach>
-                    <br/>
-                </div>
-                <div id="tag-div" class="col-md-4">
-                    <br/>
-                    <p id="tag-head">Tags:</p>
-                    <hr>
-                    <c:forEach items="${tags}" var="tag">
-                        <a id="tag-name" href="${pageContext.request.contextPath}/blog/tag/${tag.name}">${tag.name}</a>
+                    </div>
+                    <div id="category-div" class="col-md-12">
                         <br/>
-                    </c:forEach>
-                    <br/>
+                        <p id="cat-head">Categories:</p>
+                        <hr>
+                        <c:forEach items="${categories}" var="category">
+                            <c:if test="${category.postCount != 0}">
+                                <a id="category-name" href="${pageContext.request.contextPath}/blog/category/${category.id}">${category.name}</a>
+                            </c:if>
+                        </c:forEach>
+                        <br/>
+                        <br/>
+                    </div>
+                    <div id="tag-div" class="col-md-12">
+                        <br/>
+                        <p id="tag-head">Tags:</p>
+                        <hr>
+                        <c:forEach items="${tags}" var="tag">
+                            <span class="tag-link"><a id="tag-name" href="${pageContext.request.contextPath}/blog/tag/${tag.name}">${tag.name}</a></span>
+                        </c:forEach>
+                        <br/>
+                    </div>
+                    <div id='twitter-container' class="col-md-12">
+                    <div id="twitter">
+                        <a class="twitter-timeline"  data-height="360" href="https://twitter.com/patstvblog">Tweets by patstvblog</a> 
+                    </div>
+                    </div>
                 </div>
+                
+                
 
                 <div class="row col-md-8" >
                     <div style="display: inline-block;">
@@ -82,9 +101,10 @@
                     </div>
                 </div>
             </div>
-
-
-        </div> 
+            
+            </div>
+            <jsp:include page="footer.jsp"/>
+        </div>            
         <!-- Placed at the end of the document so the pages load faster -->
         <script>
             var contextRoot = '${pageContext.request.contextPath}';
@@ -93,8 +113,12 @@
         <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
         <script src="${pageContext.request.contextPath}/js/blogPost.js"></script>
         <script src="${pageContext.request.contextPath}/js/hashtags.js"></script>
+<<<<<<< HEAD
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery.1.10.2.min.js"><\/script>')</script>
         <script src="${pageContext.request.contextPath}/rrssb-master/js/rrssb.min.js"></script>
+=======
+        <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+>>>>>>> a805f895a386b2368c44fadae4d9d22c76ce8d54
     </body>
 </html>

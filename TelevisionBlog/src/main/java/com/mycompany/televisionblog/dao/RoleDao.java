@@ -18,8 +18,12 @@ public interface RoleDao {
     Role get(Integer id);
     void update(Role role);
     void delete(Integer id);
+    void deleteByUser(Integer id);
     
     List<Role> list();
+    List<Role> listNoCustom();
+    List<Role> listCustom();
     List<Role> getUserRoles(Integer id);
+    Role getByUser(Integer userId);
     
 }

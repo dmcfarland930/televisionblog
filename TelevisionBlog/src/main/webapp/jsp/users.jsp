@@ -59,17 +59,19 @@
 
                         <c:forEach items="${roles}" var="role">
                             <tr id="role-row-${role.id}" value="${role.id}">
-                                <td>${role.displayName}</td>
+                                <td>${role.name}</td>
+
                                 <c:forEach items="${rights}" var="right">
                                     <c:choose>
                                         <c:when test="${fn:contains(role.userRights, right.id)}">
-                                            <td><input type="checkbox" checked data-role-id="${role.id}" class="checkbox checkbox-inline" name="${role.name}" value="${right.id}"></td>
+                                            <td><input type="checkbox" checked data-role-id="${role.id}" class="role-checkbox checkbox checkbox-inline" name="${role.name}" value="${right.id}"></td>
                                             </c:when>
                                             <c:otherwise>
-                                            <td><input type="checkbox" data-role-id="${role.id}" class="checkbox checkbox-inline" name="${role.name}" value="${right.id}"></td>
+                                            <td><input type="checkbox" data-role-id="${role.id}" class="role-checkbox checkbox checkbox-inline" name="${role.name}" value="${right.id}"></td>
                                             </c:otherwise>
                                         </c:choose>
                                     </c:forEach>
+
 
                             </tr>
                         </c:forEach>
@@ -95,13 +97,14 @@
                                 <td>${user.lastName}, ${user.firstName} (${user.username})</td>
                                 <td><select id="user-role-${user.id}" class="form-control" name="user-role">
                                         <c:forEach items="${roles}" var="role">
-                                            <option value="${role.name}" class="form-control">${role.displayName}</option>  
+                                            <option value="${role.name}" ${role.id == user.groupId ? "selected='selected'":''}class="form-control">${role.name}</option>  
                                         </c:forEach>
                                     </select></td>
-                                <td><input type="checkbox" data-target="${user.id}" class="chkbox checkbox checkbox-inline" name="user-role-${user.id}" value="create"></td>
-                                <td><input type="checkbox" data-target="${user.id}" class="chkbox checkbox checkbox-inline" name="user-role-${user.id}" value="read"></td>
-                                <td><input type="checkbox" data-target="${user.id}" class="chkbox checkbox checkbox-inline" name="user-role-${user.id}" value="update"></td>
-                                <td><input type="checkbox" data-target="${user.id}" class="chkbox checkbox checkbox-inline" name="user-role-${user.id}" value="delete"></td>
+                            <div class="user-checkbox"></div>
+                            <td><input type="checkbox" data-target="${user.id}" class="chkbox checkbox checkbox-inline" name="user-role-${user.id}" value="create"></td>
+                            <td><input type="checkbox" data-target="${user.id}" class="chkbox checkbox checkbox-inline" name="user-role-${user.id}" value="read"></td>
+                            <td><input type="checkbox" data-target="${user.id}" class="chkbox checkbox checkbox-inline" name="user-role-${user.id}" value="update"></td>
+                            <td><input type="checkbox" data-target="${user.id}" class="chkbox checkbox checkbox-inline" name="user-role-${user.id}" value="delete"></td>
                             </tr>
                         </c:forEach>
                     </table>

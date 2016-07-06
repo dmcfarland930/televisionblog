@@ -64,9 +64,9 @@ body{
 }
 
 #category-div{
+    padding-left: 1em;
+    padding-right: 1em;
     margin-left: 2em;
-    width:30%;
-    margin-top: 2em;
     background: white;
     border-radius: 5px;
     border: #D9EBF4 thin solid;
@@ -74,8 +74,7 @@ body{
 
 #latest-posts-div{
     margin-left: 2em;
-    width:30%;
-    margin-top: 3em;
+    margin-top: -1.5em;
     background: white;
     border-radius: 5px;
     border: #D9EBF4 thin solid;
@@ -115,14 +114,15 @@ body{
 }
 
 #tag-div{
+    padding-left: 1em;
+    padding-right: 1em;
+    padding-bottom: 1em;
     margin-left: 2em;
-    width:30%;
     margin-top: 2em;
     background: white;
     border-radius: 5px;
     border: #D9EBF4 thin solid;
 }
-
 .login{
 
     margin-top: 1.5em;
@@ -132,8 +132,16 @@ body{
     padding-bottom: 10px;
 }
 
+#twitter {
+    margin-top: 2em;
+    margin-left: 2em;
+    background: white;
+    border-radius: 5px;
+    border: #CDDEB1 thin solid;
+}
 #blog-content{
     width: 75%;
+    
 }
 
 #viewing-by{
@@ -149,7 +157,8 @@ body{
     background: white;
     border: #D9EBF4 thin solid;
     border-radius: 5px;
-    
+    padding-left: 1em;
+    padding-right: 1em;
 }
 
 a{
@@ -173,6 +182,21 @@ a{
 #side-bar{
     margin-top: 2em;
     border-width: 2px;
+}
+
+#blog-content {
+    padding-top : 20px;
+    border-top: solid 1px #f1f1f1;
+    padding-bottom: 20px;
+    border-bottom: solid 1px #f1f1f1;
+}
+.tag-link {
+    background-color: #D6E2EA;
+    border: solid 1px #f1f1f1;
+}
+.blog-footer div {
+    background-color: white;
+    padding-bottom: 5em;
 }
 
 #category-div{

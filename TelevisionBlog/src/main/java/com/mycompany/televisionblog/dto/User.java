@@ -1,5 +1,7 @@
 package com.mycompany.televisionblog.dto;
 
+import java.util.List;
+
 /**
  *
  * @author apprentice
@@ -12,6 +14,7 @@ public class User {
     private String lastName;
     private String username;
     private String password;
+    private List<Integer> roles;
 
     public int getId() {
         return id;
@@ -61,5 +64,15 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public List<Integer> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Integer> roles) {
+        this.roles = roles;
+    }
+    
+    
 
 }

@@ -22,7 +22,7 @@ public class UserDaoDbImpl implements UserDao {
     private static final String SQL_UPDATE_USER = "UPDATE user SET first_name = ?, last_name = ?, username = ?, password = ?, group_id = ? WHERE id = ?";
     private static final String SQL_DELETE_USER = "DELETE FROM user WHERE id = ?";
     private static final String SQL_GET_USER = "SELECT * FROM user WHERE id = ?";
-    private static final String SQL_GET_USER_LIST = "SELECT * FROM user";
+    private static final String SQL_GET_USER_LIST = "SELECT * FROM user ORDER BY last_name ASC";
     
     private static final String SQL_ASSIGN_USER_ROLES = "INSERT INTO authorities (user_id, role_id) VALUES (?, ?)";
     private static final String SQL_DELETE_USER_ROLES = "DELETE FROM authorities WHERE user_id = ?";
