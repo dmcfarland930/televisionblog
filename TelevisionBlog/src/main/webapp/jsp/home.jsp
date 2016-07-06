@@ -12,7 +12,8 @@
         <!-- Bootstrap core CSS -->
         <link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet">
         <link href="${pageContext.request.contextPath}/css/blog.css" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Cabin" rel="stylesheet">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/rrssb-master/css/rrssb.css" />
 
 
         <!-- SWC Icon -->
@@ -27,6 +28,8 @@
                     <div id="blog-post-div" class="col-md-8">
                         <a id="blog-title" href="${pageContext.request.contextPath}/blog/show/${post.url}"><h1>${post.title}</h1></a>
                         <a id="author-name" href="${pageContext.request.contextPath}/blog/author/${post.user.id}"> Posted by ${post.user.firstName} ${post.user.lastName} on ${post.stringDateDisplay}</a>
+                        <br/><br/>
+                        <%@include file="socialShare.jsp"%>
                         <hr>
                         ${post.content}
                         <hr/>
@@ -90,5 +93,8 @@
         <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
         <script src="${pageContext.request.contextPath}/js/blogPost.js"></script>
         <script src="${pageContext.request.contextPath}/js/hashtags.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="js/vendor/jquery.1.10.2.min.js"><\/script>')</script>
+        <script src="${pageContext.request.contextPath}/rrssb-master/js/rrssb.min.js"></script>
     </body>
 </html>

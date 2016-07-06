@@ -11,9 +11,13 @@
 
         <!-- Custom styles for this template -->
         <link href="${pageContext.request.contextPath}/css/starter-template.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/datetimepicker-master/jquery.datetimepicker.css">
+
 
         <!-- SWC Icon -->
         <link rel="shortcut icon" href="${pageContext.request.contextPath}/img/icon.png">
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/datetimepicker-master/jquery.datetimepicker.css">
+
 
 
         <style>
@@ -148,7 +152,7 @@
                         <div class="form-group">
                             <label class="col-md-4 control-label">Expiration Date:</label>
                             <div class="col-md-8">
-                                <input type="date" class="form-control" id="edit-post-expiration-date" />
+                                <input type="text" class="form-control" id="edit-post-expiration-date" />
                             </div>
                         </div>
 
@@ -170,6 +174,9 @@
         <script src="${pageContext.request.contextPath}/js/jquery-1.11.1.min.js"></script>
         <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
         <script src="${pageContext.request.contextPath}/js/adminApp.js"></script>
+        <script src="${pageContext.request.contextPath}/js/blogPost.js"></script>
+        <script src="${pageContext.request.contextPath}/datetimepicker-master/build/jquery.datetimepicker.full.min.js"></script>
+
 
     </body>
 </html>

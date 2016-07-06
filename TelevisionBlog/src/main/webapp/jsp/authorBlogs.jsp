@@ -12,13 +12,16 @@
         <!-- Bootstrap core CSS -->
         <link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet">
         <link href="${pageContext.request.contextPath}/css/blog.css" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Cabin" rel="stylesheet">
         <!-- SWC Icon -->
         <link rel="shortcut icon" href="${pageContext.request.contextPath}/img/icon.png">
     </head>
     <body>
         <%@include file="navBar.jsp"%>
 
-        <h1>Posts by ${author}</h1>
+        <div id="viewing-by">
+            <h1>Posts by ${author}</h1>
+        </div>
         <div id="blog-content" class="container">
             <div class="row" style="display: inline">
                 <c:forEach items="${posts}" var="post">
@@ -26,11 +29,14 @@
                         <a id="blog-title" href="${pageContext.request.contextPath}/blog/show/${post.url}"><h1>${post.title}</h1></a>
                         <a id="author-name" href="${pageContext.request.contextPath}/blog/author/${post.user.id}"> Posted by ${author} on ${post.stringDateDisplay}</a>
                         <hr>
-                        ${post.content}</br>
+                        ${post.content}
                         <hr>
                         <a id="category-name" href="${pageContext.request.contextPath}/blog/category/${post.category.id}"> Category: ${post.category.name}</a>
+                        <br/>
+                        <br/>
                     </div>
                 </c:forEach>
+                
                 <div id="latest-posts-div" class="col-md-4">
                     <br/>
                     <p id="latest-head">Latest Posts:</p>
@@ -50,7 +56,6 @@
                         <a id="category-name" href="${pageContext.request.contextPath}/blog/category/${categoryPost.id}">${categoryPost.name} (${categoryPost.postCount})</a>
                         <br>
                     </c:forEach>
-                    <br/>
                     <br/>
                 </div>
                 <div id="tag-div" class="col-md-4">

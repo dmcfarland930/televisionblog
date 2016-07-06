@@ -9,8 +9,9 @@
         <title>Write Blog</title>
         <!-- Bootstrap core CSS -->
         <link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet">
-        <link href="${pageContext.request.contextPath}/css/blog.css" rel="stylesheet">
+        <!--<link href="${pageContext.request.contextPath}/css/blog.css" rel="stylesheet">-->
         <link href="${pageContext.request.contextPath}/plugins/chosen/chosen.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/datetimepicker-master/jquery.datetimepicker.css">
         <!-- SWC Icon -->
         <link rel="shortcut icon" href="${pageContext.request.contextPath}/img/icon.png">
     </head>
@@ -75,7 +76,7 @@
                     <fieldset class="form-group">
                         <div id="blog-div"  class="col-md-8">
                             <div>
-                                <textarea style="width: 100%;" rows="10" id="blog-post-input"></textarea>
+                                <textarea  style="width: 100%;" rows="10" id="blog-post-input"></textarea>
                             </div>
                         </div>
                     </fieldset>
@@ -111,16 +112,16 @@
                                     </div>
                                 </c:forEach>
                             </div>
-                                <form class="form form-horizontal" method="POST" enctype="multipart/form-data">
-                                    <div class="form-group">
-                                        <div class="col-md-4">
-                                            <input class="form-control" type="file" name="file">
-                                        </div>
-                                        <div class="col-md-2">
-                                            <button class="btn btn-primary" id="file-upload-button" type="submit">Upload</button>
-                                        </div>
+                            <form class="form form-horizontal" method="POST" enctype="multipart/form-data">
+                                <div class="form-group">
+                                    <div class="col-md-4">
+                                        <input class="form-control" type="file" name="file">
                                     </div>
-                                </form>
+                                    <div class="col-md-2">
+                                        <button class="btn btn-primary" id="file-upload-button" type="submit">Upload</button>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                         <div id="img-display"></div>
                     </div>
@@ -196,7 +197,7 @@
                         text: 'Insert Tag',
                         icon: false,
                         onmouseover: function () {
-                            
+
                         },
                         onclick: function () {
                             $('#HashtagModal').modal('show');
@@ -210,6 +211,7 @@
         <script src="${pageContext.request.contextPath}/plugins/chosen/chosen.jquery.js" type="text/javascript"></script>
         <script src="${pageContext.request.contextPath}/js/blogPost.js"></script>
         <script src="${pageContext.request.contextPath}/js/tag-select.js"></script>
+        <script src="${pageContext.request.contextPath}/datetimepicker-master/build/jquery.datetimepicker.full.min.js"></script>
 
     </body>
 </html>

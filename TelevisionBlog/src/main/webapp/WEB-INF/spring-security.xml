@@ -17,16 +17,16 @@
     <http pattern="/img/**" security="none" />
     <http pattern="/fonts/**" security="none" />
     <http pattern="/*" security="none" />
-    <http pattern="/blog/category/**" security="none" />
-    <http pattern="/blog/show/*" security="none" />
-    <http pattern="/blog/page/*" security="none" />
-    <http pattern="/contact/send-script" security="none" />
-    <http pattern="/search/**" security="none" />   
+    
     <http pattern="/admin/user/**" security="none" />
     <http pattern="/user/**" security="none" />
     <http pattern="/blog/*" security="none" />
+    <http pattern="/blog/category/**" security="none" />
+    <http pattern="/blog/show/**" security="none" />
     <http pattern="/upload/**" security="none" />
     <http pattern="/blog/author/**" security="none" />
+    <http pattern="/blog/page/**" security="none" />
+    <http pattern="/rrssb-master/**" security="none" />
     
     <http auto-config="true" use-expressions="false">
         <csrf disabled="true" />
@@ -37,7 +37,7 @@
        
         />
         
-        <intercept-url pattern="/admin" access="ROLE_READ_POST" />
+        <intercept-url pattern="/admin/" access="ROLE_READ_POST" />
         <intercept-url pattern="/blog/writeBlog" access="ROLE_CREATE_POST" />
         <intercept-url pattern="/blog/create-blog-post/" access="ROLE_CREATE_POST" />
         <intercept-url pattern="/blog/edit/*" access="ROLE_UPDATE_POST" />

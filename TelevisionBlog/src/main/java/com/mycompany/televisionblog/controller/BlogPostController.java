@@ -37,6 +37,7 @@ public class BlogPostController {
 
     SimpleDateFormat sdfDisplay = new SimpleDateFormat("MMMM dd, yyyy");
     SimpleDateFormat sdfSQL = new SimpleDateFormat("yyyy-MM-dd");
+    SimpleDateFormat sdfSQLDateTime = new SimpleDateFormat("yyyy-MM-dd HH:mm");
     private BlogPostDao blogPostDao;
     private UserDao userDao;
     private CategoryDao categoryDao;
@@ -58,8 +59,6 @@ public class BlogPostController {
     public String writeBlogPost(Map model) {
 
         Date date = new Date();
-        String inputDate = sdfSQL.format(date);
-        String dateOnly = inputDate;
 
         List<Page> pages = pageDao.list();
         model.put("pages", pages);
@@ -69,7 +68,7 @@ public class BlogPostController {
         model.put("tags", tags);
         List<User> authors = userDao.list();
         model.put("authors", authors);
-        model.put("date", dateOnly);
+        model.put("date", sdfSQLDateTime.format(date));
         List<UploadedFile> fileList = fileUploadDao.list();
         List<Integer> idList = new ArrayList<>();
         for (UploadedFile uf : fileList) {
@@ -168,6 +167,7 @@ public class BlogPostController {
 
         List<CategoryPost> categories = categoryDao.getPostCount();
         model.put("categories", categories);
+        model.put("post", post);
         model.put("title", post.getTitle());
         model.put("date", sdfDisplay.format(post.getPostDate()));
         model.put("author", post.getUser().getFirstName() + " " + post.getUser().getLastName());
@@ -247,7 +247,8 @@ public class BlogPostController {
     public String editPostSubmit(@RequestParam("id") Integer id, @RequestParam("date") String date, @RequestParam("title") String title, @RequestParam("slug") String slug, @RequestParam("author") Integer author,
             @RequestParam("category") Integer category, @RequestParam("content") String content, Map model) throws ParseException, UnsupportedEncodingException {
 
-        Date postDate = sdfSQL.parse(date);
+        System.out.println(date);
+        Date postDate = sdfSQLDateTime.parse(date);
 
         BlogPost blogEdit = new BlogPost();
         blogEdit.setId(id);
@@ -281,6 +282,7 @@ public class BlogPostController {
         blogPost.setExpirationDate(blogPostCommand.getExpirationDate());
         blogPost.setId(blogPostCommand.getId());
         blogPost.setIsDraft(blogPostCommand.isIsDraft());
+        blogPost.setPostDate(blogPostCommand.getPostDate());
 
         if (dateString.equals(sdfSQL.format(time)) && !blogPost.isIsDraft()) {
             blogPost.setPostDate(time);
@@ -296,23 +298,6 @@ public class BlogPostController {
         return blogPost;
     }
 
-//    @RequestMapping(value = "/blogShow/{id}", method = RequestMethod.GET)
-//    public String showBlog(@PathVariable("id") Integer id, Map model) {
-//
-//        List<BlogPost> posts = blogPostDao.list();
-//
-//        for (BlogPost blogView : posts) {
-//
-//            blogView.setStringDateDisplay(sdfDisplay.format(blogView.getPostDate()));
-//            model.put("title", blogView.getTitle());
-//            model.put("date", blogView.getPostDate());
-//            model.put("author", blogView.getUser().getFirstName() + " " + blogView.getUser().getLastName());
-//            model.put("posts", posts);
-//        }
-//
-//        return "/blogShow";
-//
-//    }
     @RequestMapping(value = "/page/{pageNum}", method = RequestMethod.GET)
     public String nextPage(@PathVariable("pageNum") Integer pageNum, Map model) {
 
@@ -451,6 +436,9 @@ public class BlogPostController {
       
         BlogPost post = new BlogPost();
         
+        String dateTime = sdfSQLDateTime.format(command.getPostDate());
+        
+        System.out.println(dateTime);
         post.setActive(command.isActive());
         post.setApproved(command.isApproved());
         Category category = categoryDao.get(command.getCategoryId());

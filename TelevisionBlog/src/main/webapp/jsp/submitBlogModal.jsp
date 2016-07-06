@@ -28,7 +28,7 @@
                             </div>
                             <div id="collapse1" class="panel-collapse collapse">
                                 <div class="panel-body">
-                                    <input type="date" name="schedule-date" id="post-date-input" value="${date}"/>
+                                    <input value="${date}" type="text" name="schedule-date" id="post-date-input"/>
                                 </div>
                             </div>
                         </div>
@@ -42,7 +42,7 @@
                             </div>
                             <div id="collapse2" class="panel-collapse collapse">
                                 <div class="panel-body">
-                                    <input type="date" name="schedule-date" id="expiration-date-input"/>
+                                    <input type="text" name="schedule-date" id="expiration-date-input"/>
                                 </div>
                             </div>
                         </div>

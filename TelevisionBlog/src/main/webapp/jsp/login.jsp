@@ -13,6 +13,7 @@
 
         <!-- Custom styles for this template -->
         <link href="${pageContext.request.contextPath}/css/starter-template.css" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Cabin" rel="stylesheet">
 
         <!-- SWC Icon -->
         <link rel="shortcut icon" href="${pageContext.request.contextPath}/img/icon.png">
@@ -26,9 +27,9 @@
 
             <div class="row">
 
-                <div class="col-md-4"></div>
-                <div class="col-md-4">
+                <div class="login col-md-4 col-md-offset-4">
                     <h1 style="text-align: center">User Login</h1>
+                    <hr>
                     <form action="${pageContext.request.contextPath}/authenticate/j_spring_security_check" method="POST" class="form-horizontal">
                         
                         <div class="form-group">
