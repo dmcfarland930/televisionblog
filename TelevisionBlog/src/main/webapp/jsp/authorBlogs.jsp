@@ -19,11 +19,11 @@
     <body>
         <%@include file="navBar.jsp"%>
 
-        <div id="viewing-by">
-            <h1>Posts by ${author}</h1>
-        </div>
         <div id="blog-content" class="container">
             <div class="row" style="display: inline">
+                <div id="viewing-by" class='col-md-8'>
+                    <h1>Posts by ${author}</h1>
+                </div>
                 <c:forEach items="${posts}" var="post">
                     <div id="blog-post-div" class="col-md-8">
                         <a id="blog-title" href="${pageContext.request.contextPath}/blog/show/${post.url}"><h1>${post.title}</h1></a>
@@ -36,40 +36,6 @@
                         <br/>
                     </div>
                 </c:forEach>
-                
-                <div id="latest-posts-div" class="col-md-4">
-                    <br/>
-                    <p id="latest-head">Latest Posts:</p>
-                    <hr>
-                    <c:forEach items="${latestPosts}" var="latestPost">
-                        <a id="blog-title" href="${pageContext.request.contextPath}/blog/show/${latestPost.url}">${latestPost.title}</a> 
-                        <br/>
-                    </c:forEach>
-                    <br/>
-                </div>
-
-                <div id="category-div" class="col-md-4">
-                    <br/>
-                    <p id="cat-head">Categories:</p>
-                    <hr>
-                    <c:forEach items="${categories}" var="categoryPost">
-                        <a id="category-name" href="${pageContext.request.contextPath}/blog/category/${categoryPost.id}">${categoryPost.name} (${categoryPost.postCount})</a>
-                        <br>
-                    </c:forEach>
-                    <br/>
-                </div>
-                <div id="tag-div" class="col-md-4">
-                    <br/>
-                    <p id="tag-head">Tags:</p>
-                    <hr>
-                    <c:forEach items="${tags}" var="tag">
-                        <a id="tag-name" href="${pageContext.request.contextPath}/blog/tag/${tag.id}">${tag.name}</a>
-                        <br/>
-                    </c:forEach>
-                    <br/>
-                </div>
-
-
                 <div class="row col-md-8" >
                     <div style="display: inline-block;">
 
@@ -80,6 +46,9 @@
                         </c:if>
                     </div>
                 </div>
+
+                <%@include file="sideBar.jsp"%>
+
             </div> 
         </div>
         <!-- Placed at the end of the document so the pages load faster -->
@@ -91,6 +60,7 @@
         <script src="${pageContext.request.contextPath}/js/blogPost.js"></script>
 
 
+        <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
     </body>
 </html>

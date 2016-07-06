@@ -15,7 +15,7 @@
         <link href="https://fonts.googleapis.com/css?family=Cabin" rel="stylesheet">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/rrssb-master/css/rrssb.css" />
 
-        
+
 
 
         <!-- SWC Icon -->
@@ -23,14 +23,15 @@
     </head>
     <body>
         <%@include file="navBar.jsp"%>
- 
-        <div class="container">
+
+        <div id="blog-content" class="container">
             <div class="row" style="display: inline">
                 <c:forEach items="${posts}" var="post">
                     <div id="blog-post-div" class="col-md-8">
                         <a id="blog-title" href="${pageContext.request.contextPath}/blog/show/${post.url}"><h1>${post.title}</h1></a>
                         <a id="author-name" href="${pageContext.request.contextPath}/blog/author/${post.user.id}"> Posted by ${post.user.firstName} ${post.user.lastName} on ${post.stringDateDisplay}</a>
                         <br/><br/>
+
                         <%@include file="socialShare.jsp"%>
                         <hr>
                         ${post.content}
@@ -40,50 +41,7 @@
                         <br/>
                     </div>
                 </c:forEach>
-                
-                <div id="sidebar" class="col-md-4">
-                    <div id="latest-posts-div" class="col-md-12">
-                        <br/>
-                        <p id="latest-head">Latest Posts:</p>
-                        <hr>
-                        <c:forEach items="${latestPosts}" var="latestPost">
-                            <a id="blog-title" href="${pageContext.request.contextPath}/blog/show/${latestPost.url}">${latestPost.title}</a> 
-                            <br/>
-                        </c:forEach>
-                        <br/>
-                    </div>
-                    <div id="category-div" class="col-md-12">
-                        <br/>
-                        <p id="cat-head">Categories:</p>
-                        <hr>
-                        <c:forEach items="${categories}" var="category">
-                            <c:if test="${category.postCount != 0}">
-                                <a id="category-name" href="${pageContext.request.contextPath}/blog/category/${category.id}">${category.name}</a>
-                            </c:if>
-                        </c:forEach>
-                        <br/>
-                        <br/>
-                    </div>
-                    <div id="tag-div" class="col-md-12">
-                        <br/>
-                        <p id="tag-head">Tags:</p>
-                        <hr>
-                        <c:forEach items="${tags}" var="tag">
-                            <span class="tag-link"><a id="tag-name" href="${pageContext.request.contextPath}/blog/tag/${tag.name}">${tag.name}</a></span>
-                        </c:forEach>
-                        <br/>
-                    </div>
-                    <div id='twitter-container' class="col-md-12">
-                    <div id="twitter">
-                        <a class="twitter-timeline"  data-height="360" href="https://twitter.com/patstvblog">Tweets by patstvblog</a> 
-                    </div>
-                    </div>
-                </div>
-                
-                
-
-                <div class="row col-md-8" >
-                    <div style="display: inline-block;">
+                <div class="row col-md-8" style='display: inline-block' >
                         <div id="last-page-div">
                             <a class="${hidden} btn bg-white" id="last-page" href="${pageContext.request.contextPath}/blog/page/${pageLast}" > < Last Page</a>
                         </div>
@@ -92,13 +50,15 @@
                                 <a class="btn bg-white" id="next-page" href="${pageContext.request.contextPath}/blog/page/${pageNext}" >Next Page > </a>
                             </c:if>
                         </div>
-                    </div>
                 </div>
+
+                <%@include file="sideBar.jsp" %>
+
+
             </div>
-            
-            </div>
-            <jsp:include page="footer.jsp"/>
-        </div>            
+
+        </div>
+                <%@include file="footer.jsp" %>
         <!-- Placed at the end of the document so the pages load faster -->
         <script>
             var contextRoot = '${pageContext.request.contextPath}';
@@ -111,5 +71,6 @@
         <script>window.jQuery || document.write('<script src="js/vendor/jquery.1.10.2.min.js"><\/script>')</script>
         <script src="${pageContext.request.contextPath}/rrssb-master/js/rrssb.min.js"></script>
         <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
     </body>
 </html>
