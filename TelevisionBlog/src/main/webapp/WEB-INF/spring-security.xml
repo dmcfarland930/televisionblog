@@ -25,6 +25,8 @@
     <http pattern="/user/**" security="none" />
     <http pattern="/upload/**" security="none" />
     <http pattern="/blog/author/**" security="none" />
+    <http pattern="/admin" security="none" />
+    <http pattern="/admin/" security="none" />
     
     <http auto-config="true" use-expressions="false">
         <csrf disabled="true" />
@@ -35,8 +37,8 @@
        
         />
         
-        <intercept-url pattern="/admin" access="ROLE_READ_POST" />
-        <intercept-url pattern="/admin/" access="ROLE_READ_POST" />
+        <intercept-url pattern="/admin/pending" access="ROLE_READ_POST" />
+        <intercept-url pattern="/admin/pending/" access="ROLE_READ_POST" />
         <intercept-url pattern="/admin/post/" access="ROLE_READ_POST" />
         <intercept-url pattern="/admin/post" access="ROLE_READ_POST" />
         <intercept-url pattern="/blog/writeBlog/" access="ROLE_CREATE_POST" />
