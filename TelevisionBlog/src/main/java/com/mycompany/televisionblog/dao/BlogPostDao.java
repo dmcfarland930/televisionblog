@@ -50,4 +50,8 @@ public interface BlogPostDao {
     List<BlogPost> listOfThreeByTag(Integer pageNum, Integer range, String tag);
     
     List<BlogPost> listOfThreeBySearch(Integer pageNum, Integer range, String searchValue);
+    
+    List<BlogPost> listOfThreeBySearchTitle(Integer pageNum, Integer range, String searchValue);
+    
+    List<BlogPost> listOfThreeBySearchPost(Integer pageNum, Integer range, String searchValue);
 }

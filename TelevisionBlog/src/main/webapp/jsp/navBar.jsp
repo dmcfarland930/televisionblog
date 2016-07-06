@@ -38,8 +38,8 @@
                     <div class="input-group-btn" style="width: 15%; overflow-x: auto">
                         <select class="form-control" name="search-type">
                             <option value="All">All</option>
-                            <option value="Posts">Post Titles</option>
-                            <option value="Titles">Post Content</option>
+                            <option value="Titles">Post Titles</option>
+                            <option value="Posts">Post Content</option>
                         </select>
                     </div>
                     <div class="input-group-btn">

@@ -20,19 +20,22 @@
     </head>
     <body>
         <%@include file="navBar.jsp"%>
-
-        <h1>Showing matching results for "${searchValue}":</h1>
-        <div class="container">
-            <c:forEach items="${posts}"  var="post" varStatus="count">
-                <div class="col-md-8">
-                    <a id="blog-title" href="${pageContext.request.contextPath}/blog/${post.title}"><h1>${post.title}</h1></a>
-                    <a id="author-name" href="${pageContext.request.contextPath}/blog/author/${post.user.id}"> Posted by ${authors[count.index]} on ${post.stringDateDisplay}</a>
-                    ${post.content}<br>
-                    <a id="category-name" href="${pageContext.request.contextPath}/blog/category/${post.category.id}"> Category: ${post.category.name}</a>
-                    <hr/>
-                </div>
-            </c:forEach>
-
+        <c:if test="${not empty posts}">
+            <h1>Showing matching results for "${searchValue}":</h1>
+            <div class="container">
+                <c:forEach items="${posts}"  var="post" varStatus="count">
+                    <div class="col-md-8">
+                        <a id="blog-title" href="${pageContext.request.contextPath}/blog/${post.title}"><h1>${post.title}</h1></a>
+                        <a id="author-name" href="${pageContext.request.contextPath}/blog/author/${post.user.id}"> Posted by ${authors[count.index]} on ${post.stringDateDisplay}</a>
+                        ${post.content}<br>
+                        <a id="category-name" href="${pageContext.request.contextPath}/blog/category/${post.category.id}"> Category: ${post.category.name}</a>
+                        <hr/>
+                    </div>
+                </c:forEach>
+        </c:if>
+        <c:if test="${empty posts}">
+            <h1>No matching results for "${searchValue}".</h1>
+        </c:if>
 
             <div class="row col-md-8" >
                 <div style="display: inline-block;">

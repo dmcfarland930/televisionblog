@@ -36,6 +36,8 @@ public class BlogPostDaoDbImpl implements BlogPostDao {
     private static final String SQL_GET_POST_LIST_THREE_ENTRIES_CATEGORY = "SELECT * FROM post WHERE approved AND active AND category_id = ? ORDER BY post_date DESC LIMIT ?, ?";
     private static final String SQL_GET_POST_LIST_THREE_ENTRIES_TAG = "SELECT * FROM post LEFT OUTER JOIN post_tag ON post_tag.post_id = post.id JOIN tag ON tag.id = post_tag.tag_id WHERE post.approved AND post.active AND tag.name = ? ORDER BY post.post_date DESC LIMIT ?, ?";
     private static final String SQL_GET_POST_LIST_THREE_ENTRIES_SEARCH = "SELECT * FROM post WHERE approved AND active AND (content LIKE ? OR title LIKE ?) ORDER BY post_date DESC LIMIT ?, ?";
+    private static final String SQL_GET_POST_LIST_THREE_ENTRIES_SEARCH_TITLE = "SELECT * FROM post WHERE approved AND active AND title LIKE ? ORDER BY post_date DESC LIMIT ?, ?";
+    private static final String SQL_GET_POST_LIST_THREE_ENTRIES_SEARCH_POST = "SELECT * FROM post WHERE approved AND active AND content LIKE ? ORDER BY post_date DESC LIMIT ?, ?";
 
     private JdbcTemplate jdbcTemplate;
     private CategoryDao categoryDao;
@@ -229,7 +231,7 @@ public class BlogPostDaoDbImpl implements BlogPostDao {
         jdbcTemplate.update(SQL_SET_POSTS_TO_ACTIVE_DATE, date);
         jdbcTemplate.update(SQL_SET_POSTS_TO_EXPIRED_DATE, date);
 
-        return jdbcTemplate.query(SQL_GET_POST_LIST_THREE_ENTRIES_TAG, new BlogPostMapper(), tag, pageNum);
+        return jdbcTemplate.query(SQL_GET_POST_LIST_THREE_ENTRIES_TAG, new BlogPostMapper(), tag, pageNum, range);
     }
 
     @Override
@@ -239,6 +241,24 @@ public class BlogPostDaoDbImpl implements BlogPostDao {
         jdbcTemplate.update(SQL_SET_POSTS_TO_EXPIRED_DATE, date);
 
         return jdbcTemplate.query(SQL_GET_POST_LIST_THREE_ENTRIES_SEARCH, new BlogPostMapper(), "%" + searchValue + "%", "%" + searchValue + "%", pageNum, range);
+    }
+    
+    @Override
+    public List<BlogPost> listOfThreeBySearchTitle(Integer pageNum, Integer range, String searchValue) {
+        Date date = new Date();
+        jdbcTemplate.update(SQL_SET_POSTS_TO_ACTIVE_DATE, date);
+        jdbcTemplate.update(SQL_SET_POSTS_TO_EXPIRED_DATE, date);
+
+        return jdbcTemplate.query(SQL_GET_POST_LIST_THREE_ENTRIES_SEARCH_TITLE, new BlogPostMapper(), "%" + searchValue + "%", pageNum, range);
+    }
+    
+    @Override
+    public List<BlogPost> listOfThreeBySearchPost(Integer pageNum, Integer range, String searchValue) {
+        Date date = new Date();
+        jdbcTemplate.update(SQL_SET_POSTS_TO_ACTIVE_DATE, date);
+        jdbcTemplate.update(SQL_SET_POSTS_TO_EXPIRED_DATE, date);
+
+        return jdbcTemplate.query(SQL_GET_POST_LIST_THREE_ENTRIES_SEARCH_POST, new BlogPostMapper(), "%" + searchValue + "%", pageNum, range);
     }
 
     private final class BlogPostMapper implements RowMapper<BlogPost> {
