@@ -15,60 +15,32 @@
 
         <!-- SWC Icon -->
         <link rel="shortcut icon" href="${pageContext.request.contextPath}/img/icon.png">
+
     </head>
     <body>
         <%@include file="navBar.jsp"%>
         <div id="blog-content" class="container">
-            <br/>
-            <div id="blog-post-div" class="col-md-8">
-                <h1>${post.title}</h1>
-                <p>Posted by ${post.user.firstName} ${post.user.lastName} on ${date}</p>
-                <%@include file="socialShare.jsp"%>
-                <hr>
-                ${post.content}
-                </br>
-                <p>Category: ${post.category.name}</p>
-                <hr>
-                <div id="disqus_thread"></div>
+
+            <div class="row" style="display: inline">
+
+                <div id="blog-post-div" class="col-md-8">
+                    <h1>${post.title}</h1>
+                    <p>Posted by ${post.user.firstName} ${post.user.lastName} on ${date}</p>
+                    <%@include file="socialShare.jsp"%>
+                    <hr>
+                    ${post.content}
+                    </br>
+                    <p>Category: ${post.category.name}</p>
+                    <hr>
+                    <div id="disqus_thread"></div>
+                </div>
+                <div class="row col-md-8" >
+
+                </div>
+                <%@include file="sideBar.jsp" %>
+
+
             </div>
-                
-            <div id="latest-posts-div" class="col-md-4">
-                <br/>
-                <p id="latest-head">Latest Posts:</p>
-                <hr>
-                <c:forEach items="${latestPosts}" var="latestPost">
-                    <a id="blog-title" href="${pageContext.request.contextPath}/blog/show/${latestPost.url}">${latestPost.title}</a> 
-                    <br/>
-                </c:forEach>
-                <br/>
-            </div>
-
-
-            <div id="category-div" class="col-md-4">
-                <br/>
-                <p id="cat-head">Categories:</p>
-                <hr>
-                <c:forEach items="${categories}" var="category">
-                    <c:if test="${category.postCount != 0}">
-                        <a id="category-name" href="${pageContext.request.contextPath}/blog/category/${category.id}">${category.name} (${category.postCount})</a>
-                    </c:if>
-                    <br/>
-                </c:forEach>
-                <br/>
-            </div>
-            <div id="tag-div" class="col-md-4">
-                <br/>
-                <p id="tag-head">Tags:</p>
-                <hr>
-                <c:forEach items="${tags}" var="tag">
-                    <a id="tag-name" href="${pageContext.request.contextPath}/blog/tag/${tag.id}">${tag.name}</a>
-                    <br/>
-                </c:forEach>
-                <br/>
-            </div>
-
-
-
 
         </div>
         <!-- Placed at the end of the document so the pages load faster -->
@@ -105,6 +77,7 @@
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery.1.10.2.min.js"><\/script>')</script>
         <script src="${pageContext.request.contextPath}/rrssb-master/js/rrssb.min.js"></script>
+        <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
     </body>
 </html>
