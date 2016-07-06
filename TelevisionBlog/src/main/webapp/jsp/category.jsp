@@ -11,6 +11,7 @@
 
         <!-- Custom styles for this template -->
         <link href="${pageContext.request.contextPath}/css/starter-template.css" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Cabin" rel="stylesheet">
 
         <!-- SWC Icon -->
         <link rel="shortcut icon" href="${pageContext.request.contextPath}/img/icon.png">

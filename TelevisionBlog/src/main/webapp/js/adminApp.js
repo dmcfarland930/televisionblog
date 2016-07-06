@@ -145,11 +145,13 @@ $(document).ready(function () {
                    xhr.setRequestHeader("Content-type", "application/json");
                },
                success: function(data, status) {
+                   
+                   location.reload();
                    $("#edit-date-modal").modal("hide");
                    
                    var tableRow = buildTableRow(data);
                    
-                   $("#post-row-"+data.id).replaceWith($(tableRow));
+//                   $("#post-row-"+data.id).replaceWith($(tableRow));;
                },
                error: function(data, status) {
                    
@@ -164,7 +166,7 @@ $(document).ready(function () {
       return "<tr id='post-row-"+data.id+"'>\n\
                 <td><a href='${pageContext.request.contextPath}/blog/"+data.title+"'>"+data.title+"</a></td> \n\
                                 <td>"+data.postDate+"</td> \n\
-                                <td><a href='' data-post-id='"+data.id+"' data-toggle='modal' data-target='#edit-date-modal' class='glyphicon glyphicon-adjust' > "+data.expirationDate+"</a></td> \n\
+                                <td><a href='' data-post-id='"+data.id+"' data-toggle='modal' data-target='#edit-date-modal' class='glyphicon glyphicon-calendar' > "+data.expirationDate+"</a></td> \n\
                                 <td>"+data.user.username+"</td> \n\
                                 <td><a href='${pageContext.request.contextPath}/blog/edit/"+data.id+"' class='glyphicon glyphicon-edit' style='color:green;' ></a></td> \n\
                                 <td><a href='' data-post-id='"+data.id+"' class='glyphicon glyphicon-transfer disapprove-post-link' style='color:dodgerblue;'></a></td> \n\

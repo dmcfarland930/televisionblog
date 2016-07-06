@@ -12,7 +12,8 @@
         <!-- Bootstrap core CSS -->
         <link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet">
         <link href="${pageContext.request.contextPath}/css/blog.css" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Cabin" rel="stylesheet">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/rrssb-master/css/rrssb.css" />
 
         
 
@@ -29,9 +30,17 @@
                     <div id="blog-post-div" class="col-md-8">
                         <a id="blog-title" href="${pageContext.request.contextPath}/blog/show/${post.url}"><h1>${post.title}</h1></a>
                         <a id="author-name" href="${pageContext.request.contextPath}/blog/author/${post.user.id}"> Posted by ${post.user.firstName} ${post.user.lastName} on ${post.stringDateDisplay}</a>
+<<<<<<< HEAD
+                        <br/><br/>
+                        <%@include file="socialShare.jsp"%>
+                        <hr>
+                        ${post.content}
+                        <hr/>
+=======
                         <div id="blog-content">
                             ${post.content}
                         </div>
+>>>>>>> a805f895a386b2368c44fadae4d9d22c76ce8d54
                         <a id="category-name" href="${pageContext.request.contextPath}/blog/category/${post.category.id}"> Category: ${post.category.name}</a>
                         <br/>
                         <br/>
@@ -104,6 +113,12 @@
         <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
         <script src="${pageContext.request.contextPath}/js/blogPost.js"></script>
         <script src="${pageContext.request.contextPath}/js/hashtags.js"></script>
+<<<<<<< HEAD
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="js/vendor/jquery.1.10.2.min.js"><\/script>')</script>
+        <script src="${pageContext.request.contextPath}/rrssb-master/js/rrssb.min.js"></script>
+=======
         <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+>>>>>>> a805f895a386b2368c44fadae4d9d22c76ce8d54
     </body>
 </html>

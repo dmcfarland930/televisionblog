@@ -25,8 +25,13 @@
     <http pattern="/user/**" security="none" />
     <http pattern="/upload/**" security="none" />
     <http pattern="/blog/author/**" security="none" />
+
     <http pattern="/admin" security="none" />
     <http pattern="/admin/" security="none" />
+
+
+    <http pattern="/rrssb-master/**" security="none" />
+
     
     <http auto-config="true" use-expressions="false">
         <csrf disabled="true" />

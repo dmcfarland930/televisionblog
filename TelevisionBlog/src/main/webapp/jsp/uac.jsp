@@ -42,8 +42,7 @@
 
                     <jsp:include page="uacMenu.jsp"/>
                     
-                    <h1>UAC Home page <br /> Work In Progress <br /> Click a Tab</h1> <br /> By the way, only the Group Roles work right now, individual Users and Custom doesn't work yet.<br />
-                    <h1>If you get bored, check some boxes and test endpoints, let me know if anything isn't working.</h1>
+                    <h1>UAC Home page <br /> Work In Progress <br /> Click a Tab</h1> <br /> By the way, only the Group Roles work right now, individual Users and Custom doesn't work yet.
 
         <script>
             var contextRoot = "${pageContext.request.contextPath}";

@@ -12,15 +12,23 @@ and open the template in the editor.
 }
 
 .navbar{
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Cabin', sans-serif;
     margin-bottom:  -.5em;
+    position: fixed;
+    width: 100%;
+    top: 0px;
 }
 
 h1{
-    font-family: 'Roboto', sans-serif;
-
+    font-family: 'Cabin', sans-serif;
 }
 
+a{
+    font-family: 'Cabin', sans-serif;
+}
+p{
+    font-family: 'Cabin', sans-serif;
+}
 .navbar-item {
     color: white;
 }
@@ -50,6 +58,7 @@ h1{
     margin-left: 10px;
     margin-right: 10px;
 }
+
 body{
     background-color: #D6E2EA;
 }
@@ -71,28 +80,37 @@ body{
     border: #D9EBF4 thin solid;
 }
 
+.script-upload{
+
+    margin-top: 5em;
+    background: white; 
+    border-radius: 5px;
+    border: #D9EBF4 thin solid;
+    padding-bottom: 10px;
+}
+
 #latest-head{
-    
-    font-family: 'Roboto', sans-serif;
+
+    font-family: 'Cabin', sans-serif;
     font-size: 20px;
     margin-bottom: -1em;
-    
+
 }
 
 #cat-head{
-    
-    font-family: 'Roboto', sans-serif;
+
+    font-family: 'Cabin', sans-serif;
     font-size: 20px;
     margin-bottom: -1em;
-    
+
 }
 
 #tag-head{
-    
-    font-family: 'Roboto', sans-serif;
+
+    font-family: 'Cabin', sans-serif;
     font-size: 20px;
     margin-bottom: -1em;
-    
+
 }
 
 #tag-div{
@@ -105,6 +123,15 @@ body{
     border-radius: 5px;
     border: #D9EBF4 thin solid;
 }
+.login{
+
+    margin-top: 1.5em;
+    background: white; 
+    border-radius: 5px;
+    border: #D9EBF4 thin solid;
+    padding-bottom: 10px;
+}
+
 #twitter {
     margin-top: 2em;
     margin-left: 2em;
@@ -117,9 +144,16 @@ body{
     
 }
 
+#viewing-by{
+    margin-left: 5em;
+    text-decoration: underline;
+    margin-top: 6em;
+    margin-bottom: -3em; 
+}
+
 #blog-post-div{
 
-    margin-bottom: 1em;
+    margin-top: 3em;
     background: white;
     border: #D9EBF4 thin solid;
     border-radius: 5px;
@@ -132,14 +166,16 @@ a{
 }
 
 #last-page{
+    margin-top: 1em;
     border: #D9EBF4 thin solid;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Cabin', sans-serif;
     border-radius: 50px 10px 50px 10px;
 }
 
 #next-page{
+    margin-top: 1em;
     border: #D9EBF4 thin solid;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Cabin', sans-serif;
     border-radius: 50px 10px 50px 10px;
 }
 
@@ -164,15 +200,44 @@ a{
 }
 
 #category-div{
-    
+
     max-height: 15em;
     overflow-y: auto;
-    
+
 }
 
 #tag-div{
-    
+
     max-height: 15em;
     overflow-y: auto;
-    
+
+}
+
+#film-head{
+    background-image:url('film.jpg');
+    height: 20px;
+    background-repeat: repeat-x;
+    width: 100%;
+    position: absolute;
+}
+
+.rrssb-buttons{
+
+    max-width: 35em;
+
+}
+
+.upload-button{
+    margin-top: 1em;
+}
+
+.script-upload{
+    margin-top: 4.5em;
+}
+
+#script-head{
+
+    padding-top: 1em;
+    font-size: 18px;
+
 }

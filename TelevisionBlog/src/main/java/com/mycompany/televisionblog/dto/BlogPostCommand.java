@@ -11,12 +11,13 @@ import java.util.List;
 public class BlogPostCommand {
 
     private Integer id;
+    
     private String title;
     private String url;
     private int userId;
     private int categoryId;        
     private String content;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "EST")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm", timezone = "EST")
     private Date postDate;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "EST")
     private Date expirationDate;
