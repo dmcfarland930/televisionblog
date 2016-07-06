@@ -20,6 +20,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
@@ -42,7 +43,7 @@ public class UACController {
     }
 
     @RequestMapping(value = "/blogs", method = RequestMethod.GET)
-    public String blogs(Map model) {
+    public String blogs(@RequestParam("group") String group, Map model) {
 
         List<User> users = userDao.list();
         List<Role> roles = roleDao.listNoCustom();
@@ -70,7 +71,7 @@ public class UACController {
     }
 
     @RequestMapping(value = "/pages", method = RequestMethod.GET)
-    public String pages(Map model) {
+    public String pages(@RequestParam("group") String group, Map model) {
 
         List<User> users = userDao.list();
         List<Role> roles = roleDao.listNoCustom();

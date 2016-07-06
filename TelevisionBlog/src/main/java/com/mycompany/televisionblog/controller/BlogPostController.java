@@ -84,6 +84,7 @@ public class BlogPostController {
         List<BlogPost> posts = blogPostDao.listOfThreeByAuthor(0, 3, author);
         List<BlogPost> latestPosts = blogPostDao.listOfThree(0, 5);
         List<CategoryPost> categories = categoryDao.getPostCount();
+        List<Tag> tags = tagDao.list();
         model.put("categories", categories);
 
         for (BlogPost blogView : posts) {
@@ -97,6 +98,7 @@ public class BlogPostController {
         List<Page> pages = pageDao.list();
         model.put("authorId", author);
         model.put("pages", pages);
+        model.put("tags", tags);
         model.put("pageNext", 2);
         model.put("nextPage", nextPage);
         model.put("hidden", "hidden");
@@ -110,6 +112,7 @@ public class BlogPostController {
         List<BlogPost> posts = blogPostDao.listOfThreeByCategory(0, 3, category);
         List<BlogPost> latestPosts = blogPostDao.listOfThree(0, 5);
         List<CategoryPost> categories = categoryDao.getPostCount();
+        List<Tag> tags = tagDao.list();
         model.put("categories", categories);
 
         for (BlogPost blogView : posts) {
@@ -123,6 +126,7 @@ public class BlogPostController {
         List<Page> pages = pageDao.list();
         model.put("category", categoryDao.get(category).getName());
         model.put("categoryId", category);
+        model.put("tags", tags);
         model.put("pages", pages);
         model.put("pageNext", 2);
         model.put("nextPage", nextPage);
@@ -133,7 +137,6 @@ public class BlogPostController {
 
     @RequestMapping(value = "/tag/{tag}", method = RequestMethod.GET)
     public String showByTag(@PathVariable("tag") String tagName, Map<String, Object> model) {
-
 
         List<BlogPost> posts = blogPostDao.listOfThreeByTag(0, 3, tagName);
         model.put("posts", posts);
@@ -164,9 +167,10 @@ public class BlogPostController {
 
         BlogPost post = blogPostDao.get(postName);
         List<BlogPost> latestPosts = blogPostDao.listOfThree(0, 5);
-
         List<CategoryPost> categories = categoryDao.getPostCount();
+        List<Tag> tags = tagDao.list();
         model.put("categories", categories);
+        model.put("tags", tags);
         model.put("post", post);
         model.put("title", post.getTitle());
         model.put("date", sdfDisplay.format(post.getPostDate()));
@@ -347,6 +351,7 @@ public class BlogPostController {
 
         List<CategoryPost> categories = categoryDao.getPostCount();
         List<BlogPost> latestPosts = blogPostDao.listOfThree(0, 5);
+        List<Tag> tags = tagDao.list();
         model.put("categories", categories);
         int pageNext = pageNum + 1;
         int pageLast = pageNum - 1;
@@ -361,6 +366,7 @@ public class BlogPostController {
             model.put("date", blogView.getPostDate());
             model.put("author", blogView.getUser().getFirstName() + " " + blogView.getUser().getLastName());
             model.put("posts", posts);
+            model.put("tags", tags);
 
         }
 
@@ -379,10 +385,11 @@ public class BlogPostController {
     }
 
     @RequestMapping(value = "category/{id}/page/{pageNum}", method = RequestMethod.GET)
-    public String nextCategooryPage(@PathVariable("pageNum") Integer pageNum, @PathVariable("id") Integer categoryId, Map model) {
+    public String nextCategoryPage(@PathVariable("pageNum") Integer pageNum, @PathVariable("id") Integer categoryId, Map model) {
 
         List<CategoryPost> categories = categoryDao.getPostCount();
         List<BlogPost> latestPosts = blogPostDao.listOfThree(0, 5);
+        List<Tag> tags = tagDao.list();
         model.put("categories", categories);
         int pageNext = pageNum + 1;
         int pageLast = pageNum - 1;
@@ -411,6 +418,7 @@ public class BlogPostController {
         model.put("categoryId", categoryId);
         model.put("pageNext", pageNext);
         model.put("nextPage", nextPage);
+        model.put("tags", tags);
         return "/categoryBlogs";
 
     }
@@ -422,22 +430,22 @@ public class BlogPostController {
         return url;
 
     }
-    
-    @RequestMapping(value="/grab/{id}", method = RequestMethod.GET)
+
+    @RequestMapping(value = "/grab/{id}", method = RequestMethod.GET)
     @ResponseBody
     public BlogPost grab(@PathVariable("id") Integer id) {
-        
-        return blogPostDao.get(id);      
+
+        return blogPostDao.get(id);
     }
-    
-    @RequestMapping(value="/", method=RequestMethod.PUT)
+
+    @RequestMapping(value = "/", method = RequestMethod.PUT)
     @ResponseBody
     public BlogPost update(@RequestBody BlogPostCommand command) throws ParseException {
-      
+
         BlogPost post = new BlogPost();
-        
+
         String dateTime = sdfSQLDateTime.format(command.getPostDate());
-        
+
         System.out.println(dateTime);
         post.setActive(command.isActive());
         post.setApproved(command.isApproved());
@@ -451,11 +459,12 @@ public class BlogPostController {
         post.setUrl(command.getUrl());
         User user = userDao.get(command.getUserId());
         post.setUser(user);
-        
+
         blogPostDao.update(post);
-        
+
         return post;
-        
-    };
+
+    }
+;
 
 }

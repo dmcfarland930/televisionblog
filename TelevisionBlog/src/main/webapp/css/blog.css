@@ -26,6 +26,7 @@ h1{
 a{
     font-family: 'Cabin', sans-serif;
 }
+
 p{
     font-family: 'Cabin', sans-serif;
 }
@@ -41,6 +42,7 @@ p{
 #add-category-form {
     margin:auto;
 }
+
 #add-category-validation-errors {
     font-weight: bold;
     min-height: 20px;
@@ -50,6 +52,7 @@ p{
     max-height: 40px;
     width: auto;
 }
+
 .selected-image {
     border: 2px #206ea1 solid;
 }
@@ -66,22 +69,22 @@ body{
 #category-div{
     padding-left: 1em;
     padding-right: 1em;
-    margin-left: 2em;
+    margin-top: 2em;
     background: white;
     border-radius: 5px;
     border: #D9EBF4 thin solid;
+    max-height: 15em;
+    overflow-y: auto;
 }
 
 #latest-posts-div{
-    margin-left: 2em;
-    margin-top: -1.5em;
+    margin-top: 2em;
     background: white;
     border-radius: 5px;
     border: #D9EBF4 thin solid;
 }
 
 .script-upload{
-
     margin-top: 5em;
     background: white; 
     border-radius: 5px;
@@ -117,14 +120,13 @@ body{
     padding-left: 1em;
     padding-right: 1em;
     padding-bottom: 1em;
-    margin-left: 2em;
     margin-top: 2em;
     background: white;
     border-radius: 5px;
     border: #D9EBF4 thin solid;
 }
-.login{
 
+.login{
     margin-top: 1.5em;
     background: white; 
     border-radius: 5px;
@@ -134,21 +136,25 @@ body{
 
 #twitter {
     margin-top: 2em;
-    margin-left: 2em;
     background: white;
     border-radius: 5px;
-    border: #CDDEB1 thin solid;
+    border: #D9EBF4 thin solid;
 }
+
 #blog-content{
-    width: 75%;
+    width: 65%;
     
 }
 
 #viewing-by{
-    margin-left: 5em;
+    border-radius: 5px;
+    border: #D9EBF4 thin solid;
+    margin-top: 3em;
+    margin-bottom: -2em;
+    padding-bottom: 10px;
+    text-align: center;
     text-decoration: underline;
-    margin-top: 6em;
-    margin-bottom: -3em; 
+    background: white;
 }
 
 #blog-post-div{
@@ -157,8 +163,7 @@ body{
     background: white;
     border: #D9EBF4 thin solid;
     border-radius: 5px;
-    padding-left: 1em;
-    padding-right: 1em;
+    margin-bottom: -1.5em;
 }
 
 a{
@@ -166,45 +171,35 @@ a{
 }
 
 #last-page{
-    margin-top: 1em;
+    margin-top: 2em;
     border: #D9EBF4 thin solid;
     font-family: 'Cabin', sans-serif;
     border-radius: 50px 10px 50px 10px;
+    margin-bottom: -1.5em;
 }
 
 #next-page{
-    margin-top: 1em;
+    margin-top: 2em;
     border: #D9EBF4 thin solid;
     font-family: 'Cabin', sans-serif;
     border-radius: 50px 10px 50px 10px;
 }
 
-#side-bar{
-    margin-top: 2em;
-    border-width: 2px;
-}
 
 #blog-content {
     padding-top : 20px;
-    border-top: solid 1px #f1f1f1;
     padding-bottom: 20px;
-    border-bottom: solid 1px #f1f1f1;
 }
+
 .tag-link {
     background-color: #D6E2EA;
     border: solid 1px #f1f1f1;
 }
+
 .blog-footer div {
-    background-color: white;
-    padding-bottom: 5em;
+    background-color: darkslategray ;
 }
 
-#category-div{
-
-    max-height: 15em;
-    overflow-y: auto;
-
-}
 
 #tag-div{
 
