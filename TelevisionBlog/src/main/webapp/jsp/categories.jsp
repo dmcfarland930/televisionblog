@@ -59,7 +59,7 @@
 
                         <c:forEach items="${roles}" var="role">
                             <tr id="role-row-${role.id}" value="${role.id}">
-                                <td>${role.displayName}</td>
+                                <td>${role.name}</td>
                                 <c:forEach items="${rights}" var="right">
                                     <c:choose>
                                         <c:when test="${fn:contains(role.userRights, right.id)}">
@@ -95,7 +95,7 @@
                                 <td>${user.lastName}, ${user.firstName} (${user.username})</td>
                                 <td><select id="user-role-${user.id}" class="form-control" name="user-role">
                                         <c:forEach items="${roles}" var="role">
-                                            <option value="${role.name}" class="form-control">${role.displayName}</option>  
+                                            <option value="${role.id}" ${role.id == user.groupId ? "selected='selected'":''}class="form-control">${role.name}</option>  
                                         </c:forEach>
                                     </select></td>
                                 <td><input type="checkbox" data-target="${user.id}" class="chkbox checkbox checkbox-inline" name="user-role-${user.id}" value="create"></td>

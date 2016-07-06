@@ -16,15 +16,13 @@
     <http pattern="/js/**" security="none" />
     <http pattern="/img/**" security="none" />
     <http pattern="/fonts/**" security="none" />
-    <!--<http pattern="/*" security="none" />-->
+    <http pattern="/*" security="none" />
     <http pattern="/blog/category/**" security="none" />
     <http pattern="/blog/show/*" security="none" />
     <http pattern="/blog/page/*" security="none" />
     <http pattern="/contact/send-script" security="none" />
     <http pattern="/search/**" security="none" />   
-    <!--<http pattern="/admin/user/**" security="none" />-->
     <http pattern="/user/**" security="none" />
-    <!--<http pattern="/blog/*" security="none" />-->
     <http pattern="/upload/**" security="none" />
     <http pattern="/blog/author/**" security="none" />
     
@@ -77,7 +75,7 @@
         <intercept-url pattern="/admin/tag/update" access="ROLE_UPDATE_TAG" />
         <intercept-url pattern="/admin/tag/delete/*" access="ROLE_DELETE_TAG" />
 
-        <!--<intercept-url pattern="/**" access="ROLE_ADMIN" />-->
+        <intercept-url pattern="/**" access="ROLE_ADMIN" />
 
         
         <logout logout-url="/authenticate/logout" logout-success-url="/" />

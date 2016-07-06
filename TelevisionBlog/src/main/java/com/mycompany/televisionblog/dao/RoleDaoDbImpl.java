@@ -21,11 +21,15 @@ import org.springframework.transaction.annotation.Transactional;
  */
 public class RoleDaoDbImpl implements RoleDao {
 
-    private static final String SQL_INSERT_ROLE = "INSERT INTO role (name) VALUES (?)";
-    private static final String SQL_UPDATE_ROLE = "UPDATE role SET name = ? WHERE id = ?";
+    private static final String SQL_INSERT_ROLE = "INSERT INTO role (name, user_id) VALUES (?, ?)";
+    private static final String SQL_UPDATE_ROLE = "UPDATE role SET name = ?, user_id = ? WHERE id = ?";
     private static final String SQL_GET_ROLE = "SELECT * FROM role WHERE id = ?";
+    private static final String SQL_GET_USER_ROLE = "SELECT * FROM role WHERE user_id = ?";
     private static final String SQL_DELETE_ROLE = "DELETE FROM role WHERE id = ?";
+    private static final String SQL_DELETE_USER_ROLE = "DELETE FROM role WHERE user_id = ?";
     private static final String SQL_GET_ROLE_LIST = "SELECT * FROM role";
+    private static final String SQL_GET_ROLE_LIST_NO_CUSTOM = "SELECT * FROM role WHERE name != 'Custom'";
+    private static final String SQL_GET_ROLE_LIST_CUSTOM = "SELECT * FROM role WHERE name = 'Custom'";
     private static final String SQL_GET_ROLES = "SELECT * from role WHERE id >= ?";
 
     JdbcTemplate jdbcTemplate;
@@ -39,7 +43,8 @@ public class RoleDaoDbImpl implements RoleDao {
     @Override
     public Role create(Role role) {
         jdbcTemplate.update(SQL_INSERT_ROLE,
-                role.getName());
+                role.getName(),
+                role.getUserId());
         Integer id = jdbcTemplate.queryForObject("SELECT LAST_INSERT_ID()", Integer.class);
         role.setId(id);
         return role;
@@ -49,12 +54,12 @@ public class RoleDaoDbImpl implements RoleDao {
     public Role get(Integer id) {
         return jdbcTemplate.queryForObject(SQL_GET_ROLE, new RoleMapper(), id);
     }
-    
 
     @Override
     public void update(Role role) {
         jdbcTemplate.update(SQL_UPDATE_ROLE,
                 role.getName(),
+                role.getUserId(),
                 role.getId());
     }
 
@@ -67,10 +72,30 @@ public class RoleDaoDbImpl implements RoleDao {
     public List<Role> list() {
         return jdbcTemplate.query(SQL_GET_ROLE_LIST, new RoleMapper());
     }
-    
+
     @Override
     public List<Role> getUserRoles(Integer id) {
         return jdbcTemplate.query(SQL_GET_ROLES, new RoleMapper(), id);
+    }
+
+    @Override
+    public Role getByUser(Integer id) {
+        return jdbcTemplate.queryForObject(SQL_GET_USER_ROLE, new RoleMapper(), id);
+    }
+
+    @Override
+    public void deleteByUser(Integer id) {
+        jdbcTemplate.update(SQL_DELETE_USER_ROLE);
+    }
+
+    @Override
+    public List<Role> listNoCustom() {
+        return jdbcTemplate.query(SQL_GET_ROLE_LIST_NO_CUSTOM, new RoleMapper());
+    }
+
+    @Override
+    public List<Role> listCustom() {
+        return jdbcTemplate.query(SQL_GET_ROLE_LIST_CUSTOM, new RoleMapper());
     }
 
     private static final class RoleMapper implements RowMapper<Role> {
@@ -81,7 +106,7 @@ public class RoleDaoDbImpl implements RoleDao {
 
             role.setId(rs.getInt("id"));
             role.setName(rs.getString("name"));
-            role.setDisplayName(rs.getString("display_name"));
+            role.setUserId(rs.getInt("user_id"));
 
             return role;
         }

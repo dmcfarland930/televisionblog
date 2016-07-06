@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import javax.inject.Inject;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -45,8 +46,17 @@ public class UACController {
     public String blogs(@RequestParam("group") String group, Map model) {
 
         List<User> users = userDao.list();
-        List<Role> roles = roleDao.list();
+        List<Role> roles = roleDao.listNoCustom();
+        List<Role> customRoles = roleDao.listCustom();
         List<UserRight> rights = rightsDao.listByGroup("POST");
+        
+        //Add list of privledge IDs to User
+        for(User u: users) {
+            List<Integer> userRights = rightsDao.listRoleRightsByIdGroup(u.getGroupId(), group);
+            u.setRoles(userRights);
+        }
+        
+        //Assign a list of privledge IDs to the corresponding roles.
         for (Role r : roles) {
             List<Integer> currentRights = rightsDao.listRoleRightsByIdGroup(r.getId(), group);
             r.setUserRights(currentRights);
@@ -55,6 +65,7 @@ public class UACController {
         model.put("rights", rights);
         model.put("users", users);
         model.put("roles", roles);
+        model.put("customRoles", customRoles);
 
         return "blogs";
     }
@@ -63,16 +74,31 @@ public class UACController {
     public String pages(@RequestParam("group") String group, Map model) {
 
         List<User> users = userDao.list();
-        List<Role> roles = roleDao.list();
+        List<Role> roles = roleDao.listNoCustom();
+        List<Role> customRoles = roleDao.listCustom();
+        List<Integer> customRolesId = new ArrayList();
         List<UserRight> rights = rightsDao.listByGroup("PAGE");
+        
+        //Add list of privledge IDs to User
+        for(User u: users) {
+            List<Integer> userRights = rightsDao.listRoleRightsByIdGroup(u.getGroupId(), group);
+            u.setRoles(userRights);
+        }
+        
         for (Role r : roles) {
             List<Integer> currentRights = rightsDao.listRoleRightsByIdGroup(r.getId(), group);
             r.setUserRights(currentRights);
+        }
+        
+        for(Role cr : customRoles) {
+            customRolesId.add(cr.getId());
         }
 
         model.put("rights", rights);
         model.put("users", users);
         model.put("roles", roles);
+        model.put("customRolesId", customRolesId);
+        model.put("customRoles", customRoles);
 
         return "pages";
     }
@@ -81,7 +107,8 @@ public class UACController {
     public String users(@RequestParam("group") String group, Map model) {
 
         List<User> users = userDao.list();
-        List<Role> roles = roleDao.list();
+        List<Role> roles = roleDao.listNoCustom();
+        List<Role> customRoles = roleDao.listCustom();
         List<UserRight> rights = rightsDao.listByGroup("USER");
         for (Role r : roles) {
             List<Integer> currentRights = rightsDao.listRoleRightsByIdGroup(r.getId(), group);
@@ -91,6 +118,7 @@ public class UACController {
         model.put("rights", rights);
         model.put("users", users);
         model.put("roles", roles);
+        model.put("customRoles", customRoles);
 
         return "users";
     }
@@ -99,7 +127,8 @@ public class UACController {
     public String categories(@RequestParam("group") String group, Map model) {
 
         List<User> users = userDao.list();
-        List<Role> roles = roleDao.list();
+        List<Role> roles = roleDao.listNoCustom();
+        List<Role> customRoles = roleDao.listCustom();
         List<UserRight> rights = rightsDao.listByGroup("CATEGORY");
         for (Role r : roles) {
             List<Integer> currentRights = rightsDao.listRoleRightsByIdGroup(r.getId(), group);
@@ -109,6 +138,7 @@ public class UACController {
         model.put("rights", rights);
         model.put("users", users);
         model.put("roles", roles);
+        model.put("customRoles", customRoles);
 
         return "categories";
     }
@@ -117,7 +147,8 @@ public class UACController {
     public String tag(@RequestParam("group") String group, Map model) {
 
         List<User> users = userDao.list();
-        List<Role> roles = roleDao.list();
+        List<Role> roles = roleDao.listNoCustom();
+        List<Role> customRoles = roleDao.listCustom();
         List<UserRight> rights = rightsDao.listByGroup("TAG");
         for (Role r : roles) {
             List<Integer> currentRights = rightsDao.listRoleRightsByIdGroup(r.getId(), group);
@@ -127,14 +158,38 @@ public class UACController {
         model.put("rights", rights);
         model.put("users", users);
         model.put("roles", roles);
+        model.put("customRoles", customRoles);
 
         return "tag";
     }
 
     @RequestMapping(value = "/add/{roleId}/{rightId}", method = RequestMethod.GET)
     @ResponseBody
-    public void addRole(@PathVariable("roleId") Integer roleId, @PathVariable("rightId") Integer rightId) {
-        rightsDao.createRoleRight(roleId, rightId);
+    public void addRole(@PathVariable("roleId") Integer roleId, @PathVariable("rightId") Integer rightId, @RequestParam(name = "userId", required = false) Integer userId) {
+
+        Role role = roleDao.get(roleId);
+
+        if (role.getName().equals("Custom")) {
+            try {
+                Role oldRole = roleDao.getByUser(userId);
+                rightsDao.createRoleRight(oldRole.getId(), rightId);
+            } catch (EmptyResultDataAccessException e) {
+                Role newRole = new Role();
+                newRole.setName("Custom");
+                newRole.setUserId(userId);
+                Role newRoleId = roleDao.create(newRole);
+                User user = userDao.get(userId);
+                user.setGroupId(newRoleId.getId());
+                userDao.update(user);
+                userDao.removeRoles(userId);
+                userDao.assignRoles(userId, newRoleId.getId());
+                rightsDao.createRoleRight(newRoleId.getId(), rightId);
+            }
+
+        } else {
+            rightsDao.createRoleRight(roleId, rightId);
+        }
+
     }
 
     @RequestMapping(value = "/remove/{roleId}/{rightId}")

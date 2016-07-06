@@ -10,7 +10,7 @@ public class Role {
 
     private int id;
     private String name;
-    private String displayName;
+    private Integer userId;
     private List<Integer> userRights;
 
     public int getId() {
@@ -29,14 +29,6 @@ public class Role {
         this.name = name;
     }
 
-    public String getDisplayName() {
-        return displayName;
-    }
-
-    public void setDisplayName(String displayName) {
-        this.displayName = displayName;
-    }
-
     public List<Integer> getUserRights() {
         return userRights;
     }
@@ -45,10 +37,12 @@ public class Role {
         this.userRights = userRights;
     }
 
+    public Integer getUserId() {
+        return userId;
+    }
 
-    
-    
-    
-    
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
 
 }
