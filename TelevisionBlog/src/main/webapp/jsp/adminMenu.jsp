@@ -10,7 +10,7 @@
     <ul class="list list-group">
         <li class="list-group-item"><a href="${pageContext.request.contextPath}">Back to Blog</a></li>
         <li class="list-group-item"><a href="${pageContext.request.contextPath}/admin/">Admin Home</a></li>
-        <li class="list-group-item"><a href="${pageContext.request.contextPath}/admin/pending">Pending Posts</a></li>
+        <li class="list-group-item"><a href="${pageContext.request.contextPath}/admin/pending/">Pending Posts</a></li>
         <li class="list-group-item"><a href="${pageContext.request.contextPath}/admin/post/">Blog List</a></li>
         <li class="list-group-item"><a href="${pageContext.request.contextPath}/admin/category/">Category List</a></li>
         <li class="list-group-item"><a href="${pageContext.request.contextPath}/admin/tag/">Tag List</a></li>

@@ -25,6 +25,7 @@ public interface UserRightDao {
     List<UserRight> listRoleRights(Integer id);
     List<Integer> listRoleRightsByIdGroup(Integer id, String group);
     void deleteRoleRight(Integer roleId, Integer rightId);
+    void deleteByRole(Integer roleId);
     
     List<UserRight> listByGroup(String group);
     

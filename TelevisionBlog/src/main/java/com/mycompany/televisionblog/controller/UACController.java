@@ -48,36 +48,8 @@ public class UACController {
         List<User> users = userDao.list();
         List<Role> roles = roleDao.listNoCustom();
         List<Role> customRoles = roleDao.listCustom();
-        List<UserRight> rights = rightsDao.listByGroup("POST");
-        
-        //Add list of privledge IDs to User
-        for(User u: users) {
-            List<Integer> userRights = rightsDao.listRoleRightsByIdGroup(u.getGroupId(), group);
-            u.setRoles(userRights);
-        }
-        
-        //Assign a list of privledge IDs to the corresponding roles.
-        for (Role r : roles) {
-            List<Integer> currentRights = rightsDao.listRoleRightsByIdGroup(r.getId(), group);
-            r.setUserRights(currentRights);
-        }
-
-        model.put("rights", rights);
-        model.put("users", users);
-        model.put("roles", roles);
-        model.put("customRoles", customRoles);
-
-        return "blogs";
-    }
-
-    @RequestMapping(value = "/pages", method = RequestMethod.GET)
-    public String pages(@RequestParam("group") String group, Map model) {
-
-        List<User> users = userDao.list();
-        List<Role> roles = roleDao.listNoCustom();
-        List<Role> customRoles = roleDao.listCustom();
         List<Integer> customRolesId = new ArrayList();
-        List<UserRight> rights = rightsDao.listByGroup("PAGE");
+        List<UserRight> rights = rightsDao.listByGroup(group);
         
         //Add list of privledge IDs to User
         for(User u: users) {
@@ -91,7 +63,40 @@ public class UACController {
         }
         
         for(Role cr : customRoles) {
-            customRolesId.add(cr.getId());
+            customRolesId.add(cr.getUserId());
+        }
+
+        model.put("rights", rights);
+        model.put("users", users);
+        model.put("roles", roles);
+        model.put("customRolesId", customRolesId);
+        model.put("customRoles", customRoles);
+
+        return "blogs";
+    }
+
+    @RequestMapping(value = "/pages", method = RequestMethod.GET)
+    public String pages(@RequestParam("group") String group, Map model) {
+
+        List<User> users = userDao.list();
+        List<Role> roles = roleDao.listNoCustom();
+        List<Role> customRoles = roleDao.listCustom();
+        List<Integer> customRolesId = new ArrayList();
+        List<UserRight> rights = rightsDao.listByGroup(group);
+        
+        //Add list of privledge IDs to User
+        for(User u: users) {
+            List<Integer> userRights = rightsDao.listRoleRightsByIdGroup(u.getGroupId(), group);
+            u.setRoles(userRights);
+        }
+        
+        for (Role r : roles) {
+            List<Integer> currentRights = rightsDao.listRoleRightsByIdGroup(r.getId(), group);
+            r.setUserRights(currentRights);
+        }
+        
+        for(Role cr : customRoles) {
+            customRolesId.add(cr.getUserId());
         }
 
         model.put("rights", rights);
@@ -109,15 +114,28 @@ public class UACController {
         List<User> users = userDao.list();
         List<Role> roles = roleDao.listNoCustom();
         List<Role> customRoles = roleDao.listCustom();
-        List<UserRight> rights = rightsDao.listByGroup("USER");
+        List<Integer> customRolesId = new ArrayList();
+        List<UserRight> rights = rightsDao.listByGroup(group);
+        
+        //Add list of privledge IDs to User
+        for(User u: users) {
+            List<Integer> userRights = rightsDao.listRoleRightsByIdGroup(u.getGroupId(), group);
+            u.setRoles(userRights);
+        }
+        
         for (Role r : roles) {
             List<Integer> currentRights = rightsDao.listRoleRightsByIdGroup(r.getId(), group);
             r.setUserRights(currentRights);
+        }
+        
+        for(Role cr : customRoles) {
+            customRolesId.add(cr.getUserId());
         }
 
         model.put("rights", rights);
         model.put("users", users);
         model.put("roles", roles);
+        model.put("customRolesId", customRolesId);
         model.put("customRoles", customRoles);
 
         return "users";
@@ -129,15 +147,28 @@ public class UACController {
         List<User> users = userDao.list();
         List<Role> roles = roleDao.listNoCustom();
         List<Role> customRoles = roleDao.listCustom();
-        List<UserRight> rights = rightsDao.listByGroup("CATEGORY");
+        List<Integer> customRolesId = new ArrayList();
+        List<UserRight> rights = rightsDao.listByGroup(group);
+        
+        //Add list of privledge IDs to User
+        for(User u: users) {
+            List<Integer> userRights = rightsDao.listRoleRightsByIdGroup(u.getGroupId(), group);
+            u.setRoles(userRights);
+        }
+        
         for (Role r : roles) {
             List<Integer> currentRights = rightsDao.listRoleRightsByIdGroup(r.getId(), group);
             r.setUserRights(currentRights);
+        }
+        
+        for(Role cr : customRoles) {
+            customRolesId.add(cr.getUserId());
         }
 
         model.put("rights", rights);
         model.put("users", users);
         model.put("roles", roles);
+        model.put("customRolesId", customRolesId);
         model.put("customRoles", customRoles);
 
         return "categories";
@@ -149,21 +180,34 @@ public class UACController {
         List<User> users = userDao.list();
         List<Role> roles = roleDao.listNoCustom();
         List<Role> customRoles = roleDao.listCustom();
-        List<UserRight> rights = rightsDao.listByGroup("TAG");
+        List<Integer> customRolesId = new ArrayList();
+        List<UserRight> rights = rightsDao.listByGroup(group);
+        
+        //Add list of privledge IDs to User
+        for(User u: users) {
+            List<Integer> userRights = rightsDao.listRoleRightsByIdGroup(u.getGroupId(), group);
+            u.setRoles(userRights);
+        }
+        
         for (Role r : roles) {
             List<Integer> currentRights = rightsDao.listRoleRightsByIdGroup(r.getId(), group);
             r.setUserRights(currentRights);
+        }
+        
+        for(Role cr : customRoles) {
+            customRolesId.add(cr.getUserId());
         }
 
         model.put("rights", rights);
         model.put("users", users);
         model.put("roles", roles);
+        model.put("customRolesId", customRolesId);
         model.put("customRoles", customRoles);
 
         return "tag";
     }
 
-    @RequestMapping(value = "/add/{roleId}/{rightId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/add/{roleId}/{rightId}", method = RequestMethod.POST)
     @ResponseBody
     public void addRole(@PathVariable("roleId") Integer roleId, @PathVariable("rightId") Integer rightId, @RequestParam(name = "userId", required = false) Integer userId) {
 
@@ -191,8 +235,39 @@ public class UACController {
         }
 
     }
+    
+    @RequestMapping(value="/change-role/{roleId}/{userId}", method = RequestMethod.POST)
+    @ResponseBody
+    public void changeRole(@PathVariable("roleId") Integer roleId, @PathVariable("userId") Integer userId) {
+        
+        Role role = roleDao.get(roleId);
+        
+        Integer newRoleId = roleId;
 
-    @RequestMapping(value = "/remove/{roleId}/{rightId}")
+        if (role.getName().equals("Custom")) {
+            try {
+                Role oldRole = roleDao.getByUser(userId);
+
+            } catch (EmptyResultDataAccessException e) {
+                Role newRole = new Role();
+                newRole.setName("Custom");
+                newRole.setUserId(userId);
+                Role r = roleDao.create(newRole);
+                rightsDao.createRoleRight(r.getId(), 23);
+                newRoleId = r.getId();
+            }
+
+        } 
+        
+        User user = userDao.get(userId);
+        user.setGroupId(newRoleId);
+        userDao.update(user);
+        userDao.removeRoles(userId);
+        userDao.assignRoles(userId, user.getGroupId());
+        
+    }
+
+    @RequestMapping(value = "/remove/{roleId}/{rightId}", method=RequestMethod.POST)
     @ResponseBody
     public void removeRole(@PathVariable("roleId") Integer roleId, @PathVariable("rightId") Integer rightId) {
         rightsDao.deleteRoleRight(roleId, rightId);

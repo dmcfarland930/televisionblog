@@ -4,6 +4,7 @@ import com.mycompany.televisionblog.dao.BlogPostDao;
 import com.mycompany.televisionblog.dao.CategoryDao;
 import com.mycompany.televisionblog.dao.RoleDao;
 import com.mycompany.televisionblog.dao.UserDao;
+import com.mycompany.televisionblog.dao.UserRightDao;
 import com.mycompany.televisionblog.dto.BlogPost;
 import com.mycompany.televisionblog.dto.Role;
 import com.mycompany.televisionblog.dto.User;
@@ -11,6 +12,7 @@ import java.text.ParseException;
 import java.util.List;
 import java.util.Map;
 import javax.inject.Inject;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,13 +28,15 @@ public class UserController {
     private UserDao userDao;
     private CategoryDao categoryDao;
     private RoleDao roleDao;
+    private UserRightDao rightDao;
 
     @Inject
-    public UserController(BlogPostDao blogPostDao, UserDao userDao, CategoryDao categoryDao, RoleDao roleDao) {
+    public UserController(BlogPostDao blogPostDao, UserDao userDao, CategoryDao categoryDao, RoleDao roleDao, UserRightDao rightDao) {
         this.blogPostDao = blogPostDao;
         this.userDao = userDao;
         this.categoryDao = categoryDao;
         this.roleDao = roleDao;
+        this.rightDao = rightDao;
     }
 
     @RequestMapping(value = "/createUser", method = RequestMethod.POST)
@@ -47,10 +51,19 @@ public class UserController {
 
         user = userDao.create(user);
 
-        List<Role> userRoles = roleDao.getUserRoles(user.getGroupId());
-        
-        for(Role r : userRoles) {
+        try {
+            Role r = roleDao.get(user.getGroupId());
             userDao.assignRoles(user.getId(), r.getId());
+
+        } catch (EmptyResultDataAccessException e) {
+            Role newRole = new Role();
+            newRole.setName("Custom");
+            newRole.setUserId(user.getId());
+            Role newRoleId = roleDao.create(newRole);
+            user.setGroupId(newRoleId.getId());
+            userDao.update(user);
+            userDao.assignRoles(user.getId(), newRoleId.getId());
+            rightDao.createRoleRight(newRoleId.getId(), 23);
         }
 
         return user;
@@ -74,20 +87,28 @@ public class UserController {
         userDao.removeRoles(user.getId());
 
         List<Role> userRoles = roleDao.getUserRoles(user.getGroupId());
-        
-        for(Role r : userRoles) {
+
+        for (Role r : userRoles) {
             userDao.assignRoles(user.getId(), r.getId());
         }
 
         return user;
     }
-    
+
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
     @ResponseBody
     public void delete(@PathVariable("id") Integer id) {
-        
+
+        try {
+            Role role = roleDao.getByUser(id);
+            rightDao.deleteByRole(role.getId());
+        } catch (EmptyResultDataAccessException e) {
+
+        }
+
+
         userDao.removeRoles(id);
-        
+
         userDao.delete(id);
     }
 
