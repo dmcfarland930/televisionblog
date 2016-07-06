@@ -6,6 +6,12 @@
 
 
 $(document).ready(function () {
+    
+    //Change active tab
+    $(".uac-tab").on("click", function() {
+       $(this).addClass("active");
+        
+    });
 
     //Disables Admin checkboxes.
     $(document).ready(function () {
@@ -44,16 +50,33 @@ $(document).ready(function () {
 
 
     //When changing to custom Role, checkbboxes are enabled.
-    $("select").on('change', function (e) {
+    $(".user-role-select").on('change', function (e) {
 
         var userRole = $(this).find("option:selected").attr("name");
         if (userRole === "Custom") {
             $(this).closest("tr").find(".user-checkbox").prop("disabled", false);
             $(this).closest("tr").find(".user-checkbox").prop("checked", false);
-            
         } else {
             $(this).closest("tr").find(".user-checkbox").prop("disabled", true);
         }
+
+        var roleId = $(this).val();
+        var userId = $(this).data("user-id");
+
+        $.ajax({
+            url: contextRoot + "/admin/uac/change-role/" + roleId + "/" + userId,
+            type: "POST",
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("Accept", "application/json");
+                xhr.setRequestHeader("Content-type", "application/json");
+            },
+            success: function (data, status) {
+                location.reload();
+            },
+            error: function (data, status) {
+
+            }
+        });
 
     });
 
@@ -66,7 +89,7 @@ $(document).ready(function () {
 
             $.ajax({
                 url: contextRoot + "/admin/uac/add/" + roleId + "/" + userRightId,
-                type: "GET",
+                type: "POST",
                 beforeSend: function (xhr) {
                     xhr.setRequestHeader("Accept", "application/json");
                 },
@@ -84,9 +107,10 @@ $(document).ready(function () {
 
             $.ajax({
                 url: contextRoot + "/admin/uac/remove/" + roleId + "/" + userRightId,
-                type: "GET",
+                type: "POST",
                 beforeSend: function (xhr) {
                     xhr.setRequestHeader("Accept", "application/json");
+                    xhr.setRequestHeader("Content-type", "application/json");
                 },
                 success: function (data, status) {
 
@@ -110,7 +134,7 @@ $(document).ready(function () {
 
             $.ajax({
                 url: contextRoot + "/admin/uac/add/" + roleId + "/" + userRightId + "/?userId=" + userId,
-                type: "GET",
+                type: "POST",
                 beforeSend: function (xhr) {
                     xhr.setRequestHeader("Accept", "application/json");
                 },
@@ -129,7 +153,7 @@ $(document).ready(function () {
 
             $.ajax({
                 url: contextRoot + "/admin/uac/remove/" + roleId + "/" + userRightId,
-                type: "GET",
+                type: "POST",
                 beforeSend: function (xhr) {
                     xhr.setRequestHeader("Accept", "application/json");
                 },
@@ -144,8 +168,148 @@ $(document).ready(function () {
 
     });
 
-    function buildCheckboxRow(data) {
-        return "<td>\n\
-                <td>";
+    //Create Role
+    $("#create-role-submit").on("click", function (e) {
+
+//        e.preventDefault();
+
+        var roleData = JSON.stringify({
+            name: $("#name-input").val()
+        });
+
+        $.ajax({
+            url: contextRoot + "/admin/role/create/",
+            type: "POST",
+            data: roleData,
+            dataType: "json",
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("Accept", "application/json");
+                xhr.setRequestHeader("Content-type", "application/json");
+            },
+            success: function (data, status) {
+                location.reload();
+            },
+            error: function (data, status) {
+
+            }
+        });
+    });
+    
+    //Edit Show
+    $("#edit-role-modal").on("show.bs.modal", function(e) {
+       
+       var link = e.relatedTarget;
+       var roleId = $(link).data("role-id");
+       
+       $.ajax({
+          url: contextRoot + "/admin/role/get/" + roleId,
+          type: "GET",
+          dataType: "json",
+          beforeSend: function(xhr) {
+              xhr.setRequestHeader("Accept", "application/json");
+          },
+          success: function(data, status) {
+              $("#edit-role-id").val(data.id);
+              $("#edit-role-name").val(data.name);
+          },
+          error: function(data, status) {
+              
+          }
+       });
+        
+    });
+    
+    //Edit Submit
+    $("#edit-role-button").on("click", function(e) {
+       
+        var roleData = JSON.stringify({
+           id: $("#edit-role-id").val(),
+           name: $("#edit-role-name").val(),
+        });
+        
+        $.ajax({
+           url: contextRoot +"/admin/role/update/",
+           type: "PUT",
+           data: roleData,
+           dataType: "json",
+           beforeSend: function(xhr) {
+               xhr.setRequestHeader("Accept", "application/json");
+               xhr.setRequestHeader("Content-type", "application/json");
+           },
+           success: function(data, status) {
+               location.reload();
+           },
+           error: function(data, status) {
+               
+           }
+        });
+    });
+    
+    //Delete Role
+    $(document).on("click", ".delete-role-link", function(e) {
+       
+        e.preventDefault();
+        
+        var roleId = $(e.target).data("role-id");
+        
+        $.ajax({
+           url: contextRoot + "/admin/role/delete/" + roleId,
+           type: "DELETE",
+           beforeSend: function(xhr) {
+               xhr.setRequestHeader("Accept", "application/json");
+           },
+           success: function(data, status) {
+               $("#role-row-"+roleId).remove();
+           },
+           error: function(data, status) {
+               
+               $("#error-delete-modal").modal("show");
+               showUsers(roleId);
+           }
+        });
+        
+    });
+    
+    //Removes Users that aren't related to the Role that is being deleted
+    function showUsers(id) {
+        var currentRole = $("select[name='edit-user-role']");
+        $.each(currentRole, function (key, value) {
+            var userRole = $(this).val();
+            if (userRole != id) {   
+                $(this).closest("tr").remove();
+            } 
+        });
+
     }
+    
+    //Remove items from table
+    $(".remove-role-select").on("change", function() {
+       
+        var roleId = $(this).val();
+        var userId = $(this).data("user-id");
+
+        $.ajax({
+            url: contextRoot + "/admin/uac/change-role/" + roleId + "/" + userId,
+            type: "POST",
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("Accept", "application/json");
+                xhr.setRequestHeader("Content-type", "application/json");
+            },
+            success: function (data, status) {
+                $(this).closest("tr").remove();
+                var count = $("#delete-role-table tr").length;
+                
+                if(count <= 1) {
+                    $("#can-not-remove-role").replaceWith("<button type='button' id='remove-role' class='btn btn-default' data-dismiss='modal'>Remove Role</button>")
+                }
+            },
+            error: function (data, status) {
+
+            }
+        });
+        
+    });
+    
+    
+    
 });

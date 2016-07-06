@@ -70,7 +70,7 @@ public class UserDaoDbImpl implements UserDao {
                 user.getFirstName(),
                 user.getLastName(),
                 user.getUsername(),
-                encoder.encode(user.getPassword()),
+                user.getPassword(),
                 user.getGroupId(),
                 user.getId());
 

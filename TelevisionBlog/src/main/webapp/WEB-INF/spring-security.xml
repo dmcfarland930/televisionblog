@@ -25,11 +25,6 @@
     <http pattern="/user/**" security="none" />
     <http pattern="/upload/**" security="none" />
     <http pattern="/blog/author/**" security="none" />
-
-    <http pattern="/admin" security="none" />
-    <http pattern="/admin/" security="none" />
-
-
     <http pattern="/rrssb-master/**" security="none" />
 
     
@@ -41,6 +36,9 @@
             authentication-failure-url="/authenticate/login?login_error=1"
        
         />
+        
+        <intercept-url pattern="/admin" access="ROLE_USER" />
+        <intercept-url pattern="/admin/" access="ROLE_USER" />
         
         <intercept-url pattern="/admin/pending" access="ROLE_READ_POST" />
         <intercept-url pattern="/admin/pending/" access="ROLE_READ_POST" />

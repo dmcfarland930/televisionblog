@@ -31,7 +31,7 @@
                 <div class="col-md-4"></div>
                 <div class="col-md-8">
                     <div style="float: right">
-                        <button class="btn btn-default"><a href="" data-target="#create-user-modal" data-toggle="modal">Create Role</a></button>
+                        <button class="btn btn-default"><a href="" data-target="#create-role-modal" data-toggle="modal">Create Role</a></button>
                     </div>
                 </div>
             </div>
@@ -42,73 +42,14 @@
                 <div class="col-md-8">
 
                     <jsp:include page="uacMenu.jsp"/>
-
-                    <table class="table table-bordered" style="text-align: center;" id="user-table">                       
-
-                        <tr>
-                            <th colspan="6">User Roles</th>
-                        </tr>
-
-                        <tr>
-                            <th>Role</th>
-                            <th>Create</th>
-                            <th>Read</th>
-                            <th>Update</th>
-                            <th>Delete</th>
-                        </tr>
-
-                        <c:forEach items="${roles}" var="role">
-                            <tr id="role-row-${role.id}" value="${role.id}">
-                                <td>${role.name}</td>
-                                <c:forEach items="${rights}" var="right">
-                                    <c:choose>
-                                        <c:when test="${fn:contains(role.userRights, right.id)}">
-                                            <td><input type="checkbox" checked data-role-id="${role.id}" class="checkbox checkbox-inline" name="${role.name}" value="${right.id}"></td>
-                                            </c:when>
-                                            <c:otherwise>
-                                            <td><input type="checkbox" data-role-id="${role.id}" class="checkbox checkbox-inline" name="${role.name}" value="${right.id}"></td>
-                                            </c:otherwise>
-                                        </c:choose>
-                                    </c:forEach>
-
-                            </tr>
-                        </c:forEach>
-                    </table>
-
-                    <table class="table table-bordered" style="text-align: center;" id="user-table">                       
-
-                        <tr>
-                            <th colspan="7">User List</th>
-                        </tr>
-
-                        <tr>
-                            <th>User</th>
-                            <th>Role</th>
-                            <th>Read</th>
-                            <th>Write</th>
-                            <th>Edit</th>
-                            <th>Delete</th>
-                        </tr>
-
-                        <c:forEach items="${users}" var="user">
-                            <tr id="user-row-${user.id}">
-                                <td>${user.lastName}, ${user.firstName} (${user.username})</td>
-                                <td><select id="user-role-${user.id}" class="form-control" name="user-role">
-                                        <c:forEach items="${roles}" var="role">
-                                            <option value="${role.name}" ${role.id == user.groupId ? "selected='selected'":''}class="form-control">${role.name}</option>  
-                                        </c:forEach>
-                                    </select></td>
-                                <td><input type="checkbox" data-target="${user.id}" class="chkbox checkbox checkbox-inline" name="user-role-${user.id}" value="create"></td>
-                                <td><input type="checkbox" data-target="${user.id}" class="chkbox checkbox checkbox-inline" name="user-role-${user.id}" value="read"></td>
-                                <td><input type="checkbox" data-target="${user.id}" class="chkbox checkbox checkbox-inline" name="user-role-${user.id}" value="update"></td>
-                                <td><input type="checkbox" data-target="${user.id}" class="chkbox checkbox checkbox-inline" name="user-role-${user.id}" value="delete"></td>
-                            </tr>
-                        </c:forEach>
-                    </table>
+                    <%@include file="uacRoleTable.jsp"%>
+                    <%@include file="uacUserTable.jsp"%>
                 </div>
 
             </div>
         </div>
+
+        <%@include file="uacRoleModals.jsp"%>
 
         <script>
             var contextRoot = "${pageContext.request.contextPath}";

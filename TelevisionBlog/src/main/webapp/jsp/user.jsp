@@ -102,8 +102,10 @@
                             <div class="form-group">
                                 <label for="" class="col-md-4 control-label">Role:</label>
                                 <div class="col-md-8"><select id="role-id-input" class="form-control">
-                                            <option value="1" class="form-control">Administrator</option>                                
-                                            <option value="2" class="form-control">Marketing Team</option>                                
+                                        <c:forEach items="${roles}" var="role">
+                                            <option value="${role.id}">${role.name}</option>
+                                        </c:forEach>    
+                                            <option value="0">None</option>
                                     </select></div>
                             </div>
                             
