@@ -15,6 +15,8 @@ $(document).ready(function () {
 
     });
 
+
+
     $('#blog-post-button').on('click', function (e) {
 
         e.preventDefault();
@@ -66,7 +68,30 @@ $(document).ready(function () {
                 window.location = contextRoot + "/admin/";
             },
             error: function (data, status) {
+                $('#submitBlogModal').modal('hide');
+
                 console.log("error creating blog post");
+                var errors = data.responseJSON.errors;
+                $('#title-error').empty();
+                $('#url-error').empty();
+
+                $.each(errors, function (index, error) {
+
+                    switch (error.fieldName) {
+                        case "title":
+                            $('#title-error').append(error.message);
+                            $('#title-div').addClass('has-error');
+                            break;
+                        case "url":
+                            $('#url-error').append(error.message);
+                            $('#slug-div').addClass('has-error');
+                            break;
+                        default:
+                            break;
+
+                    }
+
+                });
             }
         });
     });

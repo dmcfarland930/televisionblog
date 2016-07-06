@@ -30,9 +30,9 @@
                             <label for="title-input">Title: </label>
                             <input type="text" id="title-input" class="form-control ${hasError}"/>
                         </div>
-                        <div class="error-message" id="name-error" class="col-md-8">
-                        </div>
                     </fieldset>
+                    <div class="error-message" id="title-error" class="col-md-8">
+                    </div>
 
                     <fieldset class="form-group">
                         <div id="slug-div"  class="col-md-8">
@@ -41,6 +41,8 @@
                                 <input type="text" id="slug-input" class="form-control"  />
                             </div>
                     </fieldset>
+                    <div class="error-message" id="url-error" class="col-md-8">
+                    </div>
 
                     <div id='msgbox' title='' style='display:none'></div>
 

@@ -18,7 +18,7 @@
                 </div>
                 <div class="modal-body">
 
-                    <h1>This blog post will be posted now unless you set a date!</h1>
+                    <h4>This blog post will be posted now unless you set a date!</h4>
                     <div class="panel-group" id="accordion">
                         <div class="panel panel-default">
                             <div class="panel-heading">
