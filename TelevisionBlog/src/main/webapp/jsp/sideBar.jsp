@@ -3,12 +3,11 @@
     Created on : Jul 6, 2016, 11:14:02 AM
     Author     : apprentice
 --%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
     <div id="sidebar" class="col-md-4">
-        <div id="latest-posts-div" class="col-md-10">
+        <div id="latest-posts-div">
             <br/>
             <p id="latest-head">Latest Posts:</p>
             <hr>
@@ -18,7 +17,7 @@
             </c:forEach>
             <br/>
         </div>
-        <div id="category-div" class="col-md-10">
+        <div id="category-div">
             <br/>
             <p id="cat-head">Categories:</p>
             <hr>
@@ -30,7 +29,7 @@
             </c:forEach>
             <br/>
         </div>
-        <div id="tag-div" class="col-md-10">
+        <div id="tag-div">
             <br/>
             <p id="tag-head">Tags:</p>
             <hr>
@@ -39,10 +38,21 @@
                 <br/>   
             </c:forEach>
         </div>
-        <div id='twitter-container' >
-            <div id="twitter" class="col-md-10">
+        <div id="archive-div">
+            <div id="archive-head">
+                <p>Post Archive:</p>
+            </div>
+            <div id="archive-content">
+                <c:forEach items="${months}" var="month">
+                    <a href="<c:url value="/blog/archive/${month.key}" />">${month.key} (${month.value})</a><br>
+                    
+                </c:forEach>
+            </div>
+        </div>
+        <div id='twitter-container'>
+            <div id="twitter">
                 <a class="twitter-timeline" data-height="360" href="https://twitter.com/tonermovies">Tweets by TonerClassicMovies</a> 
             </div>
         </div>
+        
     </div>
-</html>

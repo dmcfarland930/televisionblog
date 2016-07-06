@@ -37,7 +37,7 @@
             <div class="row col-md-8" >
                 <div style="display: inline-block;">
 
-                    <a class="${hidden}" id="last-page" href="${pageContext.request.contextPath}/blog/tag/${tagId}/page/${pageLast}" >Last Page</a>
+                    <a class="${hidden}" id="last-page" href="${pageContext.request.contextPath}/blog/tag/${tag}/page/${pageLast}" >Last Page</a>
 
                     <c:if test="${nextPage}">
                         <a id="next-page" href="${pageContext.request.contextPath}/blog/tag/${tag}/page/${pageNext}" >Next Page <span class="glyphicon glyphicon-chevron-right"></span></a>

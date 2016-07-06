@@ -236,3 +236,25 @@ a{
     font-size: 18px;
 
 }
+
+#archive-head {
+
+    font-family: 'Cabin', sans-serif;
+    font-size: 20px;
+    padding-top: 0.5em;
+    margin-bottom: 0.5em;
+    border-bottom: solid 1px #EEEEEE;
+}
+
+#archive-div {
+    padding-left: 1em;
+    padding-right: 1em;
+    padding-bottom: 1em;
+    margin-top: 2em;
+    background: white;
+    border-radius: 5px;
+    border: #D9EBF4 thin solid;
+}
+#sidebar {
+    position: relative;
+}

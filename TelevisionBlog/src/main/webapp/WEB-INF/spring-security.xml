@@ -26,7 +26,7 @@
     <http pattern="/upload/**" security="none" />
     <http pattern="/blog/author/**" security="none" />
     <http pattern="/blog/tag/**" security="none" />
-
+    <http pattern="/blog/archive/**" security="none" />
 
     <http pattern="/rrssb-master/**" security="none" />
 

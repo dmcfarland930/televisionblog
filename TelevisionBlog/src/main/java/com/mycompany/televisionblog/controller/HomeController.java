@@ -55,6 +55,7 @@ public class HomeController {
         List<BlogPost> posts = postDao.listOfThree(0, 3);
         List<BlogPost> latestPosts = postDao.listOfThree(0, 5);
         List<CategoryPost> categories = categoryDao.getPostCount();
+        Map<String, Integer> months = postDao.listOfPostMonths();
         List<Tag> tags = tagDao.list();
 
         for (BlogPost blogView : posts) {
@@ -67,11 +68,13 @@ public class HomeController {
 
         boolean nextPage = postDao.checkIfNextPage(3, 3);
         List<Page> pages = pageDao.list();
-
+        
+        
         model.put("tags", tags);
         model.put("latestPosts", latestPosts);
         model.put("categories", categories);
         model.put("pages", pages);
+        model.put("months", months);
         model.put("pageNext", 2);
         model.put("nextPage", nextPage);
         model.put("hidden", "hidden");

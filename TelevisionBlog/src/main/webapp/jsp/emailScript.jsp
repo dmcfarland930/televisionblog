@@ -35,6 +35,8 @@
                 <form class="form form-horizontal" method="POST" enctype="multipart/form-data">
                     <label for="name-">Your Name:</label>
                     <input class="form-control" type="text" id="name-input">
+                    <label for="name-">Your Email:</label>
+                    <input class="form-control" type="text" id="email-input">
                     <br/>
                     <label for="file">Upload Script:</label>
                     <input class="form-control" type="file" name="file">

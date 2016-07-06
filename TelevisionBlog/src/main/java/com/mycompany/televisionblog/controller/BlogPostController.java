@@ -161,17 +161,137 @@ public class BlogPostController {
         model.put("hidden", "hidden");
         return "/tagBlogs";
     }
+    @RequestMapping(value = "/archive/{month}", method = RequestMethod.GET)
+    public String showArchive(@PathVariable("month") String monthYear, Map<String, Object> model) {
+        String[] monthYearParts = monthYear.split(" ");
+        String month = monthYearParts[0];
+        String year = monthYearParts[1];
+        Map<String, Integer> months = blogPostDao.listOfPostMonths();
+        List<BlogPost> posts = blogPostDao.listOfThreeByMonth(0, 3, month, year);
+        List<BlogPost> latestPosts = blogPostDao.listOfThree(0, 5);
+        model.put("posts", posts);
+        List<String> titles = new ArrayList();
+        List<String> authors = new ArrayList();
+        List<Tag> tags = tagDao.list();
+        List<CategoryPost> categories = categoryDao.getPostCount();
+        for (BlogPost blogView : posts) {
 
+            blogView.setStringDateDisplay(sdfDisplay.format(blogView.getPostDate()));
+            titles.add(blogView.getTitle());
+            authors.add(blogView.getUser().getFirstName() + " " + blogView.getUser().getLastName());
+
+        }
+        boolean nextPage = blogPostDao.checkIfNextPage(0, 3);
+        List<Page> pages = pageDao.list();
+        model.put("monthYear", monthYear);
+        model.put("month", month);
+        model.put("pages", pages);
+        model.put("titles", titles);
+        model.put("authors", authors);
+        model.put("tags", tags);
+        model.put("categories", categories);
+        model.put("latestPosts", latestPosts);
+        model.put("months", months);
+        model.put("pageNext", 2);
+        model.put("nextPage", nextPage);
+        model.put("hidden", "hidden");
+        return "/archiveBlogs";
+    }
+    @RequestMapping(value = "/tag/{tag}/page/{pageNum}", method = RequestMethod.GET)
+    public String nextTagPage(@PathVariable("pageNum") Integer pageNum, @PathVariable("tag") String tag, Map model) {
+        List<BlogPost> posts = blogPostDao.listOfThreeByTag((pageNum-1)*3, 3, tag);
+        model.put("posts", posts);
+        List<String> titles = new ArrayList();
+        List<String> authors = new ArrayList();
+        Map<String, Integer> months = blogPostDao.listOfPostMonths();
+        List<CategoryPost> categories = categoryDao.getPostCount();
+        List<BlogPost> latestPosts = blogPostDao.listOfThree(0, 5);
+        List<Tag> tags = tagDao.list();
+        model.put("categories", categories);
+        int pageNext = pageNum + 1;
+        int pageLast = pageNum - 1;
+        int articles = (pageNum - 1) * 3;
+        boolean nextPage = blogPostDao.checkIfNextPageTag(tag, articles + 3, 3);
+        System.out.println(nextPage);
+        for (BlogPost blogView : posts) {
+
+            blogView.setStringDateDisplay(sdfDisplay.format(blogView.getPostDate()));
+            titles.add(blogView.getTitle());
+            authors.add(blogView.getUser().getFirstName() + " " + blogView.getUser().getLastName());
+
+        }
+
+        List<Page> pages = pageDao.list();
+        if (pageNum == 1) {
+            model.put("hidden", "hidden");
+        }
+        model.put("months", months);
+        model.put("pages", pages);
+        model.put("pageLast", pageLast);
+        model.put("latestPosts", latestPosts);
+        model.put("tag", tag);
+        model.put("pageNext", pageNext);
+        model.put("nextPage", nextPage);
+        model.put("tags", tags);
+        return "archiveBlogs";
+
+    }
+    @RequestMapping(value = "/archive/{monthYear}/page/{pageNum}", method = RequestMethod.GET)
+    public String nextArchivePage(@PathVariable("pageNum") Integer pageNum, @PathVariable("monthYear") String monthYear, Map model) {
+        String[] monthYearParts = monthYear.split(" ");
+        String month = monthYearParts[0];
+        String year = monthYearParts[1];
+        List<BlogPost> posts = blogPostDao.listOfThreeByMonth((pageNum-1)*3, 3, month, year);
+        model.put("posts", posts);
+        List<String> titles = new ArrayList();
+        List<String> authors = new ArrayList();
+        Map<String, Integer> months = blogPostDao.listOfPostMonths();
+        List<CategoryPost> categories = categoryDao.getPostCount();
+        List<BlogPost> latestPosts = blogPostDao.listOfThree(0, 5);
+        List<Tag> tags = tagDao.list();
+        model.put("categories", categories);
+        int pageNext = pageNum + 1;
+        int pageLast = pageNum - 1;
+        int articles = (pageNum - 1) * 3;
+        boolean nextPage = blogPostDao.checkIfNextPageArchive(month, year, articles + 3, 3);
+        System.out.println(nextPage);
+        for (BlogPost blogView : posts) {
+
+            blogView.setStringDateDisplay(sdfDisplay.format(blogView.getPostDate()));
+            titles.add(blogView.getTitle());
+            authors.add(blogView.getUser().getFirstName() + " " + blogView.getUser().getLastName());
+
+        }
+
+        List<Page> pages = pageDao.list();
+        if (pageNum == 1) {
+            model.put("hidden", "hidden");
+        }
+        
+        
+        model.put("months", months);
+        model.put("pages", pages);
+        model.put("pageLast", pageLast);
+        model.put("latestPosts", latestPosts);
+        model.put("monthYear", monthYear);
+        model.put("pageNext", pageNext);
+        model.put("nextPage", nextPage);
+        model.put("tags", tags);
+        return "archiveBlogs";
+
+    }
     @RequestMapping(value = "/show/{postName}", method = RequestMethod.GET)
     public String showBlog(@PathVariable("postName") String postName, Map model) {
 
         BlogPost post = blogPostDao.get(postName);
         List<BlogPost> latestPosts = blogPostDao.listOfThree(0, 5);
         List<CategoryPost> categories = categoryDao.getPostCount();
+        Map<String, Integer> months = blogPostDao.listOfPostMonths();
         List<Tag> tags = tagDao.list();
         model.put("categories", categories);
         model.put("tags", tags);
         model.put("post", post);
+        model.put("months", months);
         model.put("title", post.getTitle());
         model.put("date", sdfDisplay.format(post.getPostDate()));
         model.put("author", post.getUser().getFirstName() + " " + post.getUser().getLastName());
@@ -465,6 +585,5 @@ public class BlogPostController {
         return post;
 
     }
-;
 
 }

@@ -7,6 +7,7 @@ package com.mycompany.televisionblog.dao;
 
 import com.mycompany.televisionblog.dto.BlogPost;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -46,12 +47,19 @@ public interface BlogPostDao {
     
     boolean checkIfNextPageCategory(Integer categoryId, Integer nextPageNum, Integer range);
     
+    boolean checkIfNextPageArchive(String month, String year, Integer nextPageNum, Integer range);
+    
+    boolean checkIfNextPageTag(String tag, Integer nextPageNum, Integer range);
     
     List<BlogPost> listOfThreeByTag(Integer pageNum, Integer range, String tag);
+    
+    List<BlogPost> listOfThreeByMonth(Integer pageNum, Integer range, String month, String year);
     
     List<BlogPost> listOfThreeBySearch(Integer pageNum, Integer range, String searchValue);
     
     List<BlogPost> listOfThreeBySearchTitle(Integer pageNum, Integer range, String searchValue);
     
     List<BlogPost> listOfThreeBySearchPost(Integer pageNum, Integer range, String searchValue);
+    
+    Map<String, Integer> listOfPostMonths();
 }

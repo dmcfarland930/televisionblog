@@ -205,7 +205,6 @@ $(document).ready(function () {
         });
     });
 
-    $('.chosen-select').chosen();
 
     $("#title-input").on("input", function (e) {
 

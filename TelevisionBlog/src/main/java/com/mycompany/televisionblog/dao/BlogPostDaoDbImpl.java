@@ -10,6 +10,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.HashMap;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
@@ -38,7 +42,8 @@ public class BlogPostDaoDbImpl implements BlogPostDao {
     private static final String SQL_GET_POST_LIST_THREE_ENTRIES_SEARCH = "SELECT * FROM post WHERE approved AND active AND (content LIKE ? OR title LIKE ?) ORDER BY post_date DESC LIMIT ?, ?";
     private static final String SQL_GET_POST_LIST_THREE_ENTRIES_SEARCH_TITLE = "SELECT * FROM post WHERE approved AND active AND title LIKE ? ORDER BY post_date DESC LIMIT ?, ?";
     private static final String SQL_GET_POST_LIST_THREE_ENTRIES_SEARCH_POST = "SELECT * FROM post WHERE approved AND active AND content LIKE ? ORDER BY post_date DESC LIMIT ?, ?";
-
+    private static final String SQL_GET_POST_LIST_THREE_ENTRIES_MONTH = "SELECT *, MONTHNAME(post_date) AS month_name, year(post_date) AS year_name FROM post WHERE approved AND active HAVING month_name = ? AND year_name = ? ORDER BY post_date DESC LIMIT ?, ?";
+    
     private JdbcTemplate jdbcTemplate;
     private CategoryDao categoryDao;
     private UserDao userDao;
@@ -223,6 +228,26 @@ public class BlogPostDaoDbImpl implements BlogPostDao {
         }
         return false;
     }
+    
+    @Override
+    public boolean checkIfNextPageTag(String tag, Integer nextPageNum, Integer range) {
+        // checks if there are posts on next page
+        List<BlogPost> nextPage = jdbcTemplate.query(SQL_GET_POST_LIST_THREE_ENTRIES_TAG, new BlogPostMapper(), tag, nextPageNum, range);
+        if (nextPage.size() > 0) {
+            return true;
+        }
+        return false;
+    }
+    
+    @Override
+    public boolean checkIfNextPageArchive(String month, String year, Integer nextPageNum, Integer range) {
+        // checks if there are posts on next page
+        List<BlogPost> nextPage = jdbcTemplate.query(SQL_GET_POST_LIST_THREE_ENTRIES_MONTH, new BlogPostMapper(), month, year, nextPageNum, range);
+        if (nextPage.size() > 0) {
+            return true;
+        }
+        return false;
+    }
 
     @Override
     public List<BlogPost> listOfThreeByTag(Integer pageNum, Integer range, String tag) {
@@ -259,6 +284,34 @@ public class BlogPostDaoDbImpl implements BlogPostDao {
         jdbcTemplate.update(SQL_SET_POSTS_TO_EXPIRED_DATE, date);
 
         return jdbcTemplate.query(SQL_GET_POST_LIST_THREE_ENTRIES_SEARCH_POST, new BlogPostMapper(), "%" + searchValue + "%", pageNum, range);
+    }
+
+    @Override
+    public Map<String, Integer> listOfPostMonths() {
+        SimpleDateFormat monthFormat = new SimpleDateFormat("MMMM");
+        SimpleDateFormat yearFormat = new SimpleDateFormat("yyyy");
+        List<BlogPost> posts = jdbcTemplate.query(SQL_GET_POST_LIST_APPROVED, new BlogPostMapper());
+        Map<String, Integer> monthYearMap = new HashMap();
+        for (BlogPost myPost : posts) {
+            Date date = myPost.getPostDate();
+            String month = monthFormat.format(date);
+            String year = yearFormat.format(date);
+            String monthYear = month + " " + year;
+            if (!monthYearMap.containsKey(monthYear)) {
+                monthYearMap.put(monthYear, 1);
+            }
+            else {
+                Integer count = monthYearMap.get(monthYear);
+                count++;
+                monthYearMap.put(monthYear, count);
+            }
+        }
+        return monthYearMap;
+    }
+
+    @Override
+    public List<BlogPost> listOfThreeByMonth(Integer pageNum, Integer range, String archiveMonth, String archiveYear) {
+        return jdbcTemplate.query(SQL_GET_POST_LIST_THREE_ENTRIES_MONTH, new BlogPostMapper(), archiveMonth, archiveYear, pageNum, range);
     }
 
     private final class BlogPostMapper implements RowMapper<BlogPost> {
