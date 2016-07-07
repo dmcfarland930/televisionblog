@@ -54,16 +54,22 @@ public class SearchController {
         List<CategoryPost> categories = categoryDao.getPostCount();
         List<Tag> tags = tagDao.list();
         Map<String, Integer> months = blogPostDao.listOfPostMonths();
-        switch (searchType) {
-            case "All":
-                posts = blogPostDao.listOfThreeBySearch(0, 3, searchValue);
-                break;
-            case "Titles":
-                posts = blogPostDao.listOfThreeBySearchTitle(0, 3, searchValue);
-                break;
-            case "Posts":
-                posts = blogPostDao.listOfThreeBySearchPost(0, 3, searchValue);
-                break;
+        boolean nextPage = false;
+        if (!"".equals(searchValue) && !searchValue.trim().isEmpty()) {
+            switch (searchType) {
+                case "All":
+                    posts = blogPostDao.listOfThreeBySearch(0, 3, searchValue);
+                    nextPage = blogPostDao.checkIfNextPageSearch(searchValue, 3, 3);
+                    break;
+                case "Titles":
+                    posts = blogPostDao.listOfThreeBySearchTitle(0, 3, searchValue);
+                    nextPage = blogPostDao.checkIfNextPageSearchTitle(searchValue, 3, 3);
+                    break;
+                case "Posts":
+                    posts = blogPostDao.listOfThreeBySearchPost(0, 3, searchValue);
+                    nextPage = blogPostDao.checkIfNextPageSearchPost(searchValue, 3, 3);
+                    break;
+            }
         }
         model.put("posts", posts);
         List<String> titles = new ArrayList();
@@ -75,7 +81,7 @@ public class SearchController {
             authors.add(blogView.getUser().getFirstName() + " " + blogView.getUser().getLastName());
 
         }
-        boolean nextPage = blogPostDao.checkIfNextPageSearch(searchValue, 3, 3);
+        
         List<Page> pages = pageDao.list();
         model.put("searchValue", searchValue);
         model.put("pages", pages);
@@ -88,12 +94,31 @@ public class SearchController {
         model.put("nextPage", nextPage);
         model.put("hidden", "hidden");
         model.put("latestPosts", latestPosts);
+        model.put("searchType", searchType);
         return "searchresults";
     }
 
-    @RequestMapping(value = "/{searchResult}/page/{pageNum}", method = RequestMethod.GET)
-    public String nextSearchPage(@PathVariable("pageNum") Integer pageNum, @PathVariable("searchResult") String searchResult, Map model) {
-        List<BlogPost> posts = blogPostDao.listOfThreeBySearch((pageNum - 1) * 3, 3, searchResult);
+    @RequestMapping(value = "/{searchType}/{searchResult}/page/{pageNum}", method = RequestMethod.GET)
+    public String nextSearchPage(@PathVariable("pageNum") Integer pageNum, @PathVariable("searchType") String searchType , @PathVariable("searchResult") String searchValue, Map model) {
+        List<BlogPost> posts = new ArrayList();
+        boolean nextPage = false;
+        Integer articles = (pageNum - 1)*3;
+        if (!"".equals(searchValue) && !searchValue.trim().isEmpty()) {
+            switch (searchType) {
+                case "All":
+                    posts = blogPostDao.listOfThreeBySearch(articles, 3, searchValue);
+                    nextPage = blogPostDao.checkIfNextPageSearch(searchValue, articles + 3, 3);
+                    break;
+                case "Titles":
+                    posts = blogPostDao.listOfThreeBySearchTitle(articles, 3, searchValue);
+                    nextPage = blogPostDao.checkIfNextPageSearchTitle(searchValue, articles + 3, 3);
+                    break;
+                case "Posts":
+                    posts = blogPostDao.listOfThreeBySearchPost(articles, 3, searchValue);
+                    nextPage = blogPostDao.checkIfNextPageSearchPost(searchValue, articles + 3, 3);
+                    break;
+            }
+        }
         model.put("posts", posts);
         List<String> titles = new ArrayList();
         List<String> authors = new ArrayList();
@@ -104,9 +129,6 @@ public class SearchController {
         model.put("categories", categories);
         int pageNext = pageNum + 1;
         int pageLast = pageNum - 1;
-        int articles = (pageNum - 1) * 3;
-        boolean nextPage = blogPostDao.checkIfNextPageSearch(searchResult, articles + 3, 3);
-        System.out.println(nextPage);
 
         if (posts.isEmpty()) {
 
@@ -125,6 +147,7 @@ public class SearchController {
         if (pageNum == 1) {
             model.put("hidden", "hidden");
         }
+        
         model.put("months", months);
         model.put("pages", pages);
         model.put("pageLast", pageLast);
@@ -132,7 +155,9 @@ public class SearchController {
         model.put("pageNext", pageNext);
         model.put("nextPage", nextPage);
         model.put("tags", tags);
-        return "archiveBlogs";
+        model.put("searchValue", searchValue);
+        model.put("searchType", searchType);
+        return "searchresults";
 
     }
 }
