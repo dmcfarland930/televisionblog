@@ -131,7 +131,8 @@ public class AdminController {
     @RequestMapping(value = "/category", method = RequestMethod.GET)
     public String categories(Map model) {
 
-        List<CategoryPost> categories = categoryDao.getPostCount();
+//        List<CategoryPost> categories = categoryDao.getPostCount();
+        List<Category> categories = categoryDao.list();
         model.put("categories", categories);
 
         return "category";

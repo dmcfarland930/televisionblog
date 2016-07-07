@@ -47,11 +47,12 @@
                         <tr>
                             <th>Name</th>
                             <th>Edit</th>
-                            <th>Post Count</th>
+                            <!--<th>Post Count</th>-->
                             <th>Delete</th>
                         </tr>
                         <c:forEach items="${categories}" var="category">
                             <tr id="category-row-${category.id}">
+                                
                                 <c:choose>
                                     <c:when test="${not category.defaultCategory}">
                                         <td>${category.name}</td>
@@ -60,8 +61,9 @@
                                         <td>${category.name} (DEFAULT)</td>
                                     </c:otherwise>
                                 </c:choose>
+                                        
                                 <td><a href="" class="glyphicon glyphicon-edit" style="color:green;" data-toggle="modal" data-category-id="${category.id}" data-target="#editCategoryModal"></a></td>
-                                <td>${category.postCount}</td>
+                                <!--<td>${category.postCount}</td>-->
                                 <td><a href="" data-category-id="${category.id}" data-category-default="${category.defaultCategory}" class="glyphicon glyphicon-remove delete-category-link" style="color:red;"></a></td>
                             </tr>
                         </c:forEach>
