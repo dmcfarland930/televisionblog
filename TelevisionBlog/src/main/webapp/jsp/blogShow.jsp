@@ -20,7 +20,7 @@
     <body>
         <%@include file="navBar.jsp"%>
         
-        <div class="container blog-content">
+        <div id="blog-content" class="container">
 
             <div class="row" style="display: inline">
 
