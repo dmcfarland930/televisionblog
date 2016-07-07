@@ -79,13 +79,11 @@
                                                 <c:forEach begin="0" end="20" varStatus="loop">
                                                     <c:choose>
                                                         <c:when test="${role.allUserRights[loop.index] == loop.count}">
-                                                            <c:forEach items="${role.allUserRights}" var="rights">
-                                                                <c:if test="${rights.id == loop.count}">
-                                                                    <td><span class="glyphicon glyphicon-check"></span></td>
-                                                                    </c:if>
-                                                                </c:forEach>
-                                                            </c:when>
-                                                            <c:otherwise>
+
+                                                            <td><span class="glyphicon glyphicon-check"></span></td>
+
+                                                        </c:when>
+                                                        <c:otherwise>
                                                             <td><span class="glyphicon glyphicon-remove-circle"></span></td>
                                                             </c:otherwise>
                                                         </c:choose>
@@ -169,19 +167,17 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
 
 
-        <script>
-            var contextRoot = "${pageContext.request.contextPath}";
-        </script><!--
-        <!-- Placed at the end of the document so the pages load faster -->
-        <script src="${pageContext.request.contextPath}/js/jquery-1.11.1.min.js"></script>
-        <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
-        <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.js"></script>
-        <script src="${pageContext.request.contextPath}/js/userApp.js"></script>
-        <script src="${pageContext.request.contextPath}/js/roleApp.js"></script>
+                <script>
+                    var contextRoot = "${pageContext.request.contextPath}";
+                </script><!--
+                <!-- Placed at the end of the document so the pages load faster -->
+                <script src="${pageContext.request.contextPath}/js/jquery-1.11.1.min.js"></script>
+                <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
+                <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.js"></script>
+                <script src="${pageContext.request.contextPath}/js/userApp.js"></script>
+                <script src="${pageContext.request.contextPath}/js/roleApp.js"></script>
 
-    </body>
-</html>
+                </body>
+                </html>

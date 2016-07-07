@@ -29,7 +29,7 @@ public class UserRightDaoDbImpl implements UserRightDao {
     private static final String SQL_DELETE_RIGHTS_BY_ROLE = "DELETE FROM role_user_right WHERE role_id = ?";
     private static final String SQL_GET_RIGHT_LIST = "SELECT * FROM user_right";
     private static final String SQL_GET_BY_ROLE = "SELECT u.id, u.name, u.group_name FROM user_right u INNER JOIN role_user_right ru ON ru.user_right_id = u.id INNER JOIN role r ON ru.role_id = r.id WHERE r.id = ?";
-    private static final String SQL_GET_BY_ROLE_ID = "SELECT u.id FROM user_right u INNER JOIN role_user_right ru ON ru.user_right_id = u.id INNER JOIN role r ON ru.role_id = r.id ORDER BY ASC WHERE r.id = ? AND u.group_name = ?";
+    private static final String SQL_GET_BY_ROLE_ID = "SELECT u.id FROM user_right u INNER JOIN role_user_right ru ON ru.user_right_id = u.id INNER JOIN role r ON ru.role_id = r.id WHERE r.id = ? AND u.group_name = ? ORDER BY u.id ASC";
     private static final String SQL_DELETE_BY_ROLE = "DELETE FROM role_user_right WHERE role_id = ? AND user_right_id = ?";
 
     private static final String SQL_INSERT_ROLE_RIGHT = "INSERT INTO role_user_right (role_id, user_right_id) VALUE (?, ?)";
