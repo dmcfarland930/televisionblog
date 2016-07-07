@@ -51,6 +51,12 @@ public interface BlogPostDao {
     
     boolean checkIfNextPageTag(String tag, Integer nextPageNum, Integer range);
     
+    boolean checkIfNextPageSearch(String searchResult, Integer nextPageNum, Integer range);
+    
+    boolean checkIfNextPageSearchTitle(String searchResult, Integer nextPageNum, Integer range);
+    
+    boolean checkIfNextPageSearchPost(String searchResult, Integer nextPageNum, Integer range);
+    
     List<BlogPost> listOfThreeByTag(Integer pageNum, Integer range, String tag);
     
     List<BlogPost> listOfThreeByMonth(Integer pageNum, Integer range, String month, String year);

@@ -21,7 +21,7 @@
 
         <div id="blog-content" class="container">
             <div class="row" style="display: inline">
-                <div  class="col-md-8">
+                <div class="col-md-8">
                     <div id="viewing-by">
                         <h1>Posts by ${author}</h1>
                     </div>
@@ -39,12 +39,15 @@
                     </c:forEach>
                     <div class="row col-md-8" >
                         <div style="display: inline-block;">
+                            <div id="last-page-div">
+                                <a class="${hidden} btn bg-white" id="last-page" href="${pageContext.request.contextPath}/blog/author/${authorId}/page/${pageLast}" > < Last Page</a>
+                            </div>
 
-                            <a class="${hidden} btn bg-white" id="last-page" href="${pageContext.request.contextPath}/blog/author/${authorId}/page/${pageLast}" > < Last Page</a>
-
-                            <c:if test="${nextPage}">
-                                <a class="btn bg-white" id="next-page" href="${pageContext.request.contextPath}/blog/author/${authorId}/page/${pageNext}" >Next Page > </a>
-                            </c:if>
+                            <div id="next-page-div">
+                                <c:if test="${nextPage}">
+                                    <a class="btn bg-white" id="next-page" href="${pageContext.request.contextPath}/blog/author/${authorId}/page/${pageNext}" >Next Page > </a>
+                                </c:if>
+                            </div>
                         </div>
                     </div>
                 </div> 
@@ -54,7 +57,7 @@
         <%@include file="footer.jsp" %>
         <!-- Placed at the end of the document so the pages load faster -->
         <script>
-                var contextRoot = '${pageContext.request.contextPath}';
+            var contextRoot = '${pageContext.request.contextPath}';
         </script>
         <script src="${pageContext.request.contextPath}/js/jquery-1.11.1.min.js"></script>
         <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>

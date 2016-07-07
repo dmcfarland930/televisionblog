@@ -1,6 +1,8 @@
 package com.mycompany.televisionblog.dto;
 
+import com.mycompany.televisionblog.validation.UsernameExists;
 import java.util.List;
+import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
 
 /**
@@ -11,13 +13,18 @@ public class User {
 
     private int id;
     private int groupId;
-    @NotEmpty(message="You must supply a First Name")
+    @NotNull
+    @NotEmpty(message="You must enter a first name!")
     private String firstName;
-    @NotEmpty(message="You must supply a Last Name")
+    @NotNull
+    @NotEmpty(message="You must enter a last name!")
     private String lastName;
-    @NotEmpty(message="You must supply a username")
+    @UsernameExists
+    @NotNull
+    @NotEmpty(message="You must enter a username!")
     private String username;
-    @NotEmpty(message="You must supply a Password")
+    @NotNull
+    @NotEmpty(message="You must enter a password!")
     private String password;
     private List<Integer> roles;
 

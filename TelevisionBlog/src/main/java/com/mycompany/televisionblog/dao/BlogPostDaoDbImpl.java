@@ -43,7 +43,7 @@ public class BlogPostDaoDbImpl implements BlogPostDao {
     private static final String SQL_GET_POST_LIST_THREE_ENTRIES_SEARCH_TITLE = "SELECT * FROM post WHERE approved AND active AND title LIKE ? ORDER BY post_date DESC LIMIT ?, ?";
     private static final String SQL_GET_POST_LIST_THREE_ENTRIES_SEARCH_POST = "SELECT * FROM post WHERE approved AND active AND content LIKE ? ORDER BY post_date DESC LIMIT ?, ?";
     private static final String SQL_GET_POST_LIST_THREE_ENTRIES_MONTH = "SELECT *, MONTHNAME(post_date) AS month_name, year(post_date) AS year_name FROM post WHERE approved AND active HAVING month_name = ? AND year_name = ? ORDER BY post_date DESC LIMIT ?, ?";
-    
+
     private JdbcTemplate jdbcTemplate;
     private CategoryDao categoryDao;
     private UserDao userDao;
@@ -228,7 +228,7 @@ public class BlogPostDaoDbImpl implements BlogPostDao {
         }
         return false;
     }
-    
+
     @Override
     public boolean checkIfNextPageTag(String tag, Integer nextPageNum, Integer range) {
         // checks if there are posts on next page
@@ -238,11 +238,41 @@ public class BlogPostDaoDbImpl implements BlogPostDao {
         }
         return false;
     }
-    
+
     @Override
     public boolean checkIfNextPageArchive(String month, String year, Integer nextPageNum, Integer range) {
         // checks if there are posts on next page
         List<BlogPost> nextPage = jdbcTemplate.query(SQL_GET_POST_LIST_THREE_ENTRIES_MONTH, new BlogPostMapper(), month, year, nextPageNum, range);
+        if (nextPage.size() > 0) {
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean checkIfNextPageSearch(String searchValue, Integer nextPageNum, Integer range) {
+        // checks if there are posts on next page
+        List<BlogPost> nextPage = jdbcTemplate.query(SQL_GET_POST_LIST_THREE_ENTRIES_SEARCH, new BlogPostMapper(),  "%" + searchValue + "%", "%" + searchValue + "%", nextPageNum, range);
+        if (nextPage.size() > 0) {
+            return true;
+        }
+        return false;
+    }
+    
+    @Override
+    public boolean checkIfNextPageSearchTitle(String searchValue, Integer nextPageNum, Integer range) {
+        // checks if there are posts on next page
+        List<BlogPost> nextPage = jdbcTemplate.query(SQL_GET_POST_LIST_THREE_ENTRIES_SEARCH_TITLE, new BlogPostMapper(),  "%" + searchValue + "%", "%" + searchValue + "%", nextPageNum, range);
+        if (nextPage.size() > 0) {
+            return true;
+        }
+        return false;
+    }
+    
+    @Override
+    public boolean checkIfNextPageSearchPost(String searchValue, Integer nextPageNum, Integer range) {
+        // checks if there are posts on next page
+        List<BlogPost> nextPage = jdbcTemplate.query(SQL_GET_POST_LIST_THREE_ENTRIES_SEARCH_POST, new BlogPostMapper(),  "%" + searchValue + "%", "%" + searchValue + "%", nextPageNum, range);
         if (nextPage.size() > 0) {
             return true;
         }
@@ -267,7 +297,7 @@ public class BlogPostDaoDbImpl implements BlogPostDao {
 
         return jdbcTemplate.query(SQL_GET_POST_LIST_THREE_ENTRIES_SEARCH, new BlogPostMapper(), "%" + searchValue + "%", "%" + searchValue + "%", pageNum, range);
     }
-    
+
     @Override
     public List<BlogPost> listOfThreeBySearchTitle(Integer pageNum, Integer range, String searchValue) {
         Date date = new Date();
@@ -276,7 +306,7 @@ public class BlogPostDaoDbImpl implements BlogPostDao {
 
         return jdbcTemplate.query(SQL_GET_POST_LIST_THREE_ENTRIES_SEARCH_TITLE, new BlogPostMapper(), "%" + searchValue + "%", pageNum, range);
     }
-    
+
     @Override
     public List<BlogPost> listOfThreeBySearchPost(Integer pageNum, Integer range, String searchValue) {
         Date date = new Date();
@@ -299,8 +329,7 @@ public class BlogPostDaoDbImpl implements BlogPostDao {
             String monthYear = month + " " + year;
             if (!monthYearMap.containsKey(monthYear)) {
                 monthYearMap.put(monthYear, 1);
-            }
-            else {
+            } else {
                 Integer count = monthYearMap.get(monthYear);
                 count++;
                 monthYearMap.put(monthYear, count);

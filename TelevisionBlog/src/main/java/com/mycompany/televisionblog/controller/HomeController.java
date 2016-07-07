@@ -52,6 +52,7 @@ public class HomeController {
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String home(Map<String, Object> model) {
 
+        //ListOfN retrieves a number of posts by the second parameter. first parameter sets min by SQL record
         List<BlogPost> posts = postDao.listOfN(0, 3);
         List<BlogPost> latestPosts = postDao.listOfN(0, 5);
         List<CategoryPost> categories = categoryDao.getPostCount();
@@ -68,8 +69,7 @@ public class HomeController {
 
         boolean nextPage = postDao.checkIfNextPage(3, 3);
         List<Page> pages = pageDao.list();
-        
-        
+
         model.put("tags", tags);
         model.put("latestPosts", latestPosts);
         model.put("categories", categories);

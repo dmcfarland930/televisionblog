@@ -12,6 +12,7 @@ import java.text.ParseException;
 import java.util.List;
 import java.util.Map;
 import javax.inject.Inject;
+import javax.validation.Valid;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -47,7 +48,7 @@ public class UserController {
 
     @RequestMapping(value = "/create/", method = RequestMethod.POST)
     @ResponseBody
-    public User create(@RequestBody User user) {
+    public User create(@Valid @RequestBody User user) {
 
         user = userDao.create(user);
 
@@ -80,7 +81,7 @@ public class UserController {
 
     @RequestMapping(value = "/update/", method = RequestMethod.PUT)
     @ResponseBody
-    public User edit(@RequestBody User user) {
+    public User edit(@Valid @RequestBody User user) {
 
         userDao.update(user);
 
