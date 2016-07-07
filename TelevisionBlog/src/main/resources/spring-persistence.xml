@@ -54,8 +54,6 @@
     <bean id="roleDao" class="com.mycompany.televisionblog.dao.RoleDaoDbImpl">
         <constructor-arg ref="jdbcTemplate"/>
     </bean>
-    
-    <bean id="emailDao" class="com.mycompany.televisionblog.dao.EmailDaoImpl"/>
 
     <bean id="userRightDao" class="com.mycompany.televisionblog.dao.UserRightDaoDbImpl">
         <constructor-arg ref="jdbcTemplate"/>

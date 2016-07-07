@@ -36,12 +36,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class PageController {
 
     PageDao pageDao;
-    UserDao userDao;
-
     @Inject
-    public PageController(PageDao pageDao, UserDao userDao) {
+    public PageController(PageDao pageDao) {
         this.pageDao = pageDao;
-        this.userDao = userDao;
     }
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
@@ -77,6 +74,7 @@ public class PageController {
     public Page create(@Valid @RequestBody PageCommand command) {
         Page page = new Page();
 
+        page.setName(command.getName());
         page.setUrl(command.getUrl());
         page.setContent(command.getContent());
         page.setActive(false);
@@ -88,8 +86,6 @@ public class PageController {
     @ResponseBody
     public Page update(@Valid @RequestBody PageCommand command) {
         Page page = new Page();
-        page.setId(command.getId());
-
         page.setName(command.getName());
         page.setUrl(command.getUrl());
         page.setContent(command.getContent());

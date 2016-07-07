@@ -6,7 +6,6 @@
 package com.mycompany.televisionblog.dao;
 
 import com.mycompany.televisionblog.dto.Page;
-import com.mycompany.televisionblog.dto.User;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;

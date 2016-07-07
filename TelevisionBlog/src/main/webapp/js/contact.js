@@ -10,9 +10,12 @@ $(document).ready(function () {
         console.log('file', $('input[type=file]')[0].files[0]);
         formData.append('file', $('input[type=file]')[0].files[0]);
         var sender = $('#name-input').val();
+        var email = $('#email-input').val();
         console.log("form data " + formData);
+        var url = contextRoot + '/contact/send-script?sender='+sender + '&email=' + email;
+        console.log(url);
         $.ajax({
-            url : contextRoot + '/contact/send-script?sender='+sender,
+            url : contextRoot + '/contact/send-script?sender='+sender + '&email=' + email,
             data : formData,
             processData : false,
             contentType : false,
@@ -21,6 +24,7 @@ $(document).ready(function () {
                 $(location).attr('href', contextRoot);
             },
             error : function(data) {
+                alert('error');
             }
         });
     });

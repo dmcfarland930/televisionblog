@@ -48,10 +48,10 @@ public class SearchController {
                 posts = blogPostDao.listOfThreeBySearch(0, 3, searchValue);
                 break;
             case "Titles":
-                blogPostDao.listOfThreeBySearch(0, 3, searchValue);
+                posts = blogPostDao.listOfThreeBySearchTitle(0, 3, searchValue);
                 break;
             case "Posts":
-                blogPostDao.listOfThreeBySearch(0, 3, searchValue);
+                posts = blogPostDao.listOfThreeBySearchPost(0, 3, searchValue);
                 break;
         }
         model.put("posts", posts);

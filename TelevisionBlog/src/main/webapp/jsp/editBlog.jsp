@@ -9,6 +9,8 @@
         <title>Edit Blog</title>
         <!-- Bootstrap core CSS -->
         <link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/datetimepicker-master/jquery.datetimepicker.css">
+        
         <!--<link href="${pageContext.request.contextPath}/css/blog.css" rel="stylesheet">-->
 
         <!-- SWC Icon -->
@@ -26,6 +28,7 @@
 
                         <input type="hidden" name="id" value="${id}"/>
                         <input type="hidden" name="date" value="${date}"/>
+                        <input type="hidden" name="draft" value="${draft}"/>
 
                         <fieldset class="form-group">
                             <div id="title-div" class="col-md-8">
@@ -67,7 +70,28 @@
                         </fieldset>
 
                         <fieldset class="form-group">
-                            <div id="blog-div"  class="col-md-8">
+                            <div id="title-div" class="col-md-8">
+                                <label for="title-input">Post Date: </label>
+                                <br/>
+                                <input value="${date}" type="text" name="schedule-date" id="post-date-input"/>
+                                </select>
+                            </div>
+                        </fieldset>
+
+
+                        <fieldset class="form-group">
+                            <div id="title-div" class="col-md-8">
+                                <label for="title-input">Expiration Date: </label>
+                                <br/>
+                                <input  type="text" name="expiration-date" id="expiration-date-input"/>
+                                </select>
+                            </div>
+                        </fieldset>
+
+
+
+                        <fieldset class="form-group">
+                            <div id="blog-div"  class="col-md-8 pull-right">
                                 <div>
                                     <textarea name="content" style="width: 100%;" rows="10" id="blog-post-input" >${content}</textarea>
                                 </div>
@@ -75,14 +99,83 @@
                         </fieldset>
 
                         <div style="display: inline-block;" class="col-md-8 pull-right">
-                            <input id="blog-edit-submit" class="btn bg-primary button-size" type="submit" value="Update Blog Post"/>
 
+
+
+                            <input id="blog-edit-submit" class="btn bg-primary button-size" type="submit" value="Update Blog Post"/>
 
 
                             <input id="blog-draft-button" class="btn bg-primary button-size" type="submit" value="Save Draft"/>
 
                         </div>
                     </form>
+                </div>
+            </div>
+        </div>
+        <div id="UploadModal" class="modal fade" role="dialog">
+            <div class="modal-dialog modal-lg">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Upload Image</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div >
+                            <div class="col-md-12" id="image-upload-list" style="overflow-y: scroll; height:200px">
+                                <c:forEach items="${idList}" var="id">
+                                    <div style="padding-bottom: 5px;" class="col-md-2">
+                                        <a href="#" class="image-upload" id="image-upload-${id}"><img  style="height: 50px; width: auto" src ="${pageContext.request.contextPath}/upload/showImage/${id}"></a>
+                                    </div>
+                                </c:forEach>
+                            </div>
+                            <form class="form form-horizontal" method="POST" enctype="multipart/form-data">
+                                <div class="form-group">
+                                    <div class="col-md-4">
+                                        <input class="form-control" type="file" name="file">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <button class="btn btn-primary" id="file-upload-button" type="submit">Upload</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div id="img-display"></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-danger" id="delete-images">Delete Selected Images</button>
+                        <button class="btn btn-success" id="add-images">Add Selected Images</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="HashtagModal" class="modal fade" role="dialog">
+            <div class="modal-dialog modal-sm">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Insert Tags</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group" id="insert-tags">
+                            <form class="form form-horizontal" method="POST">
+                                <div class="form-group">
+                                    <select multiple class="form-control chosen-select" data-placeholder="Choose Tags..." name="tagName" id="tag-input">
+                                        <option></option>
+                                        <c:forEach items="${tags}" var="tag">
+                                            <option value="${tag.name}">${tag.name}</option>
+                                        </c:forEach>
+                                    </select>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" id="insert-tags-button">Insert Tags</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -100,16 +193,13 @@
                 height: 400,
                 width: 800,
                 fontsize_formats: "8pt 10pt 12pt 14pt 18pt 24pt 36pt",
-                images_upload_url: 'postAcceptor.php',
-                images_upload_base_path: '/some/basepath',
-                images_upload_credentials: true,
                 plugins: ['advlist autolink lists link image charmap print preview hr anchor pagebreak',
                     'searchreplace wordcount visualblocks visualchars code fullscreen',
                     'insertdatetime media nonbreaking save table contextmenu directionality',
                     'emoticons template paste textcolor colorpicker textpattern imagetools'],
                 menubar: "insert",
-                toolbar1: 'mybutton | insertfile undo redo | styleselect | fontselect | fontsizeselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
-                toolbar2: 'print preview media | forecolor backcolor emoticons',
+                toolbar1: 'mybutton | insertfile undo redo | fontselect | fontsizeselect | styleselect | bold italic | alignleft aligncenter alignright alignjustify',
+                toolbar2: 'print preview media | forecolor backcolor emoticons | bullist numlist outdent indent | link image | tagbutton',
                 image_advtab: true,
                 relative_urls: false,
                 setup: function (editor) {
@@ -118,6 +208,18 @@
                         icon: false,
                         onclick: function () {
                             $('#UploadModal').modal('show');
+
+                        }
+                    });
+                    editor.addButton('tagbutton', {
+                        text: 'Insert Tag',
+                        icon: false,
+                        onmouseover: function () {
+
+                        },
+                        onclick: function () {
+                            $('#HashtagModal').modal('show');
+
                         }
                     });
                 }
@@ -126,7 +228,8 @@
 
         <script src="${pageContext.request.contextPath}/plugins/chosen/chosen.jquery.js" type="text/javascript"></script>
         <script src="${pageContext.request.contextPath}/js/blogPost.js"></script>
-
+        <script src="${pageContext.request.contextPath}/js/tag-select.js"></script>
+        <script src="${pageContext.request.contextPath}/datetimepicker-master/build/jquery.datetimepicker.full.min.js"></script>
     </body>
 </html>
 

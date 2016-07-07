@@ -21,7 +21,7 @@
     <div class="collapse navbar-collapse navbar-ex1-collapse">
 
         <ul class="nav navbar-nav">
-            <li><a class="navbar-item" href="${pageContext.request.contextPath}/contact/send-script"><span class="navbar-item">Send Script</span></a></li>
+            <li><a class="navbar-item" href="${pageContext.request.contextPath}/contact/send-script"><span class="navbar-item">Send Us Your Ideas</span></a></li>
             <li><a class="navbar-item" href="${pageContext.request.contextPath}/admin/"><span class="navbar-item">Admin</span></a></li>
                 <c:forEach items="${pages}" var="p">
                     <c:choose>
@@ -38,8 +38,8 @@
                     <div class="input-group-btn" style="width: 15%; overflow-x: auto">
                         <select class="form-control" name="search-type">
                             <option value="All">All</option>
-                            <option value="Posts">Post Titles</option>
-                            <option value="Titles">Post Content</option>
+                            <option value="Titles">Post Titles</option>
+                            <option value="Posts">Post Content</option>
                         </select>
                     </div>
                     <div class="input-group-btn">
