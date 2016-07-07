@@ -11,6 +11,7 @@ import com.mycompany.televisionblog.dao.PageDao;
 import com.mycompany.televisionblog.dao.RoleDao;
 import com.mycompany.televisionblog.dao.TagDao;
 import com.mycompany.televisionblog.dao.UserDao;
+import com.mycompany.televisionblog.dao.UserRightDao;
 import com.mycompany.televisionblog.dto.BlogPost;
 import com.mycompany.televisionblog.dto.Category;
 import com.mycompany.televisionblog.dto.CategoryPost;
@@ -18,6 +19,7 @@ import com.mycompany.televisionblog.dto.Page;
 import com.mycompany.televisionblog.dto.Role;
 import com.mycompany.televisionblog.dto.Tag;
 import com.mycompany.televisionblog.dto.User;
+import com.mycompany.televisionblog.dto.UserRight;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -42,15 +44,17 @@ public class AdminController {
     CategoryDao categoryDao;
     RoleDao roleDao;
     TagDao tagDao;
+    UserRightDao rightsDao;
 
     @Inject
-    public AdminController(BlogPostDao postDao, PageDao pageDao, UserDao userDao, CategoryDao categoryDao, RoleDao roleDao, TagDao tagDao) {
+    public AdminController(BlogPostDao postDao, PageDao pageDao, UserDao userDao, CategoryDao categoryDao, RoleDao roleDao, TagDao tagDao, UserRightDao rightsDao) {
         this.postDao = postDao;
         this.pageDao = pageDao;
         this.userDao = userDao;
         this.categoryDao = categoryDao;
         this.roleDao = roleDao;
         this.tagDao = tagDao;
+        this.rightsDao = rightsDao;
                 
 
     }
@@ -136,9 +140,15 @@ public class AdminController {
     @RequestMapping(value = "/uac", method = RequestMethod.GET)
     public String uac(Map model) {
 
-        List<Role> roles = roleDao.list();
+        List<Role> roles = roleDao.listNoCustom();
         List<User> users = userDao.list();
+        
+        for(Role r : roles) {
+            List<UserRight> rights = rightsDao.listRoleRights(r.getId());
+            r.setAllUserRights(rights);
+        }
 
+        model.put("allRights", roles.get(0).getAllUserRights());
         model.put("users", users);
         model.put("roles", roles);
 
