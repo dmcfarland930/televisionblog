@@ -166,7 +166,7 @@ public class BlogPostDaoDbImpl implements BlogPostDao {
     }
 
     @Override
-    public List<BlogPost> listOfThree(Integer pageNum, Integer range
+    public List<BlogPost> listOfN(Integer pageNum, Integer range
     ) {
 
         Date date = new Date();
@@ -178,7 +178,7 @@ public class BlogPostDaoDbImpl implements BlogPostDao {
     }
 
     @Override
-    public List<BlogPost> listOfThreeByAuthor(Integer pageNum, Integer range, String author) {
+    public List<BlogPost> listOfNByAuthor(Integer pageNum, Integer range, String author) {
 
         Date date = new Date();
         jdbcTemplate.update(SQL_SET_POSTS_TO_ACTIVE_DATE, date);
@@ -189,7 +189,7 @@ public class BlogPostDaoDbImpl implements BlogPostDao {
     }
 
     @Override
-    public List<BlogPost> listOfThreeByCategory(Integer pageNum, Integer range, Integer category) {
+    public List<BlogPost> listOfNByCategory(Integer pageNum, Integer range, Integer category) {
 
         Date date = new Date();
         jdbcTemplate.update(SQL_SET_POSTS_TO_ACTIVE_DATE, date);

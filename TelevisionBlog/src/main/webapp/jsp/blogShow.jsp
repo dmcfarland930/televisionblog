@@ -19,11 +19,14 @@
     </head>
     <body>
         <%@include file="navBar.jsp"%>
+        
         <div id="blog-content" class="container">
 
             <div class="row" style="display: inline">
 
-                <div id="blog-post-div" class="col-md-8">
+                <div class="col-md-8">
+                
+                <div id="blog-post-div">
                     <h1>${post.title}</h1>
                     <p>Posted by ${post.user.firstName} ${post.user.lastName} on ${date}</p>
                     <%@include file="socialShare.jsp"%>
@@ -38,8 +41,9 @@
                 </div>
                 <div class="row col-md-8" >
                 </div>
-                <%@include file="sideBar.jsp" %>
             </div>
+                <%@include file="sideBar.jsp" %>
+        </div>
         </div>
                 <%@include file="footer.jsp" %>
         <!-- Placed at the end of the document so the pages load faster -->

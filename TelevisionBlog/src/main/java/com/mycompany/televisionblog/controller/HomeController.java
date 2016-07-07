@@ -52,8 +52,8 @@ public class HomeController {
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String home(Map<String, Object> model) {
 
-        List<BlogPost> posts = postDao.listOfThree(0, 3);
-        List<BlogPost> latestPosts = postDao.listOfThree(0, 5);
+        List<BlogPost> posts = postDao.listOfN(0, 3);
+        List<BlogPost> latestPosts = postDao.listOfN(0, 5);
         List<CategoryPost> categories = categoryDao.getPostCount();
         Map<String, Integer> months = postDao.listOfPostMonths();
         List<Tag> tags = tagDao.list();

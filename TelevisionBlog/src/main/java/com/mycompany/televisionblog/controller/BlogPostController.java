@@ -82,8 +82,8 @@ public class BlogPostController {
     @RequestMapping(value = "/author/{author}", method = RequestMethod.GET)
     public String showByAuthor(@PathVariable("author") String author, Map<String, Object> model) {
 
-        List<BlogPost> posts = blogPostDao.listOfThreeByAuthor(0, 3, author);
-        List<BlogPost> latestPosts = blogPostDao.listOfThree(0, 5);
+        List<BlogPost> posts = blogPostDao.listOfNByAuthor(0, 3, author);
+        List<BlogPost> latestPosts = blogPostDao.listOfN(0, 5);
         List<CategoryPost> categories = categoryDao.getPostCount();
         List<Tag> tags = tagDao.list();
         model.put("categories", categories);
@@ -110,8 +110,8 @@ public class BlogPostController {
     @RequestMapping(value = "/category/{category}", method = RequestMethod.GET)
     public String showByCategory(@PathVariable("category") Integer category, Map<String, Object> model) {
 
-        List<BlogPost> posts = blogPostDao.listOfThreeByCategory(0, 3, category);
-        List<BlogPost> latestPosts = blogPostDao.listOfThree(0, 5);
+        List<BlogPost> posts = blogPostDao.listOfNByCategory(0, 3, category);
+        List<BlogPost> latestPosts = blogPostDao.listOfN(0, 5);
         List<CategoryPost> categories = categoryDao.getPostCount();
         List<Tag> tags = tagDao.list();
         model.put("categories", categories);
@@ -169,7 +169,7 @@ public class BlogPostController {
         String year = monthYearParts[1];
         Map<String, Integer> months = blogPostDao.listOfPostMonths();
         List<BlogPost> posts = blogPostDao.listOfThreeByMonth(0, 3, month, year);
-        List<BlogPost> latestPosts = blogPostDao.listOfThree(0, 5);
+        List<BlogPost> latestPosts = blogPostDao.listOfN(0, 5);
         model.put("posts", posts);
         List<String> titles = new ArrayList();
         List<String> authors = new ArrayList();
@@ -206,7 +206,7 @@ public class BlogPostController {
         List<String> authors = new ArrayList();
         Map<String, Integer> months = blogPostDao.listOfPostMonths();
         List<CategoryPost> categories = categoryDao.getPostCount();
-        List<BlogPost> latestPosts = blogPostDao.listOfThree(0, 5);
+        List<BlogPost> latestPosts = blogPostDao.listOfN(0, 5);
         List<Tag> tags = tagDao.list();
         model.put("categories", categories);
         int pageNext = pageNum + 1;
@@ -248,7 +248,7 @@ public class BlogPostController {
         List<String> authors = new ArrayList();
         Map<String, Integer> months = blogPostDao.listOfPostMonths();
         List<CategoryPost> categories = categoryDao.getPostCount();
-        List<BlogPost> latestPosts = blogPostDao.listOfThree(0, 5);
+        List<BlogPost> latestPosts = blogPostDao.listOfN(0, 5);
         List<Tag> tags = tagDao.list();
         model.put("categories", categories);
         int pageNext = pageNum + 1;
@@ -285,7 +285,7 @@ public class BlogPostController {
     public String showBlog(@PathVariable("postName") String postName, Map model) {
 
         BlogPost post = blogPostDao.get(postName);
-        List<BlogPost> latestPosts = blogPostDao.listOfThree(0, 5);
+        List<BlogPost> latestPosts = blogPostDao.listOfN(0, 5);
         List<CategoryPost> categories = categoryDao.getPostCount();
         Map<String, Integer> months = blogPostDao.listOfPostMonths();
         List<Tag> tags = tagDao.list();
@@ -350,6 +350,7 @@ public class BlogPostController {
         List<Category> categories = categoryDao.list();
         List<User> authors = userDao.list();
 
+        model.put("draft", blogEdit.isIsDraft());
         model.put("id", blogEdit.getId());
         model.put("date", blogEdit.getPostDate());
         model.put("title", blogEdit.getTitle());
@@ -369,13 +370,10 @@ public class BlogPostController {
     }
 
     @RequestMapping(value = "/editsubmit/", method = RequestMethod.POST)
-    public String editPostSubmit( @RequestParam("id") Integer id, @RequestParam("date") String date, @RequestParam("title") String title, @RequestParam("slug") String slug, @RequestParam("author") Integer author,
-            @RequestParam("category") Integer category, @RequestParam("content") String content, Map model) throws ParseException, UnsupportedEncodingException {
+    public String editPostSubmit(@RequestParam("id") Integer id, @RequestParam("title") String title, @RequestParam("slug") String slug, @RequestParam("author") Integer author,
+            @RequestParam("category") Integer category, @RequestParam("content") String content, @RequestParam("draft") boolean draft, @RequestParam("schedule-date") String postDate, @RequestParam("expiration-date") String expirationDate, Map model) throws ParseException, UnsupportedEncodingException {
 
-        
-        
-        System.out.println(date);
-        Date postDate = sdfSQLDateTime.parse(date);
+        Date date = new Date();
 
         BlogPost blogEdit = new BlogPost();
         blogEdit.setId(id);
@@ -384,9 +382,29 @@ public class BlogPostController {
         blogEdit.setUser(userDao.get(author));
         blogEdit.setCategory(categoryDao.get(category));
         blogEdit.setContent(content);
-        blogEdit.setPostDate(postDate);
-        blogEdit.setApproved(true);
-        blogEdit.setIsDraft(false);
+        blogEdit.setPostDate(sdfSQLDateTime.parse(postDate));
+
+        if (!expirationDate.equals("")) {
+            blogEdit.setExpirationDate(sdfSQLDateTime.parse(expirationDate));
+        }
+        if (draft) {
+            blogEdit.setApproved(false);
+        } else {
+            blogEdit.setApproved(true);
+        }
+
+        String dateS = postDate.substring(0, 10);
+
+        if (postDate.substring(10).equals(sdfSQL.format(date)) && !blogEdit.isIsDraft()) {
+            blogEdit.setPostDate(date);
+            blogEdit.setActive(true);
+        } else if (blogEdit.isIsDraft()) {
+            blogEdit.setActive(true);
+            blogEdit.setApproved(false);
+            blogEdit.setIsDraft(true);
+            blogEdit.setPostDate(date);
+
+        }
 
         blogPostDao.update(blogEdit);
 
@@ -396,7 +414,7 @@ public class BlogPostController {
 
     public BlogPost setBlogPostProperties(BlogPostCommand blogPostCommand) throws ParseException, UnsupportedEncodingException {
 
-        Date time = new Date();
+        Date date = new Date();
         String dateString = sdfSQL.format(blogPostCommand.getPostDate());
         BlogPost blogPost = new BlogPost();
 
@@ -411,14 +429,14 @@ public class BlogPostController {
         blogPost.setIsDraft(blogPostCommand.isIsDraft());
         blogPost.setPostDate(blogPostCommand.getPostDate());
 
-        if (dateString.equals(sdfSQL.format(time)) && !blogPost.isIsDraft()) {
-            blogPost.setPostDate(time);
+        if (dateString.equals(sdfSQL.format(date)) && !blogPost.isIsDraft()) {
+            blogPost.setPostDate(date);
             blogPost.setActive(true);
         } else if (blogPost.isIsDraft()) {
             blogPost.setActive(true);
             blogPost.setApproved(false);
             blogPost.setIsDraft(true);
-            blogPost.setPostDate(time);
+            blogPost.setPostDate(date);
 
         }
 
@@ -429,15 +447,21 @@ public class BlogPostController {
     public String nextPage(@PathVariable("pageNum") Integer pageNum, Map model) {
 
         List<CategoryPost> categories = categoryDao.getPostCount();
-        List<BlogPost> latestPosts = blogPostDao.listOfThree(0, 5);
+        List<BlogPost> latestPosts = blogPostDao.listOfN(0, 5);
         model.put("categories", categories);
         int pageNext = pageNum + 1;
         int pageLast = pageNum - 1;
         int articles = (pageNum - 1) * 3;
-        List<BlogPost> posts = blogPostDao.listOfThree(articles, 3);
+        List<BlogPost> posts = blogPostDao.listOfN(articles, 3);
         List<Tag> tags = tagDao.list();
         boolean nextPage = blogPostDao.checkIfNextPage(articles + 3, 3);
         System.out.println(nextPage);
+
+        if (posts.isEmpty()) {
+
+            return "redirect:/404/";
+        }
+
         for (BlogPost blogView : posts) {
 
             blogView.setStringDateDisplay(sdfDisplay.format(blogView.getPostDate()));
@@ -473,15 +497,21 @@ public class BlogPostController {
     public String nextAuthorPage(@PathVariable("pageNum") Integer pageNum, @PathVariable("id") String authorId, Map model) {
 
         List<CategoryPost> categories = categoryDao.getPostCount();
-        List<BlogPost> latestPosts = blogPostDao.listOfThree(0, 5);
+        List<BlogPost> latestPosts = blogPostDao.listOfN(0, 5);
         List<Tag> tags = tagDao.list();
         model.put("categories", categories);
         int pageNext = pageNum + 1;
         int pageLast = pageNum - 1;
         int articles = (pageNum - 1) * 3;
-        List<BlogPost> posts = blogPostDao.listOfThreeByAuthor(articles, 3, authorId);
+        List<BlogPost> posts = blogPostDao.listOfNByAuthor(articles, 3, authorId);
         boolean nextPage = blogPostDao.checkIfNextPageAuthor(authorId, articles + 3, 3);
         System.out.println(nextPage);
+
+        if (posts.isEmpty()) {
+
+            return "redirect:/404/";
+        }
+
         for (BlogPost blogView : posts) {
 
             blogView.setStringDateDisplay(sdfDisplay.format(blogView.getPostDate()));
@@ -511,15 +541,21 @@ public class BlogPostController {
     public String nextCategoryPage(@PathVariable("pageNum") Integer pageNum, @PathVariable("id") Integer categoryId, Map model) {
 
         List<CategoryPost> categories = categoryDao.getPostCount();
-        List<BlogPost> latestPosts = blogPostDao.listOfThree(0, 5);
+        List<BlogPost> latestPosts = blogPostDao.listOfN(0, 5);
         List<Tag> tags = tagDao.list();
         model.put("categories", categories);
         int pageNext = pageNum + 1;
         int pageLast = pageNum - 1;
         int articles = (pageNum - 1) * 3;
-        List<BlogPost> posts = blogPostDao.listOfThreeByCategory(articles, 3, categoryId);
+        List<BlogPost> posts = blogPostDao.listOfNByCategory(articles, 3, categoryId);
         boolean nextPage = blogPostDao.checkIfNextPageCategory(categoryId, articles + 3, 3);
         System.out.println(nextPage);
+
+        if (posts.isEmpty()) {
+
+            return "redirect:/404/";
+        }
+
         for (BlogPost blogView : posts) {
 
             blogView.setStringDateDisplay(sdfDisplay.format(blogView.getPostDate()));

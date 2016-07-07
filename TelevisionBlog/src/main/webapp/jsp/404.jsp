@@ -13,10 +13,24 @@
 
         <!-- SWC Icon -->
         <link rel="shortcut icon" href="${pageContext.request.contextPath}/img/icon.png">
+        <link href="https://fonts.googleapis.com/css?family=Cabin" rel="stylesheet">
     </head>
     <body>
         <%@include file="navBar.jsp"%>
-        <h1>404 Not Found</h1>
+                <div class="container">
+            
+            <hr/>
+
+            <div class="row">
+
+                <div class="login col-md-4 col-md-offset-4">
+                    <h1 style="text-align: center; 
+    font-family: 'Cabin', sans-serif;">404</h1>
+                    <hr> 
+                    <img  class="col-md-8 col-md-offset-2" src="${pageContext.request.contextPath}/img/404.jpg" alt="404" />
+                </div>
+               
+        </div>
         <!-- Placed at the end of the document so the pages load faster -->
         <script>
             var contextRoot = '${pageContext.request.contextPath}';
