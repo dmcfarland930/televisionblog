@@ -258,6 +258,26 @@ public class BlogPostDaoDbImpl implements BlogPostDao {
         }
         return false;
     }
+    
+    @Override
+    public boolean checkIfNextPageSearchTitle(String searchValue, Integer nextPageNum, Integer range) {
+        // checks if there are posts on next page
+        List<BlogPost> nextPage = jdbcTemplate.query(SQL_GET_POST_LIST_THREE_ENTRIES_SEARCH_TITLE, new BlogPostMapper(),  "%" + searchValue + "%", "%" + searchValue + "%", nextPageNum, range);
+        if (nextPage.size() > 0) {
+            return true;
+        }
+        return false;
+    }
+    
+    @Override
+    public boolean checkIfNextPageSearchPost(String searchValue, Integer nextPageNum, Integer range) {
+        // checks if there are posts on next page
+        List<BlogPost> nextPage = jdbcTemplate.query(SQL_GET_POST_LIST_THREE_ENTRIES_SEARCH_POST, new BlogPostMapper(),  "%" + searchValue + "%", "%" + searchValue + "%", nextPageNum, range);
+        if (nextPage.size() > 0) {
+            return true;
+        }
+        return false;
+    }
 
     @Override
     public List<BlogPost> listOfThreeByTag(Integer pageNum, Integer range, String tag) {
