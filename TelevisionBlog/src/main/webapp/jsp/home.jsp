@@ -63,6 +63,7 @@
         <script>
                 var contextRoot = '${pageContext.request.contextPath}';
         </script>
+        
         <script src="${pageContext.request.contextPath}/js/jquery-1.11.1.min.js"></script>
         <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
         <script src="${pageContext.request.contextPath}/js/blogPost.js"></script>
@@ -71,6 +72,7 @@
         <script>window.jQuery || document.write('<script src="js/vendor/jquery.1.10.2.min.js"><\/script>')</script>
         <script src="${pageContext.request.contextPath}/rrssb-master/js/rrssb.min.js"></script>
         <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-
+        <script src="${pageContext.request.contextPath}/js/hashtags.js"></script>
+        
     </body>
 </html>

@@ -20,7 +20,7 @@
     <body>
         <%@include file="navBar.jsp"%>
         
-        <div id="blog-content" class="container">
+        <div class="container blog-content">
 
             <div class="row" style="display: inline">
 
@@ -81,6 +81,6 @@
         <script>window.jQuery || document.write('<script src="js/vendor/jquery.1.10.2.min.js"><\/script>')</script>
         <script src="${pageContext.request.contextPath}/rrssb-master/js/rrssb.min.js"></script>
         <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-
+        
     </body>
 </html>
