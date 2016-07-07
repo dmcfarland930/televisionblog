@@ -132,7 +132,7 @@ public class SearchController {
         model.put("pageNext", pageNext);
         model.put("nextPage", nextPage);
         model.put("tags", tags);
-        return "archiveBlogs";
+        return "searchresults";
 
     }
 }

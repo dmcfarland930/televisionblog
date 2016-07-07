@@ -51,11 +51,11 @@
                         <div style="display: inline-block;">
 
                             <div id="last-page-div">
-                                <a class="${hidden} btn bg-white" id="last-page" href="${pageContext.request.contextPath}/blog/tag/${tagId}/page/${pageLast}" >Last Page</a>
+                                <a class="${hidden} btn bg-white" id="last-page" href="${pageContext.request.contextPath}/search/${searchValue}/page/${pageLast}" > < Last Page</a>
                             </div>
                             <div id="next-page-div">
                                 <c:if test="${nextPage}">
-                                    <a class="btn bg-white" id="next-page" href="${pageContext.request.contextPath}/${searchResult}/page/${pageNext}" >Next Page <span class="glyphicon glyphicon-chevron-right"></span></a>
+                                    <a class="btn bg-white" id="next-page" href="${pageContext.request.contextPath}/search/${searchValue}/page/${pageNext}" >Next Page ></a>
                                     </c:if>
                             </div>
                         </div>
