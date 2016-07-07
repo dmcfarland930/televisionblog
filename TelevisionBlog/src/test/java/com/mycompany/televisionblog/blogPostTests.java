@@ -54,9 +54,9 @@ public class blogPostTests {
 
         BlogPost blogPost = new BlogPost();
 
-        user = userDao.get(1);
+        user = userDao.get(13);
 
-        category = categoryDao.get(1);
+        category = categoryDao.get(3);
 
         blogPost.setTitle("TEST POST");
         blogPost.setUrl(URLEncoder.encode(blogPost.getTitle(), "UTF-8"));
@@ -89,9 +89,9 @@ public class blogPostTests {
 
         BlogPost blogPost = new BlogPost();
 
-        user = userDao.get(1);
+        user = userDao.get(13);
 
-        category = categoryDao.get(1);
+        category = categoryDao.get(3);
 
         blogPost.setTitle("TEST POST");
         blogPost.setUrl(URLEncoder.encode(blogPost.getTitle(), "UTF-8"));
@@ -136,9 +136,9 @@ public class blogPostTests {
         BlogPost blogPost = new BlogPost();
         BlogPost blogPost2 = new BlogPost();
 
-        user = userDao.get(1);
+        user = userDao.get(13);
 
-        category = categoryDao.get(1);
+        category = categoryDao.get(3);
 
         blogPost.setTitle("TEST POST");
         blogPost.setContent("THIS IS A POST FOR MY BLOG");
@@ -185,7 +185,7 @@ public class blogPostTests {
 
         BlogPost blogPost = new BlogPost();
 
-        user = userDao.get(1);
+        user = userDao.get(13);
 
         blogPost.setTitle("TEST POST");
         blogPost.setUrl(URLEncoder.encode(blogPost.getTitle(), "UTF-8"));
@@ -210,8 +210,8 @@ public class blogPostTests {
         Assert.assertEquals(defaultId, blogPost.getCategory().getId());
         
         categoryDao.delete(testCat.getId());
+        blogPostDao.create(blogPost);
         
-        Assert.assertEquals(null, categoryDao.get(testCat.getId()));
         
     }
 

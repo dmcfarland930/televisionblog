@@ -421,13 +421,18 @@ public class BlogPostController {
         }
 
         if (postDate.substring(10).equals(sdfSQL.format(date)) && !blogEdit.isIsDraft()) {
-            blogEdit.setPostDate(date);
+            blogEdit.setPostDate(sdfSQLDateTime.parse(postDate));
             blogEdit.setActive(true);
+        }else if (!sdfSQLDateTime.parse(postDate).before(date) && !blogEdit.isIsDraft()){
+            blogEdit.setPostDate(sdfSQLDateTime.parse(postDate));
+            blogEdit.setActive(false);
+            blogEdit.setApproved(false);
+            
         } else if (blogEdit.isIsDraft()) {
             blogEdit.setActive(true);
             blogEdit.setApproved(false);
             blogEdit.setIsDraft(true);
-            blogEdit.setPostDate(date);
+            blogEdit.setPostDate(sdfSQLDateTime.parse(postDate));
 
         }
 

@@ -30,8 +30,8 @@ public class BlogPostDaoDbImpl implements BlogPostDao {
     private static final String SQL_GET_POST_URL = "SELECT * FROM post WHERE url = ?";
     private static final String SQL_GET_POST_LIST = "SELECT * FROM post";
     private static final String SQL_GET_POST_LIST_TITLE = "SELECT * FROM post WHERE title = ?";
-    private static final String SQL_SET_POSTS_TO_ACTIVE_DATE = "UPDATE post SET active = 1 WHERE post_date <= ?";
-    private static final String SQL_SET_POSTS_TO_EXPIRED_DATE = "UPDATE post SET active = 0 WHERE expiration_date <= ?";
+    private static final String SQL_SET_POSTS_TO_ACTIVE_DATE = "UPDATE post SET active = 1, approved = 1 WHERE post_date <= ?";
+    private static final String SQL_SET_POSTS_TO_EXPIRED_DATE = "UPDATE post SET active = 0, approved = 0 WHERE expiration_date <= ?";
     private static final String SQL_GET_POST_LIST_APPROVED = "SELECT * FROM post WHERE approved = 1";
     private static final String SQL_GET_POST_LIST_UNAPPROVED = "SELECT * FROM post WHERE approved = 0";
     private static final String SQL_REASSIGN_BLOG_CATEGORY_DEFAULT = "UPDATE post SET category_id = ? WHERE category_id = ?";
