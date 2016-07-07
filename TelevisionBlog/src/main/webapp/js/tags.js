@@ -31,7 +31,7 @@ $(document).ready(function () {
                 $('#tag-table').append($(tableRow));
             },
             error: function (data, status) {
-                alert("Error!");
+
                 var errors = data.responseJSON.errors;
                 $.each(errors, function (index, validationError) {
                     $('#add-tag-validation-errors').append(validationError.message).append("<br/>");
@@ -108,7 +108,7 @@ $(document).ready(function () {
 
         $.ajax({
             type: "DELETE",
-            url: contextRoot + "admin/tag/delete/" + tagId,
+            url: contextRoot + "/admin/tag/delete/" + tagId,
             success: function (data, status) {
                 $('#tag-row-' + tagId).remove();
             },

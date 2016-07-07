@@ -111,7 +111,7 @@ $(document).ready(function () {
         console.log($('#category-delete-button').val());
         $.ajax({
             type: "DELETE",
-            url: contextRoot + "/category/delete/" + categoryId,
+            url: contextRoot + "/admin/category/delete/" + categoryId,
             success: function (data, status) {
                 $('#category-row-' + categoryId).remove();
             },

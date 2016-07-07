@@ -16,6 +16,7 @@
         <link rel="shortcut icon" href="${pageContext.request.contextPath}/img/icon.png">
 
         <link href="${pageContext.request.contextPath}/css/blog.css" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Cabin" rel="stylesheet">
 
         <style>
             th {
@@ -28,14 +29,14 @@
         <div id="blog-content" class="container">
             <div class="row" style="display:inline">
                 <div class="col-md-8">
-                <div id="blog-post-div">
-                    <h2>${page.name}</h2>
-                    <div class="container" id="display-page-content">
-                        <p>${page.content}</p>
+                    <div id="blog-post-div">
+                        <h2>${page.name}</h2>
+                        <div class="container" id="display-page-content">
+                            <div class="col-md-5"><p>${page.content}</p></div>
+                        </div>
                     </div>
-                </div>
-                <div classs="col-md-4">
-                </div>
+                    <div classs="col-md-4">
+                    </div>
                 </div>
                 <%@include file="sideBar.jsp" %>
             </div>
@@ -44,13 +45,12 @@
 
         <script>
             var contextRoot = "${pageContext.request.contextPath}";
-        </script>
-        <!-- Placed at the end of the document so the pages load faster -->
-        <script src="${pageContext.request.contextPath}/js/jquery-1.11.1.min.js"></script>
+                    < 2016 - 07 - 05 / script ><!-- Placed at the end of the document so the pages load faster -->
+                    < script src = "${pageContext.request.contextPath}/js/jquery-1.11.1.min.js" ></script>
         <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
         <script src="${pageContext.request.contextPath}/js/pageApp.js"></script>
 
         <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
     </body>
-        <%@include file="footer.jsp" %>
+    <%@include file="footer.jsp" %>
 </html>

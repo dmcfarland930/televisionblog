@@ -16,6 +16,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -50,22 +51,42 @@ public class pageTest {
     UserDao userDao = (UserDao) context.getBean("userDao");
     BlogPostDao postDao = (BlogPostDao) context.getBean("blogPostDao");
     
-//    @Test
+    @Test
     public void createPageTest() {
         
+       
         Page page = new Page();
-        User user = new User(); 
         
-        user.setId(1);
-        
+        //Set Content
         page.setContent("some content");
         page.setName("About Me");
         page.setUrl("mikes");
-        page.setUser(user);
         
-        pageDao.create(page);
+        
+        Page page2 = pageDao.create(page);
+        
+        Page page3 = pageDao.get(page2.getId());
+        
+        Assert.assertEquals("some content", page3.getContent());
+        Assert.assertEquals("About Me", page3.getName());
+        Assert.assertEquals("mikes", page3.getUrl());
+        
+        page3.setContent("some new content");
+        page3.setName("new Name");
+        page3.setUrl("new-url");
+        
+        pageDao.update(page3);
+        
+        Page page4 = pageDao.get(page3.getId());
+        
+        Assert.assertEquals("some new content", page4.getContent());
+        Assert.assertEquals("new Name", page4.getName());
+        Assert.assertEquals("new-url", page4.getUrl());
+        
+        pageDao.delete(page4.getId());
+        
     };
-    
+   
     
     //Method for listing multiple pages of blogs
 //    @Test

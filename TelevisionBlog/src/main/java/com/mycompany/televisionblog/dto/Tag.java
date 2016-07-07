@@ -1,11 +1,14 @@
 package com.mycompany.televisionblog.dto;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 /**
  *
  * @author apprentice
  */
 public class Tag {
     private int id;
+    @NotEmpty(message="You must supply a Tag Name")
     private String name;
 
     public int getId() {

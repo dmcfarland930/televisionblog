@@ -410,6 +410,7 @@ public class BlogPostController {
         blogEdit.setCategory(categoryDao.get(category));
         blogEdit.setContent(content);
         blogEdit.setPostDate(sdfSQLDateTime.parse(postDate));
+        blogEdit.setIsDraft(draft);
 
         if (!expirationDate.equals("")) {
             blogEdit.setExpirationDate(sdfSQLDateTime.parse(expirationDate));
@@ -423,15 +424,16 @@ public class BlogPostController {
         if (postDate.substring(10).equals(sdfSQL.format(date)) && !blogEdit.isIsDraft()) {
             blogEdit.setPostDate(sdfSQLDateTime.parse(postDate));
             blogEdit.setActive(true);
-        }else if (!sdfSQLDateTime.parse(postDate).before(date) && !blogEdit.isIsDraft()){
+        } else if (!sdfSQLDateTime.parse(postDate).before(date) && !blogEdit.isIsDraft()) {
             blogEdit.setPostDate(sdfSQLDateTime.parse(postDate));
             blogEdit.setActive(false);
             blogEdit.setApproved(false);
-            
-        } else if (blogEdit.isIsDraft()) {
+
+        }
+        if (blogEdit.isIsDraft()) {
             blogEdit.setActive(true);
             blogEdit.setApproved(false);
-            blogEdit.setIsDraft(true);
+            blogEdit.setIsDraft(false);
             blogEdit.setPostDate(sdfSQLDateTime.parse(postDate));
 
         }
@@ -481,7 +483,7 @@ public class BlogPostController {
         Map<String, Integer> months = blogPostDao.listOfPostMonths();
         int pageNext = pageNum + 1;
         int pageLast = pageNum - 1;
-        
+
         //page last sets min range of listOfN ex. Page 2 = 2 * 3, start at record 6.
         int articles = (pageLast) * 3;
         List<BlogPost> posts = blogPostDao.listOfN(articles, 3);
