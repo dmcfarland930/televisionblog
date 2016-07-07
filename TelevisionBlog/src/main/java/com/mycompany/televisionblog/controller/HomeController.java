@@ -52,8 +52,8 @@ public class HomeController {
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String home(Map<String, Object> model) {
 
-        List<BlogPost> posts = postDao.listOfThree(0, 3);
-        List<BlogPost> latestPosts = postDao.listOfThree(0, 5);
+        List<BlogPost> posts = postDao.listOfN(0, 3);
+        List<BlogPost> latestPosts = postDao.listOfN(0, 5);
         List<CategoryPost> categories = categoryDao.getPostCount();
         List<Tag> tags = tagDao.list();
 
@@ -87,9 +87,7 @@ public class HomeController {
         } catch (EmptyResultDataAccessException e) {
             return "404";
         }
-        User user = userDao.get(page.getUser().getId());
 
-        page.setUser(user);
         List<Page> pages = pageDao.list();
 
         model.put("pages", pages);

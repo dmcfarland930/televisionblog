@@ -66,6 +66,16 @@ body{
     background-color: #D6E2EA;
 }
 
+#404-div{
+    margin-top: 3em;
+    background: white;
+    border: #D9EBF4 thin solid;
+    border-radius: 5px;
+    margin-bottom: -1.5em;
+    
+}
+
+
 #category-div{
     padding-left: 1em;
     padding-right: 1em;
@@ -78,7 +88,7 @@ body{
 }
 
 #latest-posts-div{
-    margin-top: 2em;
+    margin-top: 5em;
     background: white;
     border-radius: 5px;
     border: #D9EBF4 thin solid;
@@ -155,8 +165,12 @@ body{
 }
 
 #blog-content{
-    width: 65%;
-    
+    width: 75%;
+}
+
+#copy{
+    padding-top: 5px;
+    color:white;
 }
 
 #viewing-by{
@@ -172,6 +186,8 @@ body{
 
 #blog-post-div{
 
+    padding-left: 20px;
+    padding-right: 20px;
     margin-top: 3em;
     background: white;
     border: #D9EBF4 thin solid;
@@ -198,6 +214,9 @@ a{
     border-radius: 50px 10px 50px 10px;
 }
 
+#sidebar{
+    margin-right: -1em;
+}
 
 #blog-content {
     padding-top : 20px;

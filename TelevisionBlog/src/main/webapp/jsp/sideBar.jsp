@@ -5,9 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-    <div id="sidebar" class="col-md-4">
+    <div id="sidebar" class="col-md-4" >
         <div id="latest-posts-div" class="col-md-10">
             <br/>
             <p id="latest-head">Latest Posts:</p>
@@ -40,9 +38,8 @@
             </c:forEach>
         </div>
         <div id='twitter-container' >
-            <div id="twitter" class="col-md-10">
+            <div id="twitter" style="height: 360px" class="col-md-10">
                 <a class="twitter-timeline" data-height="360" href="https://twitter.com/tonermovies">Tweets by TonerClassicMovies</a> 
             </div>
         </div>
     </div>
-</html>

@@ -9,6 +9,8 @@
         <title>Edit Blog</title>
         <!-- Bootstrap core CSS -->
         <link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/datetimepicker-master/jquery.datetimepicker.css">
+        
         <!--<link href="${pageContext.request.contextPath}/css/blog.css" rel="stylesheet">-->
 
         <!-- SWC Icon -->
@@ -26,6 +28,7 @@
 
                         <input type="hidden" name="id" value="${id}"/>
                         <input type="hidden" name="date" value="${date}"/>
+                        <input type="hidden" name="draft" value="${draft}"/>
 
                         <fieldset class="form-group">
                             <div id="title-div" class="col-md-8">
@@ -67,7 +70,28 @@
                         </fieldset>
 
                         <fieldset class="form-group">
-                            <div id="blog-div"  class="col-md-8">
+                            <div id="title-div" class="col-md-8">
+                                <label for="title-input">Post Date: </label>
+                                <br/>
+                                <input value="${date}" type="text" name="schedule-date" id="post-date-input"/>
+                                </select>
+                            </div>
+                        </fieldset>
+
+
+                        <fieldset class="form-group">
+                            <div id="title-div" class="col-md-8">
+                                <label for="title-input">Expiration Date: </label>
+                                <br/>
+                                <input  type="text" name="expiration-date" id="expiration-date-input"/>
+                                </select>
+                            </div>
+                        </fieldset>
+
+
+
+                        <fieldset class="form-group">
+                            <div id="blog-div"  class="col-md-8 pull-right">
                                 <div>
                                     <textarea name="content" style="width: 100%;" rows="10" id="blog-post-input" >${content}</textarea>
                                 </div>
@@ -75,8 +99,10 @@
                         </fieldset>
 
                         <div style="display: inline-block;" class="col-md-8 pull-right">
-                            <input id="blog-edit-submit" class="btn bg-primary button-size" type="submit" value="Update Blog Post"/>
 
+
+
+                            <input id="blog-edit-submit" class="btn bg-primary button-size" type="submit" value="Update Blog Post"/>
 
 
                             <input id="blog-draft-button" class="btn bg-primary button-size" type="submit" value="Save Draft"/>
@@ -126,6 +152,7 @@
 
         <script src="${pageContext.request.contextPath}/plugins/chosen/chosen.jquery.js" type="text/javascript"></script>
         <script src="${pageContext.request.contextPath}/js/blogPost.js"></script>
+        <script src="${pageContext.request.contextPath}/datetimepicker-master/build/jquery.datetimepicker.full.min.js"></script>
 
     </body>
 </html>

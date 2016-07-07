@@ -36,12 +36,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class PageController {
 
     PageDao pageDao;
-    UserDao userDao;
-
     @Inject
-    public PageController(PageDao pageDao, UserDao userDao) {
+    public PageController(PageDao pageDao) {
         this.pageDao = pageDao;
-        this.userDao = userDao;
     }
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
@@ -76,16 +73,6 @@ public class PageController {
     @ResponseBody
     public Page create(@Valid @RequestBody PageCommand command, BindingResult result) {
         Page page = new Page();
-
-        //!!!!!!!!!!!!!!!!!!!
-        //DELETE ME
-        command.setUserId(1);
-        //DELETE ME
-        //!!!!!!!!!!!!!!!!!!!
-
-        User user = userDao.get(command.getUserId());
-        page.setUser(user);
-
         page.setName(command.getName());
         page.setUrl(command.getUrl());
         page.setContent(command.getContent());
@@ -98,11 +85,7 @@ public class PageController {
     @ResponseBody
     public Page update(@RequestBody PageCommand command) {
         Page page = new Page();
-        page.setId(command.getId());
 
-//        User user = userDao.get(command.getUserId());
-        User user = userDao.get(1);
-        page.setUser(user);
 
         page.setName(command.getName());
         page.setUrl(command.getUrl());
@@ -119,9 +102,6 @@ public class PageController {
     public Page get(@PathVariable("id") Integer id) {
 
         Page page = pageDao.get(id);
-        User user = userDao.get(page.getUser().getId());
-
-        page.setUser(user);
 
         return page;
     }

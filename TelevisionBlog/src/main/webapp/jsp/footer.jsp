@@ -8,15 +8,10 @@
 <!DOCTYPE html>
 <footer>
     <div class="blog-footer">
-        <div class="col-md-4">
-            <p>Copyright info</p>
+        <div class="col-md-12">
+            <p id="copy">&copy Toner Classic Movies 2016</p>
         </div>
-        <div class="col-md-4">
-            <p>info</p>
-        </div>
-        <div class="col-md-4">
-            <p>Contact info</p>
-        </div>
+        
     </div>
 </footer>
 <script src='https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyAQlcq0kHABreLBE3VmYcxfemhgDmmQOkc'></script>

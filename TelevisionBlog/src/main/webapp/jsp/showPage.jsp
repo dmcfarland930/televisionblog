@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Edit Static Pages</title>
+        <title>${page.name}</title>
         <!-- Bootstrap core CSS -->
         <link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet">
 
@@ -14,7 +14,7 @@
 
         <!-- SWC Icon -->
         <link rel="shortcut icon" href="${pageContext.request.contextPath}/img/icon.png">
-        
+
         <link href="${pageContext.request.contextPath}/css/blog.css" rel="stylesheet">
 
         <style>
@@ -25,10 +25,9 @@
     </head>
     <body>
         <%@include file="navBar.jsp"%>
-        <div class="container">
-        
-            <div class="row">
-                <div class="col-md-8">
+        <div id="blog-content" class="container">
+            <div class="row" style="display:inline">
+                <div id="blog-post-div" class="col-md-8">
                     <h2>${page.name}</h2>
                     <br />
                     <div class="container" id="display-page-content">
@@ -36,19 +35,21 @@
                     </div>
                 </div>
                 <div classs="col-md-4">
-                    
                 </div>
+                <%@include file="sideBar.jsp" %>
             </div>
         </div>
 
 
         <script>
-                        var contextRoot = "${pageContext.request.contextPath}";
+            var contextRoot = "${pageContext.request.contextPath}";
         </script>
         <!-- Placed at the end of the document so the pages load faster -->
         <script src="${pageContext.request.contextPath}/js/jquery-1.11.1.min.js"></script>
         <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
         <script src="${pageContext.request.contextPath}/js/pageApp.js"></script>
 
+        <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
     </body>
+        <%@include file="footer.jsp" %>
 </html>
