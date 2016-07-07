@@ -39,12 +39,14 @@
                     </c:forEach>
                     <div class="row col-md-8" >
                         <div style="display: inline-block;">
-
-                            <a class="${hidden} btn bg-white" id="last-page" href="${pageContext.request.contextPath}/blog/category/${categoryId}/page/${pageLast}" > < Last Page</a>
-
-                            <c:if test="${nextPage}">
-                                <a class="btn bg-white" id="next-page" href="${pageContext.request.contextPath}/blog/category/${categoryId}/page/${pageNext}" >Next Page > </a>
-                            </c:if>
+                            <div id="last-page-div">
+                                <a class="${hidden} btn bg-white" id="last-page" href="${pageContext.request.contextPath}/blog/category/${categoryId}/page/${pageLast}" > < Last Page</a>
+                            </div>
+                            <div id="next-page-div">
+                                <c:if test="${nextPage}">
+                                    <a class="btn bg-white" id="next-page" href="${pageContext.request.contextPath}/blog/category/${categoryId}/page/${pageNext}" >Next Page > </a>
+                                </c:if>
+                            </div>
                         </div>
                     </div>
                 </div>

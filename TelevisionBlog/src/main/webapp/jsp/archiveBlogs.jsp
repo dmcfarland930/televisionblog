@@ -26,36 +26,39 @@
 
         <div id="blog-content" class="container">
             <div class="row" style="display: inline">
-                <div id="viewing-by" class='col-md-8'>
-                    <h1>Showing posts for ${monthYear}</h1>
-                </div>
-                <c:forEach items="${posts}" var="post">
-                    <div id="blog-post-div" class="col-md-8">
-                        <a id="blog-title" href="${pageContext.request.contextPath}/blog/show/${post.url}"><h1>${post.title}</h1></a>
-                        <a id="author-name" href="${pageContext.request.contextPath}/blog/author/${post.user.id}"> Posted by ${author} on ${post.stringDateDisplay}</a>
-                        <hr>
-                        ${post.content}
-                        <hr>
-                        <a id="category-name" href="${pageContext.request.contextPath}/blog/category/${post.category.id}"> Category: ${post.category.name}</a>
-                        <br/>
-                        <br/>
+                <div class="col-md-8">
+                    <div id="viewing-by" '>
+                        <h1>Showing posts for ${monthYear}</h1>
                     </div>
-                </c:forEach>
-                <div class="row col-md-8" >
-                    <div style="display: inline-block;">
-
-                        <a class="${hidden} btn bg-white" id="last-page" href="<c:url value="/blog/archive/${monthYear}/page/${pageLast}" />"> < Last Page</a>
-
-                        <c:if test="${nextPage}">
-                            <a class="btn bg-white" id="next-page" href="<c:url value="/blog/archive/${monthYear}/page/${pageNext}" />">Next Page > </a>
-                        </c:if>
+                    <c:forEach items="${posts}" var="post">
+                        <div id="blog-post-div">
+                            <a id="blog-title" href="${pageContext.request.contextPath}/blog/show/${post.url}"><h1>${post.title}</h1></a>
+                            <a id="author-name" href="${pageContext.request.contextPath}/blog/author/${post.user.id}"> Posted by ${author} on ${post.stringDateDisplay}</a>
+                            <hr>
+                            ${post.content}
+                            <hr>
+                            <a id="category-name" href="${pageContext.request.contextPath}/blog/category/${post.category.id}"> Category: ${post.category.name}</a>
+                            <br/>
+                            <br/>
+                        </div>
+                    </c:forEach>
+                    <div class="row col-md-8" >
+                        <div style="display: inline-block;">
+                            <div id="last-page-div">
+                                <a class="${hidden} btn bg-white" id="last-page" href="<c:url value="/blog/archive/${monthYear}/page/${pageLast}" />"> < Last Page</a>
+                            </div>
+                            <div id="next-page-div">
+                                <c:if test="${nextPage}">
+                                    <a class="btn bg-white" id="next-page" href="<c:url value="/blog/archive/${monthYear}/page/${pageNext}" />">Next Page > </a>
+                                </c:if>
+                            </div>
+                        </div>
                     </div>
                 </div>
-
                 <%@include file="sideBar.jsp"%>
-
             </div>
         </div>
+        <%@include file="footer.jsp" %>
         <!-- Placed at the end of the document so the pages load faster -->
         <script>
             var contextRoot = '${pageContext.request.contextPath}';
