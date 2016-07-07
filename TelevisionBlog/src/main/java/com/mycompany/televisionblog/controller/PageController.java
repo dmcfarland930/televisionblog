@@ -73,7 +73,9 @@ public class PageController {
     @ResponseBody
     public Page create(@Valid @RequestBody PageCommand command) {
         Page page = new Page();
-
+        
+        
+        page.setPosition(pageDao.list().size() + 1);
         page.setName(command.getName());
         page.setUrl(command.getUrl());
         page.setContent(command.getContent());

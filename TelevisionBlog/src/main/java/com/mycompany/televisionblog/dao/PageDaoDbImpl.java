@@ -22,7 +22,7 @@ public class PageDaoDbImpl implements PageDao {
 
     JdbcTemplate jdbcTemplate;
 
-    private static final String SQL_INSERT_PAGE = "INSERT INTO page (name, url, content, active) VALUES (?, ?, ?, ?)";
+    private static final String SQL_INSERT_PAGE = "INSERT INTO page (name, url, content, active, position) VALUES (?, ?, ?, ?, ?)";
     private static final String SQL_UPDATE_PAGE = "UPDATE page SET name = ?, url = ?, content = ?, position = ?, active = ? WHERE id = ?";
     private static final String SQL_GET_PAGE = "SELECT * FROM page WHERE id = ?";
     private static final String SQL_GET_PAGE_URL = "SELECT * FROM page WHERE url = ?";
@@ -40,7 +40,8 @@ public class PageDaoDbImpl implements PageDao {
                 page.getName(),
                 page.getUrl(),
                 page.getContent(),
-                page.isActive());
+                page.isActive(),
+                page.getPosition());
         Integer id = jdbcTemplate.queryForObject("SELECT LAST_INSERT_ID()", Integer.class);
 
         page.setId(id);

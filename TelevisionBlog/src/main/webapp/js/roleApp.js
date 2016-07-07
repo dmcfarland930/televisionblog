@@ -8,8 +8,8 @@
 $(document).ready(function () {
 
     //Change active tab
-    $(".uac-tab").on("click", function () {
-        $(this).addClass("active");
+    $("#error-delete-modal").on("hide.bs.modal", function () {
+       location.reload();
 
     });
 
@@ -172,7 +172,7 @@ $(document).ready(function () {
     $("#create-role-submit").on("click", function (e) {
 
 //        e.preventDefault();
-$("#add-role-validation-errors").empty();
+        $("#add-role-validation-errors").empty();
 
         var roleData = JSON.stringify({
             name: $("#name-input").val()
@@ -274,7 +274,7 @@ $("#add-role-validation-errors").empty();
 
     });
 
-    //Removes Users that aren't related to the Role that is being deleted
+    //Removes Users that aren't related to the Role that are being deleted
     function showUsers(id) {
         var currentRole = $("select[name='edit-user-role']");
         $.each(currentRole, function (key, value) {
@@ -287,27 +287,35 @@ $("#add-role-validation-errors").empty();
     }
 
     //Remove Users from table  by changing roles
-    $(".remove-role-select").on("change", function () {
+    $(document).ready(function () {
+        var previousRoleId;
 
-        var userId = $(this).data("user-id");
-        var roleId = $("#user-role-" + userId).val();
+        $(".remove-role-select").on("focus", function () {
+            previousRoleId = $(this).val();
 
-        $.ajax({
-            url: contextRoot + "/admin/uac/change-role/" + newRoleId + "/" + userId,
-            type: "POST",
-            beforeSend: function (xhr) {
-                xhr.setRequestHeader("Accept", "application/json");
-                xhr.setRequestHeader("Content-type", "application/json");
-            },
-            success: function (data, status) {
-                $("#edit-user-row-" + userId).remove();
-                checkRemainingUsers(roleId);
-            },
-            error: function (data, status) {
+        }).change(function () {
 
-            }
+
+            var userId = $(this).data("user-id");
+            var roleId = $(this).val();
+
+            $.ajax({
+                url: contextRoot + "/admin/uac/change-role/" + roleId + "/" + userId,
+                type: "POST",
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader("Accept", "application/json");
+                    xhr.setRequestHeader("Content-type", "application/json");
+                },
+                success: function (data, status) {
+                    $("#edit-user-row-" + userId).remove();
+                    checkRemainingUsers(previousRoleId);
+                },
+                error: function (data, status) {
+
+                }
+            });
+
         });
-
     });
 
     //Delete User From Table
