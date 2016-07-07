@@ -27,14 +27,15 @@
         <%@include file="navBar.jsp"%>
         <div id="blog-content" class="container">
             <div class="row" style="display:inline">
-                <div id="blog-post-div" class="col-md-8">
+                <div class="col-md-8">
+                <div id="blog-post-div">
                     <h2>${page.name}</h2>
-                    <br />
                     <div class="container" id="display-page-content">
                         <p>${page.content}</p>
                     </div>
                 </div>
                 <div classs="col-md-4">
+                </div>
                 </div>
                 <%@include file="sideBar.jsp" %>
             </div>

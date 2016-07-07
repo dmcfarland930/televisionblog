@@ -73,8 +73,8 @@ public class HomeController {
         model.put("tags", tags);
         model.put("latestPosts", latestPosts);
         model.put("categories", categories);
-        model.put("pages", pages);
         model.put("months", months);
+        model.put("pages", pages);
         model.put("pageNext", 2);
         model.put("nextPage", nextPage);
         model.put("hidden", "hidden");
@@ -91,10 +91,18 @@ public class HomeController {
             return "404";
         }
 
+        List<BlogPost> latestPosts = postDao.listOfN(0, 5);
+        List<CategoryPost> categories = categoryDao.getPostCount();
+        Map<String, Integer> months = postDao.listOfPostMonths();
         List<Page> pages = pageDao.list();
+        List<Tag> tags = tagDao.list();
 
         model.put("pages", pages);
         model.put("page", page);
+        model.put("tags", tags);
+        model.put("latestPosts", latestPosts);
+        model.put("categories", categories);
+        model.put("months", months);
 
         return "showPage";
     }
