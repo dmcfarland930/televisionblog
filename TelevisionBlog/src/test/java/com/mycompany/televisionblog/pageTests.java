@@ -26,9 +26,9 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  *
  * @author apprentice
  */
-public class pageTest {
+public class pageTests {
     
-    public pageTest() {
+    public pageTests() {
     }
     
     @Before

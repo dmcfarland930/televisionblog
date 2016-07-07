@@ -85,7 +85,6 @@ public class PageDaoDbImpl implements PageDao {
         public Page mapRow(ResultSet rs, int i) throws SQLException {
 
             Page page = new Page();
-            
 
             page.setId(rs.getInt("id"));
             page.setName(rs.getString("name"));

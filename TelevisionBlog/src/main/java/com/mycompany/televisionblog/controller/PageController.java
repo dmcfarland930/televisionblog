@@ -71,8 +71,9 @@ public class PageController {
 
     @RequestMapping(value = "/create/", method = RequestMethod.POST)
     @ResponseBody
-    public Page create(@Valid @RequestBody PageCommand command, BindingResult result) {
+    public Page create(@Valid @RequestBody PageCommand command) {
         Page page = new Page();
+
         page.setName(command.getName());
         page.setUrl(command.getUrl());
         page.setContent(command.getContent());
@@ -83,7 +84,7 @@ public class PageController {
 
     @RequestMapping(value = "/update/", method = RequestMethod.PUT)
     @ResponseBody
-    public Page update(@RequestBody PageCommand command) {
+    public Page update(@Valid @RequestBody PageCommand command) {
         Page page = new Page();
         page.setName(command.getName());
         page.setUrl(command.getUrl());

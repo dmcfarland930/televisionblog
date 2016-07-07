@@ -9,6 +9,7 @@ import com.mycompany.televisionblog.dao.RoleDao;
 import com.mycompany.televisionblog.dao.UserRightDao;
 import com.mycompany.televisionblog.dto.Role;
 import javax.inject.Inject;
+import javax.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -35,13 +36,13 @@ public class RoleController {
     
     @RequestMapping(value="/create/", method=RequestMethod.POST)
     @ResponseBody
-    public Role create(@RequestBody Role role) {
+    public Role create(@Valid @RequestBody Role role) {
         return roleDao.create(role);      
     }
     
     @RequestMapping(value="/update/", method=RequestMethod.PUT)
     @ResponseBody
-    public Role update(@RequestBody Role role)  {
+    public Role update(@Valid @RequestBody Role role)  {
         roleDao.update(role);
         return role;
     }

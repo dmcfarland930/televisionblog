@@ -42,10 +42,10 @@
             <c:forEach items="${rights}" var="right">
                 <c:choose>
                     <c:when test="${fn:contains(role.userRights, right.id)}">
-                        <td><input type="checkbox" checked data-role-id="${role.id}" class="role-checkbox checkbox checkbox-inline" name="${role.name}" value="${right.id}"></td>
+                        <td style="width: 12.5%"><input type="checkbox" checked data-role-id="${role.id}" class="role-checkbox checkbox checkbox-inline" name="${role.name}" value="${right.id}"></td>
                         </c:when>
                         <c:otherwise>
-                        <td><input type="checkbox" data-role-id="${role.id}" class="role-checkbox checkbox checkbox-inline" name="${role.name}" value="${right.id}"></td>
+                        <td style="width: 12.5%"><input type="checkbox" data-role-id="${role.id}" class="role-checkbox checkbox checkbox-inline" name="${role.name}" value="${right.id}"></td>
                         </c:otherwise>
                     </c:choose>
                 </c:forEach>

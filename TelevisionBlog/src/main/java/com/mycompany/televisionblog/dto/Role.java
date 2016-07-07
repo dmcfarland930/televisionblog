@@ -1,6 +1,7 @@
 package com.mycompany.televisionblog.dto;
 
 import java.util.List;
+import org.hibernate.validator.constraints.NotEmpty;
 
 /**
  *
@@ -9,7 +10,10 @@ import java.util.List;
 public class Role {
 
     private int id;
+    
+    @NotEmpty(message="You must supply a name")
     private String name;
+    
     private Integer userId;
     private List<Integer> userRights;
 

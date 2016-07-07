@@ -103,6 +103,7 @@
                             </div>
                             
                             
+                            
                             <div class="form-group">
                                 <label for="" class="col-md-4 control-label">Role:</label>
                                 <div class="col-md-8"><select id="role-id-input" class="form-control">
@@ -153,16 +154,16 @@
                             
                             <tr>
                                 <td>Password:</td>
-                                <td><input type="password" class="form-control" id="edit-user-password" /></td>
+                                <td><input disabled type="password" class="form-control" id="edit-user-password" /></td>
                             </tr>
                             
                             <tr>
                                 <td>Role:</td>
-                                <td><select class="form-control" id="edit-user-role">
-                                       
-                                        <option value="1" class="form-control">Administrator</option>
-                                        <option value="2" class="form-control">Marketing Team</option>
-                                      
+                                <td><select id="edit-user-role" class="form-control">
+                                        <c:forEach items="${roles}" var="role">
+                                            <option value="${role.id}">${role.name}</option>
+                                        </c:forEach>    
+                                            <option value="0">None</option>
                                     </select></td>
                             </tr>
                         </table>

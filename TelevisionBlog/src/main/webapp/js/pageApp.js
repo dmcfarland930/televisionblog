@@ -31,6 +31,12 @@ $(document).ready(function () {
                     if (error.fieldName === "url") {
                         $("#page-url-error").append(error.message + "<br />");
 
+                    } else if(error.fieldName === "name") {
+                        $("#page-name-error").append(error.message + "<br />");
+                        
+                    } else if(error.fieldName === "content") {
+                        $("#page-content-error").append(error.message + "<br />");
+                        
                     } else {
 
                         $("#add-page-validation-errors").append(error.fieldName + ": " + error.message + "<br />");

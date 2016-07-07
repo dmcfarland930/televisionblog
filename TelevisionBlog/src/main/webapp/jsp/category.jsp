@@ -70,40 +70,33 @@
             </div>
         </div>
 
-        <!-- Modal -->
-        <div id="createCategoryModal" class="modal fade" role="dialog">
-            <div class="modal-dialog modal-sm">
 
-                <!-- Modal content-->
+
+        <div id="createCategoryModal" class="modal fade" tabindex="-1" role="dialog">
+            <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Create Category</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">User Creation</h4>
                     </div>
                     <div class="modal-body">
-                        <div id="add-category-form" class="col-md-4" style="float:none; margin: 0 auto" class="form-horizontal">
+                        <form method="POST" class="form-horizontal">
                             <div class="form-group">
-                                <form method="POST">
-                                    <label for="category-name">Add Category:</label>
-                                    <input id="name-input" class="form-control"/>
-                                    <div id="add-category-validation-errors"></div>
-                                    <div style = "text-align: center; margin-top: 15px">
 
-                                    </div>
-                                </form>
-
+                                <label for="category-name" class="col-md-4 control-label">Add Category:</label>
+                                <div class="col-md-8"><input id="name-input" class="form-control"/><div id="add-category-validation-errors"></div></div>
                             </div>
-                        </div>
+
+                        </form>
                     </div>
                     <div class="modal-footer">
-                        <input type="submit" class="btn btn-danger" id="create-submit" value="Create"/>
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary" id="create-submit">Create</button>
                     </div>
-                </div>
-            </div>
-        </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
 
-        <!-- Modal -->
         <div id="editCategoryModal" class="modal fade" role="dialog">
             <div class="modal-dialog modal-sm">
 
