@@ -81,22 +81,26 @@
                                 <label for="" class="col-md-4 control-label">First Name:</label>
                                 <div class="col-md-8"><input type="text" class="form-control" id="first-name-input"/></div>
                             </div>
-                            
+                            <div id="firstName-validation-errors">
+                            </div>
                             <div class="form-group">
                                 <label for="" class="col-md-4 control-label">Last Name:</label>
                                 <div class="col-md-8"><input type="text" class="form-control" id="last-name-input"/></div>
                             </div>
-                            
+                            <div id="lastName-validation-errors">
+                            </div>
                             <div class="form-group">
                                 <label for="" class="col-md-4 control-label">Username:</label>
                                 <div class="col-md-8"><input type="text" class="form-control" id="username-input"/></div>
                             </div>
-                            
+                            <div id="username-validation-errors">
+                            </div>
                             <div class="form-group">
                                 <label for="" class="col-md-4 control-label">Password:</label>
                                 <div class="col-md-8"><input type="password" class="form-control" id="password-input"/></div>
                             </div>
-                            
+                            <div id="password-validation-errors">
+                            </div>
                             
                             
                             <div class="form-group">

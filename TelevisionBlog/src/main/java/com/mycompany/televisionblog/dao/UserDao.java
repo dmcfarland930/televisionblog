@@ -27,5 +27,6 @@ public interface UserDao {
     void removeRoles(Integer userId);
 
     List <User> list();
-
+    
+    List<String> usernameList();
 }
