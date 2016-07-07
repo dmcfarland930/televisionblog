@@ -5,6 +5,7 @@
  */
 package com.mycompany.televisionblog.dto;
 
+import com.mycompany.televisionblog.validation.CategoryExists;
 import org.hibernate.validator.constraints.NotEmpty;
 
 /**
@@ -16,6 +17,7 @@ public class CategoryCommand {
     private int id;
     
     @NotEmpty
+    @CategoryExists
     private String categoryName;
     private boolean defaultCategory;
 

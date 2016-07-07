@@ -40,7 +40,7 @@
                             <label for="" class="control-label">Title:</label>
                             <div>
                                 <input type="text" id="page-title-input" class="form-control" />
-                     
+                                <div id="page-name-error"></div>
                             </div>
                         </div>
 
@@ -56,6 +56,7 @@
                             <label for="" class="control-label">Page Content:</label>
                             <div class="">
                                 <textarea type="text" id="page-content-input" class="form-control"></textarea>
+                                <div id="page-content-error"></div>
                             </div>
                         </div>
 

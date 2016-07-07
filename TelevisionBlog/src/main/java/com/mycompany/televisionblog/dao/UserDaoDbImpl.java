@@ -7,6 +7,7 @@ package com.mycompany.televisionblog.dao;
 import com.mycompany.televisionblog.dto.User;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -23,6 +24,7 @@ public class UserDaoDbImpl implements UserDao {
     private static final String SQL_DELETE_USER = "DELETE FROM user WHERE id = ?";
     private static final String SQL_GET_USER = "SELECT * FROM user WHERE id = ?";
     private static final String SQL_GET_USER_LIST = "SELECT * FROM user ORDER BY last_name ASC";
+    private static final String SQL_GET_USER_USERNAME_LIST = "SELECT username FROM user";
     
     private static final String SQL_ASSIGN_USER_ROLES = "INSERT INTO authorities (user_id, role_id) VALUES (?, ?)";
     private static final String SQL_DELETE_USER_ROLES = "DELETE FROM authorities WHERE user_id = ?";
@@ -99,6 +101,11 @@ public class UserDaoDbImpl implements UserDao {
     public void removeRoles(Integer userId) {
         jdbcTemplate.update(SQL_DELETE_USER_ROLES,
                 userId);
+    }
+
+    @Override
+    public List<String> usernameList() {
+        return jdbcTemplate.queryForList(SQL_GET_USER_USERNAME_LIST, String.class);
     }
 
     private final class UserMapper implements RowMapper<User> {

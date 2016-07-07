@@ -9,7 +9,8 @@
 <table class="table table-bordered" style="text-align: center;" id="user-table">                       
 
     <tr>
-        <th colspan="7">Users</th>
+        <th colspan="2">Users</th>
+        <th colspan="4">User Rights</th>
     </tr>
 
     <tr>
@@ -47,10 +48,10 @@
         <c:forEach items="${rights}" var="right">
             <c:choose>
                 <c:when test="${fn:contains(user.roles, right.id)}">
-                    <td><input type="checkbox" checked data-user-id="${user.id}" class="user-checkbox checkbox checkbox-inline" value="${right.id}"></td>
+                    <td style="width: 12.5%"><input type="checkbox" checked data-user-id="${user.id}" class="user-checkbox checkbox checkbox-inline" value="${right.id}"></td>
                 </c:when>
                 <c:otherwise>
-                    <td><input type="checkbox" data-user-id="${user.id}" class="user-checkbox checkbox checkbox-inline" value="${right.id}"></td>
+                    <td style="width: 12.5%"><input type="checkbox" data-user-id="${user.id}" class="user-checkbox checkbox checkbox-inline" value="${right.id}"></td>
                 </c:otherwise>
             </c:choose>
 

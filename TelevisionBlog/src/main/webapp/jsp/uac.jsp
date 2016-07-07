@@ -20,6 +20,7 @@
             th {
                 text-align: center;
             };
+
         </style>
     </head>
     <body>
@@ -30,23 +31,79 @@
                 <div class="col-md-4"></div>
                 <div class="col-md-8">
                     <div style="float: right">
-                        <button class="btn btn-default"><a href="" data-target="#create-user-modal" data-toggle="modal">Create Role</a></button>
+                        <!--<button class="btn btn-default"><a href="" data-target="#create-role-modal" data-toggle="modal">Create Role</a></button>-->
                     </div>
                 </div>
             </div>
             <br />
             <div class="row">
+
                 <jsp:include page="adminMenu.jsp"/>
-
                 <div class="col-md-8">
+                    <div class="panel panel-primary">
+                        <div class="panel panel-default">
+                            <jsp:include page="uacMenu.jsp"/>
+                            <div class="panel panel-heading">
+                                <h4><center>User Access Control Panel</center></h4>
+                            </div>
+                            <div class="panel panel-body">
+                              
+                                        <div class="panel panel-group col-md-6">
+                                            <div class="panel panel-info">
+                                                <div class="panel panel-heading">
+                                                    Current # of Users registered with your blog site
+                                                </div>
+                                                <div class="panel panel-body">                                  
+                                                    ${numberOfUsers}
+                                                </div>
+                                            </div>
 
-                    <jsp:include page="uacMenu.jsp"/>
-                    
-                    <h1>UAC Home page <br /> Work In Progress <br /> Click a Tab</h1> <br /> By the way, only the Group Roles work right now, individual Users and Custom doesn't work yet.
+                                            <br />
+
+                                            <div class="panel panel-info">
+                                                <div class="panel panel-heading">
+                                                    Current # of Users registered with your blog site
+                                                </div>
+                                                <div class="panel panel-body">                                  
+                                                    ${numberOfUsers}
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                      
+                                            <div class="panel panel-group col-md-6">
+                                                <div class="panel panel-info">
+                                                    <div class="panel panel-heading">
+                                                        Current # of Users registered with your blog site
+                                                    </div>
+                                                    <div class="panel panel-body">                                  
+                                                        ${numberOfUsers}
+                                                    </div>
+                                                </div>
+
+                                                <br />
+
+                                                <div class="panel panel-info">
+                                                    <div class="panel panel-heading">
+                                                        Current # of Users registered with your blog site
+                                                    </div>
+                                                    <div class="panel panel-body">                                  
+                                                        ${numberOfUsers}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
 
         <script>
             var contextRoot = "${pageContext.request.contextPath}";
-        </script>
+        </script><!--
         <!-- Placed at the end of the document so the pages load faster -->
         <script src="${pageContext.request.contextPath}/js/jquery-1.11.1.min.js"></script>
         <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>

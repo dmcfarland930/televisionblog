@@ -9,11 +9,14 @@ import com.mycompany.televisionblog.dao.BlogPostDao;
 import com.mycompany.televisionblog.dao.CategoryDao;
 import com.mycompany.televisionblog.dao.PageDao;
 import com.mycompany.televisionblog.dao.RoleDao;
+import com.mycompany.televisionblog.dao.TagDao;
 import com.mycompany.televisionblog.dao.UserDao;
 import com.mycompany.televisionblog.dto.BlogPost;
+import com.mycompany.televisionblog.dto.Category;
 import com.mycompany.televisionblog.dto.CategoryPost;
 import com.mycompany.televisionblog.dto.Page;
 import com.mycompany.televisionblog.dto.Role;
+import com.mycompany.televisionblog.dto.Tag;
 import com.mycompany.televisionblog.dto.User;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,19 +41,41 @@ public class AdminController {
     UserDao userDao;
     CategoryDao categoryDao;
     RoleDao roleDao;
+    TagDao tagDao;
 
     @Inject
-    public AdminController(BlogPostDao postDao, PageDao pageDao, UserDao userDao, CategoryDao categoryDao, RoleDao roleDao) {
+    public AdminController(BlogPostDao postDao, PageDao pageDao, UserDao userDao, CategoryDao categoryDao, RoleDao roleDao, TagDao tagDao) {
         this.postDao = postDao;
         this.pageDao = pageDao;
         this.userDao = userDao;
         this.categoryDao = categoryDao;
         this.roleDao = roleDao;
+        this.tagDao = tagDao;
+                
 
     }
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String home(Map model) {
+        
+        List<BlogPost> blogs = postDao.list();
+        List<BlogPost> blogsApproved = postDao.listApproved();
+        List<BlogPost> blogsUnapproved = postDao.listUnapproved();
+        
+        List<User> users = userDao.list();
+        List<Category> categories = categoryDao.list();
+        List<Page> pages = pageDao.list();
+        List<Tag> tags = tagDao.list();
+        
+        model.put("numBlogs", blogs.size());
+        model.put("numBlogsApproved", blogsApproved.size());
+        model.put("numBlogsNeedApproved", blogsUnapproved.size());
+        model.put("numUsers", users.size());
+        model.put("numCategories", categories.size());
+        model.put("numTags", tags.size());
+        
+        
+        
         return "adminHome";
     }
 

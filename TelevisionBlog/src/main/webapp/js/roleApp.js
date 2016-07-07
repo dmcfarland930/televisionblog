@@ -172,6 +172,7 @@ $(document).ready(function () {
     $("#create-role-submit").on("click", function (e) {
 
 //        e.preventDefault();
+$("#add-role-validation-errors").empty();
 
         var roleData = JSON.stringify({
             name: $("#name-input").val()
@@ -190,7 +191,10 @@ $(document).ready(function () {
                 location.reload();
             },
             error: function (data, status) {
-
+                var errors = data.responseJSON.errors;
+                $.each(errors, function (index, error) {
+                    $("#add-role-validation-errors").append(error.message + "<br />");
+                });
             }
         });
     });

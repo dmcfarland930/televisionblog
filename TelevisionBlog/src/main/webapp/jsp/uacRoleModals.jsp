@@ -19,9 +19,10 @@
 
                     <div class="form-group">
                         <label for="" class="col-md-4 control-label">Role:</label>
-                        <div class="col-md-8"><input type="text" class="form-control" id="name-input"/></div>
+                        <div class="col-md-8"><input type="text" class="form-control" id="name-input"/><div id="add-role-validation-errors"></div></div>
+                        
                     </div>
-
+                    
                 </form>
             </div>
             <div class="modal-footer">
@@ -48,7 +49,8 @@
 
                     <div class="form-group">
                         <label for="" class="col-md-4 control-label">Role:</label>
-                        <div class="col-md-8"><input type="text" class="form-control" id="edit-role-name"/></div>
+                        <div class="col-md-8"><input type="text" class="form-control" id="edit-role-name"/><div id="add-role-validation-errors"></div></div>
+                        
                     </div>
 
                 </form>
