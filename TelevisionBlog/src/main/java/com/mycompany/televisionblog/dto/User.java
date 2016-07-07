@@ -2,10 +2,7 @@ package com.mycompany.televisionblog.dto;
 
 import com.mycompany.televisionblog.validation.UsernameExists;
 import java.util.List;
-<<<<<<< HEAD
 import javax.validation.constraints.NotNull;
-=======
->>>>>>> 0a294640928d114e14baccb8621432b892692716
 import org.hibernate.validator.constraints.NotEmpty;
 
 /**
