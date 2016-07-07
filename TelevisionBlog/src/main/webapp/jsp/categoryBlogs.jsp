@@ -13,6 +13,7 @@
         <link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet">
         <link href="${pageContext.request.contextPath}/css/blog.css" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Cabin" rel="stylesheet">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/rrssb-master/css/rrssb.css" />
         <!-- SWC Icon -->
         <link rel="shortcut icon" href="${pageContext.request.contextPath}/img/icon.png">
     </head>
@@ -29,7 +30,8 @@
                         <div id="blog-post-div">
                             <a id="blog-title" href="${pageContext.request.contextPath}/blog/show/${post.url}"><h1>${post.title}</h1></a>
                             <a id="author-name" href="${pageContext.request.contextPath}/blog/author/${post.user.id}"> Posted by ${author} on ${post.stringDateDisplay}</a>
-                            <hr>
+                            <br/><br/>
+                            <%@include file="socialShare.jsp"%><hr>
                             ${post.content}
                             <hr>
                             <a id="category-name" href="${pageContext.request.contextPath}/blog/category/${post.category.id}"> Category: ${post.category.name}</a>
@@ -63,6 +65,7 @@
         <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
         <script src="${pageContext.request.contextPath}/js/blogPost.js"></script>
         <script src="${pageContext.request.contextPath}/js/hashtags.js"></script>
+        <script src="${pageContext.request.contextPath}/rrssb-master/js/rrssb.min.js"></script>
 
         <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 

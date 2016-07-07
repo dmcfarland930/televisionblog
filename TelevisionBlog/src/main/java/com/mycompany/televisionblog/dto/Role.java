@@ -16,6 +16,7 @@ public class Role {
     
     private Integer userId;
     private List<Integer> userRights;
+    private List<UserRight> allUserRights;
 
     public int getId() {
         return id;
@@ -49,4 +50,14 @@ public class Role {
         this.userId = userId;
     }
 
+    public List<UserRight> getAllUserRights() {
+        return allUserRights;
+    }
+
+    public void setAllUserRights(List<UserRight> allUserRights) {
+        this.allUserRights = allUserRights;
+    }
+
+    
+    
 }
