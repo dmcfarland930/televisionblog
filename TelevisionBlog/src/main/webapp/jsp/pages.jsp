@@ -40,12 +40,23 @@
                 <jsp:include page="adminMenu.jsp"/>
 
                 <div class="col-md-8">
+                    <div class="panel panel-primary">
 
-                    <jsp:include page="uacMenu.jsp"/>
-                    <%@include file="uacRoleTable.jsp"%>
-                    <%@include file="uacUserTable.jsp"%>
+                        <div class="panel panel-default">
+                            <jsp:include page="uacMenu.jsp"/>
+                            <div class="panel panel-heading">
+                                <h4><center>Static Page Rights</center></h4>
+                            </div>
+                            <div class="panel panel-body">
+                                <%@include file="uacRoleTable.jsp"%>
+                            </div>
+                            <div class="panel panel-body">
+                                <%@include file="uacUserTable.jsp"%>
+                            </div>
+                            
+                        </div>
+                    </div>
                 </div>
-
             </div>
         </div>
 

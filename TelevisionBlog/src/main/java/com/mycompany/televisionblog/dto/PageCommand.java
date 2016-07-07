@@ -5,6 +5,8 @@
  */
 package com.mycompany.televisionblog.dto;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 /**
  *
  * @author apprentice
@@ -12,9 +14,13 @@ package com.mycompany.televisionblog.dto;
 public class PageCommand {
 
     private int id;
+    
+    @NotEmpty(message="You must supply a Title")
     private String name;
+    @NotEmpty(message="You must supply a Url Path")
     private String url;
     private Integer userId;
+    @NotEmpty(message="Content can not be empty")
     private String content;
     private boolean active;
 

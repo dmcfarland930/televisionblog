@@ -1,6 +1,7 @@
 package com.mycompany.televisionblog.dto;
 
 import java.util.List;
+import org.hibernate.validator.constraints.NotEmpty;
 
 /**
  *
@@ -10,9 +11,13 @@ public class User {
 
     private int id;
     private int groupId;
+    @NotEmpty(message="You must supply a First Name")
     private String firstName;
+    @NotEmpty(message="You must supply a Last Name")
     private String lastName;
+    @NotEmpty(message="You must supply a username")
     private String username;
+    @NotEmpty(message="You must supply a Password")
     private String password;
     private List<Integer> roles;
 
