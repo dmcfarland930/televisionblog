@@ -24,15 +24,14 @@ public class UserRightDaoDbImpl implements UserRightDao {
     private static final String SQL_UPDATE_RIGHT = "UPDATE user_right SET name = ? WHERE id = ?";
     private static final String SQL_GET_RIGHT = "SELECT * FROM user_right WHERE id = ?";
     private static final String SQL_DELETE_RIGHT = "DELETE FROM user_right WHERE id = ?";
+    private static final String SQL_DELETE_RIGHTS_BY_ROLE = "DELETE FROM role_user_right WHERE role_id = ?";
     private static final String SQL_GET_RIGHT_LIST = "SELECT * FROM user_right";
     private static final String SQL_GET_BY_ROLE = "SELECT u.id, u.name FROM user_right u INNER JOIN role_user_right ru ON ru.user_right_id = u.id INNER JOIN role r ON ru.role_id = r.id WHERE r.id = ?";
     private static final String SQL_GET_BY_ROLE_ID = "SELECT u.id FROM user_right u INNER JOIN role_user_right ru ON ru.user_right_id = u.id INNER JOIN role r ON ru.role_id = r.id WHERE r.id = ? AND u.group_name = ?";
     private static final String SQL_DELETE_BY_ROLE = "DELETE FROM role_user_right WHERE role_id = ? AND user_right_id = ?";
-    
+
     private static final String SQL_INSERT_ROLE_RIGHT = "INSERT INTO role_user_right (role_id, user_right_id) VALUE (?, ?)";
     private static final String SQL_LIST_BY_GROUP = "SELECT * FROM user_right WHERE group_name = ? ORDER BY id ASC";
-
-    
 
     JdbcTemplate jdbcTemplate;
 
@@ -74,8 +73,6 @@ public class UserRightDaoDbImpl implements UserRightDao {
     public List<UserRight> list() {
         return jdbcTemplate.query(SQL_GET_RIGHT_LIST, new RightMapper());
     }
-    
-    
 
     @Override
     public List<UserRight> listRoleRights(Integer id) {
@@ -102,15 +99,20 @@ public class UserRightDaoDbImpl implements UserRightDao {
     @Override
     public List<Integer> listRoleRightsByIdGroup(Integer id, String group) {
         return jdbcTemplate.query(SQL_GET_BY_ROLE_ID, new RightMapperId(), id, group.toUpperCase());
-    }   
-    
+    }
+
+    @Override
+    public void deleteByRole(Integer roleId) {
+        jdbcTemplate.update(SQL_DELETE_RIGHTS_BY_ROLE, roleId);
+    }
+
     private static final class RightMapperId implements RowMapper<Integer> {
 
         @Override
         public Integer mapRow(ResultSet rs, int i) throws SQLException {
             return rs.getInt("id");
         }
-        
+
     }
 
     private static final class RightMapper implements RowMapper<UserRight> {

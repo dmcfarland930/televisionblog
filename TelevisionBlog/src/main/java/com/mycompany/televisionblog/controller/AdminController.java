@@ -92,7 +92,7 @@ public class AdminController {
     public String users(Map model) {
 
         List<User> users = userDao.list();
-        List<Role> roles = roleDao.list();
+        List<Role> roles = roleDao.listNoCustom();
 
         model.put("roles", roles);
         model.put("users", users);

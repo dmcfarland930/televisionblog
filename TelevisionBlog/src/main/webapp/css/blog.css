@@ -127,11 +127,24 @@ body{
 }
 
 .login{
-    margin-top: 1.5em;
+    margin-top: 10em;
     background: white; 
     border-radius: 5px;
     border: #D9EBF4 thin solid;
     padding-bottom: 10px;
+}
+
+.login-btn{
+    background: #007fff;
+    color:white;
+}
+
+#error-login{
+    padding-top: 5px;
+    color: red;
+    font-weight: bold;
+    text-align: center;
+    
 }
 
 #twitter {
@@ -227,7 +240,7 @@ a{
 }
 
 .script-upload{
-    margin-top: 4.5em;
+    margin-top: 10em;
 }
 
 #script-head{
@@ -255,6 +268,8 @@ a{
     border-radius: 5px;
     border: #D9EBF4 thin solid;
 }
-#sidebar {
-    position: relative;
+.error-message{
+    font-weight: bold;
+    color: red;
+    
 }

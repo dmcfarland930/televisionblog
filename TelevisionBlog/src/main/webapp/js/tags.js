@@ -108,7 +108,7 @@ $(document).ready(function () {
 
         $.ajax({
             type: "DELETE",
-            url: contextRoot + "/tag/delete/" + tagId,
+            url: contextRoot + "admin/tag/delete/" + tagId,
             success: function (data, status) {
                 $('#tag-row-' + tagId).remove();
             },

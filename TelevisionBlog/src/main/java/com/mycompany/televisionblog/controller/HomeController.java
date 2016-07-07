@@ -90,9 +90,7 @@ public class HomeController {
         } catch (EmptyResultDataAccessException e) {
             return "404";
         }
-        User user = userDao.get(page.getUser().getId());
 
-        page.setUser(user);
         List<Page> pages = pageDao.list();
 
         model.put("pages", pages);

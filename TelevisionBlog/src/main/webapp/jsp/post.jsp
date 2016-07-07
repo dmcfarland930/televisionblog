@@ -112,6 +112,7 @@
                             <div class="col-md-8">
                                 <input type="text" class="form-control" id="edit-post-expiration-date" />
                             </div>
+                            <br/>
                         </div>
 
 

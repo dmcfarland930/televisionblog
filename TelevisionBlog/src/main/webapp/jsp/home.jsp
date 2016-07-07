@@ -26,6 +26,7 @@
 
         <div id="blog-content" class="container-fluid">
             <div class="row" style="display: inline">
+<<<<<<< HEAD
                 <div class="col-md-8">
                     <c:forEach items="${posts}" var="post">
                         <div id="blog-post-div">
@@ -40,6 +41,31 @@
                             <a id="category-name" href="${pageContext.request.contextPath}/blog/category/${post.category.id}"> Category: ${post.category.name}</a>
                             <br/>
                             <br/>
+=======
+                <c:forEach items="${posts}" var="post">
+                    <div id="blog-post-div" class="col-md-8">
+                        <a id="blog-title" href="${pageContext.request.contextPath}/blog/show/${post.url}"><h1>${post.title}</h1></a>
+                        <a id="author-name" href="${pageContext.request.contextPath}/blog/author/${post.user.id}"> Posted by ${post.user.firstName} ${post.user.lastName} on ${post.stringDateDisplay}</a>
+                        <br/>
+                        <br/>
+                        <%@include file="socialShare.jsp"%>
+                        <hr>
+                        ${post.content}
+                        <hr/>
+                        <a id="category-name" href="${pageContext.request.contextPath}/blog/category/${post.category.id}"> Category: ${post.category.name}</a>
+                        <br/>
+                        <br/>
+                    </div>
+                </c:forEach>
+                <div class="row col-md-8" style='display: inline-block' >
+                        <div id="last-page-div">
+                            <a class="${hidden} btn bg-white" id="last-page" href="${pageContext.request.contextPath}/blog/page/${pageLast}" > < Last Page</a>
+                        </div>
+                        <div id="next-page-div">
+                            <c:if test="${nextPage}">
+                                <a class="btn bg-white" id="next-page" href="${pageContext.request.contextPath}/blog/page/${pageNext}" >Next Page > </a>
+                            </c:if>
+>>>>>>> ad638baf182af95eb0dc871e699fff120e1ceff4
                         </div>
                     </c:forEach>
                     <div style='display: inline-block' >

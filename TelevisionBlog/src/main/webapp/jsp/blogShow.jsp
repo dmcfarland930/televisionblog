@@ -33,16 +33,15 @@
                     <p>Category: ${post.category.name}</p>
                     <hr>
                     <div id="disqus_thread"></div>
+                    <br/>
+                    <br/>
                 </div>
                 <div class="row col-md-8" >
-
                 </div>
                 <%@include file="sideBar.jsp" %>
-
-
             </div>
-
         </div>
+                <%@include file="footer.jsp" %>
         <!-- Placed at the end of the document so the pages load faster -->
         <script>
             /**

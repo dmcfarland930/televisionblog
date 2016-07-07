@@ -135,4 +135,7 @@ $(document).ready(function() {
                 </tr>";
     }
     
+    $("#error-delete-modal").on("hidden.bs.modal", function() {
+//       location.reload();
+    });
 });
