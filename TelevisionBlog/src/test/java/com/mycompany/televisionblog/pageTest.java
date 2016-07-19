@@ -50,8 +50,7 @@ public class pageTest {
     PageDao pageDao = (PageDao) context.getBean("pageDao");
     UserDao userDao = (UserDao) context.getBean("userDao");
     BlogPostDao postDao = (BlogPostDao) context.getBean("blogPostDao");
-    
-    @Test
+  
     public void createPageTest() {
         
        
