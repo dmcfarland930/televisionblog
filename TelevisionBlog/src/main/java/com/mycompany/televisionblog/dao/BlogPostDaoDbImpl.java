@@ -262,7 +262,7 @@ public class BlogPostDaoDbImpl implements BlogPostDao {
     @Override
     public boolean checkIfNextPageSearchTitle(String searchValue, Integer nextPageNum, Integer range) {
         // checks if there are posts on next page
-        List<BlogPost> nextPage = jdbcTemplate.query(SQL_GET_POST_LIST_THREE_ENTRIES_SEARCH_TITLE, new BlogPostMapper(),  "%" + searchValue + "%", "%" + searchValue + "%", nextPageNum, range);
+        List<BlogPost> nextPage = jdbcTemplate.query(SQL_GET_POST_LIST_THREE_ENTRIES_SEARCH_TITLE, new BlogPostMapper(), "%" + searchValue + "%", nextPageNum, range);
         if (nextPage.size() > 0) {
             return true;
         }
